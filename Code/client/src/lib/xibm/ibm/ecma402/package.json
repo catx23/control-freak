@@ -1,0 +1,62 @@
+{
+	"name": "ecma402",
+	"version": "1.0.1",
+	"dependencies": {
+		"requirejs": ">=2.1.14"
+	},
+	"keywords": [
+		"utility",
+		"globalization",
+		"internationalization",
+		"multilingualization",
+		"localization",
+		"g11n",
+		"i18n",
+		"m17n",
+		"L10n",
+		"localize",
+		"format",
+		"parse",
+		"translate",
+		"strings",
+		"numbers",
+		"dates",
+		"times",
+		"calendars",
+		"cultures",
+		"languages",
+		"locales"
+	],
+	"homepage": "https://github.com/ibm-js/ecma402",
+	"author": "The Dojo Foundation",
+	"maintainers": [
+		{
+			"name": "John Emmons",
+			"email": "emmo@us.ibm.com",
+			"url": "https://github.com/JCEmmons"
+		}
+	],
+	"contributors": [
+		"Christophe Jolif <cjolif@gmail.com> (https://github.com/cjolif)",
+		"Bill Keese <bill@dojotoolkit.org> (https://github.com/wkeese)",
+		"Clément Mathieu (https://github.com/clmath)",
+		"Ahmed Mustafa <amustafa@eg.ibm.com> (https://github.com/AhmedMustafa)"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/ibm-js/ecma402.git"
+	},
+	"devDependencies": {
+		"intern": "2.1.x",
+		"grunt": "~0.4.5",
+		"grunt-contrib-jshint": "~0.10.0"
+	},
+	"licenses": [
+		{
+			"type": "BSD",
+			"url": "https://github.com/ibm-js/ecma402/blob/master/LICENSE"
+		}
+	],
+	"bugs": "https://github.com/ibm-js/ecma402/issues",
+	"private": true
+}

@@ -1,0 +1,127 @@
+{
+	"class": "cmx.types.Resources",
+	"includes": [],
+	"items": [
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "logs",
+			"path": "%logs%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "Device Logs"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "root",
+			"path": "%root%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "Root"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "workspace",
+			"path": "%workspace%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "System Workspace"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "user",
+			"path": "%user%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "User Directory"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "workspace_user",
+			"path": "%workspace_user%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "My Workspace"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "docs",
+			"path": "%docs%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "Documentation"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "root",
+			"path": "%root%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"visible": false,
+			"label": "Root"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "system_devices",
+			"path": "%system_devices%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "System Devices"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "user_devices",
+			"path": "%user_devices%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "User Devices"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "system_drivers",
+			"path": "%system_drivers%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "System Drivers"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "user_drivers",
+			"path": "%user_drivers%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "User Drivers"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "system_protocols",
+			"path": "%system_protocols%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "System Protocols"
+		}
+	]
+}

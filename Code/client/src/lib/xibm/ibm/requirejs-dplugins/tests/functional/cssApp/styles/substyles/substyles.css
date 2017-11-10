@@ -1,0 +1,6 @@
+#result {
+	color: red;
+	border: 1px dashed black;
+	background: url("../../resources/test.png") -15px -18px no-repeat;	/* To test path correction */
+	padding-left: 6em;
+}

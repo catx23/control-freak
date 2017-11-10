@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>tabIndex tests</title>
+	<style>
+		test-tab-index {
+			display: block;
+		}
+	</style>
+	<script type="text/javascript" src="boilerplate.js"></script>
+	<script language="JavaScript" type="text/javascript">
+		var ready = false; // set to true when the test page is ready
+		var timeoutInterval = 1000;
+		var val = 0;
+		require([
+			"delite/register",
+			"delite/Widget",
+			"requirejs-domready/domReady!"
+		], function (register, Widget) {
+
+			// Simple widget where the tabIndex (on the root node) is redirected to an inner node.
+			// Putting tabIndex in mixin class to workaround https://github.com/uhop/dcl/issues/9.
+			var TabbableWidget = register.dcl(Widget, {
+				tabIndex: 0
+			});
+			register("test-tab-index", [HTMLElement, TabbableWidget], {
+				label: "",
+
+				render: function () {
+					this.labelNode = document.createElement("span");
+					this.appendChild(this.labelNode);
+				},
+
+				// dcl.after() to avoid spurious failure on chrome, TODO: investigate more later
+				attachedCallback: register.after(function () {
+					// Test that observe() is working.
+					this.observe(function (props) {
+						if ("tabIndex" in props) {
+							this.label = this.label + ", updated to " + this._get("tabIndex");
+						}
+					});
+				}),
+
+				refreshRendering: function (props) {
+					if ("tabIndex" in props) {
+						this.labelNode.tabIndex = this._get("tabIndex");
+					}
+					if ("label" in props) {
+						this.labelNode.textContent = this.label;
+					}
+				}
+			});
+
+			// Set global variable to signal that the test page is ready
+			ready = true;
+		});
+
+		function changeIndices() {
+			s2.tabIndex = 5;
+			s3.tabIndex = 6;
+		}
+	</script>
+</head>
+<body>
+	<fieldset>
+		<legend>Default (unspecified) tab index</legend>
+		<div id="d1" tabindex="0">div</div>
+		<test-tab-index id="d2" label="d2"></test-tab-index>
+		<test-tab-index id="d3" label="d3"></test-tab-index>
+		<div id="d4" tabindex="0">div</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Specified tab index</legend>
+		<div id="s1" tabindex="1">s1 div, tabindex=1</div>
+		<test-tab-index id="s3" label="s3 widget, tabindex=2" tabindex="2"></test-tab-index>
+		<test-tab-index id="s2" label="s2 widget, tabindex=1" tabindex="1"></test-tab-index>
+		<div id="s4" tabindex="3">s4 div, tabindex=3</div>
+		<button id="button" tabindex="3" onclick="changeIndices();">change indices</button>
+	</fieldset>
+</body>
+</html>

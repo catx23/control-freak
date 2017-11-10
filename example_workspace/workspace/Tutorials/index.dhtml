@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+  <html>
+
+  <head>
+    <meta charset="utf-8"/>
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <script type="text/javascript">
+      require([
+        "delite/register",
+        "deliteful/Button",
+        "xblox/RunScript",
+        "deliteful/Slider",
+        "deliteful/Combobox",
+        "deliteful/Checkbox",
+        "deliteful/RadioButton"
+      ]);
+    </script>
+  </head>
+
+
+  <body data-maq-flow-layout="false" data-maq-comptype="delite" class="claro superhero" data-maq-ws="collapse" style="position:absolute" id="myapp" data-maq-appstates="{}">
+
+    
+  <button is="d-button" label="Radio" id="btnRadio" title="Default Label" style="position: absolute; left: 211px; top: 26px; width: 117px; height: 78.43333435058594px;"></button>
+  <button is="d-button" label="DVD" id="btnDVD" title="Default Label" style="position: absolute; width: 118px; height: 77.43333435058594px; left: 64.5px; top: 132.7167px;">
+   <d-xscript scopeid="dd2985b9-9071-1682-226c-70b84b481117" targetevent="click" blockid="4ecd365c-4574-927b-176f-0b3d66246c45" script="DVD"></d-xscript>
+ </button>
+  <button is="d-button" label="TV" id="btnTV" title="Default Label" style="position: absolute; left: 63px; top: 28px; width: 121px; height: 77.43333435058594px;"></button>
+  <button is="d-button" label="Media-Player" id="btnMediaPlayer" title="Default Label" style="width: 118px; height: 77.43333435058594px; position: absolute; left: 211px; top: 132.71665954589844px; background-color: green;"></button>
+  <div style="position: absolute; width: 168px; height: 19px; left: 127px; top: 258px;">
+   <d-xscript bidirectional="false" mode="1" blockid="39d5ad9d-1219-8b92-e526-b0092352c41b" scopeid="dd2985b9-9071-1682-226c-70b84b481117" script="null" sourceevent="onDriverVariableChanged" targetproperty="innerHTML"></d-xscript>
+ </div>
+</body>
+
+  </html>

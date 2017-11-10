@@ -1,0 +1,99 @@
+{
+  "blocks": [
+    {
+      "_containsChildrenIds": [
+        "items"
+      ],
+      "group": "On Load",
+      "id": "e813a85f-7511-723f-bc1f-c13698456a5b",
+      "method": "console.log('script!!:',this);",
+      "shareTitle": "Log Me",
+      "description": "Runs an expression.<br/>\n\n<b>Behaviour</b>\n\n<pre>\n\n    //to abort execution (child blocks), return something negative as -1 or false.\n    return false;\n\n</pre>",
+      "items": [
+        "b59b0d8d-7010-e9d7-5ab5-d2c86f124e97"
+      ],
+      "type": "added",
+      "name": "Run Script",
+      "args": "",
+      "deferred": false,
+      "declaredClass": "xblox.model.code.RunScript",
+      "enabled": true,
+      "order": 0,
+      "icon": "fa-code",
+      "outlet": 0
+    },
+    {
+      "_containsChildrenIds": [],
+      "parentId": "e813a85f-7511-723f-bc1f-c13698456a5b",
+      "id": "b59b0d8d-7010-e9d7-5ab5-d2c86f124e97",
+      "method": "console.error('error');",
+      "type": "added",
+      "name": "Run Script",
+      "args": "",
+      "deferred": false,
+      "declaredClass": "xblox.model.code.RunScript",
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "order": 0,
+      "icon": "fa-code",
+      "outlet": 0
+    },
+    {
+      "_containsChildrenIds": [],
+      "group": "d-slider_0__change",
+      "condition": "",
+      "id": "7cb63658-8947-69d8-7086-1014f5cc9091",
+      "command": "command://deviceScope=system_devices&device=e5a06e24-6aa4-c8c5-3ffc-9d84d8528a91&driver=235eb680-cb87-11e3-9c1a-0800200c9a66&driverScope=system_drivers&block=ad01c68d-cdbb-7ba7-0046-c9f4c9113f4b",
+      "type": "added",
+      "declaredClass": "xblox.model.functions.CallBlock",
+      "icon": "",
+      "_timeout": 100,
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "order": 0,
+      "startup": false,
+      "send": "",
+      "name": "No Title",
+      "interval": 0,
+      "flags": 2048,
+      "outlet": 0
+    },
+    {
+      "_containsChildrenIds": [],
+      "group": "d-button_0__click",
+      "id": "5d08eba0-54f0-88d2-1692-6ec70d11c610",
+      "method": "console.error('-test click');\n\n",
+      "description": "Runs an expression.<br/>\n\n<b>Behaviour</b>\n\n<pre>\n\n    //to abort execution (child blocks), return something negative as -1 or false.\n    return false;\n\n</pre>",
+      "type": "added",
+      "declaredClass": "xblox.model.code.RunScript",
+      "name": "Run Script",
+      "args": "",
+      "deferred": false,
+      "icon": "fa-code",
+      "enabled": true,
+      "shareTitle": "",
+      "order": 0,
+      "outlet": 0
+    },
+    {
+      "_containsChildrenIds": [],
+      "group": "button_7__click",
+      "id": "bb961846-c3b8-e843-ab88-6d6dbeb805bc",
+      "method": "console.log('click')",
+      "description": "Runs an expression.<br/>\n\n<b>Behaviour</b>\n\n<pre>\n\n    //to abort execution (child blocks), return something negative as -1 or false.\n    return false;\n\n</pre>",
+      "type": "added",
+      "declaredClass": "xblox.model.code.RunScript",
+      "name": "Run Script",
+      "args": "",
+      "deferred": false,
+      "icon": "fa-code",
+      "enabled": true,
+      "shareTitle": "",
+      "order": 0,
+      "outlet": 0
+    }
+  ],
+  "variables": null
+}

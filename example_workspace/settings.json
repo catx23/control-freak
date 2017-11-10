@@ -1,0 +1,51 @@
+{
+    "admin": {
+        "settings": [
+            {
+                "id": "theme",
+                "value": "white"
+            },
+            {
+                "id": "navigationView",
+                "value": {
+                    "devices": false,
+                    "drivers": false,
+                    "files": false,
+                    "documentation": false
+                }
+            },
+            {
+                "id": "driverView",
+                "value": {
+                    "layouts": {},
+                    "basic": {
+                        "showHeader": false,
+                        "selection": {
+                            "selection": [
+                                "84961334-9cd2-d384-25dc-a6b943e8cb8e"
+                            ]
+                        },
+                        "toolbar": false,
+                        "properties": true
+                    },
+                    "conditionalProcess": {
+                        "showHeader": false,
+                        "selection": {
+                            "selection": []
+                        },
+                        "toolbar": false,
+                        "properties": true
+                    },
+                    "basicVariables": {
+                        "showHeader": false,
+                        "selection": {
+                            "selection": []
+                        },
+                        "toolbar": false,
+                        "properties": true
+                    }
+                }
+            }
+        ]
+    }
+}

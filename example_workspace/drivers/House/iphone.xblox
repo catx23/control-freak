@@ -1,0 +1,63 @@
+{
+  "blocks": [
+    {
+      "_containsChildrenIds": [],
+      "group": "basic",
+      "id": "2d2ce608-9a1f-18d6-5298-fefcd85f8bc9",
+      "declaredClass": "xcf.model.Command",
+      "startup": false,
+      "send": "return \"sh /install/alarm.sh\"",
+      "name": "Alarm",
+      "interval": "0",
+      "flags": 2048,
+      "icon": "fa-exclamation",
+      "outlet": 0,
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "order": 0,
+      "type": "added"
+    },
+    {
+      "_containsChildrenIds": [],
+      "id": "c615e748-66fa-5638-dde7-bb82fdc08231",
+      "name": "value",
+      "type": "added",
+      "group": "processVariables",
+      "gui": false,
+      "cmd": false,
+      "declaredClass": "xcf.model.Variable",
+      "save": false,
+      "target": "None",
+      "register": true,
+      "readOnly": false,
+      "isVariable": true,
+      "flags": 4096,
+      "outlet": 0,
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "order": 0,
+      "icon": "fa-play"
+    },
+    {
+      "_containsChildrenIds": [],
+      "group": "basic",
+      "id": "4bfd6f39-e95c-edfc-cd19-f8dff7a2a78b",
+      "declaredClass": "xcf.model.Command",
+      "startup": false,
+      "send": "ls",
+      "name": "ls",
+      "interval": "0",
+      "flags": 2048,
+      "icon": "fa-exclamation",
+      "outlet": 0,
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "order": 0,
+      "type": "added"
+    }
+  ],
+  "variables": null
+}

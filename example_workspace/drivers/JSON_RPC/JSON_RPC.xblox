@@ -1,0 +1,72 @@
+{
+  "blocks": [
+    {
+      "_containsChildrenIds": [
+        "items"
+      ],
+      "icon": "fa-send",
+      "flags": 32768,
+      "name": "Request",
+      "group": "basic",
+      "variables": "{\"GPIO\":\"_gpio\"}",
+      "send": "Player.GetActivePlayers",
+      "_isJSONRPC": true,
+      "_func": "request",
+      "description": "",
+      "id": "7596452c-d283-6463-1ebc-781e780c6e94",
+      "type": "added",
+      "_args": "[]",
+      "items": [
+        "e7931261-cf51-2fe9-1018-297e6a9ace36"
+      ],
+      "startup": true,
+      "auto": false,
+      "declaredClass": "xcf.model.Command",
+      "interval": 0,
+      "order": 0,
+      "outlet": 0,
+      "enabled": true,
+      "shareTitle": ""
+    },
+    {
+      "_containsChildrenIds": [],
+      "id": "197d85f1-f8b0-3ab0-4960-dd49d5929dfd",
+      "name": "value",
+      "value": "",
+      "type": "added",
+      "group": "processVariables",
+      "gui": false,
+      "cmd": false,
+      "declaredClass": "xcf.model.Variable",
+      "save": false,
+      "target": "None",
+      "register": true,
+      "readOnly": false,
+      "isVariable": true,
+      "flags": 4096,
+      "description": "No Description",
+      "order": 0,
+      "outlet": 0,
+      "enabled": true,
+      "shareTitle": "",
+      "icon": "fa-play"
+    },
+    {
+      "_containsChildrenIds": [],
+      "parentId": "7596452c-d283-6463-1ebc-781e780c6e94",
+      "id": "e7931261-cf51-2fe9-1018-297e6a9ace36",
+      "method": "console.log('result',arguments);",
+      "outlet": 8,
+      "type": "added",
+      "declaredClass": "xblox.model.code.RunScript",
+      "name": "Run Script",
+      "args": "",
+      "deferred": false,
+      "icon": "fa-code",
+      "order": 0,
+      "enabled": true,
+      "shareTitle": ""
+    }
+  ],
+  "variables": null
+}

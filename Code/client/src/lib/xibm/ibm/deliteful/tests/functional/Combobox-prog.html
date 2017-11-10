@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/Combobox (programmatic)</title>
+
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+
+	<!-- For testing purposes. Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		require([
+			"dstore/Memory",
+			"delite/register",
+			"deliteful/Combobox",
+			"deliteful/RadioButton",
+			"deliteful/Checkbox",
+			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
+			"requirejs-domready/domReady!"
+		], function (Memory, register, Combobox) {
+			register.deliver();
+
+			var dataSource = new Memory(
+				{idProperty: "label",
+				data: [
+					{ label: "France", sales: 500, profit: 50, region: "EU" },
+					{ label: "Germany", sales: 450, profit: 48, region: "EU" },
+					{ label: "UK", sales: 700, profit: 60, region: "EU" },
+					{ label: "USA", sales: 2000, profit: 250, region: "America" },
+					{ label: "Canada", sales: 600, profit: 30, region: "America" },
+					{ label: "Brazil", sales: 450, profit: 30, region: "America" },
+					{ label: "China", sales: 500, profit: 40, region: "Asia" },
+					{ label: "Japan", sales: 900, profit: 100, region: "Asia" }
+			]});
+			var dataSourceWithValue = new Memory(
+				{idProperty: "myValue",
+				data: [
+					{ label: "France", myValue: "FR", sales: 500, profit: 50, region: "EU" },
+					{ label: "Germany", myValue: "DE", sales: 450, profit: 48, region: "EU" },
+					{ label: "UK", myValue: "UK", sales: 700, profit: 60, region: "EU" },
+					{ label: "USA", myValue: "US", sales: 2000, profit: 250, region: "America" },
+					{ label: "Canada", myValue: "CA", sales: 600, profit: 30, region: "America" },
+					{ label: "Brazil", myValue: "BA", sales: 450, profit: 30, region: "America" },
+					{ label: "China", myValue: "CN", sales: 500, profit: 40, region: "Asia" },
+					{ label: "Japan", myValue: "JP", sales: 900, profit: 100, region: "Asia" }
+			]});
+			var combobox = new Combobox({
+				id: "combo-single",
+				displayedValue: "France",
+				value: "France",
+				source: dataSource,
+				righttextAttr: "sales",
+				categoryAttr: "region"
+			}).placeAt("combo-single", "replace");
+			// default selectionMode: "single"
+			combo1 = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+
+			combobox = new Combobox({
+				id: "combo-single-value",
+				displayedValue: "France",
+				value: "FR",
+				source: dataSourceWithValue,
+				valueAttr: "myValue",
+				righttextAttr: "sales",
+				categoryAttr: "region"
+			}).placeAt("combo-single-value", "replace");
+			// default selectionMode: "single"
+			combo1value = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+
+			combo2 = combobox; // for debug
+			combobox = new Combobox({
+				autoFilter: true,
+				source: dataSource,
+				id: "combo-single-autoFilter",
+				displayedValue: "France",
+				value: "France",
+				righttextAttr: "sales",
+				categoryAttr: "region"
+			}).placeAt("combo-single-autoFilter", "replace");
+			combo2 = combobox; // for debug
+			// default selectionMode: "single"
+			combobox.name = combobox.id; // for Form
+
+			startsWith.on("change", function () {
+				combo2.filterMode = "startsWith";
+			});
+			contains.on("change", function () {
+				combo2.filterMode = "contains";
+			});
+			is.on("change", function () {
+				combo2.filterMode = "is";
+			});
+			ignoreCase.on("change", function () {
+				combo2.ignoreCase = ignoreCase.checked;
+			});
+
+			combo3 = combobox; // for debug
+			combobox = new Combobox({
+				selectionMode: "multiple",
+				id: "combo-multiple",
+				source: dataSource,
+				righttextAttr: "sales",
+				categoryAttr: "region"
+			}).placeAt("combo-multiple", "replace");
+			combo3 = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+
+			combobox = new Combobox({
+				selectionMode: "multiple",
+				id: "combo-multiple-value",
+				source: dataSourceWithValue,
+				valueAttr: "myValue",
+				righttextAttr: "sales",
+				categoryAttr: "region"
+			}).placeAt("combo-multiple-value", "replace");
+			combo3value = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+
+			// Now the same but disabled
+			combobox = new Combobox({
+				disabled: true,
+				id: "combo-single-disabled",
+				source: dataSource,
+				displayedValue: "France",
+				value: "France",
+				righttextAttr: "sales",
+				categoryAttr: "region"
+			}).placeAt("combo-single-disabled", "replace");
+			// default selectionMode: "single"
+			combo4 = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+
+			combobox = new Combobox({
+				autoFilter: true,
+				displayedValue: "France",
+				value: "France",
+				source: dataSource,
+				disabled: true,
+				id: "combo-single-autoFilter-disabled",
+				righttextAttr: "sales",
+				categoryAttr: "region"
+			}).placeAt("combo-single-autoFilter-disabled", "replace");
+			// default selectionMode: "single"
+			combo5 = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+
+			combobox = new Combobox({
+				source: dataSource,
+				selectionMode: "multiple",
+				id: "combo-multiple-disabled",
+				disabled: true,
+				righttextAttr: "sales",
+				categoryAttr: "region"
+			}).placeAt("combo-multiple-disabled", "replace");
+			combo6 = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+
+			// Combobox in single mode with custom initial selection
+			combobox = new Combobox({
+				autoFilter: true,
+				source: dataSource,
+				id: "combo-custom-sel-single",
+				righttextAttr: "sales",
+				categoryAttr: "region"
+			}).placeAt("combo-custom-sel-single", "replace");
+			// default selectionMode: "single"
+			combo5customSelSingle = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+			// Configure with its fourth option initially selected
+			combobox.value = ["USA"];
+			combobox.deliver();
+
+			// Combobox in multiple mode with custom initial selection
+			combobox = new Combobox({
+				selectionMode: "multiple",
+				id: "combo-custom-sel-multiple",
+				source: dataSource,
+				righttextAttr: "sales",
+				categoryAttr: "region"
+			}).placeAt("combo-custom-sel-multiple", "replace");
+			combo5customSelMultiple = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+
+			// Configure with its second and fourth options initially selected
+			combobox.value = ["UK", "USA"];
+			combobox.deliver();
+
+			// Now the same but readOnly
+			combobox = new Combobox({
+				readOnly: true,
+				autoFilter: true,
+				displayedValue: "France",
+				value: "France",
+				id: "combo-single-readonly",
+				source: dataSource,
+				righttextAttr: "sales",
+				categoryAttr: "region"
+			}).placeAt("combo-single-autoFilter-readonly", "replace");
+			// default selectionMode: "single"
+			combo5readonly = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+
+			combobox = new Combobox({
+				dir: "rtl",
+				id: "combo-single",
+				displayedValue: "France",
+				value: "France",
+				source: dataSource,
+				righttextAttr: "sales",
+				categoryAttr: "region"
+			}).placeAt("combo-single-rtl", "replace");
+			// default selectionMode: "single"
+			combo7 = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+
+			// Using the default instance of List created by Combobox
+			combobox = new Combobox({
+				id: "combo-single-default-list",
+				displayedValue: "France",
+				value: "France",
+				source: dataSource
+			});
+			combo8 = combobox; // for debug
+			combobox.placeAt("combo-single-default-list", "replace");
+			combobox.name = combobox.id; // for Form
+		});
+	</script>
+	<style>
+		/* Put combobox labels on their own lines, but inline checkbox/radiobutton labels */
+		label {
+			display: block;
+			margin: 15px 0 10px 2px;
+		}
+		fieldset label {
+			display: inline;
+		}
+
+		/* Larger margins between the elements inside the list elements */
+		.d-list-item-label {
+			margin-right: 30px;
+		}
+		.d-list-item-right-text {
+			margin-left: 30px;
+		}
+	</style>
+</head>
+<body>
+<h1>
+	Programmatic Combobox
+</h1>
+<form action="processForm.html">
+	<label for="combo-single-input">
+		id: "combo-single", selectionMode: "single", autoFilter: false
+	</label>
+	<span id="combo-single"></span>
+
+	<label for="combo-single-autoFilter-input">
+		id: "combo-single-autoFilter", selectionMode: "single", autoFilter: true
+	</label>
+	<span id="combo-single-autoFilter"></span>
+
+	<fieldset>
+		<legend>Filtering options</legend>
+		<d-radio-button name="radio" id="startsWith" checked="true"></d-radio-button>
+		<label for="startsWith-input">startsWith</label>
+		<d-radio-button name="radio" id="contains" checked="false"></d-radio-button>
+		<label for="contains-input">contains</label>
+		<d-radio-button name="radio" id="is" checked="false"></d-radio-button>
+		<label for="is-input">is</label>
+		<d-checkbox id="ignoreCase" checked></d-checkbox>
+		<label for="ignoreCase-input">Ignore Case</label>
+	</fieldset>
+
+	<label for="combo-multiple-input">
+		id: "combo-multiple", selectionMode: "multiple"
+	</label>
+	<span id="combo-multiple"></span>
+
+	<label for="combo-single-disabled-input">
+		id: "combo-single-disabled", selectionMode: "single", autoFilter: false, disabled
+	</label>
+	<span id="combo-single-disabled"></span>
+
+	<label for="combo-single-autoFilter-disabled-input">
+		id: "combo-single-autoFilter-disabled", selectionMode: "single", autoFilter: true, disabled
+	</label>
+	<span id="combo-single-autoFilter-disabled"></span>
+
+	<label for="combo-multiple-disabled-input">
+		id: "combo-multiple-disabled", selectionMode: "multiple", disabled
+	</label>
+	<span id="combo-multiple-disabled"></span>
+
+	<label for="combo-custom-sel-single-input">
+		id: "combo-custom-sel-single", selectionMode: "single", autoFilter: true, custom initial selection
+	</label>
+	<span id="combo-custom-sel-single"></span>
+
+	<label for="combo-custom-sel-multiple-input">
+		id: "combo-custom-sel-multiple", selectionMode: "multiple", custom initial selection
+	</label>
+	<span id="combo-custom-sel-multiple"></span>
+
+	<label for="combo-single-autoFilter-readonly-input">
+		id: "combo-single-autoFilter-readonly", selectionMode: "single", autoFilter: true, readonly
+	</label>
+	<span id="combo-single-autoFilter-readonly"></span>
+
+	<label for="combo-single-value-input">
+		id: "combo-single-value", data items with value, , selectionMode: "single", autoFilter: false
+	</label>
+	<span id="combo-single-value"></span>
+
+	<label for="combo-multiple-value-input">
+		id: "combo-multiple-value", data items with value, selectionMode: "multiple"
+	</label>
+	<span id="combo-multiple-value"></span>
+
+	<label for="combo-single-rtl-input">
+		id: "combo-single-rtl", dir="rtl" selectionMode: "single", autoFilter: false
+	</label>
+	<span id="combo-single-rtl"></span>
+
+	<label for="combo-single-default-list-input">
+		id: "combo-single-default-list", selectionMode: "single", autoFilter: false, default List (created by Combobox)
+	</label>
+	<span id="combo-single-default-list"></span>
+
+	<br/><br/>
+	<input id="reset" type="reset">
+	<input id="submit" type="submit">
+</form>
+</body>
+</html>

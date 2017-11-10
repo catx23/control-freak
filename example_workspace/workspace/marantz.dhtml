@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+ <html>
+  <head>
+    <meta charset="utf-8"/>
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  </head>
+
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="claro superhero" data-maq-ws="collapse" style="position: absolute;" id="myapp" data-maq-appstates="{}">
+<button is="d-button" title="Default Label" label="Volume - Down" iconClass="fa fa-arrow-down" style="position: absolute; width: 134px; height: 33px; left: 191px; top: 80.578125px;" class="d-button-info" id="button_1">
+ <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e5a06e24-6aa4-c8c5-3ffc-9d84d8528a91&amp;driver=235eb680-cb87-11e3-9c1a-0800200c9a66&amp;driverScope=user_drivers&amp;block=69f6d4fb-4300-0498-9bbf-27554f5f1fa4" script="VolumeDown"></d-xscript>
+</button>
+<button is="d-button" title="Default Label" label=" ON" iconClass="fa fa-copy" style="position: absolute; height: 34px; left: 18.953125px; top: 25px; width: 134px;" class="d-button-success" id="button_2">
+ <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e5a06e24-6aa4-c8c5-3ffc-9d84d8528a91&amp;driver=235eb680-cb87-11e3-9c1a-0800200c9a66&amp;driverScope=user_drivers&amp;block=53a10527-709b-4c7d-7a90-37f58f17c8db" script="PowerOn"></d-xscript>
+</button>
+<button is="d-button" title="Default Label" label="PowerState2" style="position: absolute; height: 34px; left: 18.953125px; top: 136.578125px; width: 134px;" id="button_3">
+ <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e5a06e24-6aa4-c8c5-3ffc-9d84d8528a91&amp;driver=235eb680-cb87-11e3-9c1a-0800200c9a66&amp;driverScope=user_drivers&amp;block=31c98cdd-02a8-3af1-3a49-11955c0fad48" script="PowerState" style="position: relative;"></d-xscript>
+</button>
+<button is="d-button" title="Default Label" label="TV" style="position: absolute; width: 134px; height: 33px; left: 191px; top: 187.578125px;" id="button_6">
+ <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e5a06e24-6aa4-c8c5-3ffc-9d84d8528a91&amp;driver=235eb680-cb87-11e3-9c1a-0800200c9a66&amp;driverScope=user_drivers&amp;block=3ed330bb-700e-c76b-62e2-0c56c69027f3" script="Set TV"></d-xscript>
+</button>
+
+<d-slider style="position: absolute; left: 20px; top: 302px; display: none;" id="d-slider_1">
+
+</d-slider>
+<button is="d-button" title="Default Label" label=" OFF" iconClass="fa fa-copy" style="position: absolute; width: 134px; height: 33px; left: 191px; top: 25px;" id="btnOff">
+ <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e5a06e24-6aa4-c8c5-3ffc-9d84d8528a91&amp;driver=235eb680-cb87-11e3-9c1a-0800200c9a66&amp;driverScope=user_drivers&amp;block=84961334-9cd2-d384-25dc-a6b943e8cb8e" script="PowerOff"></d-xscript>
+</button>
+<button is="d-button" label="Hercules Value" title="Default Label" style="position: absolute; left: 26px; top: 245px; width: 134px;" id="d-button_10">
+<d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=4b51aec8-dea8-cc45-e0e7-05744db8b690&amp;driver=04cd493d-2788-4096-cf54-1fdc11928180&amp;driverScope=user_drivers&amp;block=02644316-c141-401c-4d32-c101ef0d957e" script="variable_value" style="position: relative;"></d-xscript>
+</button>
+<button is="d-button" title="Default Label" label="Hercules - Get Error" style="position: absolute; left: 183px; top: 244px; width: 148.25px; height: 34px;" id="d-button_1">
+<d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=4b51aec8-dea8-cc45-e0e7-05744db8b690&amp;driver=04cd493d-2788-4096-cf54-1fdc11928180&amp;driverScope=user_drivers&amp;block=c423f6df-5b7e-e76b-c715-24dc358c37f3" script="Get Error" style="position: relative;"></d-xscript>
+</button>
+<button is="d-button" title="Default Label" label="Volume - Up" iconClass="fa fa-arrow-up" style="width: 134px; height: 33px; position: absolute; left: 19px; top: 85px;" class="d-button-info" id="volUp">
+ <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e5a06e24-6aa4-c8c5-3ffc-9d84d8528a91&amp;driver=235eb680-cb87-11e3-9c1a-0800200c9a66&amp;driverScope=user_drivers&amp;block=6d0c5e0e-5c04-bb98-44a0-705c8269de07" script="VolumeUp"></d-xscript>
+</button>
+<button is="d-button" title="Default Label" label="Value" style="position: absolute; width: 134px; height: 33px; left: 191px; top: 142.078125px;" id="button_4">
+
+</button>
+</body>
+
+</html>

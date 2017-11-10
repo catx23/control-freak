@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Has</title>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		var inverse = (window.location.search.substring(1) === "inverse");
+
+		require.config({
+			baseUrl: "../..",
+			packages: [{
+				name: "modules",
+				location: "requirejs-dplugins/samples/modules"
+			}],
+			config: {
+				"requirejs-dplugins/has": {
+					inverseColor: inverse
+				}
+			}
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"requirejs-dplugins/has",
+			"requirejs-dplugins/has!inverseColor?modules/inverse:modules/classic"
+		], function (has, colorPattern) {
+			document.getElementById("box").innerHTML = colorPattern.msg;
+			if (has("inverseColor")) {
+				document.getElementsByTagName("body")[0].style.background = "black";
+				document.getElementById("box").style.color = "black";
+				document.getElementById("box").style.background = "white";
+			}
+		});
+	</script>
+
+	<style>
+		#box {
+			font-size: 110%;
+			color: white;
+			background: black;
+			margin: auto;
+			margin-top: 12em;
+			padding: 3em;
+			width: 50em;
+			text-align: center;
+		}
+		a {
+			color: inherit;
+		}
+	</style>
+
+</head>
+<body>
+	<div id="box"></div>
+</body>
+</html>

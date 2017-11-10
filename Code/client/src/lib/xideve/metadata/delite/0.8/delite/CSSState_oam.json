@@ -1,0 +1,36 @@
+{
+    "id": "http://dojotoolkit.org/delite/CSSState",
+    "name": "xblox.CSSState",
+    "spec": "1.0",
+    "version": "1.7",
+    "require": [
+        {
+            "type": "javascript-module",
+            "format": "amd",
+            "src": "xblox/CSSState"
+        }
+    ],
+    "library": {
+
+    },
+    "property": {
+        "label": {
+            "datatype": "string"
+        },
+        "id": {
+            "datatype": "string"
+        },
+        "iconClass": {
+            "datatype": "string"
+        },
+        "disabled": {
+            "datatype": "boolean",
+            "defaultValue": true
+        }
+    },
+    "content": "<d-xstate-css name='Default State'></d-xstate-css>",
+    "title": {
+        "type": "text/html",
+        "value": "<p>Non-templated BUTTON widget with a thin API wrapper for click \nevents and for setting the label.\n\n</p>\n<p>Buttons can display a label, an icon, or both.\nA label should always be specified (through innerHTML) or the label\nattribute.  It can be hidden via showLabel=false.</p>"
+    }
+}

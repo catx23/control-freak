@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--
+
+-->
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>Pointer Events: capture > capture1</title>
+
+	<style>
+		html, body {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			border: 0;
+			padding: 0;
+			overflow: hidden;
+			font-size: 100%;
+			background-color: #000000;
+		}
+
+		#container {
+			height: auto;
+			width: auto;
+			background-color: #AAAAAA;
+			padding: 10px;
+			top: 0;
+			left: 0;
+		}
+
+		.btn {
+			width: 150px;
+			height: 35px;
+			color: #000000;
+			text-align: center;
+			line-height: 35px;
+			background-color: #008000;
+			position: relative;
+			border-width: 2px;
+			border-style: solid;
+			border-color: #000000;
+			border-radius: 10%;
+			cursor: pointer;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		.btn:active {
+			border-color: red;
+			background-color: #0000ff;
+			color: wheat;
+		}
+
+		#msgArea {
+			background-color: orange;
+			position: relative;
+			margin: 0;
+			left: 0;
+			padding: 0;
+			color: #000000;
+			overflow: auto;
+			height: 300px;
+		}
+	</style>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../.."
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"dpointer/events",
+			"requirejs-domready/domReady!"
+		], function (pointer) {
+			var msgArea = document.getElementById("msgArea");
+
+			document.getElementById("capturedBtn").addEventListener("pointerdown", function (event) {
+				msgArea.innerHTML = "";
+				pointer.setPointerCapture(capturedBtn, event.pointerId);
+			});
+
+			document.getElementById("Btn").addEventListener("pointerdown", function (event) {
+				msgArea.innerHTML = "";
+			});
+
+			document.body.addEventListener("gotpointercapture", function (event) {
+				logit(event.target.id + ":gotpointercapture ");
+			});
+
+			document.body.addEventListener("lostpointercapture", function (event) {
+				logit(event.target.id + ":lostpointercapture !");
+			});
+
+			document.body.addEventListener("click", function (event) {
+				logit(event.target.id + ":CAPTURE:CLICK !");
+			});
+
+			document.body.addEventListener("pointermove", function (event) {
+				logit(event.target.id + ":pointermove (" + event.clientX + "/" + event.clientY + ")");
+			});
+
+			// disable text selection
+			msgArea.addEventListener("selectstart", function (e) {
+				e.preventDefault();
+			}, false);
+
+			// clear log on double click
+			msgArea.addEventListener("dblclick", function (event) {
+				msgArea.innerHTML = "";
+			});
+
+			function logit(msg) {
+				msgArea.innerHTML = msg + "</br>" + msgArea.innerHTML;
+			}
+		});
+	</script>
+
+</head>
+<body id="body">
+<div id="container" touch-action="none">Press inside a button, then move outside and over the other button.
+	<div id="Btn" class="btn">NO CAPTURE</div>
+	&#160;
+	<div id="capturedBtn" class="btn">CAPTURE</div>
+</div>
+<div id="msgArea" touch-action="pan-x pan-y">== LOG ==</div>
+</body>
+</html>

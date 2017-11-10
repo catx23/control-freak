@@ -1,0 +1,146 @@
+<div data-dojo-attach-point='root' style="font-size: 80%" class="dijitReset">
+
+    <div class="row" style="margin-bottom: 10px">
+
+        <div class="col-md-3">
+
+            <section class="widget">
+
+                        <fieldset>
+
+                            <legend class="section" style="margin: 0 0 4px;padding: 0px;">Constants</legend>
+
+                            <div class="form-group">
+                                <label for="hint-field" class="col-sm-4 control-label">
+                                    Start
+                                </label>
+                                <div class="col-sm-7">
+                                    <input value="${!start}" data-dojo-attach-point='start' type="text" id="transparent-field" class="form-control input-transparent" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="tooltip-enabled">End</label>
+                                <div class="col-sm-7">
+                                    <input value="${!end}" data-dojo-attach-point='end' type="text" id="tooltip-enabled" class="form-control input-transparent"
+                                           data-placement="top"
+                                           placeholder="">
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+
+            </section>
+        </div>
+
+
+
+        <div class="col-md-3">
+
+            <section class="widget">
+
+                <fieldset>
+
+                    <legend class="section" style="padding-left: 10px;margin-bottom:10px;padding: 0px;">Send</legend>
+
+                </fieldset>
+
+                <div class="widget-body">
+
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <table style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+
+                                    <tbody>
+                                    <tr>
+                                        <td style="width: 100px">
+                                        </td>
+
+                                        <td style="width: 0px">
+                                        </td>
+
+                                        <td style="width: 150px">
+                                        </td>
+
+                                        <td style="width: 50px">
+                                        </td>
+
+                                        <td style="width: 50px">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <!--input data-dojo-attach-point='rReply' name="send" type="radio" data-dojo-type="dijit/form/RadioButton" style="" value="sendOnReply" checked="${!sendMode}" /-->
+                                            <div class="radio">
+                                                <input data-dojo-attach-point='rReply' id="radio1" type="radio" name="send" checked="${!sendMode}"/>
+                                                <label for="radio1">
+                                                    On Reply
+                                                </label>
+                                            </div>
+
+                                        </td>
+
+                                        <td style="">
+                                            <label style="margin:0px"></label>
+                                        </td>
+
+                                        <td style="width: 150px">
+                                            <!--input value="${!onReply}" data-dojo-attach-point='wOnReply' type="text" data-dojo-type="dijit/form/TextBox" style="width:inherit;"/-->
+                                            <input value="${!onReply}" data-dojo-attach-point='wOnReply' type="text"  class="form-control input-transparent" data-placement="top" placeholder="">
+                                        </td>
+
+                                        <td style="width: 50px">
+                                            <!--input value="${!timeout}" data-dojo-attach-point='wTimeout' type="text" data-dojo-type="dijit/form/TextBox" style="width:inherit;"/-->
+                                            <input value="${!timeout}" data-dojo-attach-point='wTimeout' type="text"  class="form-control input-transparent" data-placement="top" placeholder="">
+                                        </td>
+
+                                        <td style="width: 50px">
+                                            <span>ms</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="">
+                                            <!--input data-dojo-attach-point='rInterval' name="send" type="radio" data-dojo-type="dijit/form/RadioButton" style="" value="sendInInterval" checked="${!sendMode}" /-->
+                                            <div class="radio">
+                                                <input data-dojo-attach-point='rInterval' id="radio2" type="radio" name="send" checked="${!sendMode}"/>
+                                                <label for="radio2">
+                                                    Interval
+                                                </label>
+                                            </div>
+
+
+                                        </td>
+
+                                        <td style="">
+                                            <label></label>
+                                        </td>
+
+                                        <td style="width: 100px">
+                                            <input value="${!interval}" data-dojo-attach-point='wInterval' type="text"  class="form-control input-transparent" data-placement="top" placeholder="">
+                                        </td>
+
+                                        <td>
+                                        </td>
+
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+
+
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+</div>

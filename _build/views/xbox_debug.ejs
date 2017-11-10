@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" dir="ltr">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<%- HTML_HEADER %>
+
+	<style type='text/css'>
+		.dijitHidden{
+			display: none !important;
+		}
+
+		BODY{
+			height: 100%;
+			left: 0;
+			overflow: hidden;
+			position: fixed;
+			top: 0;
+			width: 100%;
+		}
+	</style>
+
+	<script type="application/javascript">
+		if (window.require) {
+			window.nodeRequire = window.require;
+			delete window.require;
+		}
+		if (window.define) {
+			window.nodeDefine = window.define;
+			delete window.define;
+		}
+	</script>
+
+	<script type="application/javascript">
+		if (window.nodeRequire) {
+			var _require = window.nodeRequire;
+			var os = _require('os');
+			var app = _require('remote').require('app');
+			var BrowserWindow = _require('remote').require('browser-window');
+			window['eapp'] = app;
+			window['electronBrowserWindow'] = BrowserWindow;
+			window['getElectronWindow'] = function(){
+				return BrowserWindow.getAllWindows()[0];
+			}
+		}
+	</script>
+
+
+	<script type="application/javascript">
+
+		var dojoConfig = {
+				baseUrl: '<%-APP_URL%>/lib/',
+				aliases:[['i18n', 'dojo/i18n']],
+				has:{
+					'dojo-firebug': false,
+					'dojo-undef-api': true,
+					'xide-beans':true,
+					'xlog':false,
+					'xblox':false,
+					'xreload':true,
+					'xblox-ui':false,
+					'xideve':false,
+					'tab-split':true,
+					'delite':false,
+					'filtrex':false,
+					'xnode':false,
+					'xfile':true,
+					'xace':true,
+					"dojo-timeout-api":1,
+					'php':true,
+					'FileConsole':true,
+					'ace-formatters':true
+				},
+				parseOnLoad: false,
+				async: 1
+		};
+	</script>
+
+
+</head>
+<body class="xTheme-default xTheme-<%-THEME%> claro" style="overflow: hidden;">
+
+
+<div class="loadingWrapper" id="loadingWrapper">
+	<div class="loading">
+		<div class="outer"></div>
+		<div class="inner"></div>
+	</div>
+</div>
+
+<div id="root"  class="rootContainer"></div>
+
+
+<div id="widgetCache" style="max-height:0px;display:none;"></div>
+
+<script type="text/javascript" src="<%-APP_URL%>/lib/dojo/dojo.js"></script>
+
+<script type="text/javascript" src="<%-APP_URL%>/lib/xbox/run-release-debug.js"></script>
+
+<%= BODY_RESOURCES%>
+</body>
+</html>

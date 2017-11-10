@@ -1,0 +1,104 @@
+<div data-dojo-attach-point='root'>
+
+    <table style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+        <tbody>
+        <tr style="height: 40px;">
+            <td>
+                <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em;">
+                <legend> Constants</legend>
+                <table style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+                    <tbody>
+                    <tr>
+                        <td style="width: 30%">
+                            <label>Start:</label>
+                        </td>
+                        <td>
+                            <input value="${!start}" data-dojo-attach-point='wStart' type="text" data-dojo-type="dijit/form/TextBox" style="width:inherit;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 30%">
+                            <label>End:</label>
+                        </td>
+                        <td>
+                            <input value="${!end}" data-dojo-attach-point='wEnd' type="text" data-dojo-type="dijit/form/TextBox" style="width:inherit;"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+
+            </td>
+
+            <td>
+                <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em;">
+                <legend>Send</legend>
+
+                <table style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+
+                    <tbody>
+                    <tr>
+                        <td style="width: 20px">
+                        </td>
+
+                        <td style="width: 50px">
+                        </td>
+
+                        <td style="width: 100px">
+                        </td>
+
+                        <td>
+                        </td>
+
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20px">
+                            <input data-dojo-attach-point='rReply' name="send" type="radio" data-dojo-type="dijit/form/RadioButton" style="" value="sendOnReply" checked="${!sendMode}" />
+                        </td>
+
+                        <td style="width: 50px">
+                            <label>On Reply</label>
+                        </td>
+
+                        <td style="width: 100px">
+                            <input value="${!onReply}" data-dojo-attach-point='wOnReply' type="text" data-dojo-type="dijit/form/TextBox" style="width:inherit;"/>
+                        </td>
+
+                        <td>
+                            <input value="${!timeout}" data-dojo-attach-point='wTimeout' type="text" data-dojo-type="dijit/form/TextBox" style="width:inherit;"/>
+                        </td>
+
+                        <td>
+                            <span>ms</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20px">
+                            <input data-dojo-attach-point='rInterval' name="send" type="radio" data-dojo-type="dijit/form/RadioButton" style="" value="sendInInterval" checked="${!sendMode}" />
+
+                        </td>
+
+                        <td style="width: 50px">
+                            <label>Interval</label>
+                        </td>
+
+                        <td style="width: 100px">
+                            <input value="${!interval}" data-dojo-attach-point='wInterval' type="text" data-dojo-type="dijit/form/TextBox" style="width:inherit;"/>
+                         </td>
+
+                        <td>
+                        </td>
+
+                        <td>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

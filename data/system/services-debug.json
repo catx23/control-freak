@@ -1,0 +1,55 @@
+{
+    "class":"cmx.types.Resources",
+    "includes":[
+    ],
+    "items":[
+        {
+            "class":"cmx.types.Resource",
+            "type":"NODE_JS_SERVICE",
+            "path":"%NODE_ROOT%",
+            "enabled":true,
+            "url":"no url",
+            "main":"nxappmain/server",
+            "name":"Device Control Server",
+            "autostart":true,
+            "port":9998,
+            "host":"0.0.0.0",
+            "can":{
+                "start":true,
+                "stop":true,
+                "stats":false,
+                "debug":false,
+                "info":true
+            },
+            "has":{
+                "dojo":false,
+                "logFile":null,
+                "options":"--jhelp"
+            }
+        },
+        {
+            "class":"cmx.types.Resource",
+            "type":"NODE_JS_SERVICE",
+            "path":"%NODE_ROOT%",
+            "enabled":false,
+            "url":"no url",
+            "main":"nxappmain/server_debug_min",
+            "name":"Debug Server",
+            "autostart":false,
+            "port":9090,
+            "host":"0.0.0.0",
+            "can":{
+                "start":true,
+                "stop":true,
+                "stats":false,
+                "debug":false,
+                "info":false
+            },
+            "has":{
+                "dojo":false,
+                "logFile":null,
+                "options":false
+            }
+        }
+    ]
+}

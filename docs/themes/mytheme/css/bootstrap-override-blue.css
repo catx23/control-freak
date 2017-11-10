@@ -1,0 +1,30 @@
+/* line 9, ../sass/ellipsis.scss */
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  -moz-binding: url('/css/xml/ellipsis.xml#ellipsis');
+}
+
+/* line 48, ../sass/bootstrap-override-blue.scss */
+.xTheme-blue BODY, .xTheme-blue p {
+  color: #d1d1d1;
+}
+/* line 51, ../sass/bootstrap-override-blue.scss */
+.xTheme-blue a {
+  /*color: $opaque-light;*/
+}
+/* line 55, ../sass/bootstrap-override-blue.scss */
+.xTheme-blue a:hover {
+  /*color: $brand-warning;*/
+}
+/* line 58, ../sass/bootstrap-override-blue.scss */
+.xTheme-blue h1, .xTheme-blue h2, .xTheme-blue h3, .xTheme-blue h4, .xTheme-blue h5, .xTheme-blue h6 {
+  color: #d1d1d1;
+}
+/* line 63, ../sass/bootstrap-override-blue.scss */
+.xTheme-blue .nav.nav-list li a {
+  color: #d1d1d1;
+}

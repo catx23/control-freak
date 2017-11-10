@@ -1,0 +1,43 @@
+{
+	"activeEditor": "./project1/sketch_hd.html",
+	"editors": [
+
+	],
+	"nhfo": {
+		"project1": {
+			"device": "iphone",
+			"layout": "flow",
+			"themeSet": {
+				"name": "(none)",
+				"desktopTheme": "claro",
+				"mobileTheme": [
+					{
+						"theme": "android",
+						"device": "Android"
+					},
+					{
+						"theme": "blackberry",
+						"device": "BlackBerry"
+					},
+					{
+						"theme": "ipad",
+						"device": "iPad"
+					},
+					{
+						"theme": "iphone",
+						"device": "iPhone"
+					},
+					{
+						"theme": "iphone",
+						"device": "other"
+					}
+				]
+			}
+		}
+	},
+	"project": "project1",
+	"id": "",
+	"Fields": [
+	]
+
+}

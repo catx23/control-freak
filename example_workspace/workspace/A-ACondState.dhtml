@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+</head>
+
+
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="claro superhero" data-maq-ws="collapse" style="width: 1920px; min-width: 1920px; height: 1080px; min-height: 1080px;" id="myapp" data-maq-appstates="{}">
+ <button is="d-button" title="Default Label" label="Default Label" style="position: absolute; font-family: Georgia,serif; color: #f0b829; margin-top: 2em; background-image: url('workspace_user://Tutorials/18150130.png'); background-size: 100%; width: 310.25px; height: 241px; left: 35px; top: 16px;" class="myButton" id="d-button_31">
+   <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=e5a06e24-6aa4-c8c5-3ffc-9d84d8528a91&amp;driver=235eb680-cb87-11e3-9c1a-0800200c9a66&amp;driverScope=user_drivers&amp;block=c9bc7af6-0de9-0aa7-e6de-6a635cd50ea7" script="Set Blue-Ray" style="position: relative;"></d-xscript>
+ </button>
+</body>
+</html>
+
+

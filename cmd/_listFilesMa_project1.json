@@ -1,0 +1,60 @@
+
+/*basePath	./
+path	./project1
+*/
+[
+    {
+        "name": "lib",
+        "isDir": true,
+        "readOnly": true,
+        "isNew": false,
+        "isDirty": false,
+        "directory": true,
+        "children": [],
+        "_EX": false,
+        "size": 0
+    },
+    {
+        "name": "app.css",
+        "isDir": false,
+        "readOnly": false,
+        "isNew": false,
+        "isDirty": false
+    },
+    {
+        "name": "samples",
+        "isDir": true,
+        "readOnly": false,
+        "isNew": false,
+        "isDirty": false,
+        "directory": true,
+        "children": [],
+        "_EX": false,
+        "size": 0
+    },
+    {
+        "name": "themes",
+        "isDir": true,
+        "readOnly": false,
+        "isNew": false,
+        "isDirty": false,
+        "directory": true,
+        "children": [],
+        "_EX": false,
+        "size": 0
+    },
+    {
+        "name": "iphone.html",
+        "isDir": false,
+        "readOnly": false,
+        "isNew": false,
+        "isDirty": false
+    },
+    {
+        "name": "app.js",
+        "isDir": false,
+        "readOnly": false,
+        "isNew": false,
+        "isDirty": false
+    }
+]

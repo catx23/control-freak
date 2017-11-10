@@ -1,0 +1,41 @@
+<template attach-point="focusNode" requires="deliteful/ToggleButton, xdeliteful/Button, xblox/RunScript, deliteful/Slider" style="position: relative;display: inherit;width: 300px;height: 300px;min-width:300px;min-height:300px">
+
+<button class="mediaPlayerLabel" is="d-button" title="Default Label" label="Position" style="position: absolute; left: 18px; top: 61px;">
+    <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=2219d68b-862f-92ab-de5d-b7a847930a7a" script="Current Position" style="position: relative;"></d-xscript>
+</button>
+<button class="mediaPlayerLabel" attach-point="btnCurrentTrack" is="d-button" title="Default Label" label="Current Track" style="position: absolute; left: 19px; top: 158px;">
+    <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=e76f0b30-4443-47ae-0cef-2c4c9e4acffd" style="position: relative;"></d-xscript>
+</button>
+<d-slider class="mediaPlayerSlider" attach-point="slider" max="1" step="0.01" style="position: absolute; width: 202px; height: 3px; left: 14px; top: 106px;" value="0.2">
+    <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="value" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=2219d68b-862f-92ab-de5d-b7a847930a7a" style="position: relative;"></d-xscript>
+</d-slider>
+<button class="mediaPlayerButton" attach-point="btnStop" is="d-button" title="Default Label" label=" " iconClass="fa fa-stop " style="position: absolute; left: 63px; top: 17px;">
+    <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=418f48fc-9d4d-9c8c-fc19-4674848fa55c" script="Stop"></d-xscript>
+</button>
+<button class="mediaPlayerButton" attach-point="btnPause" is="d-button" title="Default Label" label="" iconClass="fa fa-pause" style="position: absolute; left: 109.53125px; width: 38px; height: 34px; top: 17px;">
+    <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=a3c0e8d7-e517-18a2-1405-0a46e6182aef" script="Pause"></d-xscript>
+</button>
+<button class="mediaPlayerButton" attach-point="btnPlay" is="d-button" title="Default Label" style="position: absolute; left: 155px; width: 38px; height: 34px; top: 17px;" iconClass="fa fa-play">
+    <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=450d2c75-29b0-29b7-13c5-be175b2a5749" script="Play Args"></d-xscript>
+</button>
+<button class="mediaPlayerButton" attach-point="btnNext" is="d-button" title="Default Label" label="" iconClass="fa fa-caret-right" style="position: absolute; left: 203px; width: 38px; height: 34px; top: 17px;">
+    <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=49936bba-e005-053f-b88d-48ec88688b8b" script="Next"></d-xscript>
+</button>
+<button class="mediaPlayerButton" attach-point="btnPrev" is="d-button" title="Default Label" label="" iconClass="fa fa-caret-left" style="position: absolute; left: 15.015625px; width: 38px; height: 34px; top: 17px;" >
+    <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=ab927f79-8968-ff46-44a8-e5fbe5bbfdbe" script="Prev"></d-xscript>
+</button>
+<button class="mediaPlayerButton" attach-point="btnOpenFolder" is="d-button" title="Default Label" label="" iconClass="fa fa-folder-open" style="position: absolute; left: 254px; top: 17px;" ></button>
+
+<button class="mediaPlayerLabel" is="d-button" label="Default Label" title="Default Label" style="position: absolute; left: 19px; top: 236px;">
+    <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=9673fd4c-15f5-cebb-82a0-8500ec7b52e6" style="position: relative;"></d-xscript>
+</button>
+
+<d-slider class="mediaPlayerSlider" attach-point="volume" value="100" slideRange="true" vertical="true" style="position: absolute; left: 354px; top: 5px; width: 4px; height: 104px;" id="mediaPlayerVolume">
+    <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="value" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=3879e1cd-7a17-71d2-59d4-6e825658194b" script="Current Volume" style="position: relative;"></d-xscript>
+</d-slider>
+
+<button attach-point="mute" is="d-toggle-button"  checkedIconClass="fa fa-volume-down" iconClass="fa fa-volume-up" checkedIconClass="fa fa-volume-up" style="position: absolute; left: 203px; top: 61px;display: none" checked="false">
+    <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="checked" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=cabd937b-28b7-3985-6a10-d456dbe74374" script="Muted" style="position: relative;"></d-xscript>
+</button>
+
+</template>

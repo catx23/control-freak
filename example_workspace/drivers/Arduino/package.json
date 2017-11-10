@@ -1,0 +1,15 @@
+{
+  "name": "CF-Raspberry",
+  "version": "1.0.0",
+  "description": "",
+  "main": "PI-GPIO.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "johnny-five": "^0.10.6"
+  }
+}

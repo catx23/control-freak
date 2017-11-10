@@ -1,0 +1,81 @@
+{
+    "class":"cmx.types.Resources",
+    "includes":[
+    ],
+    "items":[
+
+        {
+            "class":"cmx.types.Resource",
+            "type":"JS-HEADER-INCLUDE",
+            "enabled": true,
+            "url":"%XASWEB%/xcf/jquery-2.1.4.min.js"
+        },
+        {
+            "class":"cmx.types.Resource",
+            "type":"JS-HEADER-INCLUDE",
+            "enabled": true,
+            "url":"%XASWEB%/xcf/ext/xcf-externals.js"
+        },
+        {
+            "class":"cmx.types.Resource",
+            "type":"HTML",
+            "url":"%XASWEB%/xcf/templates/body.html",
+            "enabled":true
+        },
+        {
+            "class":"cmx.types.Resource",
+            "type":"LOGIN",
+            "url":"%XASWEB%/xcf/templates/login.html",
+            "enabled":true
+        },
+        {
+            "class":"cmx.types.Resource",
+            "type":"JS-HEADER-SCRIPT-TAG",
+            "url":"%XASWEB%/xcf/Header.javascript",
+            "enabled":true
+        },
+
+        {
+            "class":"cmx.types.Resource",
+            "type":"JS-HEADER-INCLUDE",
+            "enabled": true,
+            "url":"%XASWEB%/xfile/ext/ace/ace.js"
+        },
+        {
+            "class":"cmx.types.Resource",
+            "type":"JS-HEADER-INCLUDE",
+            "enabled": true,
+            "url":"%XASWEB%/xfile/ext/ace/ext-whitespace.js"
+        },
+        {
+            "class":"cmx.types.Resource",
+            "type":"JS-HEADER-INCLUDE",
+            "enabled": true,
+            "url":"%XASWEB%/xfile/ext/ace/ext-language_tools.js"
+        },
+        {
+            "class":"cmx.types.Resource",
+            "type":"JS-HEADER-INCLUDE",
+            "enabled": true,
+            "url":"%XASWEB%/xfile/ext/ace/ext-statusbar.js"
+        },
+        {
+            "class":"cmx.types.Resource",
+            "type":"CSS",
+            "url":"%XASWEB%/theme/html-%THEME%/dist/css/application.css",
+            "enabled":true
+        },
+        {
+            "class":"cmx.types.Resource",
+            "type":"JS-HEADER-INCLUDE",
+            "enabled": false,
+            "url":"%XASWEB%/xfile/ext/d3.v3.min.js"
+        },
+        {
+            "class":"cmx.types.Resource",
+            "type":"CSS",
+            "url":"%XASWEB%/xcf/xcf.min.css",
+            "enabled":true
+        }
+    ]
+}

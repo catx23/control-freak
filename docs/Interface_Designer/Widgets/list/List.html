@@ -1,0 +1,846 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>deliteful/list/List - Control-Freak</title>
+    <meta name="description" content="IDE for Automation & IoT" />
+    <meta name="author" content="Justin Walsh">
+    <meta charset="UTF-8">
+    <link rel="icon" href="../../../themes/mytheme/img/favicon-blue.png" type="image/x-icon">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="../../..//ext/easyXDM.js"></script>
+
+    
+    <script type="text/javascript">
+
+        var pixlrEditor = null;
+        var xdmSocket = null;
+        var editorImage=null;
+        var imageUrl=null;
+        var editorArgs=null;
+        var saveUrl=null;
+        var title='';
+        var format = 'jpg';
+
+        function urlDecode (string, overwrite) {
+            if (!string || !string.length) {
+                return{}
+            }
+            var obj = {};
+            var pairs = string.split("&");
+            var pair, name, value;
+            for (var i = 0, len = pairs.length; i < len; i++) {
+                pair = pairs[i].split("=");
+                name = decodeURIComponent(pair[0]);
+                value = decodeURIComponent(pair[1]);
+                if(value!=null && value==='true'){
+                    value=true;
+                }else if(value==='false'){
+                    value=false;
+                }
+                if (overwrite !== true) {
+                    if (typeof obj[name] == "undefined") {
+                        obj[name] = value
+                    } else {
+                        if (typeof obj[name] == "string") {
+                            obj[name] = [obj[name]];
+                            obj[name].push(value)
+                        } else {
+                            obj[name].push(value)
+                        }
+                    }
+                } else {
+                    obj[name] = value
+                }
+            }
+            return obj;
+        }
+
+
+        function onMessage(message){
+
+            var result  = JSON.parse(message);
+
+            console.log('message :',message);
+            if(result && result.command && result.command==='edit')
+            {
+                if(editorImage==null){
+                    img_create(result.url,'','');
+                }
+                imageUrl = result.url;
+                saveUrl = result.saveUrl;
+                title = result.title;
+                format = result.format;
+            }
+        }
+
+        function sendMessage(message)
+        {
+            xdmSocket.postMessage(JSON.stringify(message));
+        }
+
+        function init (){
+
+            return;
+            var inUrl = '' + window.location.href;
+
+            console.log('init url ' + inUrl);
+            //http://localhost/projects/x4mm/Code/xapp/xcf/?debug=true&run=run-release-debug&protocols=true&xideve=true&drivers=true&plugins=false&xblox=debug&files=true&dijit=debug&xdocker=debug&xfile=debug&davinci=debug&dgrid=debug&xgrid=debug&xace=debug&wcDocker=debug
+            if(!inUrl){
+                console.error('invalid');
+                //http://localhost/projects/x4mm/Code/xapp/xcf/?debug=true&run=run-release-debug&protocols=true&xideve=true&drivers=true&plugins=false&xblox=debug&files=true&dijit=debug&xdocker=debug&xfile=debug&davinci=debug&dgrid=debug&xgrid=debug&xace=debug&wcDocker=debug
+            }
+
+            var parameterString = '' ;
+
+            function base64_decode (encodedData) {
+
+                if (typeof window !== 'undefined') {
+                    if (typeof window.atob !== 'undefined') {
+                        return decodeURIComponent(escape(window.atob(encodedData)))
+                    }
+                } else {
+                    return new Buffer(encodedData, 'base64').toString('utf-8')
+                }
+
+                var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
+                var o1
+                var o2
+                var o3
+                var h1
+                var h2
+                var h3
+                var h4
+                var bits
+                var i = 0
+                var ac = 0
+                var dec = ''
+                var tmpArr = []
+
+                if (!encodedData) {
+                    return encodedData
+                }
+
+                encodedData += ''
+
+                do {
+                    // unpack four hexets into three octets using index points in b64
+                    h1 = b64.indexOf(encodedData.charAt(i++))
+                    h2 = b64.indexOf(encodedData.charAt(i++))
+                    h3 = b64.indexOf(encodedData.charAt(i++))
+                    h4 = b64.indexOf(encodedData.charAt(i++))
+
+                    bits = h1 << 18 | h2 << 12 | h3 << 6 | h4
+
+                    o1 = bits >> 16 & 0xff
+                    o2 = bits >> 8 & 0xff
+                    o3 = bits & 0xff
+
+                    if (h3 === 64) {
+                        tmpArr[ac++] = String.fromCharCode(o1)
+                    } else if (h4 === 64) {
+                        tmpArr[ac++] = String.fromCharCode(o1, o2)
+                    } else {
+                        tmpArr[ac++] = String.fromCharCode(o1, o2, o3)
+                    }
+                } while (i < encodedData.length)
+
+                dec = tmpArr.join('')
+
+                return decodeURIComponent(escape(dec.replace(/\0+$/, '')))
+            }
+
+            function base64_encode(data) {
+
+                // From: http://phpjs.org/functions
+                // +   original by: Tyler Akins (http://rumkin.com)
+                // +   improved by: Bayron Guevara
+                // +   improved by: Thunder.m
+                // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+                // +   bugfixed by: Pellentesque Malesuada
+                // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+                // +   improved by: Rafał Kukawski (http://kukawski.pl)
+                // *     example 1: base64_encode('Kevin van Zonneveld');
+                // *     returns 1: 'S2V2aW4gdmFuIFpvbm5ldmVsZA=='
+                // mozilla has this native
+                // - but breaks in 2.0.0.12!
+                //if (typeof this.window.btoa === 'function') {
+                //    return btoa(data);
+                //}
+                var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+                var o1, o2, o3, h1, h2, h3, h4, bits, i = 0,
+                    ac = 0,
+                    enc = '',
+                    tmp_arr = [];
+
+                if (!data) {
+                    return data;
+                }
+
+                do { // pack three octets into four hexets
+                    o1 = data.charCodeAt(i++);
+                    o2 = data.charCodeAt(i++);
+                    o3 = data.charCodeAt(i++);
+
+                    bits = o1 << 16 | o2 << 8 | o3;
+
+                    h1 = bits >> 18 & 0x3f;
+                    h2 = bits >> 12 & 0x3f;
+                    h3 = bits >> 6 & 0x3f;
+                    h4 = bits & 0x3f;
+
+                    // use hexets to index into b64, and append result to encoded string
+                    tmp_arr[ac++] = b64.charAt(h1) + b64.charAt(h2) + b64.charAt(h3) + b64.charAt(h4);
+                } while (i < data.length);
+
+                enc = tmp_arr.join('');
+
+                var r = data.length % 3;
+
+                return (r ? enc.slice(0, r - 3) : enc) + '==='.slice(r || 3);
+
+            }
+
+            if(inUrl.lastIndexOf('?')){
+
+                parameterString = inUrl.substring(inUrl.lastIndexOf('?')+1,inUrl.length);
+                var urlParameters=urlDecode(parameterString);
+
+                var target =urlParameters.xdmTarget;
+
+                if(!target || target && target=='undefined'){
+                    return;
+                }
+
+                if(target.indexOf('http:')==-1){
+                    target = base64_decode(target);
+                }
+
+                target=decodeURIComponent(target);
+                //http://localhost/projects/x4mm/Control-Freak-Documentation/daux/Getting_Started?xdmTarget=http%3A%2F%2Flocalhost%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2F%3Fdebug%3Dtrue%26run%3Drun-release-debug%26protocols%3Dtrue%26xideve%3Dtrue%26drivers%3Dtrue%26plugins%3Dfalse%26xblox%3Ddebug%26files%3Dtrue%26dijit%3Ddebug%26xdocker%3Ddebug%26xfile%3Ddebug%26davinci%3Ddebug%26dgrid%3Ddebug%26xgrid%3Ddebug%26xace%3Ddebug%26wcDocker%3Ddebug&xdm_e=http%3A%2F%2Flocalhost%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2F&xdm_c=default9743&xdm_p=4
+                //console.error('creating socket to '+target);
+                xdmSocket = new easyXDM.Socket({
+                    remote: "" + target,
+                    onMessage:function (message, origin)
+                    {
+                        onMessage(message);
+                    }
+                });
+
+                //console.error('xdmtarge = ' + target);
+
+                //var newUrl = + encodeURIComponent('' + window.location.href);
+
+                if(target && target!=='undefined' && target.length) {
+                    $(function () {
+                        $('a').each(function () {
+                            var cUrl = $(this).attr('href');
+                            var bindStr = '?';
+                            if (cUrl && cUrl.indexOf('xdmTarget') == -1) {
+                                if (cUrl.indexOf('?') != -1) {
+                                    bindStr = '&';
+                                }
+                                var newUrl = cUrl + bindStr + 'xdmTarget=' + base64_encode(target);
+                                //console.log('new url ' + newUrl);
+                                //$(this).attr('href', newUrl);
+                            }
+
+
+                        });
+                    });
+                }
+
+            }
+        }
+
+        document.onreadystatechange = function () {
+
+            if(typeof easyXDM !=='undefined') {
+
+                var state = document.readyState;
+                if (state == 'interactive') {
+                } else if (state == 'complete') {
+                    init();
+                }
+            }else{
+                console.error('easy xdm not defined');
+            }
+
+        }
+
+    </script>
+
+
+
+
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../../themes/mytheme/css/theme-blue.min.css' rel='stylesheet' type='text/css'><link href='../../../admin-theme/bower_components/font-awesome/css/font-awesome.min.css' rel='stylesheet' type='text/css'><link href='../../../admin-theme/html-white/dist/css/application.css' rel='stylesheet' type='text/css'><link href='../../../themes/mytheme/css/bootstrap-override-white.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class=" xTheme xTheme-white">
+    <header class="Navbar hidden-print">
+    <a class="Navbar__brand" href="../../../index.html">Control-Freak</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451"><path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/></svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on" results=25 autosave=text_search>
+    </div>
+</header>
+<div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <div class="Collapsible__container">
+            <button type="button" class="Button Collapsible__trigger">
+                <span class="Collapsible__trigger--bar"></span>
+                <span class="Collapsible__trigger--bar"></span>
+                <span class="Collapsible__trigger--bar"></span>
+            </button>
+        </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item '><a href="../../../Getting_Started.html">Getting Started</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Installation</a><ul class='Nav'><li class='Nav__item '><a href="../../../Installation/Windows.html">Windows</a></li><li class='Nav__item '><a href="../../../Installation/Linux.html">Linux</a></li><li class='Nav__item '><a href="../../../Installation/Raspberry-PI.html">Raspberry-PI</a></li><li class='Nav__item '><a href="../../../Installation/OSX.html">OSX</a></li><li class='Nav__item  has-children'><a href="../../../Installation/WEB/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>WEB</a><ul class='Nav'><li class='Nav__item '><a href="../../../Installation/WEB/Requirements.html">Requirements</a></li></ul></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../../../Interface_Designer/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Interface Designer</a><ul class='Nav'><li class='Nav__item '><a href="../../../Interface_Designer/Guide.html">Guide</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Examples</a><ul class='Nav'><li class='Nav__item '><a href="../../../Interface_Designer/Examples/Button_Group.html">Button Group</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Examples/States.html">States</a></li></ul></li><li class='Nav__item '><a href="../../../Interface_Designer/States.html">States</a></li><li class='Nav__item '><a href="../../../Interface_Designer/VariableStates.html">VariableStates</a></li><li class='Nav__item Nav__item--open has-children'><a href="../../../Interface_Designer/Widgets/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Widgets</a><ul class='Nav'><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Accordion.html">deliteful/Accordion</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Button.html">deliteful/Button</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Checkbox.html">deliteful/Checkbox</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Combobox.html">deliteful/Combobox</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/features.html">deliteful/features</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/LinearLayout.html">deliteful/LinearLayout</a></li><li class='Nav__item Nav__item--open has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>list</a><ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../../../Interface_Designer/Widgets/list/List.html">deliteful/list/List</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/list/PageableList.html">deliteful/list/PageableList</a></li></ul></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Panel.html">deliteful/Panel</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/ProgressBar.html">deliteful/ProgressBar</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/RadioButton.html">deliteful/RadioButton</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Select.html">deliteful/Select</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/SidePane.html">deliteful/SidePane</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Slider.html">deliteful/Slider</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/StarRating.html">deliteful/StarRating</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/styling.html">styling</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/SwapView.html">deliteful/SwapView</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Switch.html">deliteful/Switch</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Toaster.html">deliteful/Toaster</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/ToggleButton.html">deliteful/ToggleButton</a></li><li class='Nav__item  has-children'><a href="../../../Interface_Designer/Widgets/tutorial/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>tutorial</a><ul class='Nav'><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part1GettingStarted.html">Deliteful Tutorial Part 1</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part2QuickLook.html">Deliteful Tutorial Part 2</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part3PhotoFeedApp.html">Deliteful Tutorial Part 3</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part4ListView.html">Deliteful Tutorial Part 4</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part5CustomRenderer.html">Deliteful Tutorial Part 5</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part6DetailsView.html">Deliteful Tutorial Part 6</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part7SettingsView.html">Deliteful Tutorial Part 7</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part8Build.html">Deliteful Tutorial Part 8</a></li></ul></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/ViewIndicator.html">deliteful/ViewIndicator</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/ViewStack.html">deliteful/ViewStack</a></li></ul></li></ul></li><li class='Nav__item  has-children'><a href="../../../Driver/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Driver</a><ul class='Nav'><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Code Examples</a><ul class='Nav'><li class='Nav__item '><a href="../../../Driver/Code_Examples/Expressions.html">Expressions</a></li><li class='Nav__item '><a href="../../../Driver/Code_Examples/Variable_Changes.html">Variable Changes</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../Driver/Built-In/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Built-In</a><ul class='Nav'><li class='Nav__item '><a href="../../../Driver/Built-In/VLC.html">VLC</a></li></ul></li><li class='Nav__item '><a href="../../../Driver/Guide.html">Guide</a></li><li class='Nav__item '><a href="../../../Driver/API.html">API</a></li><li class='Nav__item '><a href="../../../Driver/Editors.html">Editors</a></li><li class='Nav__item '><a href="../../../Driver/Debugging.html">Debugging</a></li><li class='Nav__item '><a href="../../../Driver/Intern.html">Intern</a></li><li class='Nav__item  has-children'><a href="../../../Driver/Fiddle/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Fiddle</a><ul class='Nav'><li class='Nav__item '><a href="../../../Driver/Fiddle/Blocks_Example.html">Blocks Example</a></li><li class='Nav__item '><a href="../../../Driver/Fiddle/Blocks_Template.html">Blocks Template</a></li></ul></li></ul></li><li class='Nav__item '><a href="../../../Protocols/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Protocols</a><ul class='Nav'></ul></li><li class='Nav__item  has-children'><a href="../../../Blocks/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Blocks</a><ul class='Nav'><li class='Nav__item '><a href="../../../Blocks/Command.html">Command</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Events</a><ul class='Nav'><li class='Nav__item '><a href="../../../Blocks/Events/OnEvent.html">OnEvent</a></li></ul></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>File</a><ul class='Nav'><li class='Nav__item '><a href="../../../Blocks/File/ReadJSON.html">ReadJSON</a></li></ul></li></ul></li><li class='Nav__item '><a href="../../../Exporter/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Exporter</a><ul class='Nav'></ul></li><li class='Nav__item '><a href="../../../Device_Server/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Device Server</a><ul class='Nav'></ul></li><li class='Nav__item '><a href="../../../Tutorials/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Tutorials</a><ul class='Nav'></ul></li><li class='Nav__item '><a href="../../../Raspberry_PI/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Raspberry PI</a><ul class='Nav'></ul></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Resources</a><ul class='Nav'><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Software</a><ul class='Nav'><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>MQTT</a><ul class='Nav'><li class='Nav__item '><a href="../../../Resources/Software/MQTT/Software.html">Software</a></li><li class='Nav__item '><a href="../../../Resources/Software/MQTT/Architecture.html">Architecture</a></li></ul></li><li class='Nav__item '><a href="../../../Resources/Software/Tools/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Tools</a><ul class='Nav'></ul></li></ul></li><li class='Nav__item '><a href="../../../Resources/Utils_API/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Utils API</a><ul class='Nav'></ul></li></ul></li></ul>
+
+            <div class="Links">
+                
+                
+                            </div>
+        </div>
+    </aside>
+    <div class="Columns__right ">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../../../Interface_Designer/index.html">Interface Designer</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../../../Interface_Designer/Widgets/index.html">Widgets</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../../../Interface_Designer/Widgets/list/List.html">list</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../../../Interface_Designer/Widgets/list/List.html">deliteful/list/List</a></h1>
+                        <span style="float: right; font-size: 10px; color: gray;">
+            <a href="https://github.com/net-commander/net-commander-documentation/blob/master/docFiles/03_Interface_Designer/Widgets/list/List.md" target="_blank">Edit on GitHub</a>
+        </span>
+            </div>
+
+
+    <div class="s-content">
+        <h1 id="page_delitefullistList">deliteful/list/List</h1>
+<p>The <code>deliteful/list/List</code> custom element (<code>d-list</code> custom tag) renders an optionally scrollable list of items that
+are retrieved from an array or a store object from the <a href="http://dstorejs.io/" class="external">dstore</a> project.</p>
+<p>The list inherits from the <a href="/delite/docs/master/Store.md/broken"><code>delite/Store</code></a> class and as such any valid <code>dstore/Store</code>
+implementation can be used to provide data to the list. No store is provided by default and the application developer
+has to provide one created either programmatically or in markup.</p>
+<p>Items rendered by the list are standard javascript objects. The list delegates the rendering of its items to an <em>item renderer</em> widget.</p>
+<p>The default item renderer implementation (<code>deliteful/list/ItemRenderer</code>) renders objects that define any of the following properties:</p>
+<ul>
+<li>
+<code>label</code>: the label of the item, displayed on the left (or on the right if direction is right to left)</li>
+<li>
+<code>righttext</code>: a text to display on the right (or on the left if direction is right to left)</li>
+<li>
+<code>iconclass</code>: css class to apply to a div before the label in order to display an icon</li>
+<li>
+<code>righticonclass</code>: css class to apply to a div after the right text in order to display an icon</li>
+</ul>
+<p>Here is a screenshot of a list that displays items using the default renderer:</p>
+<p><img src="images/List.png" alt="List Example" /></p>
+<p>Any <a href="#customRenderers">custom item renderer</a> can be specified  using the <code>itemRenderer</code> property of the widget.</p>
+<p>The widget also provides the following capabilities:</p>
+<ul>
+<li>List items can be grouped into categories (see <a href="#categories">Categorized items</a>);</li>
+<li>List items can be selectable (see <a href="#selection">Selection support</a>);</li>
+<li>For maximum flexibility, both <code>grid</code>, <code>listbox</code>, and <code>menu</code> WAI-ARIA roles are supported
+(see <a href="#accessibility">Accessibility</a>).</li>
+</ul>
+<h5 id="page_Table_of_Contents">Table of Contents</h5>
+<p><a href="#instantiation">Element Instantiation</a><br />
+<a href="#configuration">Element Configuration</a><br />
+<a href="#styling">Element Styling</a><br />
+<a href="#interactions">User Interactions</a><br />
+<a href="#mixins">Mixins</a><br />
+<a href="#events">Element Events</a><br />
+<a href="#enterprise">Enteprise Use</a></p>
+<p><a name="instantiation"></a></p>
+<h2 id="page_Element_Instantiation">Element Instantiation</h2>
+<p>See <a href="/delite/docs/master/Widget.md/broken"><code>delite/Widget</code></a> for full details on how instantiation lifecycle is working.</p>
+<h3 id="page_Declarative_Instantiation">Declarative Instantiation</h3>
+<pre><code class="language-html">&lt;!-- A list of categorized items that uses the default item renderer, --&gt;
+&lt;!-- mapping the sales property of items to righttext, and using the --&gt;
+&lt;!-- region property as the item category. The store is referenced through --&gt;
+&lt;!-- the source property --&gt;
+&lt;d-list righttextAttr=&quot;sales&quot; categoryAttr=&quot;region&quot;&gt;
+    &lt;!-- Add the following items to the store --&gt;
+    { &quot;label&quot;: &quot;France&quot;, &quot;sales&quot;: 500, &quot;profit&quot;: 50, &quot;region&quot;: &quot;EU&quot; },
+    { &quot;label&quot;: &quot;Germany&quot;, &quot;sales&quot;: 450, &quot;profit&quot;: 48, &quot;region&quot;: &quot;EU&quot; },
+    { &quot;label&quot;: &quot;UK&quot;, &quot;sales&quot;: 700, &quot;profit&quot;: 60, &quot;region&quot;: &quot;EU&quot; },
+    { &quot;label&quot;: &quot;USA&quot;, &quot;sales&quot;: 2000, &quot;profit&quot;: 250, &quot;region&quot;: &quot;America&quot; },
+    { &quot;label&quot;: &quot;Canada&quot;, &quot;sales&quot;: 600, &quot;profit&quot;: 30, &quot;region&quot;: &quot;America&quot; },
+    { &quot;label&quot;: &quot;Brazil&quot;, &quot;sales&quot;: 450, &quot;profit&quot;: 30, &quot;region&quot;: &quot;America&quot; },
+    { &quot;label&quot;: &quot;China&quot;, &quot;sales&quot;: 500, &quot;profit&quot;: 40, &quot;region&quot;: &quot;Asia&quot; },
+    { &quot;label&quot;: &quot;Japan&quot;, &quot;sales&quot;: 900, &quot;profit&quot;: 100, &quot;region&quot;: &quot;Asia&quot; }
+&lt;/d-list&gt;
+</code></pre>
+<h3 id="page_Programmatic_Instantiation">Programmatic Instantiation</h3>
+<h4 id="page_With_as_source">With <code>dstore/Memory</code> as source</h4>
+<pre><code class="language-js">require([&quot;dstore/Memory&quot;, &quot;deliteful/list/List&quot;, &quot;requirejs-domready/domReady!&quot;], function (Memory, List) {
+    // Create a memory store for the list and initialize it
+    var dataSource = new Memory({idProperty: &quot;label&quot;, data:
+        [
+            { label: &quot;France&quot;, sales: 500, profit: 50, region: &quot;EU&quot; },
+            { label: &quot;Germany&quot;, sales: 450, profit: 48, region: &quot;EU&quot; },
+            { label: &quot;UK&quot;, sales: 700, profit: 60, region: &quot;EU&quot; },
+            { label: &quot;USA&quot;, sales: 2000, profit: 250, region: &quot;America&quot; },
+            { label: &quot;Canada&quot;, sales: 600, profit: 30, region: &quot;America&quot; },
+            { label: &quot;Brazil&quot;, sales: 450, profit: 30, region: &quot;America&quot; },
+            { label: &quot;China&quot;, sales: 500, profit: 40, region: &quot;Asia&quot; },
+            { label: &quot;Japan&quot;, sales: 900, profit: 100, region: &quot;Asia&quot; }
+    ]});
+    // A list of categorized items from dataSource, that uses the default item renderer,
+    // mapping the sales property of items to righttext and using the region property
+    // as the item category.
+    var list = new List({source: dataSource, righttextAttr: &quot;sales&quot;, categoryAttr: &quot;region&quot;});
+    list.placeAt(document.body);
+});
+</code></pre>
+<h4 id="page_With_an_array_as_source">With an array as source</h4>
+<pre><code class="language-js">require([&quot;deliteful/list/List&quot;, &quot;requirejs-domready/domReady!&quot;], function (List) {
+    // Create a memory store for the list and initialize it
+    var dataSource =
+        [
+            { label: &quot;France&quot;, sales: 500, profit: 50, region: &quot;EU&quot; },
+            { label: &quot;Germany&quot;, sales: 450, profit: 48, region: &quot;EU&quot; },
+            { label: &quot;UK&quot;, sales: 700, profit: 60, region: &quot;EU&quot; },
+            { label: &quot;USA&quot;, sales: 2000, profit: 250, region: &quot;America&quot; },
+            { label: &quot;Canada&quot;, sales: 600, profit: 30, region: &quot;America&quot; },
+            { label: &quot;Brazil&quot;, sales: 450, profit: 30, region: &quot;America&quot; },
+            { label: &quot;China&quot;, sales: 500, profit: 40, region: &quot;Asia&quot; },
+            { label: &quot;Japan&quot;, sales: 900, profit: 100, region: &quot;Asia&quot; }
+    ];
+    // A list of categorized items from dataSource, that uses the default item renderer,
+    // mapping the sales property of items to righttext and using the region property
+    // as the item category.
+    var list = new List({source: dataSource, righttextAttr: &quot;sales&quot;, categoryAttr: &quot;region&quot;});
+    list.placeAt(document.body);
+});
+</code></pre>
+<p><a name="configuration"></a></p>
+<h2 id="page_Element_Configuration">Element Configuration</h2>
+<ul>
+<li>
+<a href="#scroll">Scroll capabilities</a>
+</li>
+<li>
+<a href="#store">Store capabilities</a>
+</li>
+<li>
+<a href="#categories">Categorized items</a>
+</li>
+<li>
+<a href="#customRenderers">Custom renderers</a>
+</li>
+</ul>
+<p><a name="scroll"></a></p>
+<h3 id="page_Scroll_capabilities">Scroll capabilities</h3>
+<p>Note that the list is only scrollable if the size of its content (the rendered items) is longer
+than the height of the list widget.</p>
+<p>If you do not want the list to be scrollable, you can set its <code>scrollDirection</code> property
+to <code>&quot;none&quot;</code> in order to remove the default scrolling capability.</p>
+<p><a name="store"></a></p>
+<h3 id="page_Store_capabilities">Store capabilities</h3>
+<h4 id="page_Store_instantiation">Store instantiation</h4>
+<p>No source is created by default and one has to provided to the list for it to display its items.
+The source can be instanciate with 3 different ways.</p>
+<h5 id="page_Declaratively">Declaratively</h5>
+<pre><code class="language-html">&lt;d-list&gt;
+    {&quot;label&quot;: &quot;First item&quot;, &quot;iconclass&quot;: &quot;my-icon-class-a&quot;},
+    {&quot;label&quot;: &quot;Second item&quot;, &quot;iconclass&quot;: &quot;my-icon-class-b&quot;},
+    ...,
+    {&quot;label&quot;: &quot;Last item&quot;, &quot;iconclass&quot;: &quot;my-icon-class-z&quot;}
+&lt;/d-list&gt;
+</code></pre>
+<h5 id="page_Programmatically_with_a">Programmatically with a <code>dstore/Store</code></h5>
+<pre><code class="language-js">require([&quot;dstore/Memory&quot;, &quot;dstore/Trackable&quot;, &quot;deliteful/list/List&quot;], function (Memory, Trackable, List) {
+    var list = new List();
+    var source = new (Memory.createSubclass([Trackable], {}))();
+    var item1 = {...};
+    var item2 = {...};
+    source.add(item1);
+    source.add(item2, {beforeId: item1.id});
+    list.source = source;
+});
+</code></pre>
+<p>If the provided source is trackable (see <a href="https://github.com/sitepen/dstore" class="external">dstore documentation</a>), that is when it extends
+<code>dstore/Trackable</code>, the widget will react to <strong>addition, deletion, move and update</strong> of the source content and
+refresh its rendering accordingly.</p>
+<h5 id="page_Programmatically_with_an_array">Programmatically with an array</h5>
+<pre><code class="language-js">require([&quot;decor/ObservableArray&quot;, &quot;decor/Observable&quot;, &quot;deliteful/list/List&quot;], function (ObservableArray, Observable, List) {
+    var list = new List();
+    var source = new ObservableArray();
+    var item1 = new Observable({...});
+    var item2 = new Observable({...});
+    source.push(item1);
+    source.push(item2);
+    list.source = source;
+});
+</code></pre>
+<p>If the provided source is observable, that is when it is an <code>decor/ObservableArray</code>, the widget will react to <strong>addition,
+deletion and move</strong> of the source content and refresh its rendering accordingly.
+If the items of the array are <code>decor/Observable</code>, the widget will also react to <strong>update</strong>.</p>
+<h4 id="page_Mapping_capability">Mapping capability</h4>
+<p>Because the List widget inherit from <a href="/delite/docs/master/StoreMap.md/broken"><code>delite/StoreMap</code></a>, you can redefine at will the mapping between
+your source items and the ones expected by the renderer using mapping attributes and functions, as in the following example:</p>
+<pre><code class="language-js">require([
+        &quot;deliteful/list/List&quot;,
+        &quot;requirejs-domready/domReady!&quot;
+    ], function (List) {
+        var list = new List();
+        // Map the title property of a source item to
+        // the label property supported by the renderer
+        list.labelAttr = &quot;title&quot;;
+        // Map a substring of the title property
+        // of a source item to the righttext property
+        // supported by the renderer
+        list.righttextFunc = function (item, source, value) {
+            return item.title.split(&quot; &quot;)[0];
+        };
+        list.source.add({title: &quot;first item&quot;});
+        ...
+        list.placeAt(document.body);
+});
+</code></pre>
+<p>See the <a href="/delite/docs/master/StoreMap.md/broken"><code>delite/StoreMap</code></a> documentation for more information about all the available mapping options.</p>
+<p>If you were not to use the <code>delite/StoreMap</code> capabilities but decided to redefine the <code>itemToRenderItem(item)</code> method (inherited from <a href="/delite/docs/master/Store.md/broken"><code>delite/Store</code></a>),
+be aware that your custom implementation of the method MUST return items that have the same identity than the corresponding source items, as the List
+is relying on it.</p>
+<p>Here is an example of redefinition of the <code>itemToRenderItem(item)</code> method, using the default store with an <code>identityAttribute</code> value set to the default one, <code>id</code>:</p>
+<pre><code class="language-js">require([&quot;deliteful/list/List&quot;], function (List) {
+    var list = new List();
+    list.itemToRenderItem = function () {
+        // The list expect an identity for the item so is MUST be copied in the render item.
+        return {id: item.id, righttext: item.label};
+    }
+});
+</code></pre>
+<p>Errors encountered when querying the store are reported by the widget through a <code>&quot;query-error&quot;</code> event.
+It should be listened to in order to react to it in the application, as in the following example:</p>
+<pre><code class="language-js">var list = new List();
+list.on(&quot;query-error&quot;, function (error) {
+    // Report the error to the user
+    ...
+});
+</code></pre>
+<p><a name="categories"></a></p>
+<h3 id="page_Categorized_items">Categorized items</h3>
+<p><img src="images/CategorizedList.png" alt="Categorized List Example" /></p>
+<p>The List widget supports categorized items, that are rendered with a category header that separates
+each category of items in the list. To enable this feature, use the <code>categoryAttr</code> property to
+define the name of the item property that holds the category of the item, as in the following
+example:</p>
+<pre><code class="language-js">var list = new List();
+list.categoryAttribute = &quot;category&quot;;
+list.source = ...;
+list.source.add({label: &quot;first item&quot;, category: &quot;Category A&quot;});
+list.source.add({label: &quot;second item&quot;, category: &quot;Category A&quot;});
+list.source.add({label: &quot;third item&quot;, category: &quot;Category B&quot;});
+</code></pre>
+<p><iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/7Yr6E/embedded/result,js">
+<a href="http://jsfiddle.net/ibmjs/7Yr6E/">checkout the sample on JSFiddle</a></iframe></p>
+<p>An alternative is to set <code>categoryFunc</code> to a function that extract the category from the source item,
+as in the following example:</p>
+<pre><code class="language-js">var list = new List();
+list.categoryFunc = function(item, source) {
+	return item.category;
+});
+list.source = ...;
+list.source.add({label: &quot;first item&quot;, category: &quot;Category A&quot;});
+list.source.add({label: &quot;second item&quot;, category: &quot;Category A&quot;});
+list.source.add({label: &quot;third item&quot;, category: &quot;Category B&quot;});
+</code></pre>
+<p>As with the rendering of items, the actual rendering of the categories in the list is delegated to a category renderer widget.
+The default one is <code>deliteful/list/CategoryRenderer</code>, but a custom category renderer can be specified
+using the <code>categoryRenderer</code> property of the list (see the <a href="#customRenderers">custom renderers</a> section for more details).</p>
+<p><a name="customRenderers"></a></p>
+<h3 id="page_Custom_renderers">Custom renderers</h3>
+<p><img src="images/CustomRenderer.png" alt="Custom Renderer Example" /></p>
+<h4 id="page_Custom_item_renderer">Custom item renderer</h4>
+<p>The actual rendering of the items in the list is delegated to an item renderer widget.
+The default one is <code>deliteful/list/ItemRenderer</code>, but a custom item renderer can be specified
+using the <code>itemRenderer</code> property of the list.</p>
+<p>A custom item renderer must extends <code>deliteful/list/ItemRenderer</code>. It accesses the item to render in its <code>item</code> property.
+It must assign to its <code>renderNode</code> property the node in which the item is rendered .</p>
+<p>If the rendered item have actionable / keyboard navigable nodes, those are set using the <code>navindex</code> attribute, that behave simillarily to the standard <code>tabindex</code> attribute.</p>
+<p>Here are is an example of custom item renderer that illustrate these concepts:</p>
+<p><iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/36XDP/embedded/result,js,css">
+<a href="http://jsfiddle.net/ibmjs/36XDP">checkout the sample on JSFiddle</a></iframe></p>
+<h4 id="page_Custom_category_renderer">Custom category renderer</h4>
+<p>The actual rendering of the categories in the list is delegated to a category renderer widget.
+The default one is <code>deliteful/list/CategoryRenderer</code>, but a custom category renderer can be specified
+using the <code>categoryRenderer</code> property of the list.</p>
+<p>A custom category renderer is similar to a custom item renderer, except that it extends <code>deliteful/list/CategoryRenderer</code>.</p>
+<p>Here are is an example of custom category renderer:</p>
+<p><iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/s5sMq/embedded/result,js,css">
+<a href="http://jsfiddle.net/ibmjs/s5sMq">checkout the sample on JSFiddle</a></iframe></p>
+<p><a name="styling"></a></p>
+<h2 id="page_Element_Styling">Element Styling</h2>
+<h3 id="page_Supported_themes">Supported themes</h3>
+<p>This widget provides default styling for the following delite themes:</p>
+<ul>
+<li>bootstrap</li>
+</ul>
+<h3 id="page_CSS_Classes">CSS Classes</h3>
+<p>The List widget comes with two different styling that are applied by setting the <code>baseClass</code> property
+to one of the following values:</p>
+<table>
+<thead>
+<tr>
+<th>class name</th>
+<th>effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>d-list</code></td>
+<td>the list is displayed with an edge to edge layout. This is the default <code>baseClass</code>.</td>
+</tr>
+<tr>
+<td><code>d-rounded-list</code></td>
+<td>the list has rounded corners and both a left and right margin.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="page_Rendered_Item_Styling">Rendered Item Styling</h3>
+<p>Items are rendered inside a DIV element with the CSS class <code>d-list-item</code>.</p>
+<p>By default, all items are rendered with the same height defined using the following CSS:</p>
+<pre><code class="language-css">.d-list-item .d-list-cell {
+    height: ...;
+}
+</code></pre>
+<p>To define variable height for the items, use the following CSS:</p>
+<pre><code class="language-css">.d-list-item .d-list-cell {
+    height: inherit;
+}
+</code></pre>
+<p>When an item has the focus, the style of the cell in which it is rendered can be defined using the css selector <code>.d-list-item .d-list-cell:focus</code>.</p>
+<p>The default item renderer allows further styling of its content using the following CSS classes:</p>
+<table>
+<thead>
+<tr>
+<th>class name</th>
+<th>applies to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>d-list-item-icon</code></td>
+<td>the div before the label</td>
+</tr>
+<tr>
+<td><code>d-list-item-label</code></td>
+<td>the label</td>
+</tr>
+<tr>
+<td><code>d-list-item-right-text</code></td>
+<td>the right text</td>
+</tr>
+<tr>
+<td><code>d-list-item-right-icon</code></td>
+<td>the div after the right text</td>
+</tr>
+</tbody>
+</table>
+<h3 id="page_Rendered_Category_Styling">Rendered Category Styling</h3>
+<p>Categories are rendered inside a DIV element with the CSS class <code>d-list-category</code>.</p>
+<p>By default, all categories are rendered with the same height defined using the following CSS:</p>
+<pre><code class="language-css">.d-list-category .d-list-cell {
+    height: ...;
+}
+</code></pre>
+<p>To define variable height for the categories, use the following CSS:</p>
+<pre><code class="language-css">.d-list-category .d-list-cell {
+    height: inherit;
+}
+</code></pre>
+<p>When a category has the focus, the style of the cell in which it is rendered can be defined using the css selector <code>.d-list-category .d-list-cell:focus</code>.</p>
+<h3 id="page_Selection_Styling">Selection Styling</h3>
+<p>Depending on the <code>selectionMode</code> property value, the following CSS classes are added to the list:</p>
+<ul>
+<li>
+<code>d-selectable</code> when <code>selectionMode</code> is <code>single</code>;</li>
+<li>
+<code>d-multiselectable</code> when <code>selectionMode</code> is <code>multiple</code>.</li>
+</ul>
+<p>The CSS class <code>d-selected</code> is added to each list item that is currently selected.</p>
+<p>The style of a selected item can be customized using the following css:</p>
+<pre><code class="language-css">/* CSS selector for a selected item in a list with selectionMode = &quot;single&quot; */
+.d-selectable .d-list-item.d-selected {
+	...
+}
+
+/* CSS selector for a selected item in a list with selectionMode = &quot;multiple&quot; */
+.d-multiselectable .d-list-item.d-selected {
+	...
+}
+</code></pre>
+<p>To illustrate these concepts, here is a sample that demonstrates how to use CSS to display a checkmark on selected items using the default item renderer:</p>
+<p><iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/NB5u7/embedded/result,js,css">
+<a href="http://jsfiddle.net/ibmjs/NB5u7">checkout the sample on JSFiddle</a></iframe></p>
+<p><a name="interactions"></a></p>
+<h2 id="page_User_Interactions">User Interactions</h2>
+<h3 id="page_Scroll">Scroll</h3>
+<p>The widget uses the browser native scroll to allow the user to scroll its content: all the standard scroll interaction of the platform are supported (including using a mousewheel).</p>
+<h3 id="page_Action">Action</h3>
+<p>In most cases, when the user clicks or taps a list item the application needs to perform an action. This can easily be
+achieved by listening to regular click events. It is typically easier to wait for the events to bubble and listen
+to them at the list level as follows:</p>
+<pre><code class="language-html">&lt;d-list onclick=&quot;actionHandler(event)&quot;&gt;&lt;/d-list&gt;
+</code></pre>
+<p>with</p>
+<pre><code class="language-js">function actionHandler(event) {
+    var renderer = event.currentTarget.getEnclosingRenderer(event.target);
+    if (renderer) {
+        // use the info on renderer.item and perform an action
+    }
+}
+</code></pre>
+<p><a name="selection"></a></p>
+<h3 id="page_Selection">Selection</h3>
+<p>When the action on the list items has to be permanent you should consider using the list selection mechanism instead
+of listening to click events. In addition to managing the list of selected items this will provide with with a
+default CSS rendering for the selected items.</p>
+<p>The list uses the <a href="/delite/docs/master/Selection.md/broken">delite/Selection</a> mixin to provide support for selectable items.
+By default, items in the list are not selectable, but you can change this behavior using the <code>selectionMode</code> property
+of the widget:</p>
+<pre><code class="language-html">&lt;d-list selectionMode=&quot;multiple&quot;&gt;&lt;/d-list&gt;
+</code></pre>
+<p><img src="images/Selectable.png" alt="Multiple Selectable Items Example" /></p>
+<p>When the selection mode is <code>&quot;single&quot;</code>, a click or tap on a item (or a press on the Space key
+when an item has the focus) select it and de-select any previously selected item.
+Clicking on a selected item has the effect of de-selecting it.</p>
+<p>When the selection mode is <code>&quot;radio&quot;</code>, a click or tap on a item (or a press on the Space key
+when an item has the focus) select it and de-select any previously selected item.
+Clicking on a selected item has no effect.</p>
+<p>When the selection mode is <code>&quot;multiple&quot;</code>, a click or tap on an item (or a press on the Space key when an item has
+the focus) toggle its selected state.</p>
+<p>See the <a href="#selection-event">Events/Selection</a> section for how to listen to selection events.</p>
+<p><a name="mixins"></a></p>
+<h2 id="page_Mixins">Mixins</h2>
+<p>No Mixin is currently provided for this widget.</p>
+<p><a name="events"></a></p>
+<h2 id="page_Element_Events">Element Events</h2>
+<h3 id="page_Store_query">Store query</h3>
+<p>When the widget has finished rendering the items queried from the source, it emits a <code>query-success</code> event. The <code>renderItems</code> property of the event
+is an array of the items displayed by the widget.</p>
+<p>If the widget fails to query its source to retrieve the items to render, it emits a <code>query-error</code> event (see <a href="#store">Store capabilities</a> for more information).</p>
+<p><a name="selection-event"></a></p>
+<h3 id="page_Selection">Selection</h3>
+<p>When the current selection changes, a <code>selection-change</code> event is emitted. Its <code>oldValue</code> property
+contains the previous selection, and its <code>newValue</code> property contains the new selection.</p>
+<p>You can register the event programmatically using the <code>Widget.on</code> method or in markup as follows:</p>
+<pre><code class="language-html">&lt;d-list on-selection-change=&quot;selectionHandler(event)&quot;&gt;&lt;/d-list&gt;
+</code></pre>
+<p>with</p>
+<pre><code class="language-js">function selectionHandler(event) {
+    console.log(&quot;newly selected item: &quot;+event.newValue);
+}
+</code></pre>
+<p><a name="enterprise"></a></p>
+<h2 id="page_Enterprise_Use">Enterprise Use</h2>
+<p><a name="accessibility"></a></p>
+<h3 id="page_Accessibility">Accessibility</h3>
+<p>The widget supports three different WAI-ARIA roles:</p>
+<ol>
+<li>
+<a href="https://www.w3.org/TR/wai-aria/roles#grid" class="external">grid</a>, which is the default role</li>
+<li>
+<a href="https://www.w3.org/TR/wai-aria/roles#listbox" class="external">listbox</a>, which can be simply using <code>setAttribute</code> method.</li>
+<li>
+<a href="https://www.w3.org/TR/wai-aria/roles#menu" class="external">menu</a>, which can be simply using <code>setAttribute</code> method.</li>
+</ol>
+<h4 id="page_grid_role">grid role</h4>
+<p>When using the default <code>grid</code> role, the List widget implements a single column grid navigation pattern as defined in the <a href="http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid" class="external">WAI-ARIA 1.0 Authoring Practices</a>,
+except for the selection / deselection of item, that is performed using the Space key on a focused item (no support for Ctrl+Space,  Shift+Space, Control+A, Shift+Arrow and Shift+F8).</p>
+<p>The list items can then be navigated using the UP and DOWN arrow keys. Pressing the DOWN arrow
+while the last item has focus will focus the first item. Pressing the UP arrow while the first item
+has the focus will focus the last item. Note that in some browsers (such as Firefox) the List needs
+first to be given focus by pressing TAB after loading the page before using the UP and DOWN arrow keys.</p>
+<p>When a List item has the focus, you can press the ENTER or F2 keys to focus its first actionable node (if any), and then use the (Shift+)TAB key to move from one actionable node to the (previous)next.
+Pressing the ESC key will end actionable nodes navigation and resume to the previous mode.</p>
+<p>Note that Enter and F2 only activate the Actionable Mode when using a custom renderer that render DOM nodes with a <code>navindex</code> attribute,
+as the default renderers do not render any actionable nodes.</p>
+<p>Pressing the PAGE UP key will focus the first item of the list, while pressing the PAGE DOWN key will focus
+the last one.</p>
+<p>You can also search for items by typing their first letter on the keyboard, and the next item element which text
+begins with the letters will get the focus.</p>
+<p>When the <code>selectionMode</code> of a List is <code>&quot;multiple&quot;</code>, its <code>aria-multiselectable</code> attribute is set to <code>&quot;true&quot;</code>.
+When an item is selected in a list, its <code>aria-selected</code> attribute is set to the value <code>&quot;true&quot;</code>.</p>
+<h4 id="page_listbox_role">listbox role</h4>
+<p>When using the <code>listbox</code> role, the List widget behaves as previously described for the <code>grid</code> role, with the following differences:</p>
+<ul>
+<li>The list cannot have a <code>selectionMode</code> of <code>&quot;none&quot;</code>. If the selectionMode is <code>&quot;none&quot;</code> when setting the role attribute to <code>listbox</code>, it is automatically set to <code>&quot;single&quot;</code>;</li>
+<li>The item and category renderers should not be actionable, and there is no way to enter actionable mode by pressing the ENTER or F2 keys;</li>
+<li>If the list is categorized, the category headers are not focusable.</li>
+</ul>
+<h4 id="page_menu_role">menu role</h4>
+<p>When using the <code>menu</code> role, the List widget behaves as previously described for the <code>listbox</code> role,
+except that there is no concept of selection.</p>
+<h3 id="page_Globalization">Globalization</h3>
+<p>This widget does not provide any internationalizable bundle. The only strings displayed by the list are coming from the user data through the store from which items are retrieved.</p>
+<p>This widget supports both left to right and right to left orientation.</p>
+<h3 id="page_Security">Security</h3>
+<p>This widget has no specific security concern. Refer to  <a href="/delite/docs/master/Widget.md/broken"><code>delite/Widget</code></a>  and  <a href="/delite/docs/master/StoreMap.md/broken"><code>delite/StoreMap</code></a> for general security advice on this base class and mixin that this widget is using.</p>
+<h3 id="page_Browser_Support">Browser Support</h3>
+<p>This widget supports all supported browsers without any degraded behavior. Note however that the default item renderer
+is not supported on IE9.</p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../../../Interface_Designer/Widgets/LinearLayout.html">Previous</a></li>            <li class=Pager--next><a href="../../../Interface_Designer/Widgets/list/PageableList.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../../themes/daux/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../../themes/daux/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    <script src="../../../admin-theme/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="../../../themes/daux/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

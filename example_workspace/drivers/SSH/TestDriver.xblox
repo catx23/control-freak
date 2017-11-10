@@ -1,0 +1,47 @@
+{
+  "blocks": [
+    {
+      "_containsChildrenIds": [],
+      "name": "xas",
+      "group": "basicVariables",
+      "id": "72c825bc-072a-91a0-74b8-7f20570e1966",
+      "declaredClass": "xcf.model.Variable",
+      "hasInlineEdits": true,
+      "gui": "off",
+      "cmd": "off",
+      "save": false,
+      "target": "None",
+      "value": -1,
+      "register": true,
+      "readOnly": false,
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "canDelete": true,
+      "order": 0,
+      "type": "added",
+      "icon": "fa-play"
+    },
+    {
+      "_containsChildrenIds": [],
+      "name": "No Title",
+      "group": "basic",
+      "id": "203067a1-820d-af4f-6355-b98adf04ad27",
+      "declaredClass": "xcf.model.Command",
+      "startup": true,
+      "send": "",
+      "interval": "0",
+      "waitForResponse": false,
+      "hasInlineEdits": true,
+      "icon": "fa-exclamation",
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "canDelete": true,
+      "order": 0,
+      "type": "added",
+      "auto": false
+    }
+  ],
+  "variables": null
+}

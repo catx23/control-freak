@@ -1,0 +1,130 @@
+.wcTabIcon{
+    margin-right: 6px;
+}
+
+.wcModalBlocker {
+  opacity: 0.8;
+}
+
+.wcFrameFlasher {
+  background-color: white;
+}
+
+.wcFrameShadower {
+  background-color: white;
+}
+
+.wcFrameTitleBar {
+  height: 30px;
+}
+
+
+.wcFrameTitle {
+  height: 30px;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 3px;
+  text-align: center;
+}
+
+.wcFrameButtonBar {
+  height: 30px;
+}
+
+.wcFrameButton {
+  border: none;
+  font-size: 20px;
+  height: 23px;
+  width: 23px;
+}
+.wcFrameCenter {
+  top: 30px;
+}
+.wcFrameEdge {
+  position: absolute;
+  z-index: 2;
+  border: 2px outset #444;
+  background-color: #222;
+}
+
+.wcSplitterBarV {
+  transition: opacity 200ms ease;
+  width: 7px
+}
+
+.wcSplitterBarH {
+  transition: opacity 200ms ease;
+  height: 7px
+}
+
+.wcSplitterBarStatic {
+  width: 0px;
+  height: 0px;
+}
+
+.wcGhost {
+  background-color: #666;
+  border: 2px dashed rgba(192, 88, 1, 1) !important;
+  border-radius: 6px;
+}
+
+.wcLoadingBackground {
+  background-color: rgba(55, 55, 55, 1);
+}
+
+.wcLoadingIcon {
+  color: rgb(219, 110, 18);
+  font-size: 150px;
+  position: absolute;
+  top: calc(50% - 100px);
+  left: 50%;
+  height: 150px;
+}
+
+.wcLoadingLabel {
+  color: rgb(219, 110, 18);
+}
+
+.wcLoadingLabel:after {
+  content: '. . .';
+  -webkit-animation: color-change 1s infinite;
+  -moz-animation: color-change 1s infinite;
+  -o-animation: color-change 1s infinite;
+  -ms-animation: color-change 1s infinite;
+  animation: color-change 1s infinite;
+}
+@-webkit-keyframes color-change {
+  0% { color: rgb(219, 110, 18); }
+  25% { color: rgb(202, 101, 18); }
+  50% { color: rgb(176, 88, 18); }
+  75% { color: rgb(202, 101, 18); }
+  100% { color: rgb(219, 110, 18); }
+}
+@-moz-keyframes color-change {
+  0% { color: rgb(219, 110, 18); }
+  25% { color: rgb(202, 101, 18); }
+  50% { color: rgb(176, 88, 18); }
+  75% { color: rgb(202, 101, 18); }
+  100% { color: rgb(219, 110, 18); }
+}
+@-ms-keyframes color-change {
+  0% { color: rgb(219, 110, 18); }
+  25% { color: rgb(202, 101, 18); }
+  50% { color: rgb(176, 88, 18); }
+  75% { color: rgb(202, 101, 18); }
+  100% { color: rgb(219, 110, 18); }
+}
+@-o-keyframes color-change {
+  0% { color: rgb(219, 110, 18); }
+  25% { color: rgb(202, 101, 18); }
+  50% { color: rgb(176, 88, 18); }
+  75% { color: rgb(202, 101, 18); }
+  100% { color: rgb(219, 110, 18); }
+}
+@keyframes color-change {
+  0% { color: rgb(219, 110, 18); }
+  25% { color: rgb(202, 101, 18); }
+  50% { color: rgb(176, 88, 18); }
+  75% { color: rgb(202, 101, 18); }
+  100% { color: rgb(219, 110, 18); }
+}

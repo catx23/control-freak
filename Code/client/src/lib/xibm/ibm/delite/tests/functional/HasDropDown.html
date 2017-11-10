@@ -1,0 +1,382 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>HasDropDown tests</title>
+	<style>
+		/*
+		The popup has to have some display type where you can set the width.
+		Perhaps this should be done in global.less but I didn't want to hard code the display type to "block"
+		when it could have other values like "table" etc.
+		*/
+		simple-dialog, focus-menu, non-focus-menu {
+			display: block;
+			border: 1px solid black;
+		}
+		non-focusable-drop-down-button {
+			white-space: nowrap;
+		}
+
+		simple-combo-button {
+			border: 1px dotted blue;
+		}
+
+		.selected {
+			/* selected entry in a combobox drop down menu */
+			background-color: blue;
+			color: white;
+		}
+	</style>
+	<script type="text/javascript" src="boilerplate.js"></script>
+	<script language="JavaScript" type="text/javascript">
+		var ready = false; // set to true when the test page is ready
+
+		require([
+			"requirejs-dplugins/Promise!",
+			"delite/register",
+			"delite/Dialog",
+			"delite/HasDropDown",
+			"delite/Widget",
+			"dpointer/events",	// since I'm using touch-action
+			"requirejs-domready/domReady!"
+		], function (Promise, register, Dialog, HasDropDown, Widget) {
+
+			// A trivial popup widget
+			var SimpleDialog = register("simple-dialog", [HTMLElement, Dialog], {
+				render: function () {
+					// enable fast click, so testing code doesn't to wait 300ms for submit/cancel buttons to take effect
+					this.setAttribute("touch-action", "none");
+					this.innerHTML = "<input><br>" +
+							"<button type=submit>submit</button><br><button type=button>cancel</button>";
+				},
+				postRender: function () {
+					this.on("click", function () {
+						this.emit("execute");
+					}.bind(this), this.querySelector("button[type=submit]"));
+					this.on("click", function () {
+						this.emit("cancel");
+					}.bind(this), this.querySelector("button[type=button]"));
+				},
+				focus: function () {
+					this.querySelector("input").focus();
+				}
+			});
+
+			// Base class for focusable and non-focusable menus
+			var MenuBase = register.dcl(Widget, {
+				choice1: "1",
+				choice2: "2",
+				choice3: "3",
+
+				render: function () {
+					this.className = "choice";
+
+					// enable fast click, so testing code doesn't to wait 300ms for clicking a choice to take effect
+					this.setAttribute("touch-action", "none");
+
+					this.on("click", this.emit.bind(this, "change"));
+
+					for (var i = 1; i < 4; i++) {
+						this.innerHTML += "<div index='" + i +
+								"'>choice #" + this["choice" + i] + "</div>";
+					}
+				},
+
+				handleSlideClick: function () {
+					// If user does mouse down on dropdown button, then mouse up on menu, handle
+					// as click on menu.
+					this.emit("change");
+				}
+			});
+
+			// A list of values; select a value by pressing an entry in the list.
+			// This will emit a change event (just like selecting a day in a Calendar).
+			// No keyboard navigation.
+			var FocusMenu = register("focus-menu", [HTMLElement, MenuBase], {
+				createdCallback: function () {
+					// Implement keyboard support.  Note that we need to process SPACE/ENTER on keyup
+					// rather than keydown.  Otherwise
+					this.on("keydown", function (evt) {
+						if(evt.key === "Enter" || evt.key === "Spacebar") {
+							// Emit "change" event to close menu and return focus to the DropDownButton.
+							// The DropDownButton receives the keyup event, and on IE that causes another click event
+							// (on the button),
+							// unless we call evt.preventDefault().
+							evt.preventDefault();
+							this.emit("change");
+						} else if(evt.key === "ArrowDown") {
+							this.focus((this.selected && this.selected.nextSibling) || this.firstChild);
+						} else if(evt.key === "ArrowUp") {
+							this.focus((this.selected && this.selected.previousSibling) || this.lastChild);
+						}
+					}.bind(this));
+				},
+
+				postRender: function () {
+					Array.prototype.forEach.call(this.children, function (child) {
+						child.setAttribute("tabindex", "-1");
+					});
+				},
+
+				focus: function (selected) {
+					if (this.selected) {
+						this.selected.className = "";
+					}
+					this.selected = selected || this.children[0];
+					this.selected.focus();
+				}
+			});
+
+			// A list of values that doesn't get focus; focus remains on the HasDropDown widget.
+			var NonFocusMenu = register("non-focus-menu", [HTMLElement, MenuBase], {
+				onOpen: function () {
+					this._select(this.firstChild);
+
+				},
+
+				_select: function (child) {
+					if (this.selected) {
+						this.selected.className = "";
+					}
+					this.selected = child;
+					child.className = "selected";
+				},
+
+				postRender: function () {
+					this.on("keydown", this._keydownHandler.bind(this));
+					this.ownerDocument.addEventListener("delite-before-show", function (evt) {
+						if (evt.child === this) {
+							this._select(this.firstChild);
+						}
+					}.bind(this));
+				},
+
+				_keydownHandler: function (evt) {
+					if(evt.key === "Enter" || evt.key === "Spacebar") {
+						this.emit("change");
+						this.selected.className = "";
+						evt.preventDefault();
+						evt.stopPropagation();
+					} else if(evt.key === "ArrowDown" ) {
+						this._select(this.selected.nextSibling || this.firstChild);
+						evt.preventDefault();
+						evt.stopPropagation();
+						return false;
+					} else if(evt.key === "ArrowUp" ) {
+						this._select(this.selected.previousSibling || this.lastChild);
+						evt.preventDefault();
+						evt.stopPropagation();
+						return false;
+					}
+				}
+			});
+
+			// A button that shows a popup
+			var SimpleDropDownButton = register("simple-drop-down-button", [HTMLButtonElement, HasDropDown], {
+				label: "",
+				_setLabelAttr: function (val) {
+					this.textContent = val;
+					this._set("label", val);
+				},
+
+				loadDropDown: function () {
+					if (!this._dropDown) {
+						this._dropDown = new this.dropDownConstructor({
+							className: this.dropDownClass || "basic-dropdown"
+						});
+						if (this.id) {
+							this._dropDown.id = this.id + "_popup";
+						}
+					}
+
+					return this._dropDown;
+				}
+			});
+
+			// A button that emits the delite-display-load event to get a reference to the dropdown
+			var EventsDropDownButton = register("events-drop-down-button", [HTMLButtonElement, HasDropDown], {
+				label: "",
+				_setLabelAttr: function (val) {
+					this.textContent = val;
+					this._set("label", val);
+				}
+			});
+
+			// A button that shows a popup
+			var ComboBox = register("combo-box", [HTMLInputElement, HasDropDown], {
+				dropDownConstructor: NonFocusMenu,
+
+				// focus should always remain on the Combobox <input>
+				focusOnPointerOpen: false,
+				focusOnKeyboardOpen: false,
+
+				loadDropDown: function () {
+					return this._dropDown || (this._dropDown = new this.dropDownConstructor({
+						id: this.id + "_popup"
+					}));
+				}
+			});
+
+			// A button that shows a popup, but spends 1000ms the first time pretending to load the popup.
+			// Also used for testing that things work even when id's not specified.
+			var DelayedDropDownButton = register("delayed-drop-down-button", [SimpleDropDownButton], {
+				loadDropDown: function () {
+					if (!this._dropDownPromise) {
+						this._dropDownPromise = new Promise(function (resolve) {
+							setTimeout(function () {
+								resolve(new this.dropDownConstructor({
+									class: this.dropDownClass
+								}));
+							}.bind(this), 500);
+						}.bind(this));
+					}
+					return this._dropDownPromise;
+				}
+			});
+
+			// A non-focusable "button" that shows a popup.
+			// Should work for mouse, although not for keyboard.
+			var NonFocusableDropDownButton = register("non-focusable-drop-down-button", [HTMLElement, HasDropDown], {
+				label: "",
+				_setLabelAttr: function (val) {
+					this.textContent = val;
+					this._set("label", val);
+				},
+
+				loadDropDown: function () {
+					return this._dropDown || (this._dropDown = new FocusMenu({
+						id: this.id + "_popup"
+					}));
+				}
+			});
+
+			// A widget consisting of two buttons where the right buttons shows a dropdown.
+			var SimpleComboButton = register("simple-combo-button", [HTMLElement, Widget], {
+				render: function () {
+					var left = this.ownerDocument.createElement("button");
+					left.id = "cbl";
+					left.textContent = "left";
+					this.appendChild(left);
+
+					this.appendChild(SimpleDropDownButton({
+						id: "cbr",
+						label: "right",
+						aroundNode: this,	// dropdown should extend length of the whole ComboButton
+						dropDownConstructor: FocusMenu,
+						focusOnPointerOpen: false	// traditionally you only focus drop down menus when opened by the keyboard
+					}));
+				}
+			});
+
+			// basic drop down with menu
+			new SimpleDropDownButton({
+				id: "dd",
+				label: "show menu - ltr",
+				dropDownConstructor: FocusMenu,
+				focusOnPointerOpen: false	// traditionally you only focus drop down menus when opened by the keyboard
+			}).placeAt(document.body);
+
+			// Rtl dropdown with tooltip dialog, delayed open first time.
+			// Also used for testing that it works even if HasDropDown and popup don't have id's.
+			new DelayedDropDownButton({
+				dir: "rtl",
+				label: "show tooltip dropdown after 500ms - rtl",
+				dropDownConstructor: SimpleDialog,
+				dropDownClass: "dropdown-dialog"
+			}).placeAt(document.body);
+
+			// non-focusable dropdown
+			new NonFocusableDropDownButton({
+				id: "ndd",
+				label: "show popup (non-focusable)"
+			}).placeAt(document.body);
+
+			// auto-width = false
+			new SimpleDropDownButton({
+				id: "nawl",
+				label: "show non-auto-width menu - ltr",
+				autoWidth: false,
+				dropDownConstructor: FocusMenu,
+				focusOnPointerOpen: false	// traditionally you only focus drop down menus when opened by the keyboard
+			}).placeAt(document.body);
+
+			// auto-width = false, dir = rtl
+			new SimpleDropDownButton({
+				id: "nawr",
+				dir: "rtl",
+				label: "show non-auto-width menu - rtl",
+				autoWidth: false,
+				dropDownConstructor: FocusMenu,
+				focusOnPointerOpen: false	// traditionally you only focus drop down menus when opened by the keyboard
+			}).placeAt(document.body);
+
+			// combobox: arrow keys should navigate drop down, focus stays on combo
+			new ComboBox({
+				id: "combobox"
+			}).placeAt(document.body);
+
+			// centered dialog
+			new SimpleDropDownButton({
+				id: "show-dialog-button",
+				label: "show dialog",
+				dropDownPosition: ["center"],
+				dropDownConstructor: SimpleDialog,
+				dropDownClass: "centered-dialog"
+			}).placeAt(document.body);
+
+			// this HasDropDown will emit events to load the drop down and as its shown/hidden
+			var eddb = new EventsDropDownButton({
+				label: "events drop down button",
+				id: "eventsButton"
+			}).placeAt(document.body);
+			document.addEventListener("delite-display-load", function (evt) {
+				evt.setChild({
+					child: new SimpleDialog({
+						id: "eventsDialog"
+					})
+				});
+			});
+			[
+				"delite-display-load",
+				"delite-before-show",
+				"delite-after-show",
+				"delite-before-hide",
+				"delite-after-hide"
+			].forEach(function (type) {
+				eddb.on(type, function (evt) {
+					eventsLog.innerHTML += "<br>" + evt.type;
+				});
+			});
+
+			// Use HasDropDown to setup dropdown behavior on an arbitrary node.
+			var simpleButton = document.createElement("button");
+			simpleButton.id = "behavior-button";
+			document.body.appendChild(simpleButton);
+			simpleButton.innerHTML = "dropdown via behavior";
+			simpleButton.type = "button";
+			new HasDropDown.HasDropDownCustomElement({
+				id: "behavioral-has-drop-down",
+				behaviorNode: simpleButton,
+				dropDownConstructor: SimpleDialog
+			}).placeAt(document.body);
+
+			new SimpleComboButton({
+				id: "cb"
+			}).placeAt(document.body);
+			
+			// Set global variable to signal that the test page is ready
+			ready = true;
+		});
+	</script>
+</head>
+<body>
+	<input id=input value="for focus testing">
+
+	<div style="position: absolute; bottom: 0">
+		Events on "events drop down button":
+		<div id="eventsLog"></div>
+	</div>
+</body>
+</html>

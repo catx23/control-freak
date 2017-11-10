@@ -1,0 +1,27 @@
+{
+  "name": "widgster",
+  "main": "widgster.js",
+  "version": "0.0.2",
+  "homepage": "https://github.com/okendoken/widgster",
+  "authors": [
+    "okendoken (http://flatlogic.com)"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "0.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.2",
+    "commit": "0ec0cde3f88bd9d16ef34ecea973a2fe8e8e44b4"
+  },
+  "_source": "git://github.com/okendoken/widgster.git",
+  "_target": "~0.0.2",
+  "_originalSource": "widgster",
+  "_direct": true
+}

@@ -1,0 +1,22 @@
+{
+  "blocks": [
+    {
+      "_containsChildrenIds": [],
+      "group": "click",
+      "id": "f2f6f31b-2d7f-f41a-5501-58a2f73827aa",
+      "type": "added",
+      "declaredClass": "xblox.model.code.RunScript",
+      "name": "Run Script",
+      "method": "",
+      "args": "",
+      "deferred": false,
+      "icon": "fa-code",
+      "order": 0,
+      "outlet": 0,
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description"
+    }
+  ],
+  "variables": null
+}

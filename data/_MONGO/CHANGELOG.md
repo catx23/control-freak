@@ -1,0 +1,67 @@
+# Change Log
+
+## [Unreleased](https://github.com/net-commander/windows-dist/tree/HEAD)
+
+**Implemented enhancements:**
+
+- CSS - State widget [\#40](https://github.com/net-commander/windows-dist/issues/40)
+- Changing variable name not updating in expressions [\#13](https://github.com/net-commander/windows-dist/issues/13)
+- if - block [\#7](https://github.com/net-commander/windows-dist/issues/7)
+
+**Closed issues:**
+
+- LCD font [\#62](https://github.com/net-commander/windows-dist/issues/62)
+- Multi-Character Delimiter [\#60](https://github.com/net-commander/windows-dist/issues/60)
+- Driver If Statement [\#59](https://github.com/net-commander/windows-dist/issues/59)
+- screenshots [\#57](https://github.com/net-commander/windows-dist/issues/57)
+- Exporter [\#56](https://github.com/net-commander/windows-dist/issues/56)
+- If/ElseIf/Else [\#55](https://github.com/net-commander/windows-dist/issues/55)
+- Device/Driver connection [\#53](https://github.com/net-commander/windows-dist/issues/53)
+- New - User - Folder [\#52](https://github.com/net-commander/windows-dist/issues/52)
+- IDE command line options [\#51](https://github.com/net-commander/windows-dist/issues/51)
+- Global logging [\#50](https://github.com/net-commander/windows-dist/issues/50)
+- data [\#48](https://github.com/net-commander/windows-dist/issues/48)
+- Driver Send Timer [\#46](https://github.com/net-commander/windows-dist/issues/46)
+- Console Sent Messages [\#45](https://github.com/net-commander/windows-dist/issues/45)
+- Instances [\#44](https://github.com/net-commander/windows-dist/issues/44)
+- Saving [\#43](https://github.com/net-commander/windows-dist/issues/43)
+- New Device [\#42](https://github.com/net-commander/windows-dist/issues/42)
+- CSS Classes [\#41](https://github.com/net-commander/windows-dist/issues/41)
+- Left work space scroll bar [\#38](https://github.com/net-commander/windows-dist/issues/38)
+- Rename in File Explorer not working [\#37](https://github.com/net-commander/windows-dist/issues/37)
+- interface for creating blocks, user-land [\#36](https://github.com/net-commander/windows-dist/issues/36)
+- New Block : Set Properties [\#35](https://github.com/net-commander/windows-dist/issues/35)
+- Switch [\#34](https://github.com/net-commander/windows-dist/issues/34)
+- Hot patches [\#33](https://github.com/net-commander/windows-dist/issues/33)
+- variables & expressions II [\#32](https://github.com/net-commander/windows-dist/issues/32)
+- Send on Startup [\#30](https://github.com/net-commander/windows-dist/issues/30)
+- On Event [\#29](https://github.com/net-commander/windows-dist/issues/29)
+- Driver Initialization [\#28](https://github.com/net-commander/windows-dist/issues/28)
+- Conditional Commands Tab [\#27](https://github.com/net-commander/windows-dist/issues/27)
+- Response Construction Settings [\#26](https://github.com/net-commander/windows-dist/issues/26)
+- Send Interval [\#25](https://github.com/net-commander/windows-dist/issues/25)
+- changes [\#24](https://github.com/net-commander/windows-dist/issues/24)
+- New Command [\#22](https://github.com/net-commander/windows-dist/issues/22)
+- Call Command [\#21](https://github.com/net-commander/windows-dist/issues/21)
+- Context menu in basic commands allows addition of blocks [\#20](https://github.com/net-commander/windows-dist/issues/20)
+- UDP com not working [\#19](https://github.com/net-commander/windows-dist/issues/19)
+- Case comparator [\#18](https://github.com/net-commander/windows-dist/issues/18)
+- Copy/Cut/Paste in Response window is erratically pasting in variable window as well [\#17](https://github.com/net-commander/windows-dist/issues/17)
+- Paste icon not active after copy or cut [\#16](https://github.com/net-commander/windows-dist/issues/16)
+- Save In General Properties on expression [\#15](https://github.com/net-commander/windows-dist/issues/15)
+- Variable default & persistent values [\#14](https://github.com/net-commander/windows-dist/issues/14)
+- Response window expression disappearing [\#12](https://github.com/net-commander/windows-dist/issues/12)
+- Toolbar/Header settings [\#11](https://github.com/net-commander/windows-dist/issues/11)
+- Variable Add not updating variable menu [\#10](https://github.com/net-commander/windows-dist/issues/10)
+- Dialog Box Save [\#9](https://github.com/net-commander/windows-dist/issues/9)
+- In line editor for Set variable [\#8](https://github.com/net-commander/windows-dist/issues/8)
+- symetrix: use case discussion [\#6](https://github.com/net-commander/windows-dist/issues/6)
+- variables & expressions [\#5](https://github.com/net-commander/windows-dist/issues/5)
+- Expression files text [\#4](https://github.com/net-commander/windows-dist/issues/4)
+- Switch on variable doesn't include \[value\] [\#3](https://github.com/net-commander/windows-dist/issues/3)
+- Add icon to console window to clear [\#2](https://github.com/net-commander/windows-dist/issues/2)
+- IDE Theme [\#1](https://github.com/net-commander/windows-dist/issues/1)
+
+
+
+\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" dir="ltr">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    %HTML_HEADER%
+
+    <script type="text/javascript">
+        var dojoConfig={
+            parseOnLoad: true,
+            async:1
+        };
+    </script>
+    <script type="text/javascript" src="%APP_URL%/lib/dojo/dojo.js"></script>
+
+
+    <script type="text/javascript">
+        require([
+            "dijit/dijit",
+            "dijit/form/TextBox",
+            "dijit/form/ValidationTextBox",
+            "dijit/form/Button",
+            "dijit/Dialog",
+            "xide/manager/ServerActionBase"
+        ]);
+    </script>
+
+    <script type="text/javascript">
+
+        var service = null;
+        var serviceClass='XApp_XIDE_Controller_UserService';
+
+        function initService(){
+
+            if(!service){
+                service = new xide.manager.ServerActionBase({
+                    serviceClass:serviceClass,
+                    serviceUrl:'%RPC_TARGET%',
+                    sync:true
+                });
+                service.init();
+            }
+        }
+
+        function login()
+        {
+            initService();
+            var user = dijit.byId('username').get('value');
+            var password = dijit.byId('password').get('value');
+            service.serviceObject[serviceClass]['login'](user,password).then(
+                function(result){
+                    if (result=="OK"){
+                        var loading = dojo.create("div",null, dojo.body(), "first");
+                        loading.innerHTML='<table><tr><td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Loading Maqetta...</td></tr></table>';
+                        dojo.addClass(loading, 'loading');
+                        location.reload();
+                    }else{
+                        dojo.attr("error-holder", "innerHTML", "Invalid userid or password");
+                    }
+                    return;
+                    //console.error('login result : ' + responseObject);
+                });
+
+        }
+
+        function showMainPage(url)
+        {
+            //location.href = url;
+
+        }
+
+
+
+    </script>
+
+</head>
+
+<body class="claro">
+<div id="davinci_top_bar"></div>
+
+<div id="loginpane">
+    <div id="not_logged_in">
+
+        <label for="username">Username: </label>
+        <input dojoType="dijit.form.TextBox" type="text" name="name" id="username" value="admin"/>
+        <label for="password">Password: </label>
+        <input dojoType="dijit.form.TextBox" type="password" name="name" id="password" value="asdasd"/>
+        <button dojoType="dijit.form.Button" onclick="login">Login</button><br/>
+        <div id="error-holder"></div>
+    </div>
+    <div id="mainBody">
+        <br/>New users - please
+        <a href="javascript:;" onclick="dijit.byId('register_form').show();">sign up</a>.
+    </div>
+</div>
+
+</body>
+
+</html>

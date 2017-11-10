@@ -1,0 +1,5 @@
+/* For testing of requirejs-dplugins/css! plugin */
+.test3 {
+	color: blue;
+	border: 3px solid black;
+}

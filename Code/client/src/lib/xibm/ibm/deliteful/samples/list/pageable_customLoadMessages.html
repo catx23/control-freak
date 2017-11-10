@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/list/PageableList samples.</title>
+	
+	<script type="text/javascript">
+	require = {
+			baseUrl: "../../../",
+		};
+	</script>
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require([
+		    "delite/register",
+			"dstore/Memory",
+			"dstore/Trackable",
+			"deliteful/list/PageableList",
+			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
+		], function (register, Memory, Trackable, PageableList) {
+			var Store = Memory.createSubclass([Trackable], {});
+			var list = new PageableList();
+			list.setAttribute("aria-label", "Sample pageable list with custom loader messages");
+			list.source = new Store();
+			for (var i = 0; i < 100; i++) {
+				list.source.add({label: "item " + i});
+			}
+			list.style.height = "200px";
+			list.pageLength = 20;
+			list.maxPages = 2;
+			list.loadPreviousMessage = "Load previous data (${pageLength} entries)";
+			list.loadNextMessage = "Load next data (${pageLength} entries)";
+			list.placeAt(document.body);
+
+			document.body.style.display = "";
+		});
+	</script>
+</head>
+<body style="display: none" role="application">
+	This sample demonstrate a pageable list with custom loader messages.
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+	"name": "requirejs-dplugins-css-plugin-test-app",
+	"version": "0.1.0",
+	"description": "Test application using css! plugin",
+	"dependencies": {
+		"lie":  ">=2.8",
+		"jquery": ">=2.1",
+		"requirejs": "2.1.x"
+	}
+}

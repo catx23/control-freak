@@ -1,0 +1,30 @@
+{
+    "id": "http://dojotoolkit.org/delite/MediaPlayer",
+    "name": "delite.MediaPlayer",
+    "spec": "1.0",
+    "version": "1.7",
+    "require": [
+        {
+            "type": "javascript-module",
+            "format": "amd",
+            "src": "xdeliteful/MediaPlayer"
+        }
+    ],
+    "library": {
+
+    },
+    "property": {
+
+
+    },
+    "noChildren":true,
+    "content": "<d-media-player style='min-width:300px;min-height:300px'></d-media-player>",
+    "title": {
+        "type": "text/html",
+        "value": "<p>Non-templated BUTTON widget with a thin API wrapper for click \nevents and for setting the label.\n\n</p>\n<p>Buttons can display a label, an icon, or both.\nA label should always be specified (through innerHTML) or the label\nattribute.  It can be hidden via showLabel=false.</p>"
+    },
+    "examples": {
+        "type": "text/html",
+        "value": "<pre><code>&lt;button data-dojo-type=&quot;xide/mobile/Button&quot; onClick=&quot;...&quot;&gt;Hello world&lt;/button&gt;</code></pre>"
+    }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "awesome-bootstrap-checkbox",
+  "main": [
+    "awesome-bootstrap-checkbox.css",
+    "awesome-bootstrap-checkbox.scss"
+  ],
+  "version": "0.2.2",
+  "homepage": "https://github.com/flatlogic/awesome-bootstrap-checkbox",
+  "authors": [
+    "okendoken flatlogic.com"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "bower_components"
+  ],
+  "dependencies": {},
+  "_release": "0.2.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.2",
+    "commit": "c30e6e41aca6c994b88ea22e1d61f4a8c41d7a37"
+  },
+  "_source": "git://github.com/flatlogic/awesome-bootstrap-checkbox.git",
+  "_target": "~0.2.2",
+  "_originalSource": "awesome-bootstrap-checkbox",
+  "_direct": true
+}

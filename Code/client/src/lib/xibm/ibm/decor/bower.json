@@ -1,0 +1,19 @@
+{
+	"name": "decor",
+	"version": "0.7.0",
+	"dependencies": {
+		"dcl": "1.1.x",
+		"requirejs": "2.1.x",
+		"requirejs-dplugins": "0.6.x"
+	},
+	"devDependencies": {
+		"requirejs-domready": "2.0.x"
+	},
+	"ignore": [
+		".jshintrc",
+		".gitattributes",
+		".travis.yml",
+		"tests",
+		"CONTRIBUTING.md"
+	]
+}

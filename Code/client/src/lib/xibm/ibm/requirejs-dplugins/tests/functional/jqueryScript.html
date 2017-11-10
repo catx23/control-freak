@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>jQuery plugin test</title>
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script language="JavaScript" type="text/javascript">
+		var ready = false; // set to true when the test page is ready
+		require({
+			baseUrl:"../../.."
+		}, [
+			"requirejs-dplugins/jquery!attributes/classes"
+		], function (jQuery) {
+			if (jQuery === $) {
+				result.innerHTML = "works!";
+			} else {
+				result.innerHTML = "failed!";
+			}
+
+			// Set global variable to signal that the test page is ready
+			ready = true;
+		})
+	</script>
+</head>
+<body>
+<h1>jQuery plugin test</h1>
+<p>This checks that the jQuery plugin doesn't reload module if the page has already loaded jQuery via a script tag.</p>
+Result: <span id="result"></span>
+</body>
+</html>

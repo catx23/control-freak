@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>View Stack</title>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../.."
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"deliteful/ViewStack",
+			"deliteful/Button",
+			"requirejs-dplugins/css!deliteful/ViewStack/transitions/cover.css",
+			"requirejs-dplugins/css!deliteful/ViewStack/transitions/coverv.css",
+			"requirejs-dplugins/css!deliteful/ViewStack/transitions/fade.css",
+			"requirejs-dplugins/css!deliteful/ViewStack/transitions/flip.css",
+			"requirejs-dplugins/css!deliteful/ViewStack/transitions/slidev.css",
+			"requirejs-dplugins/css!deliteful/ViewStack/transitions/revealv.css",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
+		], function(){
+			createChild = function (){
+				var newChild = document.createElement("div");
+				newChild.id = "eee";
+				newChild.innerHTML = "<h1>EEE</h1>";
+				newChild.style.backgroundColor = "orangered";
+				vs.addChild(newChild);
+				vs.show(newChild);
+			};
+
+			document.body.style.display = "";
+		});
+
+	</script>
+
+	<style>
+		button {
+			width: 10em;
+		}
+		#vs > div {
+			font-size: 20px;
+			font-family: Helvetica;
+			text-align: center;
+			font-weight: bold;
+		}
+		#vs {
+			width: 50%;
+			height: 300px;
+			border: 2px solid gold
+		}
+	</style>
+</head>
+<body style="display: none; margin:2em;">
+<button is="d-button" onclick="vs.addChild(fff); vs.show(fff)">Add FFF</button>
+<button is="d-button" onclick="createChild()">Create EEE</button>
+<button is="d-button" onclick="vs.removeChild(aaa); vs.show(bbb)">Remove AAA</button>
+<button is="d-button" onclick="vs.showPrevious();">Previous</button>
+<button is="d-button" onclick="vs.showNext();">Next</button>
+<br>
+<d-view-stack id="vs" selectedChildId="bbb"
+		on-delite-display-load="console.log(event.type + ': ' + event.dest)"
+		on-delite-before-show="console.log(event.type + ': ' + event.dest)"
+		on-delite-after-show="console.log(event.type + ': ' + event.dest)">
+	<div style="background-color: honeydew; " id="aaa">
+		<h1>AAA</h1>
+	</div>
+	<div style="background-color: whitesmoke;" id="bbb">
+		<h1>BBB</h1>
+	</div>
+	<div style="background-color: powderblue;" id=ccc>
+		<h1>CCC</h1>
+	</div>
+	<div style="background-color: oldlace;" id="ddd">
+		<h1>DDD</h1>
+	</div>
+</d-view-stack>
+<br>
+<input id="rev" type="checkbox">Reverse transition
+<br>
+<button is="d-button" onclick="vs.show('aaa',{transition:'slide', reverse:rev.checked})">Slide AAA</button>
+<button is="d-button" onclick="vs.show('bbb',{transition:'slide', reverse:rev.checked})">Slide BBB</button>
+<button is="d-button" onclick="vs.show('ccc',{transition:'slide', reverse:rev.checked})">Slide CCC</button>
+<button is="d-button" onclick="vs.show('ddd',{transition:'slide', reverse:rev.checked})">Slide DDD</button>
+<br>
+<button is="d-button" onclick="vs.show('aaa',{transition:'slidev', reverse:rev.checked})">SlideV AAA</button>
+<button is="d-button" onclick="vs.show('bbb',{transition:'slidev', reverse:rev.checked})">SlideV BBB</button>
+<button is="d-button" onclick="vs.show('ccc',{transition:'slidev', reverse:rev.checked})">SlideV CCC</button>
+<button is="d-button" onclick="vs.show('ddd',{transition:'slidev', reverse:rev.checked})">SlideV DDD</button>
+<br>
+<button is="d-button" onclick="vs.show('aaa',{transition:'reveal', reverse:rev.checked})">Reveal AAA</button>
+<button is="d-button" onclick="vs.show('bbb',{transition:'reveal', reverse:rev.checked})">Reveal BBB</button>
+<button is="d-button" onclick="vs.show('ccc',{transition:'reveal', reverse:rev.checked})">Reveal CCC</button>
+<button is="d-button" onclick="vs.show('ddd',{transition:'reveal', reverse:rev.checked})">Reveal DDD</button>
+<br>
+<button is="d-button" onclick="vs.show('aaa',{transition:'revealv', reverse:rev.checked})">RevealV AAA</button>
+<button is="d-button" onclick="vs.show('bbb',{transition:'revealv', reverse:rev.checked})">RevealV BBB</button>
+<button is="d-button" onclick="vs.show('ccc',{transition:'revealv', reverse:rev.checked})">RevealV CCC</button>
+<button is="d-button" onclick="vs.show('ddd',{transition:'revealv', reverse:rev.checked})">RevealV DDD</button>
+<br>
+<button is="d-button" onclick="vs.show('aaa',{transition:'flip', reverse:rev.checked})">Flip AAA</button>
+<button is="d-button" onclick="vs.show('bbb',{transition:'flip', reverse:rev.checked})">Flip BBB</button>
+<button is="d-button" onclick="vs.show('ccc',{transition:'flip', reverse:rev.checked})">Flip CCC</button>
+<button is="d-button" onclick="vs.show('ddd',{transition:'flip', reverse:rev.checked})">Flip DDD</button>
+<br>
+<button is="d-button" onclick="vs.show('aaa',{transition:'fade', reverse:rev.checked})">Fade AAA</button>
+<button is="d-button" onclick="vs.show('bbb',{transition:'fade', reverse:rev.checked})">Fade BBB</button>
+<button is="d-button" onclick="vs.show('ccc',{transition:'fade', reverse:rev.checked})">Fade CCC</button>
+<button is="d-button" onclick="vs.show('ddd',{transition:'fade', reverse:rev.checked})">Fade DDD</button>
+<br>
+<button is="d-button" onclick="vs.show('aaa',{transition:'cover', reverse:rev.checked})">Cover AAA</button>
+<button is="d-button" onclick="vs.show('bbb',{transition:'cover', reverse:rev.checked})">Cover BBB</button>
+<button is="d-button" onclick="vs.show('ccc',{transition:'cover', reverse:rev.checked})">Cover CCC</button>
+<button is="d-button" onclick="vs.show('ddd',{transition:'cover', reverse:rev.checked})">Cover DDD</button>
+<br>
+<button is="d-button" onclick="vs.show('aaa',{transition:'coverv', reverse:rev.checked})">CoverV AAA</button>
+<button is="d-button" onclick="vs.show('bbb',{transition:'coverv', reverse:rev.checked})">CoverV BBB</button>
+<button is="d-button" onclick="vs.show('ccc',{transition:'coverv', reverse:rev.checked})">CoverV CCC</button>
+<button is="d-button" onclick="vs.show('ddd',{transition:'coverv', reverse:rev.checked})">CoverV DDD</button>
+<br>
+<button is="d-button" onclick="vs.show('aaa',{transition:'none'})">AAA</button>
+<button is="d-button" onclick="vs.show('bbb',{transition:'none'})">BBB</button>
+<button is="d-button" onclick="vs.show('ccc',{transition:'none'})">CCC</button>
+<button is="d-button" onclick="vs.show('ddd',{transition:'none'})">DDD</button>
+
+
+<div style="display: none">
+	<div style="background-color: darkolivegreen;" id="fff">
+		<h1>FFF</h1>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "files":[
+    "Code/client/src/xcf/dojo/xcf.js",
+    "server/nodejs/nxappmain/serverbuild.js",
+    "data/system/drivers/DriverBase.js",
+    "Code/client/src/css/commons/stylesheets/bootstrap-override.css"
+  ]
+}

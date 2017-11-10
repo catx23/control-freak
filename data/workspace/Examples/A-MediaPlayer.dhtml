@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+</head>
+
+
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="superhero" data-maq-ws="collapse" style="position: absolute; background-size: 100%; width: 100%; height: 100%;" id="myapp" data-maq-appstates="{}">
+ <d-media-player></d-media-player>
+</body>
+</html>
+
+

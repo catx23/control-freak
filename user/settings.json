@@ -1,0 +1,180 @@
+{
+    "admin": {
+        "settings": [
+            {
+                "id": "driverView",
+                "value": {
+                    "basic": {
+                        "showHeader": false,
+                        "selection": {
+                            "selection": [
+                                "51019dc0-61df-cb78-68e9-b9a26a6c91b8"
+                            ]
+                        },
+                        "toolbar": false,
+                        "properties": true
+                    },
+                    "conditionalProcess": {
+                        "showHeader": false,
+                        "selection": {
+                            "selection": {}
+                        },
+                        "toolbar": true,
+                        "properties": true
+                    },
+                    "basicVariables": {
+                        "showHeader": false,
+                        "selection": {
+                            "selection": {}
+                        },
+                        "toolbar": false,
+                        "properties": true
+                    },
+                    "layouts": {
+                        "Default2": {
+                            "floating": {},
+                            "root": {
+                                "type": "wcSplitter",
+                                "horizontal": false,
+                                "isDrawer": false,
+                                "pane0": {
+                                    "type": "wcFrame",
+                                    "floating": false,
+                                    "isFocus": false,
+                                    "tabOrientation": "top",
+                                    "pos": {
+                                        "x": 0.5,
+                                        "y": 0.5
+                                    },
+                                    "size": {},
+                                    "tab": 0,
+                                    "panels": [
+                                        {
+                                            "type": "wcPanel",
+                                            "icon": "fa-long-arrow-right",
+                                            "panelType": "DefaultTab",
+                                            "size": {
+                                                "x": -1,
+                                                "y": -1
+                                            },
+                                            "customData": {
+                                                "title": "Commands",
+                                                "widgets": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "wcPanel",
+                                            "icon": "fa-bell",
+                                            "panelType": "DefaultTab",
+                                            "size": {
+                                                "x": -1,
+                                                "y": -1
+                                            },
+                                            "customData": {
+                                                "title": "Init",
+                                                "widgets": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "wcPanel",
+                                            "icon": "fa-cogs",
+                                            "panelType": "DefaultTab",
+                                            "size": {
+                                                "x": -1,
+                                                "y": -1
+                                            },
+                                            "customData": {
+                                                "title": "Settings",
+                                                "widgets": {}
+                                            }
+                                        }
+                                    ]
+                                },
+                                "pane1": {
+                                    "type": "wcFrame",
+                                    "floating": false,
+                                    "isFocus": false,
+                                    "tabOrientation": "top",
+                                    "pos": {
+                                        "x": 0.5,
+                                        "y": 0.5
+                                    },
+                                    "size": {},
+                                    "tab": 2,
+                                    "panels": [
+                                        {
+                                            "type": "wcPanel",
+                                            "icon": "fa-calendar",
+                                            "panelType": "DefaultTab",
+                                            "size": {
+                                                "x": -1,
+                                                "y": -1
+                                            },
+                                            "customData": {
+                                                "title": "Log",
+                                                "widgets": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "wcPanel",
+                                            "icon": "fa-terminal",
+                                            "panelType": "DefaultTab",
+                                            "size": {
+                                                "x": -1,
+                                                "y": -1
+                                            },
+                                            "customData": {
+                                                "title": "Console",
+                                                "widgets": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "wcPanel",
+                                            "icon": "fa-long-arrow-left",
+                                            "panelType": "DefaultTab",
+                                            "size": {
+                                                "x": -1,
+                                                "y": -1
+                                            },
+                                            "customData": {
+                                                "title": "Responses",
+                                                "widgets": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "wcPanel",
+                                            "icon": "fa-list-alt",
+                                            "panelType": "DefaultTab",
+                                            "size": {
+                                                "x": -1,
+                                                "y": -1
+                                            },
+                                            "customData": {
+                                                "title": "Variables",
+                                                "widgets": {}
+                                            }
+                                        }
+                                    ]
+                                },
+                                "pos": 0.5
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "id": "theme",
+                "value": "gray"
+            },
+            {
+                "id": "navigationView",
+                "value": {
+                    "devices": true,
+                    "drivers": false,
+                    "files": true,
+                    "documentation": false
+                }
+            }
+        ]
+    }
+}

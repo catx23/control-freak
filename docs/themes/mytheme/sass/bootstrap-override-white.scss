@@ -1,0 +1,77 @@
+@import "../../../admin-theme/html-white/src/sass/variables";
+@import "../../../admin-theme/html-white/src/sass/mixins";
+@import "compass";
+@import "ellipsis";
+@import "compass/css3";
+
+/// Mixin to customize scrollbars
+/// Beware, this does not work in all browsers
+/// @author Hugo Giraudel
+/// @param {Length} $size - Horizontal scrollbar's height and vertical scrollbar's width
+/// @param {Color} $foreground-color - Scrollbar's color
+/// @param {Color} $background-color [mix($primary, white, 75%)] - Scrollbar's color
+/// @example scss - Scrollbar styling
+///   @include scrollbars(.5em, slategray);
+
+$opaque : #4a5150;
+$opaque-light: #e8e8e8;
+$opaque-medium: #cacaca;
+$default-bg: white;
+
+.xTheme-white{
+
+    .Navbar.hidden-print{
+        display: none;
+    }
+    .content {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+  code{
+    color: #03308A;
+  }
+  BODY{
+    background: none;
+    background-image: none;
+    background-color: $opaque-light;
+  }
+  .content-page{
+    background-color: $default-bg;
+  }
+
+  .columns {
+    .left-column {
+      background-color: $default-bg;
+    }
+
+    .right-column {
+      .content-page {
+        background-color: $default-bg;
+      }
+    }
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: $opaque;
+  }
+  .nav.nav-list {
+    li {
+      a {
+        color: $opaque;
+      }
+    }
+  }
+  .content{
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+    border: none;
+  }
+}
+.responsive-collapse {
+  display: block !important;
+}
+.sub-nav-collapse {
+  display: block !important;
+}

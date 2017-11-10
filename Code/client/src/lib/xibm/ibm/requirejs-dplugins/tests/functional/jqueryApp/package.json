@@ -1,0 +1,11 @@
+{
+	"name": "requirejs-dplugins-jquery-plugin-test-app",
+	"version": "0.1.0",
+	"description": "Test application using jquery! plugin",
+	"devDependencies": {
+		"grunt-amd-build": "0.10.0-alpha",
+		"grunt-contrib-clean": "0.6.x",
+		"grunt-contrib-concat": "0.5.x",
+		"grunt-contrib-copy": "0.5.x"
+	}
+}

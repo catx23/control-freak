@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>i18n</title>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../..",
+			config: {
+				"requirejs-dplugins/i18n": {
+					locale: "fr"
+				}
+			}
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"requirejs-dplugins/i18n!requirejs-dplugins/samples/nls/colors",
+			"requirejs-dplugins/i18n!requirejs-dplugins/samples/nls/root/colors"
+		], function (colors, colorsRoot) {
+			var content;
+			for (var color in colorsRoot) {
+				content = "<th>"+ color +"</th>" +
+					"<td>"+ color +"</td>" +
+					"<td>"+ colors[color] +"</td>";
+				var node = document.getElementById(color);
+				node && (node.innerHTML = content);
+			}
+		});
+	</script>
+
+	<style>
+		table {
+			border-collapse: collapse;
+			margin: 2em;
+		}
+		th, td {
+			padding: 0.2em 1em;
+			border: 2px solid;
+		}
+		th {
+			text-align: left;
+		}
+		td {
+			text-align: center;
+		}
+	</style>
+
+</head>
+<body>
+	<table>
+		<tr>
+			<th></th>
+			<th>Colors in root (en) locale</th>
+			<th>Colors in fr locale</th>
+		</tr>
+		<tr id="red">
+		</tr>
+		<tr id="green">
+		</tr>
+		<tr id="blue">
+		</tr>
+	</table>
+</body>
+</html>

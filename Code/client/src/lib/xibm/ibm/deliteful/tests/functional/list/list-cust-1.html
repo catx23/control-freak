@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Lists</title>
+
+	<script type="text/javascript" src="../../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+		  "delite/register",
+			"dstore/Memory",
+			"dstore/Trackable",
+			"deliteful/list/ItemRenderer",
+			"deliteful/list/List",
+			"delite/handlebars!deliteful/tests/functional/list/templates/CustomItemRenderer1.html",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
+		], function (register, Memory, Trackable, ItemRenderer, List, template) {
+			// Custom item renderer with custom keyboard navigation order
+			var MyCustomRenderer = register("d-customnav-item", [HTMLElement, ItemRenderer], {
+				template: template
+			});
+			var list = new List();
+			list.id = "list-cust-1";
+			list.itemRenderer = MyCustomRenderer;
+			list.source = new (Memory.createSubclass([Trackable], {}))();
+			list.style.height = "200px";
+			document.getElementById("listPlaceholder").appendChild(list);
+			list.attachedCallback();
+  			for (var i = 0; i < 40; i++) {
+				list.source.addSync({});
+			}
+			ready = true;
+		});
+	</script>
+	<style>
+		html {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.d-list-item [role="gridcell"] {
+			height: inherit;
+		}
+	</style>
+</head>
+<body>
+ 	<input type="text" autofocus>
+ 	<br>
+ 	<h2>Default source, custom renderer with custom navigation order (id: list-cust-1)</h2>
+ 	<div id="listPlaceholder"></div>
+</body>
+</html>

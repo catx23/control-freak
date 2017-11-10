@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+ <html>
+  <head>
+    <meta charset="utf-8"/>
+
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  </head>
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="claro superhero" data-maq-ws="collapse" style="position:absolute" id="myapp" data-maq-appstates="{}">
+</body></html>

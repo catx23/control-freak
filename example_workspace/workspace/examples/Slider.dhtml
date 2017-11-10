@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+</head>
+
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="superhero" data-maq-ws="collapse" style="position: absolute; background-size: 100%; width: 100%; height: 100%;" id="myapp" data-maq-appstates="{}">
+ <d-slider value="42" slideRange="true" style="position: absolute; left: 30.px; top: 20px;" vertical="false" max="255" id="d-slider_0"></d-slider>
+ <div id="test" style="position: absolute; left: 8px; top: 69px; color: green; width: 183px; height: 59px;">
+   Change background via slider</div>
+ </body>
+</html>

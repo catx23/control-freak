@@ -1,0 +1,98 @@
+[
+    {
+        "userLibs": [
+            {
+                "id": "dojo",
+                "version": "1.8",
+                "metaRoot": "app/metadata/dojo/1.8",
+                "required": false,
+                "hasSource": true,
+                "root": ""
+            },
+            {
+                "id": "DojoThemes",
+                "version": "1.8",
+                "metaRoot": "",
+                "required": false,
+                "hasSource": false,
+                "root": "themes"
+            },
+            {
+                "id": "gridx",
+                "version": "1.0.0",
+                "metaRoot": "app/metadata/gridx/1.0.0",
+                "required": false,
+                "hasSource": true,
+                "root": "lib/dojo/gridx"
+            },
+            {
+                "id": "html",
+                "version": "0.8",
+                "metaRoot": "app/metadata/html/0.8",
+                "required": true,
+                "hasSource": false
+            },
+            {
+                "id": "requirejs",
+                "version": "0.8",
+                "metaRoot": "app/metadata/requirejs/",
+                "required": true,
+                "hasSource": false
+            },
+            {
+                "id": "delite",
+                "version": "0.8",
+                "metaRoot": "app/metadata/delite/0.8",
+                "required": false,
+                "hasSource": true
+            },
+            {
+                "id": "deliteful",
+                "version": "0.8",
+                "metaRoot": "app/metadata/deliteful/0.8",
+                "required": false,
+                "hasSource": true
+            },
+            {
+                "id": "clipart",
+                "version": "1.0",
+                "metaRoot": "app/metadata/clipart/1.0",
+                "required": false,
+                "hasSource": false,
+                "root": "lib/clipart"
+            },
+            {
+                "id": "xblox",
+                "version": "1.0",
+                "metaRoot": "app/metadata/xblox/1.0",
+                "required": false,
+                "hasSource": false,
+                "root": "lib/xblox"
+            },
+            {
+                "id": "maqettaSamples",
+                "version": "1.0",
+                "metaRoot": "app/metadata/maqetta/core/0.3",
+                "required": false,
+                "hasSource": false,
+                "root": "samples"
+            },
+            {
+                "id": "maqetta",
+                "version": "0.3",
+                "metaRoot": "app/metadata/maqetta/core/0.3",
+                "required": false,
+                "hasSource": false,
+                "root": "lib/maqetta"
+            },
+            {
+                "id": "shapes",
+                "version": "1.0",
+                "metaRoot": "app/metadata/shapes/1.0",
+                "required": false,
+                "hasSource": false,
+                "root": "lib/shapes"
+            }
+        ]
+    }
+]

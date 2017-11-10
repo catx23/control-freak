@@ -1,0 +1,366 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<title>delite/activationTracker automated test</title>
+
+	<script type="text/javascript" src="boilerplate.js"></script>
+
+	<style>
+		form {
+			margin: 5px;
+			border: dotted gray 3px;
+			padding: 5px;
+		}
+
+		fieldset {
+			margin: 2px;
+			border: solid gray 2px;
+			padding: 2px;
+			background: #eee;
+		}
+
+		fake-combobox, fake-spinner {
+			display: inline-block;
+		}
+
+		textarea, fake-editor {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		iframe {
+			height: 50px;
+		}
+
+		fake-popup {
+			display: block;
+			background: gray;
+			border: solid black 1px;
+			min-height: 100px;
+			min-width: 200px;
+		}
+	</style>
+	<script type="text/javascript">
+		ready = false;
+
+		require([
+			"dcl/dcl",
+			"delite/activationTracker",
+			"delite/popup",
+			"delite/register",
+			"delite/Widget",
+			"requirejs-domready/domReady!"
+		], function (dcl, activationTracker, popupUtil, register, Widget) {
+
+			//////////////////////////////////////////////////////
+			// Test widgets
+
+			register("fake-editor", [HTMLElement, Widget], {
+				render: function () {
+					this.innerHTML='<div contenteditable=true tabindex=0>hello world' +
+							'<br>hello world<br>hello world</div>';
+				},
+
+				focus: function () {
+					this.firstChild.focus();
+				}
+			});
+
+			register("fake-form", [HTMLFormElement, Widget], {});
+
+			register("fake-fieldset", [HTMLFieldSetElement, Widget], {});
+
+			register("fake-combobox", [HTMLElement, Widget], {
+				render: function () {
+					this.innerHTML = "<input><span class='button'>&darr;</span>";
+					this.focusNode = this.firstElementChild;	// the <input>
+				}
+			});
+
+			register("fake-spinner", [HTMLElement, Widget], {
+				render: function () {
+					this.innerHTML = "<input><span class='button'>&uarr;</span><span class='button'>&darr;</span>";
+					this.focusNode = this.firstElementChild;	// the <input>
+				}
+			});
+
+			/**
+			 * A trivial popup widget.
+			 */
+			var PopupWidget = register("fake-popup", [HTMLElement, Widget], {});
+
+			/**
+			 * A button that shows a popup.
+			 */
+			register("fake-dropdown-button", [HTMLButtonElement, Widget], {
+				postRender: function () {
+					this.on("click", this._clickHandler.bind(this));
+					this.on("delite-deactivated", this._deactivatedHandler.bind(this));
+					this.popup = new PopupWidget({
+						id: "popup",
+						textContent: "I'm a popup."
+					});
+				},
+
+				_clickHandler: function () {
+					this._openPopup();
+				},
+
+				_openPopup: function () {
+					var self = this;
+
+					popupUtil.open({
+						popup: this.popup,
+						parent: this,
+						around: this,
+						orient: ["above"],
+						onCancel: function () {
+							console.log(self.id + ": cancel of child");
+						},
+						onExecute: function () {
+							console.log(self.id + ": execute of child");
+
+							// allow click w/out closing popup
+							// popupUtil.close(self.popup);
+							// self.open = false;
+						}
+					});
+
+					this.open = true;
+				},
+
+				closePopup: function () {
+					if (this.open) {
+						popupUtil.close(this.popup);
+						this.open = false;
+					}
+				},
+
+				_deactivatedHandler: function () {
+					console.log(this.id + ": close popup due to blur");
+					this.closePopup();
+				}
+			});
+
+			/**
+			 * A button that shows a popup on hover.
+			 */
+			register("fake-hover-dropdown-button", [HTMLElement, Widget], {
+				createdCallback: function () {
+					this.log = [];
+				},
+
+				addToLog: function (text) {
+					 console.log(text);
+					 this.log.push(text);
+				},
+
+				render: function () {
+					this.style.cssText = "border: dotted gray 2px; padding: 2px;";
+					this.innerHTML = "<span style='border: solid red 1px;'>open on</span> " +
+						"<span style='border: solid blue 1px;'>hover</span>";
+
+					this.popup = new PopupWidget({
+						id: "hoverPopup",
+						textContent: "Hover popup"
+					});
+				},
+
+				postRender: function () {
+					this.on("delite-hover-activated", function () {
+						this.addToLog("this delite-hover-activated");
+						this._openPopup();
+					}.bind(this));
+					this.on("delite-hover-deactivated", function () {
+						this.addToLog("this delite-hover-deactivated");
+						this.closePopup();
+					}.bind(this));
+
+					Array.prototype.forEach.call(this.children, function (child, i) {
+						this.on("delite-hover-activated", function () {
+							this.addToLog("child " + (i+1) + " delite-hover-activated");
+						}.bind(this), child);
+						this.on("delite-hover-deactivated", function () {
+							this.addToLog("child " + (i+1) + " delite-hover-deactivated");
+						}.bind(this), child);
+
+					}.bind(this));
+
+					this.popup.on("delite-hover-activated", function () {
+						this.addToLog("popup delite-hover-activated");
+					}.bind(this));
+					this.popup.on("delite-hover-deactivated", function () {
+						this.addToLog("popup delite-hover-deactivated");
+					}.bind(this));
+				},
+
+				_clickHandler: function () {
+					this._openPopup();
+				},
+
+				_openPopup: function () {
+					var self = this;
+
+					popupUtil.open({
+						popup: this.popup,
+						parent: this,
+						around: this,
+						orient: ["above"],
+						onCancel: function () {
+							console.log(self.id + ": cancel of child");
+						},
+						onExecute: function () {
+							console.log(self.id + ": execute of child");
+
+							// allow click w/out closing popup
+							// popupUtil.close(self.popup);
+							// self.open = false;
+						}
+					});
+
+					this.open = true;
+				},
+
+				closePopup: function () {
+					if (this.open) {
+						popupUtil.close(this.popup);
+						this.open = false;
+					}
+				}
+			});
+
+			// End test widgets
+			//////////////////////////////////////////////////////
+
+
+			activationTracker.on("active-stack", function (fs) {
+				var as = fs.map(function(elem){ return elem.id || elem.tagName.toLowerCase(); }).join(", ");
+				console.log("New active stack: " + as);
+				activeStack.value = as;
+				activeStackChangeNotifications.value = +activeStackChangeNotifications.value + 1;
+			});
+
+			activationTracker.on("hover-stack", function (fs) {
+				var hs = fs.map(function(elem){ return elem.id || elem.tagName.toLowerCase(); }).join(", ");
+				console.log("New hover stack: " + hs);
+				hoverStack.value = hs;
+				hoverStackChangeNotifications.value = +hoverStackChangeNotifications.value + 1;
+			});
+
+			register.deliver();
+
+			["form", "fieldset1", "fieldset2", "combobox", "editor", "spinner"].forEach(function (id) {
+				var w = document.getElementById(id);
+
+				w.on("delite-activated", function () {
+					log.value += id + " activated\n";
+				});
+				w.on("delite-deactivated", function () {
+					log.value += id + " deactivated\n";
+				});
+			});
+
+			// Setup tests for what happens when active or hovered element is removed from document.
+			var grandparent = document.getElementById("grandparent"),
+				parent = document.getElementById("parent"),
+				removeMe = document.getElementById("removeMe"),
+				removeMyParent = document.getElementById("removeMyParent");
+			removeMe.addEventListener("click", function () {
+				parent.removeChild(removeMe);
+			});
+			removeMyParent.addEventListener("click", function () {
+				grandparent.removeChild(parent);
+			});
+
+			ready = true;
+		});
+
+		function clearLog() {
+			setTimeout(function () {
+				activeStack.value = "";
+				activeStackChangeNotifications.value = 0;
+				hoverStack.value = "";
+				hoverStackChangeNotifications.value = 0;
+				log.value = "";
+			}, 50);
+		}
+	</script>
+</head>
+<body>
+	<h3>delite/activationTracker Automated Test</h3>
+
+	Debug output:
+	<div id="logDiv"></div>
+	<label for="activeStack">Active stack:</label>
+	<input id="activeStack" style="width: 100%;" disabled autocomplete="off">
+
+	<label for="activeStackChangeNotifications">Active stack notifications:</label>
+	<input id="activeStackChangeNotifications" disabled value="0">
+
+	<br>
+	
+	<label for="hoverStack">Hover stack:</label>
+	<input id="hoverStack" style="width: 100%;" disabled autocomplete="off">
+
+	<label for="hoverStackChangeNotifications">Hover stack notifications:</label>
+	<input id="hoverStackChangeNotifications" disabled value="0">
+
+	<br><br>
+
+	<label>Form widget:</label><br>
+	<form id="form" is="fake-form">
+		<label for="first">First input: </label><input id="first"><br>
+		<label for="second">Second input: </label><input id="second"><br>
+
+		<fieldset id=fieldset1 is="fake-fieldset">
+			<legend>Fieldset widget</legend>
+			<span id="combobox-label">ComboBox widget:</span>
+			<fake-combobox id=combobox aria-labelledby="combobox-label">
+				<option>this</option>
+				<option>is</option>
+				<option>a</option>
+				<option>list</option>
+			</fake-combobox>
+			<label for="plain">Plain input:</label>
+			<input id=plain value=plain>
+		</fieldset>
+
+		<label>Editor widget:</label>
+		<fake-editor id=editor></fake-editor>
+		<br>
+
+		<fieldset id=fieldset2 is="fake-fieldset">
+			<legend>Another fieldset widget</legend>
+			<label for="textarea">Plain textarea:</label>
+			<textarea id=textarea>hello there!</textarea><br>
+			<span id="spinner-label">Spinner widget:</span>
+			<fake-spinner id=spinner></fake-spinner>
+		</fieldset>
+
+		<button id="dropdownButton" type="button" is="fake-dropdown-button">show dropdown</button>
+		<button tabIndex="-1" id="minusOne" type="button">non tab-navigable button</button>
+		<button id="disabledButton" type="button" disabled>disabled button</button>
+
+		<fake-hover-dropdown-button id="hoverDropdownButton"></fake-hover-dropdown-button>
+	</form>
+
+	<!--
+		Test code for detaching active/hovered nodes from document.
+		Fancy CSS is to control what node ends up getting hovered after other node is removed...
+		in other words, when nodes are detached, nothing on the screen should move.
+	-->
+	<div id="grandparent" style="border: solid red 2px; padding: 10px; height: 40px;">
+		<div id="parent" style="border: solid blue 2px; height: 30px; position: relative;">
+			<button id="removeMe">remove me</button>
+			<button id="removeMyParent" style="position: absolute; left: 100px;">remove my parent</button>
+		</div>
+	</div>
+
+	<label for="log">Log:</label> <textarea id="log" disabled></textarea>
+	<button id="clearButton" type="button" onclick="clearLog();">clear log</button>
+</body>
+</html>

@@ -1,0 +1,95 @@
+.d-date-picker {
+  min-height: 300px;
+  min-width: 300px;
+  border: solid black 1px;
+  background: white;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.d-date-picker.d-view-stack {
+  display: inline-block;
+  height: auto;
+}
+.d-date-picker > * {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  background: white;
+}
+.d-date-picker .d-date-picker-header,
+.d-date-picker .d-date-picker-footer {
+  display: flex;
+  justify-content: space-between;
+  color: blue;
+}
+.d-date-picker .d-date-picker-header > *,
+.d-date-picker .d-date-picker-footer > * {
+  padding: 5px;
+}
+.d-date-picker .d-date-picker-header .d-label,
+.d-date-picker .d-date-picker-footer .d-label {
+  text-align: center;
+  flex: 5;
+}
+.d-date-picker .d-date-picker-button {
+  cursor: pointer;
+  width: 35px;
+  text-align: center;
+}
+.d-date-picker .d-date-picker-button:hover {
+  background: lightgray;
+}
+.d-date-picker .d-caret-previous::before {
+  content: "<";
+}
+.d-rtl.d-date-picker .d-caret-previous::before {
+  content: ">";
+}
+.d-date-picker .d-caret-next::before {
+  content: ">";
+}
+.d-rtl.d-date-picker .d-caret-next::before {
+  content: "<";
+}
+.d-date-picker [role=grid] {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.d-date-picker [role=row] {
+  display: flex;
+  flex: 1;
+}
+.d-date-picker [role=row] > * {
+  flex: 1;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.d-date-picker .d-date-picker-date,
+.d-date-picker .d-month-picker [role=gridcell],
+.d-date-picker .d-year-picker [role=gridcell] {
+  cursor: pointer;
+}
+.d-date-picker .d-date-picker-date:hover,
+.d-date-picker .d-month-picker [role=gridcell]:hover,
+.d-date-picker .d-year-picker [role=gridcell]:hover {
+  background: lightgray;
+}
+.d-date-picker .d-date-picker-date.d-date-picker-selected,
+.d-date-picker .d-month-picker [role=gridcell].d-date-picker-selected,
+.d-date-picker .d-year-picker [role=gridcell].d-date-picker-selected {
+  color: white;
+  background: blue;
+}
+.d-date-picker .d-date-picker-other-month {
+  color: purple;
+}
+.d-date-picker .d-date-picker-today {
+  color: blue;
+}

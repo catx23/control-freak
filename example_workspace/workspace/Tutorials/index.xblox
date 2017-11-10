@@ -1,0 +1,40 @@
+{
+  "blocks": [
+    {
+      "_containsChildrenIds": [],
+      "group": "btnMediaPlayer__load",
+      "id": "27abd4e5-bfd4-0ec2-402e-cc2b45a3d1a0",
+      "description": "Runs an expression.<br/>\n\n<b>Behaviour</b>\n\n<pre>\n\n    //to abort execution (child blocks), return something negative as -1 or false.\n    return false;\n\n</pre>",
+      "method": "$('#btnDVD, #btnTV, #btnRadio, #btnMediaPlayer').on('click',function(evt){\n\t\n\t\t$('#btnDVD, #btnTV, #btnRadio, #btnMediaPlayer').css('background-color','gray');\n\t\t\n\t\tvar buttonClicked = $(evt.target);\n\t\tbuttonClicked.css('background-color','red');\n\t\t\n});\n",
+      "name": "Run Script",
+      "args": "",
+      "deferred": false,
+      "declaredClass": "xblox.model.code.RunScript",
+      "enabled": true,
+      "serializeMe": true,
+      "shareTitle": "",
+      "canDelete": true,
+      "renderBlockIcon": true,
+      "order": 0
+    },
+    {
+      "_containsChildrenIds": [],
+      "group": "btnMediaPlayer__click",
+      "id": "9bcdc95b-5783-758f-c4ca-122e583ea67c",
+      "value": "border:1px solid black;",
+      "reference": "{\"reference\":\".d-button\",\"mode\":\"byid\"}",
+      "name": "Set Style",
+      "description": "Sets HTML Node Style Attribute",
+      "mode": 1,
+      "declaredClass": "xblox.model.html.SetStyle",
+      "_didRegisterSubscribers": false,
+      "enabled": true,
+      "serializeMe": true,
+      "shareTitle": "",
+      "canDelete": true,
+      "renderBlockIcon": true,
+      "order": 0
+    }
+  ],
+  "variables": []
+}

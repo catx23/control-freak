@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Maybe</title>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../..",
+			packages: [{
+				name: "modules",
+				location: "requirejs-dplugins/samples/modules"
+			}]
+		});
+	</script>
+
+	<script type="text/javascript">
+		var dep = Math.random() < 0.5 ? "maybe" : "missingModule";
+		require([
+			"requirejs-dplugins/maybe!modules/"+dep
+		], function (dep) {
+			if (dep === undefined) {
+				dep = {
+					msg: "No module found."
+				}
+			}
+			document.getElementById("box").innerHTML = dep.msg;
+		});
+	</script>
+
+	<style>
+		#box {
+			font-size: 110%;
+			border: 2px solid black;
+			margin: auto;
+			margin-top: 12em;
+			padding: 3em;
+			width: 50em;
+			text-align: center;
+		}
+	</style>
+
+</head>
+<body>
+<div id="box"></div>
+</body>
+</html>

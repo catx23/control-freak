@@ -1,0 +1,22 @@
+{
+    "name": "requirejs",
+    "version": "0.8",
+    "directories": {
+        "lib": "../ibm-js/requirejs"
+    },
+    "dependencies": {
+        "dojo": "1.7"
+    },
+    "overlays": {
+        "oam": {
+            "directories": {
+                "metadata": "."
+            }
+        },
+        "maqetta": {
+            "scripts": {
+                "widget_metadata": "./widgets.json"
+            }
+        }
+    }
+}

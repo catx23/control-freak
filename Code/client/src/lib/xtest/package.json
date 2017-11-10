@@ -1,0 +1,26 @@
+{
+  "author": "Günter Baumgart",
+  "name": "xcf",
+  "version": "0.1.5",
+  "dependencies": {
+    "jsdoc-amddcl": "git://github.com/xblox/jsdoc-amddcl.git#master"
+  },
+  "devDependencies": {},
+  "contributors": [
+    {
+      "name": "Günter Baumgart",
+      "email": "baumgart.guenter@gmail.com",
+      "url": "http://net-commander.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xblox/xcf.git"
+  },
+  "licenses": [
+    {
+      "type": "BSD",
+      "url": "https://github.com/ibm-js/delite/blob/master/LICENSE"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+</head>
+
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="claro superhero" data-maq-ws="collapse" style="position:absolute" data-maq-appstates="{}" id="myapp">
+ <button is="d-button" title="Default Label" label="DVD" style="position: absolute; left: 32px; top: 24px;" id="btnDVD"></button>
+ <button is="d-button" title="Default Label" label="Blue Ray" style="position: absolute; left: 111px; top: 24px;" id="btnBlueRay"></button>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/list/List samples.</title>
+
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../../../"
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"dstore/Memory",
+			"dstore/Trackable",
+			"deliteful/list/CategoryRenderer",
+			"deliteful/list/List",
+			"delite/handlebars!deliteful/samples/list/templates/CustomCategoryRenderer.html",
+			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
+			"requirejs-domready/domReady!"
+		], function (register, Memory, Trackable, CategoryRenderer, List, template) {
+			var Store = Memory.createSubclass([Trackable], {});
+			var MyCustomRenderer = register("d-cust-category", [HTMLElement, CategoryRenderer], {
+				template: template
+			});
+			var list = new List();
+			list.source = new Store();
+			list.setAttribute("aria-label", "Sample list with custom category renderer");
+			list.categoryAttr = "cat";
+			list.categoryRenderer = MyCustomRenderer;
+			list.source.add({label: "Apple", cat: "Fruit"});
+			list.source.add({label: "Apricot", cat: "Fruit"});
+			list.source.add({label: "Banana", cat: "Fruit"});
+			list.source.add({label: "Orange", cat: "Fruit"});
+			list.source.add({label: "Pear", cat: "Fruit"});
+			list.source.add({label: "Strawberry", cat: "Fruit"});
+			list.source.add({label: "Brussel sprout", cat: "Vegetable"});
+			list.source.add({label: "Cabbage", cat: "Vegetable"});
+			list.source.add({label: "Kale", cat: "Vegetable"});
+			list.source.add({label: "Lettuce", cat: "Vegetable"});
+			list.placeAt(document.body);
+
+			document.body.style.display = "";
+		});
+	</script>
+	
+	<style>
+		.d-list-category .d-list-cell {
+			background-image: none;
+			background-color: green;
+			color: white;
+			height: 45px;
+		}
+		.categoryLink {
+			color: white;
+			font-size: small;
+		}
+	</style>
+</head>
+<body style="display: none" role="application">
+	This sample demonstrate how to write a custom category renderer.
+</body>
+</html>

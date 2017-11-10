@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+	<title>ProgressBar sample - percentage</title>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../.."
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/ProgressBar",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
+		], function (register) {
+			var label = document.getElementById("lb");
+			var progressBar = document.getElementById("pb1");
+			var loadBtn = document.getElementById("loadBtn");
+			loadBtn.disabled = false;
+			//fake function which simulates a long task and updates the progress bar
+			//accordingly to the progression.
+			var fakeLoadFunction = function () {
+				loadBtn.disabled = true;
+				progressBar.message = "Starting...";
+				progressBar.value = 0;
+				//set random max
+				progressBar.max = Math.round(Math.random() * 50 + 100);
+				var timerId = setInterval(function () {
+					progressBar.message = "";
+					progressBar.value += Math.random() * progressBar.max / 10;
+					if (progressBar.value >= progressBar.max) {
+						window.clearInterval(timerId);
+						loadBtn.disabled = false;
+					}
+				}, 500);
+			};
+			loadBtn.addEventListener("click", fakeLoadFunction);
+
+			//progressbar handler
+			var updateLabel = function () {
+				if (isNaN(progressBar.value)) {
+					label.innerHTML =
+						"Value: indeterminate";
+				} else {
+					label.innerHTML =
+						"Value: " + progressBar.value.toFixed(2) + "<br>" +
+						"Percent: " + (progressBar.value/progressBar.max*100).toFixed(0) + "% <br>" +
+						"Max: " + progressBar.max;
+				}
+			};
+
+			label.innerHTML = "Value: indeterminate";
+			register.deliver();
+			progressBar.observe(updateLabel); // update label everytime widget changes
+
+			document.body.style.display = "";
+		});
+	</script>
+	<style>
+		.d-progress-bar {
+			width: 300px;
+		}
+	</style>
+</head>
+<body style="display: none">
+<p><strong>ProgressIndicator sample - percentage</strong></p>
+
+<p>This sample shows how to use the progress bar.</p>
+
+<input id="loadBtn" type="button" value="load"/>
+<hr>
+<d-progress-bar id="pb1"></d-progress-bar>
+<br>
+<label id="lb"></label>
+<hr>
+
+</body>
+</html>

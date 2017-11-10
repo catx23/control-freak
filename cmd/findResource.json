@@ -1,0 +1,19 @@
+[
+    {
+        "file": "./project1",
+        "parents": [
+            {
+                "name": "",
+                "members": [
+                    {
+                        "isDir": true,
+                        "name": "project1",
+                        "readOnly": false,
+                        "isDirty": false
+                    }
+                ]
+            }
+        ]
+    }
+]
+/*http://localhost:8081/maqetta/cmd/findResource?path=*_widgets.json&ignoreCase=true&inFolder=.%2Fproject1%2Flib%2Fcustom*/

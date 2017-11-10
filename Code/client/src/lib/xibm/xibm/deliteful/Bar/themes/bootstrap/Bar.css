@@ -1,0 +1,52 @@
+.d-bar {
+	display:table;
+}
+
+.d-bar.d-bar-h > div {
+	display: table-cell;
+}
+
+.d-bar.d-bar-v > div {
+	display: table-row;
+}
+
+.d-bar.d-bar-h.d-bar-justified > div {
+	width: 1%;
+}
+
+.d-bar.d-bar-h.d-bar-justified > div > button {
+	width: 100%;
+}
+
+.d-bar.d-bar-h > div:not(:first-child):not(:last-child) > button {
+	border-radius: 0px;
+}
+
+.d-bar.d-bar-h > div:first-child:not(:last-child) > button {
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.d-bar.d-bar-h > div:last-child:not(:first-child) > button {
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+}
+
+.d-bar.d-bar-v.d-bar-justified > div > button {
+	width: 100%;
+}
+
+.d-bar.d-bar-v > div:not(:first-child):not(:last-child) > button {
+	border-radius: 0px;
+}
+
+.d-bar.d-bar-v > div:first-child:not(:last-child) > button {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.d-bar.d-bar-v > div:last-child:not(:first-child) > button {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+

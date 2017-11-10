@@ -1,0 +1,365 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>KeyNav Tests</title>
+	<script type="text/javascript" src="boilerplate.js"></script>
+	<script language="JavaScript" type="text/javascript">
+		var ready = false; // set to true when the test page is ready
+		require([
+			"delite/a11yclick",
+			"delite/handlebars",
+			"delite/register",
+			"delite/Widget",
+			"delite/Container",
+			"delite/KeyNav",
+			"delite/activationTracker",
+			"requirejs-domready/domReady!"
+		], function (a11yclick, handlebars, register, Widget, Container, KeyNav) {
+			// Complex KeyNav subclass with string descendantSelector
+			register("my-grid", [HTMLElement, KeyNav], {
+				// Specifies which descendants can be navigated to
+				descendantSelector: "my-cell",
+
+				// Reduce from default of 1000 to speed up testing
+				multiCharSearchDuration: 100,
+
+				// Simple arrow key support.
+				previousKeyHandler: function () {
+					var listItem = this.navigatedDescendant.parentNode;
+					this.navigateTo(this.navigatedDescendant.previousElementSibling || listItem.lastElementChild);
+				},
+				nextKeyHandler: function () {
+					var listItem = this.navigatedDescendant.parentNode;
+					this.navigateTo(this.navigatedDescendant.nextElementSibling || listItem.firstElementChild);
+				},
+				downKeyHandler: function () {
+					// For simplicity I'll just go to the first field in the next row
+					var listItem = this.navigatedDescendant.parentNode;
+					this.navigateTo((listItem.nextElementSibling || this.firstElementChild).firstElementChild);
+				},
+				upKeyHandler: function () {
+					// For simplicity I'll just go to the first field in the previous row
+					var listItem = this.navigatedDescendant.parentNode;
+					this.navigateTo((listItem.previousElementSibling || this.lastElementChild).firstElementChild);
+				}
+			});
+
+			// Child of my-grid
+			register("my-row", [HTMLElement, Widget], { });
+
+			// Simple KeyNav widget that extends Container. descendantSelector is function.
+			var TestContainer = register("my-list", [HTMLElement, Container, KeyNav], {
+				// Id of node to update when there's an click event
+				clickCountNodeId: "",
+
+				descendantSelector: function (child) {
+					return child !== this;
+				},
+				downKeyHandler: function () {
+					var nextChild = this.getNext(this.navigatedDescendant, 1);
+					if (nextChild) {
+						this.navigateTo(nextChild);
+					}
+				},
+				upKeyHandler: function () {
+					var previousChild = this.getNext(this.navigatedDescendant, -1);
+					if (previousChild) {
+						this.navigateTo(previousChild);
+					}
+				},
+				postRender: function () {
+					// If the caller has specified a counter node, increment it whenever there's an click event
+					this.on("click", function () {
+						if (this.clickCountNodeId) {
+							window[this.clickCountNodeId].innerHTML = window[this.clickCountNodeId].innerHTML - -1;
+						}
+					}.bind(this));
+				}
+			});
+
+			// Register handler for the space key
+			register("my-list-cust", [HTMLElement, Container, KeyNav], {
+				// Id of node to update when there's an space event
+				spaceCountNodeId: "",
+
+				descendantSelector: function (child) {
+					return child !== this;
+				},
+				downKeyHandler: function () {
+					var nextChild = this.getNext(this.navigatedDescendant, 1);
+					if (nextChild) {
+						this.navigateTo(nextChild);
+					}
+				},
+				upKeyHandler: function () {
+					var previousChild = this.getNext(this.navigatedDescendant, -1);
+					if (previousChild) {
+						this.navigateTo(previousChild);
+					}
+				},
+				spacebarKeyHandler: function () {
+					if (this.spaceCountNodeId) {
+						window[this.spaceCountNodeId].innerHTML = window[this.spaceCountNodeId].innerHTML - -1;
+					}
+				}
+			});
+
+			// Child of TestContainer
+			register("my-list-item", [HTMLElement, Widget], {
+				createdCallback: function () {
+					// With help of delite/a11yclick, convert SPACE/ENTER key to click event.
+					a11yclick(this);
+					this.tabIndex = "-1";
+
+					// Keep log of the delite-activated and delite-deactivated events I receive.
+					this.activateLog = [];
+					this.on("delite-activated", function () {
+						this.activateLog.push("activated");
+					}.bind(this));
+					this.on("delite-deactivated", function () {
+						this.activateLog.push("deactivated");
+					}.bind(this));
+				}
+			});
+
+			register("my-container-node", [HTMLElement, Container, KeyNav], {
+				template: handlebars.compile(
+					"<template>" +
+					"<div role='button' tabindex='0'>before button</div>" +
+					"<div class='knrn' tabindex='0' attach-point='containerNode'></div>" +
+					"<div role='button' tabindex='0'>after button</div>" +
+					"</template>"
+				),
+
+				descendantSelector: function (child) {
+					return child.parentNode === this.containerNode;
+				},
+
+				downKeyHandler: function () {
+					var nextChild = this.getNext(this.navigatedDescendant, 1);
+					if (nextChild) {
+						this.navigateTo(nextChild);
+					}
+				},
+
+				upKeyHandler: function () {
+					var previousChild = this.getNext(this.navigatedDescendant, -1);
+					if (previousChild) {
+						this.navigateTo(previousChild);
+					}
+				}
+			});
+
+			// Test declarative creation
+			register.deliver();
+
+			// And also test programmatic creation
+			var p1 = new TestContainer({
+				"aria-labelledby": "testContainer3Label"
+			}).placeAt("testContainer3Label", "after");
+			["one", "two", "three"].forEach(function (label) {
+				var div = document.createElement("div");
+				div.textContent = label;
+				p1.appendChild(div);
+			});
+
+			var p2 = new TestContainer({
+				id: "testContainer4",
+				"aria-labelledby": "testContainer4Label",
+				tabIndex: "5"
+			}).placeAt("thirdInput", "after");
+			["seven", "eight", "nine"].forEach(function (label) {
+				var div = document.createElement("div");
+				div.textContent = label;
+				p2.appendChild(div);
+			});
+
+			// Setup so keystrokes on the ComboBox get forwarded to the dropdown.
+			combobox.onfocus = function () {
+				combobox_dropdown.navigateToFirst();
+			};
+			combobox.onkeydown = function (evt) {
+				combobox_dropdown.emit("keydown", evt);
+			};
+			combobox_dropdown.on("keynav-child-navigated", function (evt) {
+				combobox_dropdown_previous_node.textContent = (evt.oldValue ? evt.oldValue.textContent : "undefined");
+				combobox_dropdown_current_node.textContent = (evt.newValue ? evt.newValue.textContent : "undefined");
+			});
+
+            // Setup listeners so every time the <button> or <a> is clicked its label changes.
+            var numButtonClicks = 0;
+            myButton.onclick = function (evt) {
+                numButtonClicks++;
+                myButton.innerHTML =  numButtonClicks + " " + (numButtonClicks === 1 ? "click" : "clicks");
+            };
+
+            var numAnchorClicks = 0;
+            myAnchor.onclick = function (evt) {
+                numAnchorClicks++;
+                myAnchor.innerHTML =  numAnchorClicks + " " + (numAnchorClicks === 1 ? "click" : "clicks");
+                evt.preventDefault();
+            };
+
+			// Set global variable to signal that the test page is ready
+			ready = true;
+		})
+	</script>
+	<style>
+		/* Grid widget KeyNav subclass */
+		my-grid {
+			display: table;
+			border-collapse: collapse;
+		}
+
+		my-row {
+			display: table-row;
+		}
+
+		my-cell {
+			display: table-cell;
+			border: solid #ccc;
+			padding: 2px;
+		}
+
+		/* Container KeyNav subclass */
+		my-list, my-list-cust, my-container-node {
+			display: table;
+			border: gray dotted medium;
+		}
+
+		my-list > *, my-list-cust > *, my-container-node > [role=button], my-container-node > .knrn > * {
+			margin: 3px;
+			border: solid #ccc;
+			display: block;
+		}
+
+		/* focused cells in each of my KeyNav subclasses */
+		my-cell:focus, my-list > *:focus, my-list-cust > *:focus {
+			background-color: yellow;
+		}
+
+		/* Styles for ComboBox dropdown where it doesn't get focus but we need to show which list item is
+		 * currently navigated to
+		 */
+		.d-active-descendant {
+			color: white;
+			background-color: blue;
+		}
+	</style>
+</head>
+<body>
+	<h1>KeyNav functional test</h1>
+
+	<h3 id="testGridLabel">Declarative KeyNav with no tabindex setting:</h3>
+	<input id="focus" type="text" value="input before grid">
+	<my-grid id="grid" aria-labelledby="testGridLabel">
+		<my-row>
+			<my-cell tabindex="-1" id="apple">apple</my-cell>
+			<my-cell tabindex="-1" id="banana">banana</my-cell>
+			<my-cell tabindex="-1" id="orange">orange</my-cell>
+		</my-row>
+		<my-row>
+			<my-cell tabindex="-1" id="pear">pear</my-cell>
+			<my-cell tabindex="-1" id="grapes">grapes</my-cell>
+			<my-cell tabindex="-1" id="strawberry">strawberry</my-cell>
+		</my-row>
+		<my-row>
+			<my-cell tabindex="-1" id="blueberry">blueberry</my-cell>
+			<my-cell tabindex="-1" id="rasberry">raspberry</my-cell>
+		</my-row>
+	</my-grid>
+	<h3 id="testContainer3Label">Programmatic KeyNav with no tabindex setting:</h3>
+
+	<h3 id="testContainer2Label">Declarative KeyNav with tabindex=3 setting:</h3>
+	<input id="secondInput" type="text" tabindex=2 value="tabindex=2"><br>
+	<my-list id="testContainer2" tabindex=3 aria-labelledby="testContainer2Label">
+		<!-- add some <input> controls to make sure KeyNav doesn't interfere with them -->
+		<div>four</div>
+		<input id="input">
+
+		<div>five</div>
+		<input id="checkbox" type="checkbox">
+
+		<div>six</div>
+	</my-list>
+
+	<h3 id="testContainer4Label">Programmatic KeyNav with tabindex=5 setting:</h3>
+	<input id="thirdInput" type="text" tabindex=4 value="tabindex=4">
+	<input type="text" tabindex=6 value="tabindex=6">
+
+	<h3>Empty KeyNav container tabindex=7</h3>
+	<p>Note: currently gets exceptions if you tab to it, not sure we want to support this anyway.</p>
+	<my-list id="emptyContainer" style="height: 40px; width: 40px;" tabindex="7">
+	</my-list>
+
+	<h3>Test for keyboard search with spaces</h3>
+	<input id="keyboardInput" type="text" tabindex="9" value="input before keyboard">
+	<my-list id="keyboard" clickCountNodeId="clicks" tabIndex="9">
+		<my-list-item value="AL" id="keyboardFirst">Alabama</my-list-item>
+		<my-list-item value="AK">Alaska</my-list-item>
+		<my-list-item value="AZ">Arizona</my-list-item>
+		<my-list-item value="AR">Arkansas</my-list-item>
+		<my-list-item value="CA">California</my-list-item>
+		<my-list-item value="NH">New Hampshire</my-list-item>
+		<my-list-item value="NJ">New Jersey</my-list-item>
+		<my-list-item value="NM">New Mexico</my-list-item>
+		<my-list-item value="NY">New York</my-list-item>
+	</my-list>
+	clicks: <span id="clicks">0</span>
+
+	<h3>Test for keyboard search with spaces and setting for handler for SPACE key</h3>
+	<input id="keyboardInputCust" type="text" tabindex="9" value="input before keyboard">
+	<my-list-cust id="keyboardCust" spaceCountNodeId="spaces" tabIndex="9">
+		<input id="myInput">
+        <button id="myButton">0 clicks</button>
+        <a id="myAnchor" href="#">0 clicks</a>
+		<my-list-item value="AL">Alabama</my-list-item>
+		<my-list-item value="AK">Alaska</my-list-item>
+		<my-list-item value="AZ">Arizona</my-list-item>
+		<my-list-item value="AR">Arkansas</my-list-item>
+		<my-list-item value="CA">California</my-list-item>
+		<my-list-item value="NH">New Hampshire</my-list-item>
+		<my-list-item value="NJ">New Jersey</my-list-item>
+		<my-list-item value="NM">New Mexico</my-list-item>
+		<my-list-item value="NY">New York</my-list-item>
+	</my-list-cust>
+	callbacks to spaceKeyHandler(): <span id="spaces">0</span>
+
+	<h3>ComboBox</h3>
+	<input id="combobox" type="text" tabindex="9" value="">
+	<my-list id="combobox_dropdown" focusDescendants="false">
+		<my-unfocusable-list-item value="AL" id="unfocusable_AL">Alabama</my-unfocusable-list-item>
+		<my-unfocusable-list-item value="AK" id="unfocusable_AK">Alaska</my-unfocusable-list-item>
+		<my-unfocusable-list-item value="AZ" id="unfocusable_AZ">Arizona</my-unfocusable-list-item>
+		<my-unfocusable-list-item value="AR" id="unfocusable_AR">Arkansas</my-unfocusable-list-item>
+		<my-unfocusable-list-item value="CA" id="unfocusable_CA">California</my-unfocusable-list-item>
+		<my-unfocusable-list-item value="NH" id="unfocusable_NH">New Hampshire</my-unfocusable-list-item>
+		<my-unfocusable-list-item value="NJ" id="unfocusable_NJ">New Jersey</my-unfocusable-list-item>
+		<my-unfocusable-list-item value="NM" id="unfocusable_NM">New Mexico</my-unfocusable-list-item>
+		<my-unfocusable-list-item value="NY" id="unfocusable_NY">New York</my-unfocusable-list-item>
+	</my-list>
+	previous navigated node: <span id="combobox_dropdown_previous_node"></span>
+	<br>
+	current navigated node: <span id="combobox_dropdown_current_node"></span>
+
+	<h3>keyNavRootNode</h3>
+	<p>Tab key should go to first button, then inner list, then last button.</p>
+	<input id="keynavroot_before">
+	<my-container-node id="keynavroot">
+		<my-list-item value="AL">Alabama</my-list-item>
+		<my-list-item value="AK">Alaska</my-list-item>
+		<my-list-item value="AZ">Arizona</my-list-item>
+		<my-list-item value="AR">Arkansas</my-list-item>
+		<my-list-item value="CA">California</my-list-item>
+		<my-list-item value="NH">New Hampshire</my-list-item>
+		<my-list-item value="NJ">New Jersey</my-list-item>
+		<my-list-item value="NM">New Mexico</my-list-item>
+		<my-list-item value="NY">New York</my-list-item>
+	</my-container-node>
+	<input id="keynavroot_after">
+</body>
+</html>

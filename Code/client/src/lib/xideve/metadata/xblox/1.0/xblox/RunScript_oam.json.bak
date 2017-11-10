@@ -1,0 +1,105 @@
+{
+    "id": "http://dojotoolkit.org/xblox/RunScript",
+    "name": "xblox.RunScript",
+    "spec": "1.0",
+    "version": "1.7",
+    "require": [
+        {
+            "type": "javascript-module",
+            "format": "amd",
+            "src": "xblox/RunScript",
+            "$library": "xblox"
+        }
+    ],
+    "library": {
+
+    },
+    "property": {
+        "stop": {
+            "datatype": "boolean",
+            "defaultValue":true
+        },
+        "bidirectional": {
+            "datatype": "boolean",
+            "defaultValue":true,
+            "title":"2 Way Binding"
+        },
+        "mode": {
+            "datatype": "number",
+            "defaultValue":"0",
+            "title":"Operation Mode"
+        },
+        "targetevent": {
+            "datatype": "string",
+            "defaultValue":"click",
+            "title":"Target Event"
+        },
+        "targetproperty": {
+            "datatype": "string",
+            "defaultValue":"value",
+            "title":"Target Property"
+        },
+        "targetfilter": {
+            "datatype": "number",
+            "defaultValue":"value",
+            "title":"Target Property Filter"
+        },
+        "sourceevent": {
+            "datatype": "string",
+            "defaultValue":"onDriverVariableChanged",
+            "title":"Source Event"
+        },
+        "sourceeventvaluepath": {
+            "datatype": "string",
+            "defaultValue":"item.value",
+            "title":"Source Event Value Path",
+            "readonly":false
+        },
+        "sourceeventnamepath": {
+            "datatype": "string",
+            "defaultValue":"item.title",
+            "title":"Source Event Name Path",
+            "readonly":false
+        },
+        "targetvariable": {
+            "datatype": "string",
+            "defaultValue":"",
+            "title":"Target Variable"
+        },
+        "block": {
+            "datatype": "string",
+            "readonly":true,
+            "title":"Block Path"
+        },
+        "blockid": {
+            "datatype": "block",
+            "readonly":true,
+            "title":"Block Id"
+        },
+        "scopeid": {
+            "datatype": "string",
+            "readonly":true,
+            "title":"Scope Id"
+        },
+
+        "script": {
+            "datatype": "string",
+            "readonly":true,
+            "title":"Script"
+
+        },
+        "enabled": {
+            "datatype": "boolean",
+            "defaultValue": true
+        }
+    },
+    "content": "<d-xscript style='display: none'></d-xscript>",
+    "title": {
+        "type": "text/html",
+        "value": "<p>Non-templated BUTTON widget with a thin API wrapper for click \nevents and for setting the label.\n\n</p>\n<p>Buttons can display a label, an icon, or both.\nA label should always be specified (through innerHTML) or the label\nattribute.  It can be hidden via showLabel=false.</p>"
+    },
+    "examples": {
+        "type": "text/html",
+        "value": "<pre><code>&lt;button data-dojo-type=&quot;xide/mobile/Button&quot; onClick=&quot;...&quot;&gt;Hello world&lt;/button&gt;</code></pre>"
+    }
+}

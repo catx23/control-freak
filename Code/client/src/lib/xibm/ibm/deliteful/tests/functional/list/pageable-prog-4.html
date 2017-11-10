@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Pageable List</title>
+
+	<script type="text/javascript" src="../../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+			"requirejs-dplugins/Promise!",
+			"delite/register",
+			"deliteful/list/PageableList",
+			"dstore/Memory",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
+		], function (Promise, register, PageableList, MemoryStore) {
+			// Custom memory store with a customizable latency
+			var CustomMemoryStore = MemoryStore.createSubclass([], {
+				latency: 1500,
+				fetch: function () {
+					var args = arguments;
+					return new Promise(function (resolve) {
+						setTimeout(function () {
+							resolve(this.inherited(args));
+						}.bind(this), this.latency);
+					}.bind(this));
+				},
+				fetchRange: function () {
+					var args = arguments;
+					return new Promise(function (resolve) {
+						setTimeout(function () {
+							resolve(this.inherited(args));
+						}.bind(this), this.latency);
+					}.bind(this));
+				}
+			});
+			var store = new CustomMemoryStore();
+ 			for (var i = 0; i < 100; i++) {
+				store.add({label: "Programmatic item of order " + i, id: i});
+			}
+
+			var list = new PageableList({
+				id: "pageable-prog-4",
+				baseClass: "d-round-rect-list",
+				pageLength: 23,
+				maxPages: 2,
+				loadPreviousMessage: "Load previous data (up to ${pageLength} entries)",
+				loadNextMessage: "Load next data (up to ${pageLength} entries)",
+				loadingMessage: "Loading data",
+				source: store
+			});
+			list.style.height = "200px";
+			document.getElementById("listPlaceholder").appendChild(list);
+			list.attachedCallback();
+
+			var latencyIF = document.getElementById("latency");
+			latencyIF.onchange = function () {
+				list.source.latency = latencyIF.valueAsNumber;
+			};
+
+			ready = true;
+		});
+	</script>
+	<style>
+		html {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+ 	<label for="latency">Store latency (in ms):</label><input type="number" id="latency" autofocus value="1500" min="0">
+ 	<br>
+ 	<h2>Pageable list with custom load messages (id: pageable-prog-4)</h2>
+ 	<p>
+ 	<div id="listPlaceholder"></div>
+</body>
+</html>

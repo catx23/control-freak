@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<title>Tooltip</title>
+
+	<style type="text/css">
+		/* set page background to blue just to check the tooltip connector is rendering correctly */
+		body, html {
+			background: lightblue;
+			height: 100%;
+		}
+
+		button[is=d-dropdown-button] {
+			border: solid darkblue 1px;
+			background: white;
+			padding: 5px;
+			color: darkblue;
+			cursor: pointer;
+		}
+	</style>
+
+	<!-- For testing purposes.  Real applications should load the AMD loader directly. -->
+	<script type="text/javascript" src="../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false; // set to true when the test page is ready
+		require([
+			"delite/register",
+			"deliteful/Tooltip",
+			"delite/HasDropDown",
+			"deliteful/DropDownButton",
+			"requirejs-domready/domReady!"
+		], function (register, Tooltip, HasDropDown) {
+			// Function to get position of node, correcting for IE's lack of "bottom" and "right" properties.
+			function gbcr (node) {
+				var rect = node.getBoundingClientRect();
+
+				return {
+					top: rect.top,
+					bottom: rect.top + rect.height,
+					left: rect.left,
+					right: rect.left + rect.width,
+					width: rect.width,
+					height: rect.height,
+					hcenter: rect.left + rect.width / 2,
+					vcenter: rect.top + rect.height / 2
+				};
+			}
+
+			// Setup global method to be used by tests
+			getPos = function(anchorId) {
+				var anchor = document.getElementById(anchorId),
+					tooltip = document.getElementById(anchorId + "-tooltip"),
+					connector = tooltip.connectorNode;
+
+				return {
+					anchor: gbcr(anchor),
+					tooltip: gbcr(tooltip),
+					connector: gbcr(connector)
+				};
+			};
+
+			register("my-loading-tooltip", [Tooltip], {
+				createdCallback: function () {
+					this.on("popup-after-show", function () {
+						this.defer(function () {
+							 this.containerNode.innerHTML = [1, 2, 3, 4, 5].map(function (num) {
+							 	return "Loaded content line " + num + ".";
+							 }).join("<br>");
+							this.emit("delite-size-change");
+						}, 500);
+					});
+					this.on("popup-before-hide", function () {
+						// Setup for next time (just for testing purposes).
+						this.defer(function () {
+							this.containerNode.innerHTML = "Loading..."
+						}, 0);
+					});
+				}
+			});
+
+			register.deliver();
+
+			ready = true;
+		});
+	</script>
+</head>
+<body>
+	<h1>Tooltip functional test</h1>
+	<button is="d-dropdown-button" id="top" style="position: absolute; top: 0; left: 45%;"
+			dropDown="top-tooltip" dropDownPosition="below-centered">
+		show below
+	</button>
+	<d-tooltip id="top-tooltip" style="display: none">
+		I'm a tooltip.<br>
+		I appear below the button.<br>
+	</d-tooltip>
+
+	<button id="left" style="position: absolute; top: 45%; left: 0;">show to right</button>
+	<d-tooltip id="left-tooltip" style="display: none">
+		Tooltip launched behaviorally.<br>
+		I appear to the right.<br>
+	</d-tooltip>
+	<!-- Setup tooltip-opening behavior on non-HasDropDown node -->
+	<d-has-drop-down id="behavior" behaviorNode="left" dropDown="left-tooltip"
+					 dropDownPosition="after-centered, before-centered">
+	</d-has-drop-down>
+
+	<button is="d-dropdown-button" id="right" style="position: absolute; top: 45%; right: 0;"
+			dropDown="right-tooltip" dropDownPosition="before-centered, after-centered">
+		show to left
+	</button>
+	<my-loading-tooltip id="right-tooltip" style="display: none">
+		Loading...
+	</my-loading-tooltip>
+
+	<!-- Check that tooltip and connector are positioned properly when tooltip can't be centered above/below anchor -->
+	<button is="d-dropdown-button" id="bottom-left" style="position: absolute; bottom: 0; left: 20px;"
+			dropDown="bottom-left-tooltip" dropDownPosition="above-centered">
+		show above
+	</button>
+	<d-tooltip id="bottom-left-tooltip" style="display: none">
+		I'm a tooltip.<br>
+		I appear above, but not centered.<br>
+	</d-tooltip>
+
+	<button is="d-dropdown-button" id="bottom" style="position: absolute; bottom: 0; left: 45%;"
+			dropDown="bottom-tooltip" dropDownPosition="above-centered">
+		show above
+	</button>
+	<d-tooltip id="bottom-tooltip" style="display: none">
+		I'm a tooltip.<br>
+		I appear above.<br>
+	</d-tooltip>
+
+	<!-- Check that tooltip and connector are positioned properly when tooltip can't be centered before/after anchor -->
+	<button is="d-dropdown-button" id="bottom-right" style="position: absolute; bottom: 20px; right: 0;"
+			dropDown="bottom-right-tooltip" dropDownPosition="before-centered, after-centered">
+		show to left
+	</button>
+	<d-tooltip id="bottom-right-tooltip" style="display: none">
+		I'm a tooltip.<br>
+		I appear to the left, but not centered.<br>
+	</d-tooltip>
+</body>
+</html>

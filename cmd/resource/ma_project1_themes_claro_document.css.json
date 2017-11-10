@@ -1,0 +1,190 @@
+//ignoreCase=true
+//path=project1/themes/claro/document.css
+//http://localhost:8081/maqetta/cmd/findResource?path=project1%2Fthemes%2Fclaro%2Fdocument.css&ignoreCase=true
+[
+    {
+        "file": "project1/themes/claro/document.css",
+        "parents": [
+            {
+                "name": "",
+                "members": [
+                    {
+                        "isDir": true,
+                        "name": "project1",
+                        "readOnly": false,
+                        "isDirty": false
+                    }
+                ]
+            },
+            {
+                "name": "project1",
+                "members": [
+                    {
+                        "isDir": false,
+                        "name": "app.js",
+                        "readOnly": false,
+                        "isDirty": false
+                    },
+                    {
+                        "isDir": false,
+                        "name": "app.css",
+                        "readOnly": false,
+                        "isDirty": false
+                    },
+                    {
+                        "isDir": true,
+                        "name": "lib",
+                        "readOnly": false,
+                        "isDirty": false
+                    },
+                    {
+                        "isDir": true,
+                        "name": "folder2",
+                        "readOnly": false,
+                        "isDirty": false
+                    },
+                    {
+                        "isDir": false,
+                        "name": "iphone.html",
+                        "readOnly": false,
+                        "isDirty": false
+                    },
+                    {
+                        "isDir": true,
+                        "name": "themes",
+                        "readOnly": true,
+                        "isDirty": false
+                    },
+                    {
+                        "isDir": true,
+                        "name": "samples",
+                        "readOnly": true,
+                        "isDirty": false
+                    }
+                ]
+            },
+            {
+                "name": "themes",
+                "members": [
+                    {
+                        "isDir": true,
+                        "name": "blackberry",
+                        "readOnly": true,
+                        "isDirty": false,
+                        "libraryId": "DojoThemes",
+                        "libVersion": "1.8"
+                    },
+                    {
+                        "isDir": true,
+                        "name": "claro",
+                        "readOnly": true,
+                        "isDirty": false,
+                        "libraryId": "DojoThemes",
+                        "libVersion": "1.8"
+                    },
+                    {
+                        "isDir": true,
+                        "name": "ipad",
+                        "readOnly": true,
+                        "isDirty": false,
+                        "libraryId": "DojoThemes",
+                        "libVersion": "1.8"
+                    },
+                    {
+                        "isDir": true,
+                        "name": "android",
+                        "readOnly": true,
+                        "isDirty": false,
+                        "libraryId": "DojoThemes",
+                        "libVersion": "1.8"
+                    },
+                    {
+                        "isDir": true,
+                        "name": "custom",
+                        "readOnly": true,
+                        "isDirty": false,
+                        "libraryId": "DojoThemes",
+                        "libVersion": "1.8"
+                    },
+                    {
+                        "isDir": true,
+                        "name": "iphone",
+                        "readOnly": true,
+                        "isDirty": false,
+                        "libraryId": "DojoThemes",
+                        "libVersion": "1.8"
+                    },
+                    {
+                        "isDir": true,
+                        "name": "dojox",
+                        "readOnly": true,
+                        "isDirty": false,
+                        "libraryId": "DojoThemes",
+                        "libVersion": "1.8"
+                    },
+                    {
+                        "isDir": true,
+                        "name": "dijit",
+                        "readOnly": true,
+                        "isDirty": false,
+                        "libraryId": "DojoThemes",
+                        "libVersion": "1.8"
+                    },
+                    {
+                        "isDir": true,
+                        "name": "sketch",
+                        "readOnly": true,
+                        "isDirty": false,
+                        "libraryId": "DojoThemes",
+                        "libVersion": "1.8"
+                    }
+                ]
+            },
+            {
+                "name": "claro",
+                "members": [
+                    {
+                        "isDir": false,
+                        "name": "claro.css",
+                        "readOnly": true,
+                        "isDirty": false,
+                        "libraryId": "DojoThemes",
+                        "libVersion": "1.8"
+                    },
+                    {
+                        "isDir": false,
+                        "name": "dojo-theme-editor.html",
+                        "readOnly": true,
+                        "isDirty": false,
+                        "libraryId": "DojoThemes",
+                        "libVersion": "1.8"
+                    },
+                    {
+                        "isDir": false,
+                        "name": "document.css",
+                        "readOnly": true,
+                        "isDirty": false,
+                        "libraryId": "DojoThemes",
+                        "libVersion": "1.8"
+                    },
+                    {
+                        "isDir": false,
+                        "name": "claro.json",
+                        "readOnly": true,
+                        "isDirty": false,
+                        "libraryId": "DojoThemes",
+                        "libVersion": "1.8"
+                    },
+                    {
+                        "isDir": false,
+                        "name": "claro.theme",
+                        "readOnly": true,
+                        "isDirty": false,
+                        "libraryId": "DojoThemes",
+                        "libVersion": "1.8"
+                    }
+                ]
+            }
+        ]
+    }
+]

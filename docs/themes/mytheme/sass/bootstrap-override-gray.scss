@@ -1,0 +1,366 @@
+@import "../../../admin-theme/html-gray/src/sass/variables";
+@import "../../../admin-theme/html-gray/src/sass/mixins";
+@import "compass";
+@import "ellipsis";
+
+@import "compass/css3";
+
+/// Mixin to customize scrollbars
+/// Beware, this does not work in all browsers
+/// @author Hugo Giraudel
+/// @param {Length} $size - Horizontal scrollbar's height and vertical scrollbar's width
+/// @param {Color} $foreground-color - Scrollbar's color
+/// @param {Color} $background-color [mix($primary, white, 75%)] - Scrollbar's color
+/// @example scss - Scrollbar styling
+///   @include scrollbars(.5em, slategray);
+
+$opaque : #4a5150;
+$opaque-active : #ad6600;
+$opaque-light: #e8e8e8;
+$opaque-medium: #cacaca;
+$default-bg: $opaque-light;
+
+.xTheme-gray{
+
+
+  .selectize-dropdown{
+    color: $opaque;
+    background-color: $opaque-medium;
+  }
+  .selectize-dropdown .active {
+    background-color:$opaque-light;
+    color: $opaque-active;
+  }
+  .selectize-dropdown .active.create {
+    /*color: #262626;*/
+  }
+
+  .dijitPopup{
+    background-color: $opaque-light;
+  }
+
+  .bootstrap-select > .dropdown-toggle.bs-placeholder,
+  .bootstrap-select > .dropdown-toggle.bs-placeholder:hover,
+  .bootstrap-select > .dropdown-toggle.bs-placeholder:focus,
+  .bootstrap-select > .dropdown-toggle.bs-placeholder:active {
+    color: white !important;
+  }
+  .text-warning{
+    color: #ad6600;
+  }
+  .widget {
+    background:initial;
+  }
+
+
+  BODY {
+    background-image: none;
+  }
+
+  .wcLayoutPane {
+    padding: 0px;
+  }
+  .border-bottom{
+    border-bottom-color: $nav-tabs-active-item-border-bottom;
+  }
+  .breadcrumb{
+    border-bottom: 1px solid $nav-tabs-active-item-border-bottom;
+  }
+  .mainMenu{
+    border-bottom-color: $btn-default-border;
+  }
+
+  .jsPanel.panel{
+    border: 2px solid $opaque;
+  }
+  .dgrid-header-scroll, .xTheme-default .dgrid-header .dgrid-cell {
+    background-color: $opaque-light;
+  }
+  a {
+    color: #5d5c66;
+    text-decoration: none;
+  }
+  .wcSplitterBar{
+    /*box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);*/
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  .actionToolbar{
+    background-color: $opaque-light;
+
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
+  }
+  .btn-default {
+    background-color: $opaque-medium;
+    color:$opaque;
+  }
+
+  .form-control::-webkit-input-placeholder { color: $text-muted; }
+  .form-control:-moz-placeholder { color: $text-muted; }
+  .form-control::-moz-placeholder { color: $text-muted; }
+  .form-control:-ms-input-placeholder { color: $text-muted; }
+
+  .dropdown-menu{
+    background-color: $white-dark;
+  }
+  .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus{
+    .text-muted{
+      color: $opaque-light
+    }
+  }
+
+  .metro .tile .brand.opacity, .metro .tile .tile-status.opacity{
+
+    /*opacity: 1.0;*/
+
+  }
+
+
+  .blockGrid {
+    [class*="fa-"]{
+      font-size: 120%;
+    }
+    .xBloxIcon{
+      font-size: 120%;
+    }
+  }
+
+
+  @-webkit-keyframes flash {
+    0%, 50%, 100% {opacity: 1;}
+    25%, 75% {opacity: 0.5;}
+  }
+  @keyframes flash {
+    0%, 50%, 100% {opacity: 1;}
+    25%, 75% {opacity: 0.5;}
+  }
+
+
+  .activeBlock {
+    background-color: rgba(169, 169, 169, 0.2) !important;
+    background-image: none ;
+    color: $opaque;
+    outline: 1px solid rgba(29, 255, 70, 0.69) !important;
+    outline-offset: -3px;
+
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    animation-iteration-count:infinite;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-name: flash;
+    animation-name: flash;
+  }
+
+
+
+
+  .successBlock {
+    background-color: rgba(33, 58, 34, 0.73) !important;
+    background-image: none !important;
+    color: $opaque-light;
+    outline: 2px solid rgba(73, 255, 112, 1.0) !important;
+    outline-offset: -3px;
+    .text-info{
+      color: $opaque-light;
+    }
+    A, .text-primary{
+      color: $opaque-light !important;
+    }
+  }
+
+  .failedBlock {
+    background-color: darkred !important;
+    background-image: none !important;
+    color: $opaque;
+    border: 2px solid yellow;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    animation-iteration-count:infinite;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-name: flash;
+    animation-name: flash;
+  }
+
+
+
+  .form-control.input-transparent {
+    box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.2);
+  }
+  .panel-heading{
+    border: 1px solid $opaque-medium;
+  }
+  .modal-content ,.modal-footer{
+    background-color: $white;
+  }
+
+  .jsoneditor-contextmenu .btn{
+    color: $opaque;
+  }
+
+  .wcSplitterBar{
+    /*background-color: $opaque-light !important;*/
+  }
+
+  .dgrid-header-scroll, .dgrid-header .dgrid-cell{
+    background-color: $opaque-light;
+    border-bottom: 1px solid $opaque-medium;
+  }
+  .dgrid-row.dgrid-row-odd{
+    background-color: rgba(16, 16, 16, 0.09);
+  }
+
+
+  .statusbar.widget {
+    border-top: 1px solid $opaque-medium;
+    background-color: $opaque-light !important;
+    color: $gray-dark !important;
+    border-radius: 0px !important;
+  }
+
+
+  .breadcrumb > .active {
+    color: $gray-dark;
+  }
+  .thumbText{
+    margin-right: 2px !important;
+  }
+
+
+  .metro .bg-dark{
+    background-color: transparentize($opaque-light,0.7) !important;
+  }
+  .metro .tile .brand .badge,
+  .metro .tile .tile-status .badge {
+    color: $opaque;
+  }
+  .brand.bg-dark{
+
+
+  }
+  .brand{
+
+    A {
+      //color: $opaque-light;
+    }
+  }
+
+  .body{
+
+    /*@include scrollbars(.5em, slategray);*/
+
+  }
+
+  .widget{
+    /*font-weight: 400 !important;*/
+
+  }
+
+  .widgetContainer{
+    margin: 0;
+    border-bottom: 1px solid $nav-tabs-active-item-border-bottom;
+  }
+
+  .toolbar-button{
+    color:#666;
+  }
+  .bg-opaque{
+    background-color: $white-dark !important;
+  }
+
+  .metro .tile .tile-content.icon [class*="fa-"],
+  .metro .tile .tile-content.icon img {
+   color: $gray-darker;
+  }
+
+  .breadcrumb a{
+    color: inherit;
+  }
+
+  .breadcrumb > li + li:before{
+    color: inherit;
+  }
+
+
+
+
+
+  .dgrid-focus:active {
+    /*outline: 1px dotted rgba(255, 82, 0, 0.65)  !important;*/
+    outline-offset: -1px;
+    /*background-color: rgba(0,0,0,0.5);*/
+    font-weight: bold;
+  }
+  .wcFrameButton{
+    /*font-size:inherit;*/
+  }
+
+  KBD {
+    background-color: initial;
+    box-shadow: none;
+    font-weight: bold;
+    /*color: $gray-semi-light;*/
+    /*font-family: inherit;*/
+    margin: 4px;
+
+  }
+
+
+  .dgrid-selected{
+    /*background-color: rgba(44, 39, 36, 0.52) !important;*/
+    //color: $white-dark !important;
+    /*@include box-shadow(inset 0 1px 5px rgba(0, 0, 0, 0.8));*/
+    /*font-weight: $font-weight-bold;*/
+    border-radius: 4px;
+    /* #1 */
+    //border: 5px solid hsl(0, 0%, 40%);
+
+    /* #2 */
+    /*padding: 5px;*/
+    //background: hsl(0, 0%, 20%);
+
+    outline: none;
+    /* #3
+    outline: 5px solid hsl(0, 0%, 60%); */
+
+    /* #4 AND INFINITY!!! (CSS3 only) */
+    box-shadow:
+
+    inset 0 0 0 1px orange;
+  }
+  .dgrid-focus:focus {
+    /*outline: 1px solid rgba(87, 96, 255,0.5);*/
+    outline-offset: -1px;
+    background-color: rgba(254, 0, 64, 0.02);
+    /*border-style: 2px solid $red-dark !important;*/
+    box-shadow:
+    inset 0 0 0 2px rgba(101,0,30,0.5);
+    /*font-weight: bold;*/
+    /*border-color: rgba(255, 82, 0, 1) !important;
+    border-style: groove inset;
+    @include box-sizing(content-box);*/
+
+  }
+  .dgrid-selected {
+    .metro .tile .tile-content.icon [class*="fa-"]{
+      color: $white-dark !important;
+    }
+  }
+
+  .dgrid-scroller
+  {
+    //@include scrollbars(.5em, slategray);
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.89) !important;
+
+  }
+  .metro .tile .tile-content.icon img {
+    color: $white-dark !important;
+  }
+
+}

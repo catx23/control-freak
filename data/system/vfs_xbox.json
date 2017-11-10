@@ -1,0 +1,75 @@
+{
+    "class": "cmx.types.Resources",
+    "includes": [],
+    "items": [
+        {
+            "class": "cmx.types.Resource",
+            "type": "FILE_PROXY",
+            "name": "root",
+            "path": "%root%",
+            "url": "NOT SET",
+            "enabled": true,
+            "readOnly": true,
+            "label": "Root",
+            "vfs": "sftp",
+            "options": {
+                "host": "pearls-media.com",
+                "user": "vu2003",
+                "port": 22,
+                "key": "/home/mc007/.ssh/id_rsa",
+                "root":"/var/www/virtual/pearls-media.com"
+            },
+            "_client": {
+                "debug": false,
+                "protocol": "https",
+                "host": "api.github.com",
+                "headers": {
+                    "user-agent": "My-Cool-GitHub-App",
+                    "Accept": "application/vnd.github.v3.raw"
+                },
+                "followRedirects": true,
+                "timeout": 5000
+            },
+            "_auth": {
+                "token": "5b86c11984717f8146756593644abe60785b5f1f",
+                "type": "oauth"
+            },
+            "_options": {
+                "repo": "xide",
+                "branch": "ve",
+                "owner": "xblox"
+            }
+        },
+        {
+            "class": "cmx.types.Resource",
+            "type": "FILE_PROXY",
+            "name": "xide",
+            "path": "%root%",
+            "url": "NOT SET",
+            "enabled": true,
+            "readOnly": true,
+            "label": "XIDE",
+            "vfs": "github",
+            "client": {
+                "debug": false,
+                "protocol": "https",
+                "host": "api.github.com",
+                "headers": {
+                    "user-agent": "My-Cool-GitHub-App",
+                    "Accept": "application/vnd.github.v3.raw"
+                },
+                "followRedirects": true,
+                "timeout": 5000
+            },
+            "auth": {
+                "token": "5b86c11984717f8146756593644abe60785b5f1f",
+                "type": "oauth"
+            },
+            "options": {
+                "repo": "xide",
+                "branch": "ve",
+                "owner": "xblox"
+            }
+        }
+    ]
+}

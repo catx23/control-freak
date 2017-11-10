@@ -1,0 +1,143 @@
+<div data-dojo-attach-point='root'>
+
+    <table style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+        <tbody>
+        <tr style="height: 40px;">
+            <td>
+                <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em;">
+                <legend>Constants</legend>
+
+                <table style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+                    <tbody>
+                    <tr>
+                        <td style="width: 30%">
+                            <label>Start:</label>
+                        </td>
+                        <td>
+                            <input value="" data-dojo-attach-point='wStart' type="text" style="width:inherit;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 30%">
+                            <label>End:</label>
+                        </td>
+                        <td>
+                            <input value="$" data-dojo-attach-point='wEnd' type="text" data-dojo-type="dijit/form/TextBox" style="width:inherit;"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+            </td>
+
+
+            <!---2 Column  --->
+
+            <td>
+                <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em;">
+                <legend>Send</legend>
+
+                <table style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+
+                    <tbody>
+                    <tr>
+                        <td style="width: 20px"></td>
+
+                        <td style="width: 50px"></td>
+
+                        <td style="width: 40px"></td>
+
+                        <td style="width: 25px"></td>
+
+                        <td></td>
+
+                        <td></td>
+
+                    </tr>
+
+
+                    <tr>
+                        <td style="width: 20px">
+                            <input data-dojo-attach-point='cbStart' type="checkbox" data-dojo-type="dijit/form/CheckBox" style="" checked="${start}" />
+                        </td>
+
+                        <td style="width: 50px">
+                            <label>Start</label>
+                        </td>
+
+                        <td style="width: 40px">
+                            <input value="${startString}" data-dojo-attach-point='wStartString' type="text" data-dojo-type="dijit/form/TextBox" style="width:inherit;"/>
+                        </td>
+
+                        <td style="width: 25px">
+                            <input data-dojo-attach-point='cTypePacket' name="packetType${rID}" type="radio" data-dojo-type="dijit/form/RadioButton" style="margin-left: 4px;" checked="${cTypePacket}" />
+                        </td>
+
+                        <td>
+                            <span>Packet</span>
+                        </td>
+
+                        <td>
+                            <span></span>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="width: 20px">
+                            <input data-dojo-attach-point='cTypeByte' name="packetType${rID}" type="radio" data-dojo-type="dijit/form/RadioButton" style="" checked="${cTypeByte}" />
+
+                        </td>
+
+                        <td style="width: 50px">
+                            <label>Per byte</label>
+                        </td>
+
+                        <td style="width: 40px">
+
+                         </td>
+
+                        <td style="width: 25px">
+                            <input data-dojo-attach-point='cTypeDelimiter' name="packetType${rID}" type="radio" data-dojo-type="dijit/form/RadioButton" style="margin-left: 4px;" checked="${cTypeDelimiter}" />
+                        </td>
+
+                        <td>
+                            <span>Delimiter</span>
+                        </td>
+
+                        <td>
+                            <input value="${delimiter}" data-dojo-attach-point='wDelimiter' type="text" data-dojo-type="dijit/form/TextBox" style="width:inherit;"/>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="width: 20px"></td>
+
+
+                        <td style="width: 50px"></td>
+
+                        <td style="width: 40px"></td>
+
+                        <td style="width: 25px">
+                            <input data-dojo-attach-point='cTypeCount' name="packetType${rID}" type="radio" data-dojo-type="dijit/form/RadioButton" style="margin-left: 4px;" checked="${cTypeCount}" />
+                        </td>
+
+                        <td>
+                            <span>Count</span>
+                        </td>
+
+                        <td>
+                            <input value="${count}" data-dojo-attach-point='wCount' type="text" data-dojo-type="dijit/form/TextBox" style="width:inherit;"/>
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </fieldset>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

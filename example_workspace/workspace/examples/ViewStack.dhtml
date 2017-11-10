@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+</head>
+
+
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="claro superhero" data-maq-ws="collapse" style="position:absolute" id="myapp" data-maq-appstates="{}">
+ <d-view-stack style="position: absolute; width: 231px; height: 298px; left: 15px; top: 5px;" transition="none" selectedChildId="view1">
+   <d-panel id="view2" label="View 2" style="display: none;">
+    <button is="d-button" title="Default Label" label="View - 1" style="position: absolute; left: 91px; top: 61px;" id="d-button_1"></button>
+  </d-panel>
+
+
+   <d-panel id="view1" label="View 2">
+    <button is="d-button" title="Default Label" label="View - 2" style="position: absolute; left: 73px; top: 88px;" id="d-button_2"></button>
+  </d-panel>
+ </d-view-stack>
+</body>
+</html>

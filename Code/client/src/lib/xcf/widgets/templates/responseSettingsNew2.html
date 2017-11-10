@@ -1,0 +1,144 @@
+<div attachTo='root' style="font-size: 80%" class="dijitReset">
+
+    <fieldset>
+
+        <legend class="section" style="margin: 0 0 4px;padding: 0px;">Responses - Construction </legend>
+
+        <div class="row" style="margin-bottom: 10px">
+
+            <div class="">
+
+                <section class="widget">
+
+                    <div class="widget-body">
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <table style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+
+                                        <tbody>
+
+                                        <tr>
+                                            <td style="width: 50px">
+                                            </td>
+
+                                            <td style="width: 100px">
+                                            </td>
+
+
+                                        </tr>
+
+                                        <tr>
+
+                                            <td>
+
+                                                <div class="checkbox checkbox-success">
+                                                    <input attachTo='cbStart' id="radio1" type="checkbox" name="send" checked="${!start}"/>
+                                                    <label for="radio1">
+                                                        Start
+                                                    </label>
+
+                                                </div>
+
+
+                                            </td>
+
+
+                                            <td style="">
+                                                <input style="" class="form-control input-transparent" value="${startString}" attachTo='wStartString' type="text" style="width:100px"/>
+                                            </td>
+
+
+
+
+                                        </tr>
+
+
+                                        <tr>
+                                            <td style="">
+
+                                                <div class="radio">
+                                                    <input attachTo='cTypeByte' id="${rID}-perByte" type="radio" name="packetType${rID}" checked="${cTypeByte}"/>
+                                                    <label for="${rID}-perByte">
+                                                        Per Byte
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td style=""/>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td style="">
+
+                                                <div class="radio">
+                                                    <input attachTo='cTypePacket' id="${rID}-perPacket" type="radio" name="packetType${rID}" checked="${cTypeByte}"/>
+                                                    <label for="${rID}-perPacket">
+                                                        Per Packet
+                                                    </label>
+                                                </div>
+
+                                            </td>
+
+                                            <td style=""/>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td style="">
+
+                                                <div class="radio">
+                                                    <input attachTo='cTypeDelimiter' id="${rID}-perDelimitter" type="radio" name="packetType${rID}" checked="${cTypeDelimiter}"/>
+                                                    <label for="${rID}-perDelimitter">
+                                                        Delimiter
+                                                    </label>
+                                                </div>
+
+                                            </td>
+
+                                            <td style="">
+                                                <input style="" class="form-control input-transparent" value="${delimiter}" attachTo='wDelimiter' type="text" style="width:100px"/>
+                                            </td>
+
+                                        </tr>
+
+                                        <tr>
+
+
+                                            <td style="">
+
+
+                                                <div class="radio">
+                                                    <input attachTo='cTypeCount' id="${rID}-perCount" type="radio" name="packetType${rID}" checked="${cTypeCount}"/>
+                                                    <label for="${rID}-perCount">
+                                                        Count
+                                                    </label>
+                                                </div>
+
+
+                                            </td>
+
+                                            <td style="">
+                                                <input style="" class="form-control input-transparent" value="${count}" attachTo='wCount' type="text" style="width:100px"/>
+                                            </td>
+
+
+                                        </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+
+    </fieldset>
+
+</div>

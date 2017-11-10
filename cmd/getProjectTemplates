@@ -1,0 +1,9 @@
+{
+  "enableProjectSharingAll": true,
+  "limit": 1000,
+  "offset": 0,
+  "projectTemplatesObject": {"projectTemplates": []},
+  "searchString": "",
+  "success": true,
+  "totalNumProjectTemplates": 0
+}

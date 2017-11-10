@@ -1,0 +1,26 @@
+{
+    "id": "http://www.w3.org/html/body",
+    "name": "html.dbody",
+    "spec": "1.0",
+    "version": "1.0",
+    "require2": [
+
+    ],
+    "library": {
+        /*
+        "dojo": {
+            "src": "../../../dojo"
+        },*/
+        "delite": {
+            "src": "../../../ibm-js/delite"
+        },
+        "requirejs": {
+            "src": "../../../ibm-js/requirejs"
+        }
+    },
+    "content": "",
+	"title": {
+		"type": "text/html",
+		"value": "<p>The HTML body element represents the main content of the document.</p>"
+	}
+}

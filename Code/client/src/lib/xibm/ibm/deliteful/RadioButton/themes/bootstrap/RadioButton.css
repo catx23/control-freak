@@ -1,0 +1,55 @@
+.d-radio-button {
+  position: relative;
+  display: inline-block;
+  margin: 4px;
+}
+.d-radio-button.d-focused {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.d-radio-button .d-radio-button-icon::before {
+  display: inline-block;
+  text-align: center;
+  content: "\00A0";
+  font-family: Times;
+  border-color: #cccccc;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0.5em;
+  width: 1em;
+  height: 1em;
+  line-height: 1em;
+  background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
+}
+.d-radio-button.d-checked .d-radio-button-icon::before {
+  content: "\25CF";
+  color: #555555;
+}
+.d-radio-button.d-disabled .d-radio-button-icon::before {
+  color: #eeeeee;
+}
+.d-radio-button.d-disabled .d-radio-button-icon::before.d-checked .d-radio-button-icon::before {
+  color: #999999;
+}
+.d-radio-button.d-disabled,
+fieldset[disabled] .d-radio-button {
+  cursor: not-allowed;
+}
+.d-radio-button > input[type=radio] {
+  opacity: 0.01;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.8em;
+  height: 0.8em;
+  overflow: hidden;
+  font: inherit;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.d-radio-button > input[type=radio][disabled],
+fieldset[disabled] .d-radio-button > input[type=radio] {
+  cursor: not-allowed;
+}

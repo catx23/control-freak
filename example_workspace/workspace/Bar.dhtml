@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+</head>
+
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="claro superhero" data-maq-ws="collapse" style="position:absolute" data-maq-appstates="{}" id="myapp">
+ <d-tab-bar viewStack="vs1" style="position: absolute; width: 285px; height: 38px; left: 0px; top: 249px;">
+</d-tab-bar>
+ <d-view-stack style="position: absolute; left: 61px; top: 37px; width: 208px; height: 139px;" id="vs1" title="df23" transition="none">
+   <d-panel id="view1" label="View 1" style="width: 287px; height: 248px; left: -61px; top: -37px; display: none;">
+      <button is="d-button" title="Default Label" label="Default Label" style="position: absolute; left: 64px; top: 52px;" id="d-button_5"></button>
+   </d-panel>
+   <d-panel id="view2" label="View 2" style="display: none;">
+      <button is="d-button" title="Default Label" label="Default Label2" style="position: absolute; left: 64px; top: 42px;" id="d-button_8"></button>
+   </d-panel>
+ </d-view-stack>
+</body>
+</html>

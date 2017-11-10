@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" dir="ltr">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/moment-with-langs.min.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/ckeditorfull/ckeditor.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/easyXDM.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/xfile/ext/ace/ace.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/xfile/ext/ace/ext-language_tools.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/xfile/ext/ace/ext-statusbar.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/sockjs-0.3.min.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/hasids.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/atomizejs/cereal.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/atomizejs/compat.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/atomizejs/atomize.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/atomizejs/atomize-client.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/vogue-client.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/stacktrace.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/jsoneditor/jsoneditor.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/jquery-1.9.1.min.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/jquery-ui-1.10.1.custom.min.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/xfile/ext/cflow/cflow.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/Keypress/keypress.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/lodash.min.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/xfile/ext/easyXDM.js'></script>
+<script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/xapp/commander/plugins//ImageEdit/client/xfile/ext/easyXDM.js'></script>
+<link rel='stylesheet' id='1acbb3670ac353b9204af5f78830f8c2' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/dgrid/css/dgrid.css'  type='text/css' />
+<link rel='stylesheet' id='ad3a34ddec40f2d5822e675a460192cc' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/dijit/themes/claro/document.css'  type='text/css' />
+<link rel='stylesheet' id='ced248d94f10451611fa98fc078861c9' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/dijit/themes/claro/claro.css'  type='text/css' />
+<link rel='stylesheet' id='1c592dcbde3ffefbe141eb1ffd8f8ee1' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/elusive-icons/elusive-webfont.css'  type='text/css' />
+<link rel='stylesheet' id='bc955ccd11437db9e9289814716c99af' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/dojox/layout/resources/ResizeHandle.css'  type='text/css' />
+<link rel='stylesheet' id='e3c872d733c85f17731ebaf4d620db48' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/HTML.css'  type='text/css' />
+<link rel='stylesheet' id='795924ddd62fbe34e9d7d27ed958591f' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/jQuery.css'  type='text/css' />
+<link rel='stylesheet' id='eb3aa11d0d106111e53ae1d2056397b0' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/Icons.css'  type='text/css' />
+<link rel='stylesheet' id='728ee7ee7133621b2607a1f39cf723c6' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/CIDialogs.css'  type='text/css' />
+<link rel='stylesheet' id='1d7544406977c9c146215e65d6d5cf95' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/Focus.css'  type='text/css' />
+<link rel='stylesheet' id='cf0908515d82def132057527c81f61c2' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/ActionToolbar.css'  type='text/css' />
+<link rel='stylesheet' id='e4bf853fb442baa760a49f20f8786aaa' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/BreadCrumb.css'  type='text/css' />
+<link rel='stylesheet' id='532ad692937f66fc030ea9c3abea05c0' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/Widgets.css'  type='text/css' />
+<link rel='stylesheet' id='956a7ff09f67bf0ace6cc1f942b0af81' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/ACEEditor.css'  type='text/css' />
+<link rel='stylesheet' id='afda9cf43d71bef83fce18e9cdfe492b' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/ActionTogglePane.css'  type='text/css' />
+<link rel='stylesheet' id='9954aa385feb0ef26903806576abf298' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/LogGridView.css'  type='text/css' />
+<link rel='stylesheet' id='076085fb624d2e6f69d8b17af05a2013' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/DnDDefault.css'  type='text/css' />
+<link rel='stylesheet' id='28a7d09d23a4201ff2fe83f7a2a72272' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/Loading.css'  type='text/css' />
+<link rel='stylesheet' id='16945607dfd6bf0f196cb6e6942cc8ed' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/filePanel.css'  type='text/css' />
+<link rel='stylesheet' id='3f5c44b47776089a2c69c8a8e9edb930' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/fileGridView.css'  type='text/css' />
+<link rel='stylesheet' id='206835378d00e95ea8f67fdcec1ecd18' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/fileGridCell.css'  type='text/css' />
+<link rel='stylesheet' id='e1a1863bfb4c1bfb61fbcdedd2193dda' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/fileOperationView.css'  type='text/css' />
+<link rel='stylesheet' id='ff4cb2df0cdef53aa53e1960754d5b7c' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/fileSelectDialog.css'  type='text/css' />
+<link rel='stylesheet' id='fd8983835ff0deca78e73c52dfd33a3e' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/sourceSelector.css'  type='text/css' />
+<link rel='stylesheet' id='f4a0e921520db2de579ea9713bff65d9' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/Lightbox.css'  type='text/css' />
+<link rel='stylesheet' id='5828b4f3e15f48842e193ecd8bee2d1a' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/FilePreview.css'  type='text/css' />
+<link rel='stylesheet' id='ae6ca60b8385077f44b9fb82caf6caa0' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/SlideShow.css'  type='text/css' />
+<link rel='stylesheet' id='c9dfa5db33a6a3907d140a7726fce4e3' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/Gallery.css'  type='text/css' />
+<link rel='stylesheet' id='b7d4c15b399ab7a830171c33ce05003b' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/Badge.css'  type='text/css' />
+<link rel='stylesheet' id='af4b890ab5015806c5fa036ed505cb64' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/Notifications.css'  type='text/css' />
+<link rel='stylesheet' id='aaecb229d1384fab35c0aef3c7a28fe9' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/filePropertyView.css'  type='text/css' />
+<link rel='stylesheet' id='59d08c2c625c2fb560f58ae0174beeff' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/ToggleSplitter.css'  type='text/css' />
+<link rel='stylesheet' id='6446d3ea4768fb1daa398d81abcaba37' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/xFilePicker.css'  type='text/css' />
+<link rel='stylesheet' id='9643c780104552b77e71a1d4669d72f8' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/Layout.css'  type='text/css' />
+<link rel='stylesheet' id='31310c1a653add11e4415e45cca99a41' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/FindView.css'  type='text/css' />
+<link rel='stylesheet' id='404b4ab3497599d8da6f75ed6a55b869' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/tree.css'  type='text/css' />
+<link rel='stylesheet' id='b5bb00d6ade1625480d3d7fea6061708' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/quicklook.css'  type='text/css' />
+<link rel='stylesheet' id='af8e0ac6d284353587e1969bab9bc4f1' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/SplitView.css'  type='text/css' />
+<link rel='stylesheet' id='38b2544ff6a58d7fe70592e9e1b53b5e' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/XBlox.css'  type='text/css' />
+<link rel='stylesheet' id='292b1c42d3e84352fd8d8076b8337d85' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/Layout.css'  type='text/css' />
+<link rel='stylesheet' id='bce2ace16f7a9640bc6caca8c90600c4' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/DebugSettingsView.css'  type='text/css' />
+<link rel='stylesheet' id='cb6a2e2885296743355e398c9ebe70c8' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/GridView.css'  type='text/css' />
+<link rel='stylesheet' id='6c530e958d18635a163b161073804df6' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/GridContainer.css'  type='text/css' />
+<link rel='stylesheet' id='ec39308dd54c8e4c1f2c949de31019a6' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/Blox.css'  type='text/css' />
+<link rel='stylesheet' id='056e19e632be44d901aef02b40ed2f4a' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/ResponseSettings.css'  type='text/css' />
+<link rel='stylesheet' id='9a1587b53caf02e1a4e3a984b2e0d1f0' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/ConsoleView.css'  type='text/css' />
+<link rel='stylesheet' id='2c41745ded6d42a18a3fdfc0c36c7895' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/CommandSettings.css'  type='text/css' />
+<link rel='stylesheet' id='0ce7a0c5aeadf7e71e5250eae93a56a2' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/VariableSettings.css'  type='text/css' />
+<link rel='stylesheet' id='49cf10347ab31f4ba27cc34b97008be5' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/../commons/ActionTogglePane.css'  type='text/css' />
+<link rel='stylesheet' id='4660d40b9985e332ce462c3d3352419b' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/../commons/ACEEditor.css'  type='text/css' />
+<link rel='stylesheet' id='717b17dea5421878626e974f1a2b51e0' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/../commons/XCF.css'  type='text/css' />
+<link rel='stylesheet' id='fc1cd6a977739bb873f6352f550b05f8' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/../commons/grid.css'  type='text/css' />
+<link rel='stylesheet' id='fc8974d0f514b55a17ad4b69956c1a2b' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/../xide/xideve.css'  type='text/css' />
+<link rel='stylesheet' id='4610efb165d3cb85e6abe54fc0bee370' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/dijit/icons/editorIcons.css'  type='text/css' />
+<link rel='stylesheet' id='02f0d585f249ab4c5fe5debf1300f468' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/font-awesome/css/font-awesome.css'  type='text/css' />
+<link rel='stylesheet' id='6f862472bf358b98df7cc7a5b3c15cf0' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/dojox/layout/resources/ToggleSplitter.css'  type='text/css' />
+<link rel='stylesheet' id='5c97bbfc273d423352edbd2f847912ae' href='http://127.0.0.1/projects/x4mm/Code/client/src/themes/jQuery/dot-luv/jquery-ui.css'  type='text/css' />
+<link rel='stylesheet' id='aa07e1317fec8503c0f7b0e4e44f3d1f' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/jsoneditor/jsoneditor.css'  type='text/css' />
+<link rel='stylesheet' id='b5bb00d6ade1625480d3d7fea6061708' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/quicklook.css'  type='text/css' />
+<link rel='stylesheet' id='a69a97dd7d70f47f3076c6815e940c93' href='http://127.0.0.1/projects/x4mm/Code/client/src/xfile/ext/cflow/skin_allsizes_white.css'  type='text/css' />
+<link rel='stylesheet' id='23241f486f57701462fc1d135c24eea8' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xide/xideve.css'  type='text/css' />
+<link rel='stylesheet' id='e18765407ab005412644774d5eb73316' href='http://127.0.0.1/projects/x4mm/Code/xapp/commander/plugins//HTMLEditor/client/xfile/css/HTMLEditor.css'  type='text/css' />
+<link rel='stylesheet' id='c21f5c93fa1237a08f5f1e3941a08ee2' href='http://127.0.0.1/projects/x4mm/Code/xapp/commander/plugins//Shell/client/xfile/css/ShellView.css'  type='text/css' />
+<script type="application/javascript">var debug=false;
+var device=null;
+var sctx=null;
+var ctx=null;
+var cctx=null;
+var mctx=null;
+var rtConfig="debug";
+var dataHost ="";
+var xcfConfig={
+    mixins:[
+        {
+            declaredClass:'xide.manager.ServerActionBase',
+            mixin:{
+                serviceUrl:'http://127.0.0.1/projects/x4mm/Code/xapp/xcf//index.php?debug=true&view=rpc&debug=true',
+                singleton:true
+            }
+        },
+        {
+            declaredClass:'xide.manager.SettingsManager',
+            mixin:{
+                serviceUrl:'http://127.0.0.1/projects/x4mm/Code/xapp/xcf//index.php?debug=true&view=rpc&debug=true',
+                singleton:true
+            }
+        },
+        {
+            declaredClass:'xide.manager.ResourceManager',
+            mixin:{
+                serviceUrl:'http://127.0.0.1/projects/x4mm/Code/xapp/xcf//index.php?debug=true&view=rpc&debug=true',
+                singleton:true,
+                resourceVariables:{"XASWEB":"http:\/\/127.0.0.1\/projects\/x4mm\/Code\/client\/src","APP_URL":"http:\/\/127.0.0.1\/projects\/x4mm\/Code\/client\/src","SITEURL":"http:\/\/127.0.0.1\/projects\/x4mm\/Code\/xapp\/xcf\/","RPC_URL_SUFFIX":"&debug=true","ROOT_URL_OFFSET":"","JQTHEME":"dot-luv","XCOM_PLUGINS_WEB_URL":"http:\/\/127.0.0.1\/projects\/x4mm\/Code\/xapp\/commander\/plugins\/","XIDEVE_DOJO_BASE_URL":"http:\/\/127.0.0.1\/projects\/x4mm\/Code\/client\/src\/lib\/dojo","XIDEVE_DOJO_URL":"http:\/\/127.0.0.1\/projects\/x4mm\/Code\/client\/src\/lib\/dojo\/dojo.js","XIDEVE_LIB_ROOT":"http:\/\/127.0.0.1\/projects\/x4mm\/Code\/client\/src\/lib\/","XAPP_PLUGIN_RESOURCES":[],"DOJOPACKAGES":"[{name:'xcfnode',location:'http:\/\/127.0.0.1\/projects\/x4mm\/Code\/utils\/node_modules\/xcfnode\/'},{name:'HTMLEditor',location:'http:\/\/127.0.0.1\/projects\/x4mm\/Code\/xapp\/commander\/plugins\/HTMLEditor\/client\/'},{name:'ImageEdit',location:'http:\/\/127.0.0.1\/projects\/x4mm\/Code\/xapp\/commander\/plugins\/ImageEdit\/client\/'},{name:'Shell',location:'http:\/\/127.0.0.1\/projects\/x4mm\/Code\/xapp\/commander\/plugins\/Shell\/client\/'},{name:'Zoho',location:'http:\/\/127.0.0.1\/projects\/x4mm\/Code\/xapp\/commander\/plugins\/Zoho\/client\/'}]","XCF_DRIVER_VFS_CONFIG":"{\"System\":{\"name\":\"System\",\"mount\":\"root\"}}","XCF_DEVICE_VFS_CONFIG":"{\"System\":{\"name\":\"System\",\"mount\":\"root\"}}","COMPONENTS":"{\"xfile\":true,\"xnode\":true,\"xideve\":{\"cmdOffset\":\"..\\\/xide\\\/\"},\"xblox\":true}","PACKAGE_CONFIG":"run-release-debug","HTML_HEADER":[],"RPC_TARGET":".\/index.php?view=rpc"}
+            }
+        },
+        {
+            declaredClass:'xfile.manager.FileManager',
+            mixin:{
+                serviceClass:'XCF_Directory_Service',
+                serviceUrl:'http://127.0.0.1/projects/x4mm/Code/xapp/xcf//index.php?debug=true&view=rpc&debug=true'
+            }
+        },
+        {
+            declaredClass:'xcf.manager.Context',
+            mixin:{
+                vfsConfigs:{
+                    'Driver' : {
+                        roots:{"System":{"name":"System","mount":"root"}}
+                    },
+                    'Device' : {
+                        roots:{"System":{"name":"System","mount":"root"}}
+                    }
+                }
+            }
+        }
+    ]
+};
+
+var xFileConfigMixin ={"LAYOUT_PRESET":1,"PANEL_OPTIONS":{
+    "ALLOW_COLUMN_RESIZE":true,
+    "ALLOW_COLUMN_REORDER":true,
+    "ALLOW_COLUMN_HIDE":true,
+    "ALLOW_NEW_TABS":true,
+    "ALLOW_MULTI_TAB":false,
+    "ALLOW_INFO_VIEW":true,
+    "ALLOW_LOG_VIEW":true,
+    "ALLOW_BREADCRUMBS":true,
+    "ALLOW_CONTEXT_MENU":true,
+    "ALLOW_LAYOUT_SELECTOR":true,
+    "ALLOW_SOURCE_SELECTOR":true
+    },"ALLOWED_ACTIONS":[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"FILE_PANEL_OPTIONS_LEFT":{"LAYOUT":2,"AUTO_OPEN":"true"},"FILE_PANEL_OPTIONS_MAIN":{"LAYOUT":2,"AUTO_OPEN":"true"},"FILE_PANEL_OPTIONS_RIGHT":{"LAYOUT":2,"AUTO_OPEN":"true"}};
+
+var xFileConfig={
+    FILES_STORE_URL:'./index.php?view=rpc',
+    CODDE_MIRROR:'http://192.168.1.37:81/xapp-commander-standalone/docroot//client//xfile/ext/cm/',
+    THEME_ROOT:'http://192.168.1.37:81/xapp-commander-standalone/docroot//client//themes/',
+    WEB_ROOT:'http://192.168.1.37:81/xapp-commander-standalone/docroot//client/',
+    FILE_SERVICE:'http://127.0.0.1/projects/x4mm/Code/xapp/xcf//index.php?view=rpc',
+    FILE_SERVICE_FULL:'http://127.0.0.1/projects/x4mm/Code/xapp/xcf//index.php?view=rpc',
+    REPO_URL:'http://192.168.1.37:81/xapp-commander-standalone/docroot//',
+    FILES_STORE_SERVICE_CLASS:'XCF_Directory_Service',
+    defaultStoreName:'workspace',
+    RPC_PARAMS:{
+        rpcUserField:'user',
+        rpcUserValue:'e741198e1842408aa660459240d430a6',
+        rpcSignatureField:'sig',
+        rpcSignatureToken:'d39f3441e0f0cbe990c520f897bc84d7',
+        rpcFixedParams:{
+        }
+    },
+    ACTION_TOOLBAR_MODE:'self'
+};
+var xappPluginResources=[{"class":"cmx.types.Resource","enabled":true,"name":"HTMLEditor","path":"HTMLEditor\/xfile\/main","type":"JS-PLUGIN","url":"","urlOri":""},{"class":"cmx.types.Resource","enabled":true,"name":"ImageEdit","path":"ImageEdit\/xfile\/main","type":"JS-PLUGIN","url":"","urlOri":"","packageSuffix":"","_packageLocation":"%CDN_URL%\/xapp\/commander\/plugins\/ImageEdit\/client\/"},{"class":"cmx.types.Resource","enabled":true,"name":"Shell","path":"Shell\/xfile\/main","type":"JS-PLUGIN","url":"","urlOri":"","packageSuffix":""},{"class":"cmx.types.Resource","enabled":true,"name":"Zoho","path":"Zoho\/xfile\/main","type":"JS-PLUGIN","url":"","urlOri":""}];</script>
+
+    <style>
+        .claro{
+            font-size: 0.75em;
+        }
+
+        .actionToolbarButtonElusive{
+            font-size: 1.2em;
+        }
+
+    </style>
+
+
+</head>
+<body class="ui-widget-content">
+
+<div id="root"  class=""></div>
+
+<div dojoType="xfile.widgets.Toaster" id="errorToast"
+     positionDirection="br-left" duration="0"
+     messageTopic="errorMessageTopic"></div>
+
+<div dojoType="xfile.widgets.Toaster" id="statusToast"
+     positionDirection="br-left" duration="0"
+     messageTopic="statusMessageTopic"></div>
+
+<div id="widgetCache" style="maxHeight:0px;display:none;"></div>
+
+<script type="text/javascript" src="http://127.0.0.1/projects/x4mm/Code/client/src/lib/dojo/dojo.js" data-dojo-config="ioPublish:true,
+            trace:{'loader-finish-exec':0},aliases:[['i18n', 'dojo/i18n']],
+		ioPublish:true,baseUrl: 'http://127.0.0.1/projects/x4mm/Code/client/src/lib/',has:{'dojo-firebug': false,'tab-split':true,'dojo-undef-api': true,'xblox-ui':true,'xlog':true,'xblox':true,'xideve':true,'xreload':true,'xidebeans':true,'delite':true,'xexpression':true, 'filtrex':true,'dojo-built':true,'ace-formatters':true},tlmSiblingOfDojo: 0, parseOnLoad: false, async: 1,packages:[{name:'xcfnode',location:'http://127.0.0.1/projects/x4mm/Code/utils/node_modules/xcfnode/'},{name:'HTMLEditor',location:'http://127.0.0.1/projects/x4mm/Code/xapp/commander/plugins/HTMLEditor/client/'},{name:'ImageEdit',location:'http://127.0.0.1/projects/x4mm/Code/xapp/commander/plugins/ImageEdit/client/'},{name:'Shell',location:'http://127.0.0.1/projects/x4mm/Code/xapp/commander/plugins/Shell/client/'},{name:'Zoho',location:'http://127.0.0.1/projects/x4mm/Code/xapp/commander/plugins/Zoho/client/'}]"></script>
+<!-- Run main-->
+<script type="text/javascript" src="http://127.0.0.1/projects/x4mm/Code/client/src/lib/xcf/run-release-debug.js"></script>
+<!--div id="scriptStandBy" data-dojo-type="dojox.widget.Standby" data-dojo-props="target:'root'" style="background-color: black;"></div-->
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+{
+	"admin": {
+		"settings": [
+			{
+				"id": "driverView",
+				"value": {
+					"basic": {
+						"showHeader": false,
+						"selection": {
+							"selected": [
+								"9627cb05-2f23-8846-0721-5abcc7d3afbb"
+							]
+						},
+						"toolbar": false,
+						"properties": true
+					},
+					"conditionalProcess": {
+						"showHeader": false,
+						"selection": {
+							"selected": {
+							}
+						},
+						"toolbar": true,
+						"properties": true
+					},
+					"basicVariables": {
+						"showHeader": false,
+						"selection": {
+							"selected": {
+							}
+						},
+						"toolbar": false,
+						"properties": true
+					}
+				}
+			},
+			{
+				"id": "theme",
+				"value": "blue"
+			}
+		]
+	}
+}

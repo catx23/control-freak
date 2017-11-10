@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+</head>
+
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="claro superhero" data-maq-ws="collapse" style="position:absolute" id="myapp" data-maq-appstates="{}">
+ <d-view-stack style="position: absolute; width: 206px; height: 132.328125px; left: 83px; top: 48px;">
+<d-panel label="View 1" style="width: 150px; height: 72.328125px; left: 13px; top: 14px;">
+ <button is="d-button" label="Default Label" title="Default Label" id="d-button_2" style="position: absolute; left: 9px; top: 16px;"></button>
+</d-panel>
+</d-view-stack>
+ </body>
+</html>

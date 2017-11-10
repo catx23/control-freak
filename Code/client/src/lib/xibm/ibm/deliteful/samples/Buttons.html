@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title id="pageTitle">deliteful Buttons sample</title>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../..",
+			config: {
+				"requirejs-dplugins/has": {
+					"bidi": true
+				}
+			}
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"deliteful/Checkbox",
+			"deliteful/Switch",
+			"deliteful/Button",
+			"deliteful/ToggleButton",
+			"deliteful/RadioButton",
+			"requirejs-domready/domReady!"
+		], function () {
+			document.body.style.display = "";
+		});
+
+	</script>
+<style>
+	.d-icon-cut:before {
+		content: url('./images/paste.gif'); /* Contains both object and action icons in a sprite image for the enabled state.  */
+	}
+	.d-icon-copy:before {
+		content: url('./images/copy.gif'); /* Contains both object and action icons in a sprite image for the enabled state.  */
+	}
+	p {
+		line-height: 1.7em;
+	}
+	d-switch {
+		margin-left: 3px;
+		margin-right: 3px;
+	}
+	.buttonPanel {
+		width: 50%;
+	}
+
+</style>
+</head>
+<body style="display: none" dir="ltr" role="application" aria-labelledby="pageTitle">
+<div style="display:flex">
+<fieldset class="buttonPanel">
+	<legend>Wrapped in label</legend>
+	<p><label><d-radio-button checked="true" name="radio"></d-radio-button>Choice 1</label></p>
+	<p><label><d-radio-button name="radio"></d-radio-button>Choice 2</label></p>
+	<p><label><d-radio-button disabled="true" name="radio"></d-radio-button>Choice 3 (disabled)</label></p>
+	<p><label><d-checkbox id="cb1"></d-checkbox>Option 1</label></p>
+	<p><label><d-checkbox id="cb2" disabled checked="true"></d-checkbox>Option 2 (disabled)</label></p>
+	<p><label>Option 3<d-switch id="sw1"></d-switch></label></p>
+	<p><label>Option 4<d-switch  id="sw2" checked="true" checkedLabel="ON" uncheckedLabel="OFF"></d-switch></label></p>
+	<p><label>Option 5<d-switch  id="sw5" checked="true" disabled checkedLabel="ON" uncheckedLabel="OFF"></d-switch></label></p>
+</fieldset>
+<fieldset class="buttonPanel">
+	<legend>Using label for=</legend>
+	<p><d-radio-button name="radio2" id="rb2" checked="true"></d-radio-button><label for="rb2">Choice 1</label></p>
+	<p><d-radio-button name="radio2" id="rb3"></d-radio-button><label for="rb3">Choice 2</label></p>
+	<p><d-radio-button disabled="true" name="radio2" id="rb4"></d-radio-button><label for="rb4">Choice 3</label></p>
+	<p><d-checkbox id="cb3"></d-checkbox><label for="cb3">Option 1</label></p>
+	<p><d-checkbox id="cb4" disabled checked="true"></d-checkbox><label for="cb4">Option 2 (disabled)</label></p>
+	<p><d-switch id="sw3"></d-switch><label for="sw3">Option 3</label></p>
+	<p><d-switch id="sw4" checked="true" checkedLabel="ON" uncheckedLabel="OFF"></d-switch><label for="sw4">option 4</label></p>
+	<p><d-switch id="sw6" checked="true" disabled checkedLabel="ON" uncheckedLabel="OFF"></d-switch><label for="sw6">option 5 (disabled)</label></p>
+</fieldset>
+</div>
+<fieldset>
+	<legend>Buttons</legend>
+	<button is="d-button">Button</button>
+	<!-- Classes d-button-success, d-button-info, d-button-warning and d-button-danger are provided by the boostrap theme -->
+	<button is="d-button" class="d-button-success">Button</button>
+	<button is="d-button" class="d-button-info">Button</button>
+	<button is="d-button" class="d-button-warning">Button</button>
+	<button is="d-button" class="d-button-danger">Button</button>
+</fieldset>
+<fieldset>
+	<legend>Toggle Buttons</legend>
+	<button is="d-toggle-button" checkedLabel="On">Off</button>
+	<button is="d-toggle-button" checked="true">Toggle</button>
+	<button is="d-toggle-button" checkedLabel="On" checkedIconClass="d-icon-cut" iconClass="d-icon-copy">Off</button>
+	<button is="d-toggle-button" checked="true" checkedLabel="Cut" checkedIconClass="d-icon-cut" showLabel="false" iconClass="d-icon-copy">Copy</button>
+</fieldset>
+
+</body>
+</html>

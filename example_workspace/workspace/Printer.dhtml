@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+</head>
+
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="claro superhero" data-maq-ws="collapse" style="position: absolute; background-size: 100%;" data-maq-appstates="{}" id="myapp">
+ <button is="d-button" title="Default Label" label="Home " style="position: absolute; left: 93.13195037841797px; top: 145.98959350585938px;" id="d-button_2"></button>
+ <button is="d-button" title="Default Label" label="X-10" iconClass="fa fa-arrow-left" style="position: absolute; left: 10px; top: 145.98959350585938px;" id="d-button_3"></button>
+ <button is="d-button" title="Default Label" label="X-10" iconClass="fa fa-arrow-right" style="position: absolute; left: 171.9791717529297px; top: 145.98959350585938px;" id="button_0">
+  <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=85d635a0-5b24-dae7-2b86-71556acbd587&amp;driver=e208711c-a51c-8d8a-41f2-883cd95ac7c4&amp;driverScope=user_drivers&amp;block=119ecf16-5744-1d96-78b0-205a024d1229" script="Test Move X"></d-xscript>
+</button>
+ <button is="d-button" title="Default Label" label="Y-10" iconClass="fa fa-arrow-up" style="position: absolute; left: 88.7326431274414px; top: 90px;" id="button_1"></button>
+ <button is="d-button" title="Default Label" label="Y-10" iconClass="fa fa-arrow-down" style="position: absolute; left: 90.00000762939453px; top: 207.9757080078125px;" id="button_2"></button>
+ <button is="d-button" title="Default Label" label="Y-10" iconClass="fa fa-arrow-up" style="position: absolute; left: 275.97222900390625px; top: 115.97222900390625px;" id="button_3"></button>
+ <button is="d-button" title="Default Label" label="Z-10" iconClass="fa fa-arrow-down" style="position: absolute; left: 275.97222900390625px; top: 167.96876525878906px;" id="button_4"></button>
+ <button is="d-button" title="Default Label" label="Print E-Stack" style="position: absolute; left: 17px; top: 296px;" id="d-button_4"></button>
+ <button is="d-button" title="Default Label" label="Print E-Stack" style="position: absolute; left: 158.8715362548828px; top: 295.9895935058594px;" id="button_5"></button>
+ <button is="d-button" label="Default Label" title="Default Label" style="position: absolute; left: 184.00284099578857px; top: 36.002840995788574px;" id="d-button_1"></button>
+</body>
+</html>

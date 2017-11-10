@@ -1,0 +1,294 @@
+<base href="%baseUrl%/" />
+
+<meta charset="utf-8" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+
+
+<script src="%lodashUrl%"></script>
+<script src="%requireBaseUrl%/requirejs/require.js"></script>
+
+<link rel="stylesheet" type="text/css" href="%libRoot%/xapp/build/themes/layer_bootstrap.css">
+<link rel="stylesheet" type="text/css" href="%css%">
+<script>
+    require.config({
+        config: {
+            waitSeconds: 9999999,
+            has: {
+                "use-dcl": true,
+                "php": true
+            },
+            'delite/theme': {
+                theme: '%theme%'
+            },
+            '_xdelite/theme': {
+                theme: 'superhero',
+                variables: {
+                    theme: 'superhero',
+                    themeRoot: 'xdelite/themes/'
+                }
+            }
+        },
+        baseUrl: "%requireBaseUrl%",
+        paths: {},
+        shim: {
+            // Libraries
+            lodash: {
+                exports: '_'
+            }
+        },
+        packages: [{
+                name: 'lodash',
+                location: './lodash-compat' //points to bower_components/dcl
+            },
+            {
+                name: 'xide',
+                location: '%libRoot%/xide'
+            },
+            {
+                name: 'xdeliteful',
+                location: '%requireBaseUrl%/../xibm/deliteful'
+            },
+            {
+                name: 'xblox',
+                location: '%libRoot%/xblox'
+            },
+            {
+                name: 'xapp',
+                location: '%libRoot%/xapp'
+            },
+            {
+                name: 'dijit',
+                location: '%libRoot%/dijit'
+            },
+            {
+                name: 'dijit',
+                location: '%libRoot%/dijit'
+            },
+            {
+                name: 'xwire',
+                location: '%libRoot%/xwire'
+            },
+            {
+                name: 'dojo',
+                location: '%libRoot%/dojo'
+            },
+            {
+                name: 'dojox',
+                location: '%libRoot%/dojox'
+            },
+            {
+                name: 'xdojo',
+                location: '%libRoot%/xdojo'
+            },
+            {
+                name: 'xdelite',
+                location: '%libRoot%/xdelite'
+            },
+            {
+                name: 'xfile',
+                location: '%libRoot%/xfile'
+            },
+            {
+                name: 'xnode',
+                location: '%libRoot%/xnode'
+            },
+            {
+                name: 'xcf',
+                location: '%libRoot%/xcf'
+            },
+            {
+                name: 'dstore',
+                location: '%libRoot%/dstore'
+            },
+            {
+                name: 'xaction',
+                location: '%libRoot%/xaction/src'
+            },
+            {
+                name: 'xlang',
+                location: '%libRoot%/xlang'
+            },
+            {
+                name: 'xlog',
+                location: '%libRoot%/xlog'
+            },
+            {
+                name: 'system_drivers',
+                location: '%data%/system/drivers'
+            },
+            {
+                name: 'user_drivers',
+                location: '%user_drivers_path%'
+            },
+            {
+                name: 'nxapp',
+                location: '%libRoot%/../../../../server/nodejs/nxapp/'
+            },
+            {
+                name: 'workspace_user',
+                location: '%workspace_user%'
+            },
+            {
+                name: 'custom',
+                location: '{{workspace_user}}/lib/custom'
+            }
+        ]
+    });
+    require({
+        map: {
+            '*': {
+                'deliteful/Button': 'xdeliteful/Button',
+                'dpointer/build/dpointerr': '../xibm/dpointer/build/dpointerr',
+                'decor/build/decorr': '../xibm/decor/build/decorr',
+                'delite/Container': '../xibm/delite/Container',
+                'nls/main_build_root': 'xapp/build/nls/main_build_root'
+                //'xblox/RunScript':'xdeliteful/RunScript'
+            }
+        }
+    });
+</script>
+
+
+
+<script type="text/javascript">
+    var xideveSettings = {
+        item: {
+            path: "%path%",
+            mount: "%mount%"
+        },
+        xbloxScripts: [],
+        rpcUrl: '%rpcUrl%',
+        xFileConfig: {
+            RPC_PARAMS: {
+                rpcUserField: 'user',
+                rpcUserValue: 'e741198e1842408aa660459240d430a6',
+                rpcSignatureField: 'sig',
+                rpcSignatureToken: 'd39f3441e0f0cbe990c520f897bc84d7',
+                rpcFixedParams: {}
+            }
+        },
+        serviceUrl: '%rpcUrl%',
+        mixins: [{
+                "declaredClass": 'xcf.manager.DriverManager',
+                "mixin": {
+                    "prefetch": {
+                        "system_drivers": % XCF_SYSTEM_DRIVERS % ,
+                        "user_drivers": % XCF_USER_DRIVERS %
+                    }
+                }
+            },
+            {
+                "declaredClass": 'xcf.manager.DeviceManager',
+                "mixin": {
+                    "prefetch": {
+                        "system_devices": % XCF_SYSTEM_DEVICES % ,
+                        "user_devices": % XCF_USER_DEVICES %
+                    }
+                }
+            },
+            {
+                declaredClass: 'xide.manager.ServerActionBase',
+                mixin: {
+                    serviceUrl: '%rpcUrl%',
+                    singleton: true
+                }
+            },
+            {
+                declaredClass: 'xide.manager.ResourceManager',
+                mixin: {
+                    serviceUrl: '%rpcUrl%',
+                    singleton: true,
+                    resourceVariables: {
+                        'VFS_CONFIG': % VFS_VARS % ,
+                        'USER_DIRECTORY': '%USER_DIRECTORY%',
+                        'VFS_GET_URL': '%VFS_GET_URL%'
+
+                    }
+                }
+            }
+        ]
+    };
+
+
+    var appContext = null;
+    var runBlox = function (path, id, context, settings) {
+        appContext.application.runBlox(path, id, context, settings);
+    };
+    var runx = function (ctx, expression, args) {
+        var _function = new Function("{" + expression + "; }");
+        return _function.call(ctx, args);
+    };
+
+    var runExpression = function (expression, context, args) {
+        var _function = new Function("{" + expression + "}");
+        return _function.apply(context || this, args || {});
+    };
+
+    /**
+     * This will resolve the master Dfd
+     * @param dfd
+     * @param bootStrapper
+     * @param context
+     * @param settings
+     */
+    var startx = function (dfd, bootStrapper, context, settings) {
+
+        console.log('Checkpoint 6. all dependencies loaded');
+
+        appContext = context;
+
+        dfd.resolve({
+            bootstrap: bootStrapper,
+            context: context,
+            settings: settings
+        });
+        context.init(settings);
+    };
+    /**
+     * Called usually by the IDE, when resolved
+     * @param settings
+     * @returns {module:dojo/Deferred}
+     */
+    function bootx(settings, Deferred) {
+        console.log('Checkpoint 2. bootx');
+
+        var headDfd = new Deferred();
+        require(['xapp/boot', 'xide/utils'], function (boot, utils) {
+            var bootStrap = new boot();
+            console.log('Checkpoint 3. xapp/boot ready');
+            bootStrap.load().then(function () {
+                console.log('   Checkpoint 3.1 xapp/boot load()');
+                utils.mixin(settings, xideveSettings);
+                bootStrap.start(settings).then(function (ctx) {
+                    console.log('   Checkpoint 5.2 xapp/boot start', xideveSettings);
+                    if (xideveSettings.item && xideveSettings.item.path) {
+                        document.title = utils.pathinfo(xideveSettings.item.path).basename;
+                    }
+                    startx(headDfd, bootStrap, ctx, xideveSettings);
+                });
+            });
+        });
+        return headDfd;
+    }
+
+    /*
+    require({
+        config:{
+            urlArgs:"bust=" + (new Date().getTime())
+        }
+    });
+    */
+
+    require([
+        "xapp/boot_app_pch_ide",
+        "requirejs-domready/domReady"
+    ], function (bootr, ready) {
+        console.log('Checkpoint 1. domReady');
+        $('body').addClass('bodyPreview');
+    });
+</script>
+
+<script src="%libRoot%/../xcf/ext/xapp-externals.js"></script>

@@ -1,0 +1,620 @@
+/***
+
+  Awesome LESS macros to generate cross browser CSS
+
+*/
+
+
+/***
+  Layout - Macros
+*/
+.defaultPadding(@paddingVar:""){
+  padding:@paddingVar;
+}
+.defaultBox(@paddingVar:"",@marginVar:""){
+  padding:@paddingVar;
+  margin:@marginVar;
+}
+.defaultBoxEx(@paddingH:"",@paddingV:"",@marginH:"",@marginV:""){
+  padding-left:@paddingH;
+  padding-right:@paddingH;
+  padding-top:@paddingV;
+  padding-bottom:@paddingV;
+  margin-left:@marginH;
+  margin-right:@marginH;
+  margin-top:@marginV;
+  margin-bottom:@marginV;
+}
+
+// Box sizing
+.box-sizing(@boxmodel) {
+  -webkit-box-sizing: @boxmodel;
+  -moz-box-sizing: @boxmodel;
+  box-sizing: @boxmodel;
+}
+
+/***
+  Macros zum erstellen von Rahmen
+*/
+.sunkenBorder(@width, @color1,@color2){
+  border-top: @width solid @color1;
+  border-left: @width solid @color1;
+  border-right: @width solid @color2;
+  border-bottom: @width solid @color2;
+}
+.border(@width, @color){
+  border: @width solid @color;
+}
+
+.borderEx(@width,@style, @color){
+  border: @width @style @color;
+}
+.border-radius (@radius) {
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+.box-shadow (@value) {
+  -webkit-box-shadow: @value;
+  -moz-box-shadow: @value;
+  box-shadow: @value;
+}
+
+.box_shadow_inset(@x: 0px, @y: 0px, @feather: 0px, @bcolor: #000000) {
+  box-shadow: inset @x @y @feather @bcolor;
+  -moz-box-shadow: inset @x @y @feather @bcolor;
+  -webkit-box-shadow: inset @x @y @feather @bcolor;
+}
+// Sizing shortcuts
+  .size(@width, @height) {
+  width: @width;
+  height: @height;
+}
+.square(@size) {
+  .size(@size, @size);
+}
+// Center-align a block level element
+.center-block() {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Clearfix
+// Source: http://nicolasgallagher.com/micro-clearfix-hack/
+//
+// For modern browsers
+// 1. The space content is one way to avoid an Opera bug when the
+//    contenteditable attribute is included anywhere else in the document.
+//    Otherwise it causes space to appear at the top and bottom of elements
+//    that are clearfixed.
+// 2. The use of `table` rather than `block` is only necessary if using
+//    `:before` to contain the top-margins of child elements.
+.clearfix() {
+  &:before,
+  &:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+
+/***
+  Macros fuer geometrische Operationen
+*/
+.rotate(@degrees) {
+  -webkit-transform: rotate(@degrees);
+  -ms-transform: rotate(@degrees); // IE9+
+  transform: rotate(@degrees);
+}
+.scale(@ratio) {
+  -webkit-transform: scale(@ratio);
+  -ms-transform: scale(@ratio); // IE9+
+  transform: scale(@ratio);
+}
+  .translate(@x, @y) {
+  -webkit-transform: translate(@x, @y);
+  -ms-transform: translate(@x, @y); // IE9+
+  transform: translate(@x, @y);
+}
+  .skew(@x, @y) {
+  -webkit-transform: skew(@x, @y);
+  -ms-transform: skewX(@x) skewY(@y); // See https://github.com/twbs/bootstrap/issues/4885; IE9+
+  transform: skew(@x, @y);
+}
+  .translate3d(@x, @y, @z) {
+  -webkit-transform: translate3d(@x, @y, @z);
+  transform: translate3d(@x, @y, @z);
+}
+
+.rotateX(@degrees) {
+  -webkit-transform: rotateX(@degrees);
+  -ms-transform: rotateX(@degrees); // IE9+
+  transform: rotateX(@degrees);
+}
+.rotateY(@degrees) {
+  -webkit-transform: rotateY(@degrees);
+  -ms-transform: rotateY(@degrees); // IE9+
+  transform: rotateY(@degrees);
+}
+.perspective(@perspective) {
+  -webkit-perspective: @perspective;
+  -moz-perspective: @perspective;
+  perspective: @perspective;
+}
+.perspective-origin(@perspective) {
+  -webkit-perspective-origin: @perspective;
+  -moz-perspective-origin: @perspective;
+  perspective-origin: @perspective;
+}
+.transform-origin(@origin){
+  -webkit-transform-origin: @origin;
+  -moz-transform-origin: @origin;
+  transform-origin: @origin;
+}
+
+/***
+  Effect Macros
+*/
+
+
+// Opacity
+.opacity(@opacity) {
+  opacity: @opacity;
+  // IE8 filter
+  @opacity-ie: (@opacity * 100);
+  filter: ~"alpha(opacity=@{opacity-ie})";
+}
+
+
+
+/***
+  Macros fuer Highlighting bei Feedbacks
+*/
+.highlightCorrect(){
+  background-color: #3c763d !important;
+  opacity: 0.7;
+  .rounded_corners(@border-radius-small);
+}
+.highlightCorrectBorder(){
+  opacity: 0.7;
+  border: 1px solid #3c763d !important;
+  .rounded_corners(@border-radius-small);
+}
+.highlightMissing(){
+  border: 1px solid #3c763d !important;
+  opacity: 0.7;
+  .rounded_corners(@border-radius-small);
+}
+.highlightCorrectUnselected(){
+  /*border: 3px solid @default-highlight-color-correct !important;*/
+  opacity: 0.7;
+  .rounded_corners(@border-radius-small);
+}
+.highlightWrong(){
+  border: 1px solid #ebccd1 !important;
+  background-color: #ebccd1 !important;
+  opacity: 0.7;
+  .rounded_corners(@border-radius-small);
+}
+.highlightWrongBorder(){
+  border: 1px solid #ebccd1 !important;
+  opacity: 0.7;
+  .rounded_corners(@border-radius-small);
+}
+
+/***
+  Text - Macros
+*/
+.makeText(@size, @color){
+  color: @color;
+  font-size: @size;
+  font-family: @font-family-sans-serif;
+  font-weight: bold;
+
+}
+/***
+  Text - Macros
+*/
+.makeTextEx(@size, @color,@fontFamily,@fontWeight,@textAlign){
+  .makeText(@size,@color);//standard attributes
+  font-family: @font-family-sans-serif;
+  font-weight: @fontWeight;
+  text-align: @textAlign;
+}
+
+// Optional hyphenation
+.hyphens(@mode: auto) {
+  word-wrap: break-word;
+  -webkit-hyphens: @mode;
+  -moz-hyphens: @mode;
+  -ms-hyphens: @mode; // IE10+
+  -o-hyphens: @mode;
+  hyphens: @mode;
+}
+.text-hide() {
+  font: ~"0/0" a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+// Text overflow
+// Requires inline-block or block for proper styling
+.text-overflow() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/***
+  Macros fuer Hintergrund-Sprites
+*/
+
+.backgroundSprite(@url,@size){
+  background-image: url(@url);
+  background-size: 100% 100%;
+  width: @size;
+  height: @size;
+}
+/***  Background-Sprite with different width & height*/
+.backgroundSpriteEx(@url,@sizeX,@sizeY){
+  background-image: url(@url);
+  background-size: 100% 100%;
+  width: @sizeX;
+  height: @sizeY;
+}
+
+/***
+  Background - Color - Transparent Overlay
+*/
+.backgroundColorOverlay(@color,@opacity){
+  background-color: @color;
+  background-size: 100% 100%;
+  content: "";
+  height: inherit;
+  opacity: @opacity;
+  position: absolute;
+  width: inherit;
+  pointer-events:none;
+}
+
+.rounded_corners(@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.rounded_corners_custom(@tr: 5px, @tl: 5px, @bl: 5px, @br: 5px) {
+  -webkit-border-radius: @tr @tl @bl @br;
+  -moz-border-radius: @tr @tl @bl @br;
+  border-radius:@tr @tl @bl @br;
+}
+.button-colorize(@color) {
+  background-color:@color;
+  border:1px solid darken(@color, 20%);
+
+  text-shadow:0 2px 0 darken(@color, 10%);
+  box-shadow:0 3px 0 0 darken(@color, 30%), inset 0 1px 3px rgba(255,255,255,0.4);
+  background-image:-webkit-linear-gradient(top, rgba(255,255,255, 0.125) 0%, rgba(0,0,0, 0.125) 100%);
+}
+/***
+  Shadow - Macro
+*/
+.box_shadow(@x: 0px, @y: 0px, @feather: 0px, @bcolor: #000000) {
+  box-shadow: @x @y @feather @bcolor;
+  -moz-box-shadow:  @x @y @feather @bcolor;
+  -webkit-box-shadow: @x @y @feather @bcolor;
+}
+
+
+// Reset filters for IE
+//
+// When you need to remove a gradient background, do not forget to use this to reset
+// the IE filter for IE9 and below.
+.reset-filter() {
+  filter: e(%("progid:DXImageTransform.Microsoft.gradient(enabled = false)"));
+}
+
+
+/***
+    Image related
+*/
+
+// Responsive image
+//
+// Keep images from scaling beyond the width of their parents.
+
+.img-responsive(@display: block) {
+  display: @display;
+  max-width: 100%; // Part 1: Set a maximum relative to the parent
+  height: auto; // Part 2: Scale the height according to the width, otherwise you get stretching
+}
+
+// Retina images
+//
+// Short retina mixin for setting background-image and -size
+
+.img-retina(@file-1x, @file-2x, @width-1x, @height-1x) {
+  background-image: url("@{file-1x}");
+
+  @media
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (   min--moz-device-pixel-ratio: 2),
+  only screen and (     -o-min-device-pixel-ratio: 2/1),
+  only screen and (        min-device-pixel-ratio: 2),
+  only screen and (                min-resolution: 192dpi),
+  only screen and (                min-resolution: 2dppx) {
+    background-image: url("@{file-2x}");
+    background-size: @width-1x @height-1x;
+  }
+}
+
+
+/***
+  Pure Class Macros
+*/
+
+//remove outlines and borders from Dijit-Buttons
+.adjustDojoButton(@prefix:"",@suffix:""){
+  .@{prefix} .@{suffix} .dijitButtonNode{
+    border: none;
+    height: inherit;
+    width: inherit;
+    outline: none;
+
+   //hide out line
+   &:focus{
+     outline: none;
+   }
+
+  }
+
+  .@{prefix} .@{suffix} .dijitButtonContents{
+    display: none;
+  }
+}
+
+.adjustDojoButtonStates(@prefix:"",@suffix:""){
+
+  .@{prefix}@{suffix}{
+    outline: none;
+  }
+}
+
+/***
+  LOW-LEVEL : Macros zum animieren von CSS Eigentschaften
+*/
+.transition-property (@value) {
+  -webkit-transition-property: @value;
+  -moz-transition-property: @value;
+  transition-property: @value;
+}
+
+.fadeProperty (@value,@time) {
+  .transition-property(@value);
+  .transition-duration(@time);
+}
+
+.transition-property (@value1, @value2) {
+  -webkit-transition-property: @value1, @value2;
+  -moz-transition-property: @value1, @value2;
+  transition-property: @value1, @value2;
+}
+
+.transition-duration (@value) {
+  -webkit-transition-duration: @value;
+  -moz-transition-duration: @value;
+  transition-duration: @value;
+}
+
+.transition-duration (@value1, @value2) {
+  -webkit-transition-duration: @value1, @value2;
+  -moz-transition-duration: @value1, @value2;
+  transition-duration: @value1, @value2;
+}
+
+.transition-timing-function (@value) {
+  -webkit-transition-timing-function: @value;
+  -moz-transition-timing-function: @value;
+  transition-timing-function: @value;
+}
+/***
+  LOW-LEVEL : Macros zum erstellen von Gradients
+*/
+.linear-gradient (@value1, @value2) {
+  // summary:
+  //		Expands to browser specific background-image specifications for a linear-gradient (2 stops)
+  background-image: -moz-linear-gradient(@value1, @value2); // FF3.6 - FF15 (FF16+ supports linear-gradient)
+  background-image: -webkit-linear-gradient(@value1, @value2); // Chrome10+, Safari5.1+
+  background-image: -o-linear-gradient(@value1, @value2); // Opera 11.10+
+  background-image: linear-gradient(@value1, @value2);
+}
+.linear-gradient (@value1, @value2, @value3) {
+  background-image: -moz-linear-gradient(@value1, @value2, @value3); // FF3.6 - FF15 (FF16+ supports linear-gradient)
+  background-image: -webkit-linear-gradient(@value1, @value2, @value3); // Chrome10+, Safari5.1+
+  background-image: -o-linear-gradient(@value1, @value2, @value3); // Opera 11.10+
+  background-image: linear-gradient(@value1, @value2, @value3);
+}
+.linear-gradient (@value1, @value2, @value3, @value4) {
+  background-image: -moz-linear-gradient(@value1, @value2, @value3, @value4); // FF3.6 - FF15 (FF16+ supports linear-gradient)
+  background-image: -webkit-linear-gradient(@value1, @value2, @value3, @value4); // Chrome10+, Safari5.1+
+  background-image: -o-linear-gradient(@value1, @value2, @value3, @value4); // Opera 11.10+
+  background-image: linear-gradient(@value1, @value2, @value3, @value4);
+}
+.linear-gradient (@value1, @value2, @value3, @value4, @value5) {
+  background-image: -moz-linear-gradient(@value1, @value2, @value3, @value4, @value5); // FF3.6 - FF15 (FF16+ supports linear-gradient)
+  background-image: -webkit-linear-gradient(@value1, @value2, @value3, @value4, @value5); // Chrome10+, Safari5.1+
+  background-image: -o-linear-gradient(@value1, @value2, @value3, @value4, @value5); // Opera 11.10+
+  background-image: linear-gradient(@value1, @value2, @value3, @value4, @value5);
+}
+.linear-gradient (@value1, @value2, @value3, @value4, @value5, @value6) {
+  background-image: -moz-linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6); // FF3.6 - FF15 (FF16+ supports linear-gradient)
+  background-image: -webkit-linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6); // Chrome10+, Safari5.1+
+  background-image: -o-linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6); // Opera 11.10+
+  background-image: linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6);
+}
+.linear-gradient (@value1, @value2, @value3, @value4, @value5, @value6, @value7) {
+  background-image: -moz-linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6, @value7); // FF3.6 - FF15 (FF16+ supports linear-gradient)
+  background-image: -webkit-linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6, @value7); // Chrome10+, Safari5.1+
+  background-image: -o-linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6, @value7); // Opera 11.10+
+  background-image: linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6, @value7);
+}
+
+.alpha-white-gradient (@opacity1, @stop1, @opacity2, @stop2) {
+  // summary:
+  //		For setting up white background-image with variable transparency.
+  // example:
+  //		Gradient starts at top (0%) with 30% opacity, and then ends at bottom (100%) with full transparency
+  //		|	.alpha-white-gradient(0.3, 0%, 0, 100%)
+  //
+  .linear-gradient(rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2);
+}
+.alpha-white-gradient (@start, @opacity1, @stop1, @opacity2, @stop2) {
+  .linear-gradient(@start, rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2);
+}
+.alpha-white-gradient (@opacity1, @stop1, @opacity2, @stop2, @opacity3, @stop3) {
+  .linear-gradient(rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2, rgba(255,255,255, @opacity3) @stop3);
+}
+.alpha-white-gradient (@start, @opacity1, @stop1, @opacity2, @stop2, @opacity3, @stop3) {
+  .linear-gradient(@start, rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2, rgba(255,255,255, @opacity3) @stop3);
+}
+.alpha-white-gradient (@opacity1, @stop1, @opacity2, @stop2, @opacity3, @stop3, @opacity4, @stop4) {
+  .linear-gradient(rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2, rgba(255,255,255, @opacity3) @stop3, rgba(255,255,255, @opacity4) @stop4);
+}
+.alpha-white-gradient (@start, @opacity1, @stop1, @opacity2, @stop2, @opacity3, @stop3, @opacity4, @stop4) {
+  .linear-gradient(@start, rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2, rgba(255,255,255, @opacity3) @stop3, rgba(255,255,255, @opacity4) @stop4);
+}
+.alpha-white-gradient (@start, @opacity1, @stop1, @opacity2, @stop2, @opacity3, @stop3, @opacity4, @stop4, @opacity5, @stop5) {
+  .linear-gradient(@start, rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2, rgba(255,255,255, @opacity3) @stop3, rgba(255,255,255, @opacity4) @stop4, rgba(255,255,255, @opacity5) @stop5);
+}
+.alpha-white-gradient (@start, @opacity1, @stop1, @opacity2, @stop2, @opacity3, @stop3, @opacity4, @stop4, @opacity5, @stop5, @opacity6, @stop6) {
+  .linear-gradient(@start, rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2, rgba(255,255,255, @opacity3) @stop3, rgba(255,255,255, @opacity4) @stop4, rgba(255,255,255, @opacity5) @stop5, rgba(255,255,255, @opacity6) @stop6);
+}
+
+.gradient-and-filter (@color, @fade1, @fade2) {
+  // summary:
+  //		Sets up a background color with a vertical gradient.
+  //		In order to make transitions work properly on mozilla and webkit, this is done by combining
+  //		a background-color which will be changed based on state (ex: hover) with a constant
+  //		white alpha-transparency background-image.  On IE it creates a DXImageTransform filter.
+  // @color:
+  //		The color
+  // @fade1:
+  //		The percent to fade at the top
+  // @fade2:
+  //		The percent to fade at the bottom
+  background-color: @color; // the base color
+  .linear-gradient(fadeout(#fff, 100-@fade1), fadeout(#fff, 100-@fade2));
+  filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr="lighten(@color, @fade1)~", endColorstr="lighten(@color, @fade2)~")"; // IE
+}
+.horizontal-gradient-and-filter (@color, @fade1, @fade2) {
+  // summary:
+  //		Sets up a background color with a horizontal gradient.
+  //		In order to make transitions work properly on mozilla and webkit, this is done by combining
+  //		a background-color which will be changed based on state (ex: hover) with a constant
+  //		white alpha-transparency background-image.  On IE it creates a DXImageTransform filter.
+  // @color:
+  //		The color
+  // @fade1:
+  //		The percent to fade at the top
+  // @fade2:
+  //		The percent to fade at the bottom
+  background-color: @color; // the base color
+  .linear-gradient(left, fadeout(#fff, 100-@fade1), fadeout(#fff, 100-@fade2));
+  filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr="lighten(@color, @fade1)~", endColorstr="lighten(@color, @fade2)~"gradientType=1)"; // IE
+}
+.textbox-background-image () {
+  // summary:
+  //		Background image used for hovered TextBoxes and similar controls.
+  //		It's just a small inset shadow below the top border (inside of the TextBox).
+  .linear-gradient(rgba(127,127,127,0.2) 0%, rgba(127,127,127,0) 2px);
+}
+
+.standard-gradient (@pathToRoot: "") {
+  // summary:
+  //		Light to dark background-image used by widgets with short height (~16px) including:
+  //			- MenuBar, and hovered MenuItem/MenuBarItem
+  //			- arrow icon wrapper for Select, ComboBox, Spinner
+  //			- Toolbar and hovered Toolbar buttons
+  //			- TitlePane title bar, AccordionContainer title bar, Dialog title bar
+
+  // Fallback for IE
+  background-image: url("@{pathToRoot}images/standardGradient.png");
+  background-repeat: repeat-x;
+
+  // CSS gradient for other browsers
+  .alpha-white-gradient(0.7, 0%, 0, 100%);
+
+  // IE6 can't handle a background-image with transparency and a background-color; the color is blocked out
+  _background-image: none;
+}
+.active-gradient (@pathToRoot: "") {
+  // summary:
+  //		Light to dark background-image with an inset gray shadow at the top,
+  //		used by widgets when they are active (ie: mousedown) or selected, including:
+  //			- active MenuItem/MenuBarItem
+  //			- arrow icon wrapper for Select, ComboBox, Spinner when active or drop down is open
+  //			- active Toolbar buttons
+  //			- active TitlePane title bar, AccordionContainer title bar
+
+  // Fallback for IE
+  background-image: url("@{pathToRoot}images/activeGradient.png");
+  background-repeat: repeat-x;
+
+  // CSS gradient for other browsers
+  .linear-gradient(rgba(190,190,190,0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+
+  // IE6 can't handle a background-image with transparency and a background-color; the color is blocked out
+  _background-image: none;
+}
+
+/**********************************************************************************************************************/
+/*                                              Polyfill                                                              */
+/**********************************************************************************************************************/
+
+/**
+  Text-Font-Size Macros
+**/
+@iterations: 5;
+@fontPrefix:assign;
+@className :questionText;
+@startSize :100;
+@startFontSize :12px;
+@stepSize :2;
+@stepSizeDimension :100;
+
+
+// end the loop when index is 0
+//.loopingClass (@fontPrefix,@className,0) {}
+
+// "call" the loopingClass the first time with highest value
+//.loopingClass (@fontPrefix,@className,0);
+
+
+.makeButton(){
+  display: inline-block;
+  padding: 6px 12px;
+  padding-top: 2px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.15),0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.15),0 1px 1px rgba(0,0,0,0.075);
+}

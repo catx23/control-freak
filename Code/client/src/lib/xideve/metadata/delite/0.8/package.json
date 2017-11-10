@@ -1,0 +1,22 @@
+{
+    "name": "delite",
+    "version": "0.8",
+    "directories": {
+        "lib": "../ibm-js/delite"
+    },
+    "dependencies": {
+
+    },
+    "overlays": {
+        "oam": {
+            "directories": {
+                "metadata": "."
+            }
+        },
+        "maqetta": {
+            "scripts": {
+                "widget_metadata": "./widgets.json"
+            }
+        }
+    }
+}

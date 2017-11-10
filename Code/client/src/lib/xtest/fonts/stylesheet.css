@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'codingfontregular';
+    src: url('codingfont-webfont.eot');
+    src: url('codingfont-webfont.eot?#iefix') format('embedded-opentype'),
+         url('codingfont-webfont.woff') format('woff'),
+         url('codingfont-webfont.ttf') format('truetype'),
+         url('codingfont-webfont.svg#codingfontregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

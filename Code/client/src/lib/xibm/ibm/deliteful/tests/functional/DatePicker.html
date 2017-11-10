@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>DatePicker</title>
+
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		ready = false;
+
+		require.config({
+			baseUrl: "../../.."
+		});
+
+		require([
+			"delite/register",
+			"dojo/date/stamp",
+			"deliteful/DatePicker"
+		], function (
+			register,
+			stamp
+		) {
+			register.deliver();
+			ready = true;
+
+			onChange = function (evt) {
+				var calendar = document.getElementById("calendar1");
+				document.getElementById("value").textContent = stamp.toISOString(calendar.value, {selector: "date"});
+			};
+		});
+	</script>
+</head>
+<body role="application" aria-label="DatePicker Test Application">
+	<h1>DatePicker</h1>
+
+	<label for="before">before</label>: <input value="input" id="before">
+	<br><br>
+
+	<span id="calendar1-label">Test calendar</span>:
+	<br>
+	<d-date-picker id="calendar1" aria-labelledby="calendar1-label"
+		   on-change="onChange(arguments[0]);"></d-date-picker>
+	<br><br>
+
+	Value: <span id="value"></span>
+	<br><br>
+
+	<label for="after">after</label>: <input value="input" id="after">
+</body>
+</html>

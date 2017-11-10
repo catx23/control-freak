@@ -1,0 +1,88 @@
+define([
+    "dojo/_base/declare",
+    "dojo/_base/array",
+    "dojo/_base/connect",
+    "xide/mixins/ReloadMixin",
+    "xide/mixins/EventedMixin",
+    "xide/utils"
+], function (declare, array, connect, ReloadMixin, EventedMixin, utils) {
+
+    return declare('xideve/xblox/BlockHelper', null, {
+
+        _last: null,
+        getData: function(/*Widget*/ widget, /*Object*/ options) {
+            if (!widget) {
+                return undefined;
+            }
+
+            var data = widget._getData(options);
+            /*
+            var _uniqueId = dijit.getUniqueId(widget.type.replace(/\./g, "_"));
+            _uniqueId = _uniqueId.replace('delite/', 'd-').toLowerCase();
+            //delite/Slider_2
+            if (widget.id === 'no_id') {
+                widget.id = _uniqueId;
+                data.properties['id'] = _uniqueId;
+                data.properties.id = _uniqueId;
+            }
+            */
+            return data;
+        },
+        _getPropertyValue:function(prop){
+
+        },
+        onRemove: function (widget) {
+            if (widget) {
+                //utils.destroy(widget,true);
+            }
+        },
+        onReloaded: function () {
+           // console.log('helper reloaded');
+        },
+        _isAllowed: function (data) {
+          //  console.log('helper is allowed', data);
+            return true;
+        },
+        addChildToDom: function (target, child, index) {
+            //console.log('addChildToDom!', arguments);
+            if (child.dijitWidget) {
+                child.dijitWidget._targetReference = target;
+            }
+            this._last = child;
+        },
+        constructor: function () {
+            //console.log('helper ctr');
+
+        },
+        postCreateWidget: function (widget, userData) {
+
+            //onsole.log('post create');
+
+            if (widget.dijitWidget) {
+                this._last = widget.dijitWidget;
+            }
+            if (this._last && userData && userData.block) {
+                this._last._targetBlock = userData.block;
+            }
+        },
+        _cleanSrcElement: function (srcElement, userData) {
+            var model = srcElement.getAttribute("style");
+            srcElement.setAttribute("style", '');
+        },
+        preProcess: function (node, context) {
+            //console.log('preprocess');
+        },
+        _preProcessData: function (data) {
+            data.properties.style = 'position:relative';
+            return data;
+        },
+        _create: function (/*Widget*/ widget, /*Object*/srcElement) {
+            console.log('helper create: ', {
+                widget: widget,
+                el: srcElement
+            });
+            return true;
+        }
+    });
+
+});

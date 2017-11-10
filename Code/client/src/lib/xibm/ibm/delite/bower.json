@@ -1,0 +1,31 @@
+{
+	"name": "delite",
+	"version": "0.8.2",
+	"dependencies": {
+		"dcl": "1.1.2",
+		"decor": "0.7.x",
+		"dpointer": "0.5.x",
+		"jquery": ">=2.1",
+		"requirejs": "2.1.x",
+		"requirejs-domready": "2.0.x",
+		"requirejs-dplugins": "0.6.x",
+		"requirejs-text": "2.0.x"
+	},
+	"devDependencies": {
+		"dojo": ">=1.9.1",
+		"dstore": "1.1.x",
+		"dijit": ">=1.9.1",
+		"webcomponentsjs": "~1.0"
+	},
+	"keywords": [
+		"web-components",
+		"custom-elements"
+	],
+	"ignore": [
+		".jshintrc",
+		".gitattributes",
+		".travis.yml",
+		"tests",
+		"CONTRIBUTING.md"
+	]
+}

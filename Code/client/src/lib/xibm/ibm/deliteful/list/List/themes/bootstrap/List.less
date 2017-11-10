@@ -1,0 +1,101 @@
+@import "../../../../../delite/themes/bootstrap/includes";
+/*
+ * -----------------------------------------------
+ *  Theme     : bootstrap
+ *  Widget    : deliteful/list/List
+ *  baseClass : d-list or d-round-rect-list
+ * -----------------------------------------------
+ */
+@category-height: 35px;
+@cell-height: 40px;
+@round-radius: @list-group-border-radius;
+
+.d-list {
+	border: 1px solid @list-group-border;
+	background-color: @list-group-bg;
+}
+
+.d-list-category-styles() {
+	.d-list-cell {
+		background-color: @panel-default-heading-bg;
+		color: @panel-default-text;
+		border-bottom: 1px solid @list-group-border;
+		padding: 0 10px;
+	}
+}
+
+.d-list-item-styles() {
+	.d-list-cell {
+		border-bottom: 1px solid @list-group-border;
+		padding: 0px 8px;
+	}
+}
+
+.d-selectable, .d-multiselectable {
+	.d-list-item:hover {
+		background-color: @list-group-hover-bg;
+	}
+}
+
+.d-list-item-selected-style() {
+	.d-list-cell {
+		border-bottom: 1px solid @list-group-active-border;
+		background-color: @list-group-active-bg;
+		color: @list-group-active-color;
+		font-weight: bold;
+	}
+}
+
+.d-list-item-label-style() {
+}
+
+.d-list-item-right-text-style() {
+}
+
+.d-progress-indicator-lines-style() {
+	stroke: #808080
+}
+
+.d-list-loader-style() {
+	font-weight: 500;
+	height: @cell-height - 2;
+	&:hover {
+		background-color: #ebebeb;
+	}
+
+	&.d-list-previous-loader {
+		border-top-width: 0;
+		/* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
+		padding-bottom: 1px;
+		border-bottom: 1px solid @list-group-border;
+ 	}
+
+	&.d-list-next-loader {
+		border-bottom-width: 0;
+		/* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
+		padding-bottom: 1px;
+	}
+}
+
+.d-list-loading-style() {
+	color: @text-muted;
+	font-weight: normal;
+	font-style: italic;
+	&:hover {
+		background-color: inherit;
+	}
+}
+
+.d-list-loading-panel-style() {
+	color: @text-muted;
+	background-color: @body-bg;
+	font-style: italic;
+}
+
+.d-round-rect-list {
+	border: 1px solid @list-group-border;
+	border-radius: @round-radius;
+	background-color: @list-group-bg;
+}
+
+@import "../List_template";

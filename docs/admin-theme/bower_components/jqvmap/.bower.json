@@ -1,0 +1,13 @@
+{
+  "name": "jqvmap",
+  "homepage": "https://github.com/manifestinteractive/jqvmap",
+  "_release": "1044285497",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "1044285497f0e6b090fafd2391b4edc2f38f2103"
+  },
+  "_source": "https://github.com/manifestinteractive/jqvmap.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/manifestinteractive/jqvmap.git"
+}

@@ -1,0 +1,102 @@
+{
+    "collections": {
+        "xblox": {
+            "name": "xblox"
+        }
+    },
+    "categories": {
+        "xblox": {
+            "name": "xblox",
+            "dijit": "xblox"
+        }
+    },
+    "widgets": [
+        {
+            "name": "RunScript",
+            "type": "xblox/RunScript",
+            "category": "xblox",
+            "collection": "xblox",
+            "tags": "RunScript",
+            "icon": "resources/images/dx-mbl--button.gif",
+            "iconBase64": "data:image/gif;base64,R0lGODlhEAAQANUAAC5KhTFPijZXkDZYkDxhmTtimUJsouHr9/D1+0h2q0l3q7XQ7bbQ7bbQ7MLX79vo9k6AtE6Bs6TH6bbR7NLj9FKJu1OJulaNv5C95aTH6KTI6LXR7L/Z8Mje8laOv36z4X604JC95LnW77/a8Nzr9////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACUALAAAAAAQABAAAAZiwJJwSCwaj8hk0cP0XJpQj9ByqFqvVUSlFDk4vuCw4wApKR6MxmLCbm8mj0TJQNFI7nh8hmIoFTohGIKDgyEdBCUDHCAfHyCPkI0jAiUBIpeYmZckAUIAn6ChoEqkpaanRUEAOw==",
+            "helper": "xideve/xblox/ScriptHelper",
+            "inlineEdit": "xideve/xblox/BlockInput",
+            "isControl": true,
+            "properties":{
+
+            },
+            "_inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": true
+            },
+            "children": [],
+            "iconLarge": "resources/imagesLarge/Button.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAtBJREFUeNrsl99v0lAUx1taykrjHCiDgTg2p8mWLIaYqFniHiQx0Sdf/E/8M3zz3/DBB52JcT744Bb3IG6LGsJgk/EryBgoUFraeuqNlwotNIZVHu5JaM89vfeeD997e7jQL99sUZNnLHweJG5PFNPG5raLmkgjWASLYBEsgkWwCFbvBGE0SZJefyocFGv57w0H0kcuTl+Z8927HuY4zhILmJ6+2I0vhR7dWQ77phzAKtTEZKb85PnHxw/jRjLWyPR2L++bFhYiwY5KZauyI8vFLMfCpVoLUt9djWCyHlaz2dxJlddvrJTqssM7aT4c2ktlbi3OmGDJsvyj1e4qVFfp9t4IhjlTIFVR9BvNFKoNADBZRE3TKNrFcazNGdeXBOS8SzdxBPuDTYs1/JOOdukAVm8ia69irC0KeBaapt9nmn3DUYetbGs8BYJ10SPH3Ix5IeV+oYNlBrIPhy08HHXYOWrbmc0WlpuxNdHXcodlej4eCNd4lAcneSzanGpsapl2QxFgQuL9s04WWPbevEEl0EBgOjqREdmXkuioWihr7kRCzaifg0i6ojePazIAw9W+8GPbW+VGF5FhSlAI7y0j+mFVGgeWpvVR4dzYOFaPVH4quECAj4SBCPg4CM38aXek8NizxDrHc4qiTA2tqKqqYc36qp0xgpo2qqD+fRpNcc4vWGKtzs8kM8W1lctDplHkjs2F4Dye3ih1WM/PucrCrAWW2+2+5Gm9Sp3yHHs1coFnqTEa46K0v5cJWaMl7WfLu+ni/Wuc2x0ywRIEIRgMJqTct1r92UGxUm87cHYInOejfm8iRkFqADDBgkNFIBDQZSuVwoxIz7oG97t9A21UVR29s2iR5+lQKAqpzY+BAOHxeOCx1+s1njHO2mDzgE6Q2qgC21cO4HHfsdoBo3/bsHI62IP8ISNYBItgESyCRbD+o+k/1Rub25OG9UuAAQDNMiDFC+r6MQAAAABJRU5ErkJggg==",
+            "allowedChild": "xblox/Script"
+        },
+        {
+            "name": "CSSState",
+            "type": "xblox/CSSState",
+            "category": "xblox",
+            "collection": "xblox",
+            "tags": "CSSState",
+            "icon": "resources/images/dx-mbl--button.gif",
+            "iconBase64": "data:image/gif;base64,R0lGODlhEAAQANUAAC5KhTFPijZXkDZYkDxhmTtimUJsouHr9/D1+0h2q0l3q7XQ7bbQ7bbQ7MLX79vo9k6AtE6Bs6TH6bbR7NLj9FKJu1OJulaNv5C95aTH6KTI6LXR7L/Z8Mje8laOv36z4X604JC95LnW77/a8Nzr9////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACUALAAAAAAQABAAAAZiwJJwSCwaj8hk0cP0XJpQj9ByqFqvVUSlFDk4vuCw4wApKR6MxmLCbm8mj0TJQNFI7nh8hmIoFTohGIKDgyEdBCUDHCAfHyCPkI0jAiUBIpeYmZckAUIAn6ChoEqkpaanRUEAOw==",
+            "helper": "xideve/xblox/BlockHelper",
+            "_inlineEdit2": "xideve/xblox/BlockInput",
+            "inlineEdit": "xideve/xblox/BlockInput",
+            "isControl": true,
+            "properties":{
+                "name":"Default"
+            },
+            "children": "",
+            "iconLarge": "resources/imagesLarge/Button.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAtBJREFUeNrsl99v0lAUx1taykrjHCiDgTg2p8mWLIaYqFniHiQx0Sdf/E/8M3zz3/DBB52JcT744Bb3IG6LGsJgk/EryBgoUFraeuqNlwotNIZVHu5JaM89vfeeD997e7jQL99sUZNnLHweJG5PFNPG5raLmkgjWASLYBEsgkWwCFbvBGE0SZJefyocFGv57w0H0kcuTl+Z8927HuY4zhILmJ6+2I0vhR7dWQ77phzAKtTEZKb85PnHxw/jRjLWyPR2L++bFhYiwY5KZauyI8vFLMfCpVoLUt9djWCyHlaz2dxJlddvrJTqssM7aT4c2ktlbi3OmGDJsvyj1e4qVFfp9t4IhjlTIFVR9BvNFKoNADBZRE3TKNrFcazNGdeXBOS8SzdxBPuDTYs1/JOOdukAVm8ia69irC0KeBaapt9nmn3DUYetbGs8BYJ10SPH3Ix5IeV+oYNlBrIPhy08HHXYOWrbmc0WlpuxNdHXcodlej4eCNd4lAcneSzanGpsapl2QxFgQuL9s04WWPbevEEl0EBgOjqREdmXkuioWihr7kRCzaifg0i6ojePazIAw9W+8GPbW+VGF5FhSlAI7y0j+mFVGgeWpvVR4dzYOFaPVH4quECAj4SBCPg4CM38aXek8NizxDrHc4qiTA2tqKqqYc36qp0xgpo2qqD+fRpNcc4vWGKtzs8kM8W1lctDplHkjs2F4Dye3ih1WM/PucrCrAWW2+2+5Gm9Sp3yHHs1coFnqTEa46K0v5cJWaMl7WfLu+ni/Wuc2x0ywRIEIRgMJqTct1r92UGxUm87cHYInOejfm8iRkFqADDBgkNFIBDQZSuVwoxIz7oG97t9A21UVR29s2iR5+lQKAqpzY+BAOHxeOCx1+s1njHO2mDzgE6Q2qgC21cO4HHfsdoBo3/bsHI62IP8ISNYBItgESyCRbD+o+k/1Rub25OG9UuAAQDNMiDFC+r6MQAAAABJRU5ErkJggg=="
+        },
+        {
+            "name": "StyleState",
+            "type": "xblox/StyleState",
+            "category": "xblox",
+            "collection": "xblox",
+            "tags": "StyleState",
+            "icon": "resources/images/dx-mbl--button.gif",
+            "iconBase64": "data:image/gif;base64,R0lGODlhEAAQANUAAC5KhTFPijZXkDZYkDxhmTtimUJsouHr9/D1+0h2q0l3q7XQ7bbQ7bbQ7MLX79vo9k6AtE6Bs6TH6bbR7NLj9FKJu1OJulaNv5C95aTH6KTI6LXR7L/Z8Mje8laOv36z4X604JC95LnW77/a8Nzr9////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACUALAAAAAAQABAAAAZiwJJwSCwaj8hk0cP0XJpQj9ByqFqvVUSlFDk4vuCw4wApKR6MxmLCbm8mj0TJQNFI7nh8hmIoFTohGIKDgyEdBCUDHCAfHyCPkI0jAiUBIpeYmZckAUIAn6ChoEqkpaanRUEAOw==",
+            "helper": "xideve/xblox/BlockHelper",
+            "_inlineEdit2": "xideve/xblox/BlockInput",
+            "inlineEdit": "xideve/xblox/BlockInput",
+            "isControl": true,
+            "properties":{
+                "name":"Default"
+            },
+            "_inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": false
+            },
+            "children": "",
+            "iconLarge": "resources/imagesLarge/Button.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAtBJREFUeNrsl99v0lAUx1taykrjHCiDgTg2p8mWLIaYqFniHiQx0Sdf/E/8M3zz3/DBB52JcT744Bb3IG6LGsJgk/EryBgoUFraeuqNlwotNIZVHu5JaM89vfeeD997e7jQL99sUZNnLHweJG5PFNPG5raLmkgjWASLYBEsgkWwCFbvBGE0SZJefyocFGv57w0H0kcuTl+Z8927HuY4zhILmJ6+2I0vhR7dWQ77phzAKtTEZKb85PnHxw/jRjLWyPR2L++bFhYiwY5KZauyI8vFLMfCpVoLUt9djWCyHlaz2dxJlddvrJTqssM7aT4c2ktlbi3OmGDJsvyj1e4qVFfp9t4IhjlTIFVR9BvNFKoNADBZRE3TKNrFcazNGdeXBOS8SzdxBPuDTYs1/JOOdukAVm8ia69irC0KeBaapt9nmn3DUYetbGs8BYJ10SPH3Ix5IeV+oYNlBrIPhy08HHXYOWrbmc0WlpuxNdHXcodlej4eCNd4lAcneSzanGpsapl2QxFgQuL9s04WWPbevEEl0EBgOjqREdmXkuioWihr7kRCzaifg0i6ojePazIAw9W+8GPbW+VGF5FhSlAI7y0j+mFVGgeWpvVR4dzYOFaPVH4quECAj4SBCPg4CM38aXek8NizxDrHc4qiTA2tqKqqYc36qp0xgpo2qqD+fRpNcc4vWGKtzs8kM8W1lctDplHkjs2F4Dye3ih1WM/PucrCrAWW2+2+5Gm9Sp3yHHs1coFnqTEa46K0v5cJWaMl7WfLu+ni/Wuc2x0ywRIEIRgMJqTct1r92UGxUm87cHYInOejfm8iRkFqADDBgkNFIBDQZSuVwoxIz7oG97t9A21UVR29s2iR5+lQKAqpzY+BAOHxeOCx1+s1njHO2mDzgE6Q2qgC21cO4HHfsdoBo3/bsHI62IP8ISNYBItgESyCRbD+o+k/1Rub25OG9UuAAQDNMiDFC+r6MQAAAABJRU5ErkJggg=="
+        },
+        {
+            "name": "Script",
+            "type": "xblox/Script",
+            "category": "xblox",
+            "collection": "xblox",
+            "tags": "Script",
+            "icon": "resources/images/dx-mbl--button.gif",
+            "iconBase64": "data:image/gif;base64,R0lGODlhEAAQANUAAC5KhTFPijZXkDZYkDxhmTtimUJsouHr9/D1+0h2q0l3q7XQ7bbQ7bbQ7MLX79vo9k6AtE6Bs6TH6bbR7NLj9FKJu1OJulaNv5C95aTH6KTI6LXR7L/Z8Mje8laOv36z4X604JC95LnW77/a8Nzr9////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACUALAAAAAAQABAAAAZiwJJwSCwaj8hk0cP0XJpQj9ByqFqvVUSlFDk4vuCw4wApKR6MxmLCbm8mj0TJQNFI7nh8hmIoFTohGIKDgyEdBCUDHCAfHyCPkI0jAiUBIpeYmZckAUIAn6ChoEqkpaanRUEAOw==",
+            "inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": false
+            },
+            "iconLarge": "resources/imagesLarge/Button.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAtBJREFUeNrsl99v0lAUx1taykrjHCiDgTg2p8mWLIaYqFniHiQx0Sdf/E/8M3zz3/DBB52JcT744Bb3IG6LGsJgk/EryBgoUFraeuqNlwotNIZVHu5JaM89vfeeD997e7jQL99sUZNnLHweJG5PFNPG5raLmkgjWASLYBEsgkWwCFbvBGE0SZJefyocFGv57w0H0kcuTl+Z8927HuY4zhILmJ6+2I0vhR7dWQ77phzAKtTEZKb85PnHxw/jRjLWyPR2L++bFhYiwY5KZauyI8vFLMfCpVoLUt9djWCyHlaz2dxJlddvrJTqssM7aT4c2ktlbi3OmGDJsvyj1e4qVFfp9t4IhjlTIFVR9BvNFKoNADBZRE3TKNrFcazNGdeXBOS8SzdxBPuDTYs1/JOOdukAVm8ia69irC0KeBaapt9nmn3DUYetbGs8BYJ10SPH3Ix5IeV+oYNlBrIPhy08HHXYOWrbmc0WlpuxNdHXcodlej4eCNd4lAcneSzanGpsapl2QxFgQuL9s04WWPbevEEl0EBgOjqREdmXkuioWihr7kRCzaifg0i6ojePazIAw9W+8GPbW+VGF5FhSlAI7y0j+mFVGgeWpvVR4dzYOFaPVH4quECAj4SBCPg4CM38aXek8NizxDrHc4qiTA2tqKqqYc36qp0xgpo2qqD+fRpNcc4vWGKtzs8kM8W1lctDplHkjs2F4Dye3ih1WM/PucrCrAWW2+2+5Gm9Sp3yHHs1coFnqTEa46K0v5cJWaMl7WfLu+ni/Wuc2x0ywRIEIRgMJqTct1r92UGxUm87cHYInOejfm8iRkFqADDBgkNFIBDQZSuVwoxIz7oG97t9A21UVR29s2iR5+lQKAqpzY+BAOHxeOCx1+s1njHO2mDzgE6Q2qgC21cO4HHfsdoBo3/bsHI62IP8ISNYBItgESyCRbD+o+k/1Rub25OG9UuAAQDNMiDFC+r6MQAAAABJRU5ErkJggg==",
+            "allowedChild": "NONE",
+            "children": [
+
+            ]
+        }
+    ]
+}

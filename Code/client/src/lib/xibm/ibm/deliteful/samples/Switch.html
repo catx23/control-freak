@@ -1,0 +1,34 @@
+<!doctype html>
+<html id="html">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+	      content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>Switch samples</title>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../.."
+		});
+	</script>
+
+
+	<script type="text/javascript">
+		require([
+			"deliteful/Switch",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
+		], function (Switch) {
+			document.body.style.display = "";
+		});
+	</script>
+</head>
+<body style="display: none">
+<d-switch checkedLabel="ON" uncheckedLabel="OFF" name="bluetooth" ></d-switch>
+<d-switch checkedLabel="ON" uncheckedLabel="OFF" name="bluetooth" disabled></d-switch>
+</body>
+</html>

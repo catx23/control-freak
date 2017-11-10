@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>jQuery plugin build test</title>
+	<script type="text/javascript" src="bower_components/requirejs/require.js"></script>
+</head>
+<body>
+	<h1>jQuery plugin build test</h1>
+	<p>This checks that the jquery plugin build inserted the correct jquery modules into the build.</p>
+	Result: <span id="result"></span>
+</body>
+<script language="JavaScript" type="text/javascript">
+	var ready = false; // set to true when the test page is ready
+	require({
+		baseUrl: "build"
+	}, [
+		"app"	// first load the layer
+	], function () {
+		require(["src"], function (addClassFoo) {
+			addClassFoo(document.body);
+			if (/foo/.test(document.body.className)) {
+				result.innerHTML = "works!";
+			} else {
+				result.innerHTML = "failed!";
+			}
+
+			// Set global variable to signal that the test page is ready
+			ready = true;
+		});
+	})
+</script>
+</html>

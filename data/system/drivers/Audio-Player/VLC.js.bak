@@ -1,0 +1,411 @@
+define([
+    "dcl/dcl",
+    "xdojo/has!host-node?nxapp/protocols/ProtocolBase",
+    "xide/mixins/EventedMixin",
+    "dojo/node!net",
+    "dojo/node!util",
+    "dojo/node!events",
+    "dojo/has",
+    "xide/utils",
+    "module",
+    "dojo/node!fs",
+    "dojo/node!path",
+    "xdojo/has!host-node?nxapp/utils/FileUtils",
+    "xdojo/has!host-node?dojo/node!vlc-ffi/vlc",
+    "xdojo/has!host-node?dojo/node!decache",
+    "xdojo/has!host-node?dojo/node!micromatch",
+    "xdojo/has!host-node?dojo/node!glob"
+], function(dcl,ProtocolBase,EventedMixin,net,util,events,has,utils,module,fs,_path,FileUtils,vlc,decache,micromatch,glob){
+
+    
+    if(!ProtocolBase){
+        return dcl(null,{});
+    }
+
+    /*
+    var _vlc = new vlc([
+        '-I', 'dummy',
+        '-V', 'dummy',
+        '-vvvv', 'dummy',
+        '--verbose', '1',
+        '--no-video-title-show',
+        '--no-disable-screensaver',
+        '--no-snapshot-preview'
+    ]);
+    */
+
+    return dcl([ProtocolBase], {
+        decache:function(){
+            
+        },
+        connect:function(){
+            this.owner.onConnected();
+        },
+        _send:function(data,command,options){
+            var wait = options.params.wait;
+            var self = this;
+
+            var outString = JSON.stringify(utils.mixin({
+                command:command
+            },data,null,2));
+
+            if(wait) {
+                self.owner.onFinish(command,options,new Buffer(outString));
+            }else{
+                self.owner.onData(outString, new Buffer(outString));
+            }
+        },
+        _sendProgress:function(data,command,options){
+            var self = this;
+            var outString = JSON.stringify(utils.mixin({
+                command:command
+            },data,null,2));
+
+            self.owner.onProgress(command,options,new Buffer(outString));
+        },
+        _sendPaused:function(data,command,options){
+            var self = this;
+
+            var outString = JSON.stringify(utils.mixin({
+                command:command
+            },data,null,2));
+
+            self.owner.onPaused(command,options,new Buffer(outString));
+        },
+        sendStopped:function(data,command,options){
+            var self = this;
+            var outString = JSON.stringify(utils.mixin({
+                command:command
+            },data,null,2));
+
+            self.owner.onStopped(command,options,new Buffer(outString));
+        },
+        _player:null,
+        volume:function(path,vol,options){
+
+            vol = parseFloat(vol);
+
+            path = FileUtils.resolve(path);
+            if(!path){
+                console.error('player doesnt exists');
+            }
+
+            var playData = this.getPlayer(path,options);
+            var player = playData.player;
+
+            console.log('set volume : '+path + ' : ' + vol + ' l = ' + arguments.length);
+
+            player.setVolume(vol);
+
+        },
+        getVLC:function(){
+
+            if(!global['__vlcInstance']){
+                global['__vlcInstance'] = new vlc([
+                    '-I', 'dummy',
+                    '-V', 'dummy',
+                    '-vvvv', 'dummy',
+                    '--verbose', '1',
+                    '--no-video-title-show',
+                    '--no-disable-screensaver',
+                    '--no-snapshot-preview'
+                ]);
+            }
+
+            return global['__vlcInstance'];
+
+        },
+        next:function(path,options){
+            var playData = this.getPlayer(path,options,false);
+            if(playData){
+                playData.current +=1;
+                if(playData.current > playData.list.count() ){
+                    playData.current = 0;
+                }
+                playData.isManual = true;
+                playData.player.next();
+                console.log('next ' + playData.current +' _ ' + playData.list.count());
+            }else{
+                console.error('cant get player for '+path);
+            }
+
+        },
+        prev:function(path,options){
+            var playData = this.getPlayer(path,options,false);
+            if(playData){
+                playData.current -=1;
+                if(playData.current < 0){
+                    playData.current = 0;
+                }
+                playData.isManual = true;
+                playData.player.prev();
+                console.log('prev ' + playData.current + ' _ ' + playData.list.count());
+
+            }else{
+                console.error('cant get player for '+path);
+            }
+
+        },
+        getPlayer:function(path,options,create){
+            if(!this._player){
+                this._player = {};
+            }
+            var self = this;
+            if(!this._player[path] && create!==false){
+
+                /*
+                var _vlc = new vlc([
+                    '-I', 'dummy',
+                    '-V', 'dummy',
+                    '-vvvv', 'dummy',
+                    '--verbose', '1',
+                    '--no-video-title-show',
+                    '--no-disable-screensaver',
+                    '--no-snapshot-preview'
+                ]);
+                */
+                var _vlc = this.getVLC();
+                _vlc.releasePlayer();
+                var player = null;
+                var media = null;
+                var mediaList = false;
+                    
+                var files = FileUtils.list(path);
+                if(_.isArray(files)){
+                    mediaList = _vlc.mediaList();
+                    player = _vlc.mediaListPlayer;
+                    player.list = mediaList;
+                    _.each(files,function(item){
+                        var media = _vlc.mediaFromFile(item);
+                        mediaList.add(media);
+                    });
+                    media = mediaList;
+                }else {
+                    media = _vlc.mediaFromFile(path);
+                    media.parseSync();
+                    //console.log(media.artist, '--', media.album, '--', media.title);
+                    player = _vlc.mediaplayer;
+                    player.media = media;
+                }
+
+                var struct = {
+                    player:player,
+                    isPlaying:false,
+                    error:null,
+                    path:path,
+                    media:media,
+                    vlc:_vlc,
+                    list:mediaList,
+                    duration:media.duration,
+                    current:-1,
+                    release:function(){
+                        try {
+                            clearInterval(this.poller);
+                            //this.player.stop();
+                            //this.media.release();
+                            console.log('1');
+                            this.isFinished !==true && _vlc.releasePlayer();
+                            delete this.poller;
+                            delete this.vlc;
+                            delete this.media;
+                            delete this.player;
+                            delete self._player[path];
+                            console.log('2');
+                            if(this.list){
+                                //this.list.release();
+                            }
+                        }catch(e){
+                            console.error('error releasing player',e);
+                        }
+                    }
+                };
+
+                struct.poller = setInterval(function () {
+
+                    if(struct.isPaused || struct.isStopped || struct.isFinished){
+                        return;
+                    }
+
+                    if(!mediaList) {
+                        self._sendProgress({
+                            file: path,
+                            duration: struct.media.duration,
+                            position: player.position
+                        }, 'play', options);
+                    }else{
+                        var media = struct.list.at(struct.current);
+                        if(media) {
+                            self._sendProgress({
+                                file: media.path,
+                                duration: media.duration
+                                //position: struct.current
+                            }, 'play', options);
+                        }
+                    }
+
+                }, 2000);
+
+                this._player[path] = struct;
+
+                if(!mediaList) {
+                    player.on('Stopped', function (e) {
+                        try {
+                            var outString = JSON.stringify(utils.mixin({
+                                command: 'play'
+                            }, {
+                                file: path
+                            }, null, 2));
+                            self.owner.onStopped('play', options, new Buffer(outString));
+                        } catch (e) {
+                            console.error('error ', e);
+                        }
+                        struct.release();
+                    });
+
+                    player.on('Paused', function (e) {
+                        self._sendPaused({
+                            file: path,
+                            duration: media.duration,
+                            position: player.position
+                        }, 'play', options);
+
+                    });
+
+                    player.on('EndReached', function (e) {
+                        struct.isFinished = true;
+                        self._send({
+                            file: path,
+                            duration: media.duration,
+                            position: player.position
+                        }, 'play', options);
+                        struct.release();
+                    });
+                }else{
+
+                    player.on('MediaListPlayerStopped',function(e){
+                        console.error('stopped list player');
+                        struct.isFinished = true;
+                        try {
+                            var outString = JSON.stringify(utils.mixin({
+                                command: 'play'
+                            }, {
+                                file: path
+                            }, null, 2));
+                            self.owner.onStopped('play', options, new Buffer(outString));
+                        } catch (e) {
+                            console.error('error ', e);
+                        }
+
+                        struct.release();
+
+                    });
+
+                    player.on('MediaListPlayerPlayed',function(e){
+                        console.log('played');
+                    });
+
+                    player.on('MediaListPlayerNextItemSet',function(e){
+
+                        if(struct.isManual){
+                            delete struct.isManual;
+                            console.log('abort');
+                            return;
+                        }
+
+                        struct.current=struct.current+1;
+                        //console.log('Set Next Item',struct.current);
+                        console.log('new position is ',struct.current + ' _ ' + struct.list.count());
+                    });
+                }
+            }
+
+            return this._player[path];
+        },
+        play:function(path,options){
+            
+            path = FileUtils.resolve(path);
+            if(!path){
+                console.error('player doesnt exists');
+            }
+            
+            console.log('play audio : '+path,options.params);
+            
+            var playData = this.getPlayer(path,options);            
+            var player = playData.player;
+            if(playData.isPaused===true){
+                playData.isPaused=false;
+                player.play();
+                return;
+            }
+            if(options.params.pause===true){
+                player.pause();
+                playData.isPaused=true;
+                return;
+            }
+
+            if(options.params.stop===true){
+                playData.isStopped=true;
+                playData.player.stop();
+                return;
+            }
+            
+            if(playData.isPaused===true){
+                player.pause();
+                playData.isPaused=false;
+                return;
+            }
+
+            if(playData.isPlaying){
+                console.log('already playing '+playData.isPaused);
+                return;
+            }
+
+            var self = this;
+            //console.log('_video ' ,playData.vlc.video_filters);
+
+            //console.log('device count ',playData.vlc.deviceCount);
+
+            //console.log('enum ',player.enum());
+            player.play();
+            //player.outputs();
+            /*
+            self._send({
+                duration:playData.duration,
+                path:path
+            },'play',options);
+            */
+
+            playData.isPlaying = true;
+
+        },
+        write:function(data,options){
+            var intArray = utils.bufferFromDecString(data);
+            var buffer = new Buffer(intArray);
+            var str = buffer.toString();
+
+            console.log('write : '+str,options.params);
+            
+            var parts = str.split(' ');
+            if(!parts.length){
+                return;
+            }
+            var cmd = parts[0];
+
+            if(typeof this[cmd]==='function'){
+                parts.shift();
+                parts.push(options);
+                return this[cmd].apply(this,parts);
+            }
+        },
+        send:function(data){
+            console.log('send : ',data);
+        },
+        destroy:function(){
+            this._player && _.each(this._player,function(item){
+                item.release();
+            });
+            delete this._player;
+        }
+    });
+});
+

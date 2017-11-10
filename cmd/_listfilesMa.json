@@ -1,0 +1,12 @@
+/*http://localhost:8081/maqetta/cmd/listFiles?path=.*/
+[
+    {
+        "name": "project1",
+        "isDir": true,
+        "isNew": false,
+        "readOnly": false,
+        "isDirty": false
+    }
+]
+
+

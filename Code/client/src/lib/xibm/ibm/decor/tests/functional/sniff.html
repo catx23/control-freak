@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<title>decor/sniff test</title>
+		<style>
+			table {
+				border-collapse: collapse;
+			}
+			td {
+				padding: 2px;
+				border:  1px solid black;
+			}
+		</style>
+		<script src="../../../requirejs/require.js"></script>
+		<script>
+			var ready = false, // set to true when the test page is ready
+				_has = {};
+			require({
+				baseUrl: "../../.."
+			}, ["decor/sniff", "requirejs-domready/domReady!"], function(has){
+				var tbody = document.getElementById("tbody");
+
+				[
+					"webkit", "chrome", "android",
+					"ie",  "edge", "msapp", "wp",
+					"ff",
+					"safari", "iphone", "ipad", "mac", "ios"
+				].forEach(function (key) {
+					_has[key] = has(key);
+					var tr = document.createElement("tr"),
+						tdkey = document.createElement("td"),
+						tdres = document.createElement("td");
+
+					tdkey.innerHTML = 'has("' + key + '")';
+					tdres.innerHTML = _has[key] === undefined ? "undefined" : _has[key];
+					tr.appendChild(tdkey);
+					tr.appendChild(tdres);
+					tbody.appendChild(tr);
+				});
+				ready = true;
+			});
+		</script>
+	</head>
+	<body>
+		<h1>decor/sniff results</h1>
+		<table>
+			<tbody id="tbody">
+			</tbody>
+		</table>
+	</body>
+</html>

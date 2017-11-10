@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+
+
+
+
+</head>
+
+
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="claro superhero" data-maq-ws="collapse" style="position: absolute; left: 0px; top: 0px; max-height: 1080; max-width: 1920; min-width: 1920; min-height: 1080; background-position: 0px 0px; width: 1920px; height: 1080px; background-size: 1920px 1080px;" id="myapp" data-maq-appstates="{}">
+<button is="d-button" label="Default Label" title="Default Label" id="d-button_2" style="position: absolute; left: 51px; top: 48px;">
+ <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e5a06e24-6aa4-c8c5-3ffc-9d84d8528a91&amp;driver=235eb680-cb87-11e3-9c1a-0800200c9a66&amp;driverScope=user_drivers&amp;block=53a10527-709b-4c7d-7a90-37f58f17c8db" script="PowerO"></d-xscript>
+</button>
+<button is="d-button" label="Default Label" title="Default Label" id="d-button_1" style="position: absolute; left: 51px; top: 123px;">
+ <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e5a06e24-6aa4-c8c5-3ffc-9d84d8528a91&amp;driver=235eb680-cb87-11e3-9c1a-0800200c9a66&amp;driverScope=user_drivers&amp;block=84961334-9cd2-d384-25dc-a6b943e8cb8e" script="PowerOff"></d-xscript>
+</button>
+</body>
+
+
+</html>

@@ -1,0 +1,70 @@
+@import "../../../admin-theme/html-blue/src/sass/variables";
+@import "../../../admin-theme/html-blue/src/sass/mixins";
+@import "compass";
+@import "ellipsis";
+@import "compass/css3";
+
+
+$font-normal :#d1d1d1;
+$opaque : #4a5150;
+$opaque-light: #e8e8e8;
+$opaque-medium: #cacaca;
+
+$font-disabled :#d1d1d1;
+$opaque-dark: #232323;
+$dark-transparent:rgba(22, 22, 22, 0.28);
+$dark:rgba(22, 22, 22, 1);
+$medium-transparent: rgba(116, 116, 116, 0.28);
+$almost-transparent: rgba(50, 50, 50, 0.18);
+$default-bg: $opaque;
+@mixin background-radial-gradient($figure, $type, $position_x, $position_y, $color_1, $color_2){
+  //there is a built-in compass radial-gradient function, but it does not provide enough compatibility, so need to imitate it
+  //it also has an option $experimental-support-for-svg which should generate correct svg for IE, but it works incorrect, so
+  //fixing it
+  //issue id - https://github.com/chriseppstein/compass/issues/1225
+  background-color: $color_1;
+  //final w3c
+  background-image: radial-gradient(
+                  $type $figure at $position_x $position_y,
+                  $color_1,
+                  $color_2
+  );
+  //webkit-specific
+  background-image: -webkit-radial-gradient(
+                  $position_x $position_y, $type $figure,
+                  $color_1,
+                  $color_2
+  );
+
+  //moz-specific
+  background-image: -moz-radial-gradient(
+                  $position_x $position_y, $type $figure,
+                  $color_1,
+                  $color_2
+  );
+}
+.xTheme-blue{
+
+  BODY,p{
+    color:$font-normal;
+  }
+  a {
+    /*color: $opaque-light;*/
+  }
+
+  a:hover {
+    /*color: $brand-warning;*/
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: $font-normal;
+  }
+  .nav.nav-list {
+    li {
+      a {
+        color: $font-normal;
+      }
+    }
+  }
+
+
+}

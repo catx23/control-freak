@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/list/List samples.</title>
+
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../../../"
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+		    "delite/register",
+			"dstore/Memory",
+			"dstore/Trackable",
+			"deliteful/list/List",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
+		], function (register, Memory, Trackable, List) {
+			var Store = Memory.createSubclass([Trackable], {});
+			var list = register.createElement("d-list");
+			list.source = new Store();
+			list.setAttribute("aria-label", "Sample categorized list");
+			list.categoryAttr = "category";
+			list.source.add({label: "first item", category: "Category A"});
+			list.source.add({label: "second item", category: "Category A"});
+			list.source.add({label: "third item", category: "Category A"});
+			list.source.add({label: "fourth item", category: "Category B"});
+			list.source.add({label: "fifth item", category: "Category B"});
+			list.placeAt(document.body);
+
+			document.body.style.display = "";
+		});
+	</script>
+</head>
+<body style="display: none" role="application">
+	This sample demonstrate a categorized list.
+</body>
+</html>

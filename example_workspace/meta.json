@@ -1,0 +1,382 @@
+{
+    "admin": {
+        "meta": [
+            {
+                "id": "tracking",
+                "value": [
+                    {
+                        "id": "63a1735a-03c0-8c21-58c6-2febe8a883a7",
+                        "time": 1480680640990,
+                        "url": "device://settings/e22be90b-e04c-8b15-1d3b-9c138c85c174",
+                        "label": "Symetrix DSP",
+                        "category": "Device",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user/claycenter/",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-unlink iconStatusOff"
+                    },
+                    {
+                        "id": "0e56c309-1de8-c7b7-7e21-c5bd91f990cf",
+                        "time": 1485349113363,
+                        "url": "device://settings/b1ebcf60-cfb0-0e41-fef3-5168f91aa099",
+                        "label": "Hercules - Echo",
+                        "category": "Device",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-unlink iconStatusOff"
+                    },
+                    {
+                        "id": "db2bc212-2cdf-2e8a-fd9e-6110890cce9c",
+                        "time": 1492334848283,
+                        "url": "device://settings/e5a06e24-6aa4-c8c5-3ffc-9d84d8528a91",
+                        "label": "Marantz",
+                        "category": "Device",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-link iconStatusOn",
+                        "counter": 7,
+                        "_history": {
+                            "_history": [
+                                1485349592898,
+                                1489537753719,
+                                1491842727215,
+                                1491849734059,
+                                1491917711193,
+                                1492334848283
+                            ],
+                            "_index": 6
+                        }
+                    },
+                    {
+                        "id": "e5d221a1-da42-5f47-7b86-b2e88ea78ba5",
+                        "time": 1485349589663,
+                        "url": "device://settings/59fed2f8-5289-9ae3-0243-7e347efc6965",
+                        "label": "Marantz-Serial",
+                        "category": "Device",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-unlink iconStatusOff"
+                    },
+                    {
+                        "id": "a90efb02-76b0-1c0a-72e4-a951b64cf591",
+                        "time": 1492334844243,
+                        "url": "device://settings/83a2e4ab-27b0-6c89-23c9-743ad6c40031",
+                        "label": "SSH-Local",
+                        "category": "Device",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-link iconStatusOn",
+                        "counter": 4,
+                        "_history": {
+                            "_history": [
+                                1491842580943,
+                                1491931411016,
+                                1492334844243
+                            ],
+                            "_index": 3
+                        }
+                    },
+                    {
+                        "id": "f6cb245e-02da-2a8f-090f-60701ef79084",
+                        "time": 1490096824484,
+                        "url": "device://settings/bc09b5c4-cfe6-b621-c412-407dbb7bcef8",
+                        "label": "VLC",
+                        "category": "Device",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-link iconStatusOn",
+                        "counter": 4,
+                        "_history": {
+                            "_history": [
+                                1485520913266,
+                                1485523340838,
+                                1490096824484
+                            ],
+                            "_index": 3
+                        }
+                    },
+                    {
+                        "id": "d8dba04a-d633-3399-9eb8-6ef70097c764",
+                        "time": 1485520904629,
+                        "url": "device://settings/ff6199d6-77fe-bdbf-6a8d-1657188b976a",
+                        "label": "File-Server",
+                        "category": "Device",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-link iconStatusOn"
+                    },
+                    {
+                        "id": "5c0b9cbd-76b8-0055-6b29-b72d06fc6223",
+                        "time": 1486809174295,
+                        "url": "device://settings/21f99ed8-50ac-53a7-a15b-f8cbadb863fb",
+                        "label": "My New Device",
+                        "category": "Device",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user/claycenter2",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-unlink iconStatusOff"
+                    },
+                    {
+                        "id": "4441121e-cfae-a612-d329-78801d5a5299",
+                        "time": 1488443900838,
+                        "url": "device://settings/018e8f52-526c-8210-6d4b-9166a92971f5",
+                        "label": "Marantz-1",
+                        "category": "Device",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-unlink iconStatusOff"
+                    },
+                    {
+                        "id": "56ca191a-0794-fd9d-9c48-789e74bd7f9c",
+                        "time": 1490009366821,
+                        "url": "device://settings/78a3fbb4-28a6-67e7-0f3a-df944c3f78e8",
+                        "label": "xas3",
+                        "category": "Device",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-unlink iconStatusOff",
+                        "counter": 2,
+                        "_history": {
+                            "_history": [
+                                1490009366821
+                            ],
+                            "_index": 1
+                        }
+                    },
+                    {
+                        "id": "65dd67c3-3ae3-7cbf-2f24-baaec89a3b17",
+                        "time": 1490009351395,
+                        "url": "device://settings/e97c989a-d6e3-ce80-b67e-eebc8e47aa74",
+                        "label": "My New Device",
+                        "category": "Device",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-unlink iconStatusOff"
+                    },
+                    {
+                        "id": "a5ec904e-a563-6b85-15a6-1b011be3fce0",
+                        "time": 1490093084023,
+                        "url": "driver://settings/bbe1705a-b6a8-3445-cbc9-d56c6e13ec2c",
+                        "label": "MPD6000",
+                        "category": "Driver",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-exchange"
+                    },
+                    {
+                        "id": "ca938bd7-8284-6ba7-b3ab-2a1f1ec9f134",
+                        "time": 1491931376745,
+                        "url": "driver://settings/235eb680-cb87-11e3-9c1a-0800200c9a66",
+                        "label": "My Marantz",
+                        "category": "Driver",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-exchange",
+                        "counter": 9,
+                        "_history": {
+                            "_history": [
+                                1490094470625,
+                                1490094535213,
+                                1491564040016,
+                                1491566056097,
+                                1491842504613,
+                                1491842588559,
+                                1491849804938,
+                                1491931376745
+                            ],
+                            "_index": 8
+                        }
+                    },
+                    {
+                        "id": "a67be31d-7b32-0d67-97d3-7342caa0e74d",
+                        "time": 1490096738669,
+                        "url": "driver://settings/55ad4a31-2f0c-bfde-2338-b31bac6e56e5",
+                        "label": "JSON_RPC",
+                        "category": "Driver",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-exchange",
+                        "counter": 2,
+                        "_history": {
+                            "_history": [
+                                1490096738669
+                            ],
+                            "_index": 1
+                        }
+                    },
+                    {
+                        "id": "8cc0bdcb-234b-2e40-849b-1a80819ec0b9",
+                        "time": 1490096945119,
+                        "url": "driver://settings/9db866a4-bb3e-137b-ae23-793b729c44f8",
+                        "label": "VLC",
+                        "category": "Driver",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-exchange",
+                        "counter": 3,
+                        "_history": {
+                            "_history": [
+                                1490096871233,
+                                1490096945119
+                            ],
+                            "_index": 2
+                        }
+                    },
+                    {
+                        "id": "e0321d3b-c2d6-c894-763a-bb97327ef91a",
+                        "time": 1490169474327,
+                        "url": "device://settings/7e0a25ce-84b9-45ba-8dd0-a73872b0cae2",
+                        "label": "xassystem",
+                        "category": "Device",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-unlink iconStatusOff",
+                        "counter": 4,
+                        "_history": {
+                            "_history": [
+                                1490169313008,
+                                1490169321026,
+                                1490169474327
+                            ],
+                            "_index": 3
+                        }
+                    },
+                    {
+                        "id": "7d764abd-df39-0cc2-7e9c-89ccc466325a",
+                        "time": 1490259960924,
+                        "url": "device://settings/0bead3cd-2e01-a579-2901-e5080231de2a",
+                        "label": "xas",
+                        "category": "Device",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-unlink iconStatusOff"
+                    },
+                    {
+                        "id": "305e1193-9424-a8ed-02f0-744a6d2e88c3",
+                        "time": 1490261278173,
+                        "url": "driver://settings/13491c73-8a00-66e1-51f3-9735ce90800b",
+                        "label": "My New Driver2",
+                        "category": "Driver",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-exchange"
+                    },
+                    {
+                        "id": "2e460685-d678-06db-0e01-b2f91773b447",
+                        "time": 1490600238685,
+                        "url": "driver://settings/8fec6dd4-f647-291d-0a9b-27eea266f6d0",
+                        "label": "Kodi-MQTT",
+                        "category": "Driver",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-exchange"
+                    },
+                    {
+                        "id": "399a3023-7404-1d6e-cea9-8d2b5ae97133",
+                        "time": 1492334833638,
+                        "url": "device://settings/fa2b4417-50b5-e74f-e5c1-75c3e7c839f1",
+                        "label": "Kodi-MQTT",
+                        "category": "Device",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-unlink iconStatusOff",
+                        "counter": 3,
+                        "_history": {
+                            "_history": [
+                                1492158807876,
+                                1492334833638
+                            ],
+                            "_index": 2
+                        }
+                    },
+                    {
+                        "id": "09223501-dc0a-efed-2d76-9ffdded52f74",
+                        "time": 1492334837349,
+                        "url": "device://settings/38fcfbe2-8f85-2971-4d71-83c0bafb7f1d",
+                        "label": "nq",
+                        "category": "Device",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-unlink iconStatusOff",
+                        "counter": 5,
+                        "_history": {
+                            "_history": [
+                                1492161411863,
+                                1492161669733,
+                                1492161688194,
+                                1492334837349
+                            ],
+                            "_index": 4
+                        }
+                    },
+                    {
+                        "id": "41f88655-e290-f898-c521-9f0d57cd64bb",
+                        "time": 1492258966591,
+                        "url": "driver://settings/779c85db-fd51-ec43-0ff9-f9bff5ba506d",
+                        "label": "nq",
+                        "category": "Driver",
+                        "command": "File/Open",
+                        "context": "/PMaster/projects/x4mm/user",
+                        "type": "added",
+                        "parent": "Recent",
+                        "icon": "fa-exchange",
+                        "counter": 9,
+                        "_history": {
+                            "_history": [
+                                1492163920386,
+                                1492163969852,
+                                1492164244157,
+                                1492164312522,
+                                1492164689558,
+                                1492164836161,
+                                1492165643313,
+                                1492258966591
+                            ],
+                            "_index": 8
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

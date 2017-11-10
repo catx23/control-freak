@@ -1,0 +1,559 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" dir="ltr">
+<head>
+
+    <style  type="text/css">
+        .dijitHidden{
+            display: none !important;
+        }
+
+    </style>
+
+    <script  type="text/javascript">
+        if (window.require) {
+            window.nodeRequire = window.require;
+            delete window.require;
+        }
+        if (window.define) {
+            window.nodeDefine = window.define;
+            delete window.define;
+        }
+    </script>
+
+    <script  type="text/javascript">
+        if (window.nodeRequire) {
+
+            var _require = window.nodeRequire;
+
+            var os = _require('os');
+            var app = _require('electron').remote.app;
+            var BrowserWindow = _require('electron').remote.BrowserWindow;
+
+            BrowserWindow.require = _require;
+            window['eapp'] = app;
+            window['eRequire'] = _require;
+            window['electronBrowserWindow'] = BrowserWindow;
+            window['getElectronWindow'] = function(){
+                return BrowserWindow.getAllWindows()[0];
+            };
+        }
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/xcf/jquery-2.1.4.min.js'></script>
+    <script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/xcf/ext/xcf-externals.js'></script>
+    <script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/xfile/ext/ace/ace.js'></script>
+    <script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/xfile/ext/ace/ext-whitespace.js'></script>
+    <script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/xfile/ext/ace/ext-language_tools.js'></script>
+    <script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/xfile/ext/ace/ext-statusbar.js'></script>
+    <script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/xfile/ext/d3.v3.min.js'></script>
+    <script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/xcf/ext/bower_components/showdown/dist/showdown.min.js'></script>
+    <script type='text/javascript' src='http://127.0.0.1/projects/x4mm/Code/client/src/xfile/ext/easyXDM.js'></script>
+    <link rel='stylesheet' id='css_845056f5be281b1ffc8a633c1bc9f740' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/commons/osm-style.css'  type='text/css' />
+    <link rel='stylesheet' id='css_01fbf1773ba900649220fa765738a125' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/commons/dgrid.css'  type='text/css' />
+    <link rel='stylesheet' id='css_1c592dcbde3ffefbe141eb1ffd8f8ee1' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/elusive-icons/elusive-webfont.css'  type='text/css' />
+    <link rel='stylesheet' id='css_728ee7ee7133621b2607a1f39cf723c6' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/CIDialogs.css'  type='text/css' />
+    <link rel='stylesheet' id='css_1d7544406977c9c146215e65d6d5cf95' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/Focus.css'  type='text/css' />
+    <link rel='stylesheet' id='css_532ad692937f66fc030ea9c3abea05c0' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/Widgets.css'  type='text/css' />
+    <link rel='stylesheet' id='css_9954aa385feb0ef26903806576abf298' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/LogGridView.css'  type='text/css' />
+    <link rel='stylesheet' id='css_076085fb624d2e6f69d8b17af05a2013' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/DnDDefault.css'  type='text/css' />
+    <link rel='stylesheet' id='css_28a7d09d23a4201ff2fe83f7a2a72272' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/Loading.css'  type='text/css' />
+    <link rel='stylesheet' id='css_38b2544ff6a58d7fe70592e9e1b53b5e' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/XBlox.css'  type='text/css' />
+    <link rel='stylesheet' id='css_f5fc44e713c372e736b706037880ee9e' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/grid.css'  type='text/css' />
+    <link rel='stylesheet' id='css_7d38b3e62e96a7cda3bf4f40daa06fb6' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/XFILE.css'  type='text/css' />
+    <link rel='stylesheet' id='css_76aaa4a8e4aaf8355c1ff6b213666978' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/bootstrap.css'  type='text/css' />
+    <link rel='stylesheet' id='css_3f5c44b47776089a2c69c8a8e9edb930' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/fileGridView.css'  type='text/css' />
+    <link rel='stylesheet' id='css_9643c780104552b77e71a1d4669d72f8' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/Layout.css'  type='text/css' />
+    <link rel='stylesheet' id='css_b5bb00d6ade1625480d3d7fea6061708' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/quicklook.css'  type='text/css' />
+    <link rel='stylesheet' id='css_af8e0ac6d284353587e1969bab9bc4f1' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/SplitView.css'  type='text/css' />
+    <link rel='stylesheet' id='css_4c7e1b030300fd39421e6175ced6e69d' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/../commons/docker_transparent.css'  type='text/css' />
+    <link rel='stylesheet' id='css_292b1c42d3e84352fd8d8076b8337d85' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/Layout.css'  type='text/css' />
+    <link rel='stylesheet' id='css_bce2ace16f7a9640bc6caca8c90600c4' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/DebugSettingsView.css'  type='text/css' />
+    <link rel='stylesheet' id='css_cb6a2e2885296743355e398c9ebe70c8' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/GridView.css'  type='text/css' />
+    <link rel='stylesheet' id='css_ec39308dd54c8e4c1f2c949de31019a6' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/Blox.css'  type='text/css' />
+    <link rel='stylesheet' id='css_056e19e632be44d901aef02b40ed2f4a' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/ResponseSettings.css'  type='text/css' />
+    <link rel='stylesheet' id='css_9a1587b53caf02e1a4e3a984b2e0d1f0' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/ConsoleView.css'  type='text/css' />
+    <link rel='stylesheet' id='css_2c41745ded6d42a18a3fdfc0c36c7895' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/CommandSettings.css'  type='text/css' />
+    <link rel='stylesheet' id='css_0ce7a0c5aeadf7e71e5250eae93a56a2' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/VariableSettings.css'  type='text/css' />
+    <link rel='stylesheet' id='css_717b17dea5421878626e974f1a2b51e0' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/../commons/XCF.css'  type='text/css' />
+    <link rel='stylesheet' id='css_fc1cd6a977739bb873f6352f550b05f8' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/../commons/grid.css'  type='text/css' />
+    <link rel='stylesheet' id='css_1e5a26bc2219f5d593ff814de8c35043' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/../commons/bootstrap.css'  type='text/css' />
+    <link rel='stylesheet' id='css_3d4f5b8daafa6f9d3f05ecb8f4c28460' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/../commons/ResizeHandle.css'  type='text/css' />
+    <link rel='stylesheet' id='css_a7d192f336a498983c9fb9068c53a520' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/../commons/Progress.css'  type='text/css' />
+    <link rel='stylesheet' id='css_cc368929a3d7bbb2f8fb9917055ef62c' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/../json_editor/jsoneditor.css'  type='text/css' />
+    <link rel='stylesheet' id='css_260f833935a91c74c1084f0b1e769c00' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/../xide/Wizard.css'  type='text/css' />
+    <link rel='stylesheet' id='css_62f3dff7f85d98f090da8a69017b98b9' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/Icons.css'  type='text/css' />
+    <link rel='stylesheet' id='css_c94ee724793ca2a0489d9c3f6ee6731c' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xcf/../fonts/stylesheet.css'  type='text/css' />
+    <link rel='stylesheet' id='css_02f0d585f249ab4c5fe5debf1300f468' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/font-awesome/css/font-awesome.css'  type='text/css' />
+    <link rel='stylesheet' id='css_b5bb00d6ade1625480d3d7fea6061708' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xfile/quicklook.css'  type='text/css' />
+    <link rel='stylesheet' id='css_23241f486f57701462fc1d135c24eea8' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/xide/xideve.css'  type='text/css' />
+    <link rel='stylesheet' id='css_0de1caa99707aef108c636c6a1033c3f' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/jQuery/plugins/tooltipster/css/tooltipster.css'  type='text/css' />
+    <link rel='stylesheet' id='css_4ef004101cb3e496ba88863a4087bc38' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/jQuery/plugins/tooltipster/css/themes/tooltipster-light.css'  type='text/css' />
+    <link rel='stylesheet' id='css_2250da1342ab587ae68c13912dbbf9b3' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/commons/docker.css'  type='text/css' />
+    <link rel='stylesheet' id='css_c21dc7e43f3edf34872ce181f2687920' href='http://127.0.0.1/projects/x4mm/Code/client/src/theme/html-blue/dist/css/application.css'  type='text/css' />
+    <link rel='stylesheet' id='css_02b6cfade1188216b19c4bafbbefb01e' href='http://127.0.0.1/projects/x4mm/Code/client/src/css/commons/stylesheets/bootstrap-override.css'  type='text/css' />
+    <link rel='stylesheet' id='css_b47cabf7edc27ac47d354083493c3f3c' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/messenger_latest/build/css/messenger-theme-flat.css'  type='text/css' />
+    <link rel='stylesheet' id='css_70b6f1dba9b6723aa61f16841798536c' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/bootstrap-select/dist/css/bootstrap-select.css'  type='text/css' />
+    <link rel='stylesheet' id='css_da96c378318168c1a8d4e5b8faa713a5' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/bootstrap3-dialog/dist/css/bootstrap-dialog.css'  type='text/css' />
+    <link rel='stylesheet' id='css_41db2eff25839892a74b1f985e1f923f' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/font-awesome-picker/dist/css/fontawesome-iconpicker.min.css'  type='text/css' />
+    <link rel='stylesheet' id='css_e2d6d5c59b63b3a0f228605bab684c18' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/external/bootstrap3-editable/css/bootstrap-editable.css'  type='text/css' />
+    <link rel='stylesheet' id='css_ad3a34ddec40f2d5822e675a460192cc' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/dijit/themes/claro/document.css'  type='text/css' />
+    <link rel='stylesheet' id='css_ced248d94f10451611fa98fc078861c9' href='http://127.0.0.1/projects/x4mm/Code/client/src/lib/dijit/themes/claro/claro.css'  type='text/css' />
+    <script type="application/javascript">var debug=false;
+    var device=null;
+    var sctx=null;
+    var ctx=null;
+    var cctx=null;
+    var mctx=null;
+    var rtConfig="debug";
+    var dataHost ="";
+
+    var dojoConfig ={
+        trace:{
+            'loader-finish-exec':0
+        },
+        aliases:[['i18n', 'dojo/i18n']],
+        ioPublish:true,
+        baseUrl: 'http://127.0.0.1/projects/x4mm/Code/client/src/lib/',
+        has: {
+            'dojo-firebug': false,
+            'tab-split':true,
+            'dojo-undef-api': true,
+            'xblox-ui':true,
+            'xlog':true,
+            'xblox':true,
+            'xideve':true,
+            'xreload':true,
+            'xidebeans':true,
+            'delite':true,
+            'xexpression':false,
+            'filtrex':true,
+            'dojo-built':true,
+            'ace-formatters':true,
+            'xnode-ui':true,
+            'xcf-ui':true,
+            'xcf':true,
+            'host-node':false,
+            'xace':true,
+            'drivers':true,
+            'devices':true,
+            'plugins':false,
+            'php':true
+        },
+        tlmSiblingOfDojo: 0,
+        parseOnLoad: false,
+        async: 1,
+        packages:{},
+        map:{
+            '*':{
+                'requirejs-dplugins/has':'requirejs-dplugins/ha3',
+                'decor/Observable':'xide/Observable'
+            }
+        }
+    };
+
+    var xcfConfig={
+        "serviceUrl":"http%3A%2F%2F127.0.0.1%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2Findex.php%3Fview%3Drpc%26theme%3Dblue%26debug%3Dfalse%26run%3Drun-release%26protocols%3Dfalse%26xideve%3Dtrue%26plugins%3Dfalse%26xblox%3Dtrue%26files%3Dtrue",
+        "mixins":[
+            {
+                "declaredClass":'xide.manager.ServerActionBase',
+                "mixin":{
+                    "serviceUrl":"http%3A%2F%2F127.0.0.1%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2Findex.php%3Fview%3Drpc%26theme%3Dblue%26debug%3Dfalse%26run%3Drun-release%26protocols%3Dfalse%26xideve%3Dtrue%26plugins%3Dfalse%26xblox%3Dtrue%26files%3Dtrue",
+                    "singleton":true
+                }
+            },
+            {
+                "declaredClass":'xide.manager.SettingsManager',
+                "mixin":{
+                    "serviceUrl":"http%3A%2F%2F127.0.0.1%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2Findex.php%3Fview%3Drpc%26theme%3Dblue%26debug%3Dfalse%26run%3Drun-release%26protocols%3Dfalse%26xideve%3Dtrue%26plugins%3Dfalse%26xblox%3Dtrue%26files%3Dtrue",
+                    "singleton":true
+                }
+            },
+            {
+                "declaredClass":'xide.manager.ResourceManager',
+                "mixin":{
+                    "serviceUrl":"http%3A%2F%2F127.0.0.1%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2Findex.php%3Fview%3Drpc%26theme%3Dblue%26debug%3Dfalse%26run%3Drun-release%26protocols%3Dfalse%26xideve%3Dtrue%26plugins%3Dfalse%26xblox%3Dtrue%26files%3Dtrue",
+                    "singleton":true,
+                    resourceVariables:{
+                        "XASWEB":"http:\/\/127.0.0.1\/projects\/x4mm\/Code\/client\/src",
+                        "APP_URL":"http:\/\/127.0.0.1\/projects\/x4mm\/Code\/client\/src",
+                        "SITEURL":"http:\/\/127.0.0.1\/projects\/x4mm\/Code\/xapp\/xcf\/",
+                        "RPC_URL_SUFFIX":"","ROOT_URL_OFFSET":"","THEME":"blue",
+                        "XCOM_PLUGINS_WEB_URL":"http:\/\/127.0.0.1\/projects\/x4mm\/Code\/xapp\/commander\/plugins\/","XAPP_PLUGIN_RESOURCES":[],"DOJOPACKAGES":"{}","XCF_DRIVER_VFS_CONFIG":"{\"System\":{\"name\":\"System\",\"mount\":\"root\"}}","XCF_DEVICE_VFS_CONFIG":"{\"System\":{\"name\":\"System\",\"mount\":\"root\"}}",
+                        "VFS_GET_URL":"http:\/\/127.0.0.1\/projects\/x4mm\/Code\/xapp\/xcf\/index.php?view=smdCall&theme=blue&debug=false&run=run-release&protocols=false&xideve=true&plugins=false&xblox=true&files=true&service=XCOM_Directory_Service.get2&callback=asdf&raw=html&attachment=0&send=1&mount=",
+                        "USER_DIRECTORY":"\/PMaster\/projects\/x4mm\/user\/",
+                        "COMPONENTS":"{\"xfile\":true,\"xnode\":true,\"xideve\":{\"cmdOffset\":\"..\\\/xide\\\/\"},\"xblox\":true}",
+                        "PACKAGE_CONFIG":"run-release",
+                        "HTML_HEADER":[],
+                        "BODY_RESOURCES":"",
+                        "RPC_TARGET":".\/index.php?view=rpc",
+                        "RPC_URL":"http%3A%2F%2F127.0.0.1%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2Findex.php%3Fview%3Drpc%26theme%3Dblue%26debug%3Dfalse%26run%3Drun-release%26protocols%3Dfalse%26xideve%3Dtrue%26plugins%3Dfalse%26xblox%3Dtrue%26files%3Dtrue",
+                        "VFS_CONFIG":{"docs":"\/PMaster\/projects\/x4mm\/docs\/docFiles",
+                            "system_drivers":"\/PMaster\/projects\/x4mm\/data\/system\/drivers",
+                            "user_drivers":"\/PMaster\/projects\/x4mm\/user\/drivers\/",
+                            "user_devices":"\/PMaster\/projects\/x4mm\/user\/devices\/",
+                            "system_devices":"\/PMaster\/projects\/x4mm\/data\/\/system\/devices",
+                            "system_protocols":"\/PMaster\/projects\/x4mm\/data\/\/system\/protocols\/",
+                            "master":"\/PMaster\/projects\/x4mm\/",
+                            "javascript":"\/PMaster\/projects\/x4mm\/Code\/client\/src\/lib\/",
+                            "php":"\/PMaster\/projects\/x4mm\/Code\/xapp\/",
+                            "cfjs":"\/PMaster\/projects\/x4mm\/Code\/client\/src\/lib\/xcf",
+                            "xidejs":"\/PMaster\/projects\/x4mm\/Code\/client\/src\/lib\/xide",
+                            "workspace":"\/PMaster\/projects\/x4mm\/data\/workspace\/",
+                            "workspace_user":"\/PMaster\/projects\/x4mm\/user\/\/workspace",
+                            "root":"\/PMaster\/projects\/x4mm\/user\/\/workspace",
+                            "logs":"\/PMaster\/projects\/x4mm\/server\/nodejs\/logs"}}
+                }
+            },
+            {
+                "declaredClass":'davinci.model.resource.Resource',
+                "mixin":{
+                    "serviceUrl":"http%3A%2F%2F127.0.0.1%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2Findex.php%3Fview%3Drpc%26theme%3Dblue%26debug%3Dfalse%26run%3Drun-release%26protocols%3Dfalse%26xideve%3Dtrue%26plugins%3Dfalse%26xblox%3Dtrue%26files%3Dtrue",
+                    "singleton":true
+                }
+            },
+            {
+                "declaredClass":'xfile.manager.FileManager',
+                "mixin":{
+                    serviceClass:'XCOM_Directory_Service',
+                    "serviceUrl":"http%3A%2F%2F127.0.0.1%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2Findex.php%3Fview%3Drpc%26theme%3Dblue%26debug%3Dfalse%26run%3Drun-release%26protocols%3Dfalse%26xideve%3Dtrue%26plugins%3Dfalse%26xblox%3Dtrue%26files%3Dtrue",
+                    "singleton":true
+                }
+            },
+            {
+                "declaredClass":'xnode.manager.NodeServiceManager',
+                "mixin":{
+                    "serviceUrl":"http%3A%2F%2F127.0.0.1%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2Findex.php%3Fview%3Drpc%26theme%3Dblue%26debug%3Dfalse%26run%3Drun-release%26protocols%3Dfalse%26xideve%3Dtrue%26plugins%3Dfalse%26xblox%3Dtrue%26files%3Dtrue",
+                    "singleton":true
+                }
+            },
+            {
+                "declaredClass":'davinci.model.resource.File',
+                "mixin":{
+                    "serviceUrl":"http%3A%2F%2F127.0.0.1%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2Findex.php%3Fview%3Drpc%26theme%3Dblue%26debug%3Dfalse%26run%3Drun-release%26protocols%3Dfalse%26xideve%3Dtrue%26plugins%3Dfalse%26xblox%3Dtrue%26files%3Dtrue",
+                    "singleton":true
+                }
+            },
+            {
+                "declaredClass":'davinci.model.resource.File',
+                "mixin":{
+                    "serviceUrl":"http%3A%2F%2F127.0.0.1%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2Findex.php%3Fview%3Drpc%26theme%3Dblue%26debug%3Dfalse%26run%3Drun-release%26protocols%3Dfalse%26xideve%3Dtrue%26plugins%3Dfalse%26xblox%3Dtrue%26files%3Dtrue",
+                    "singleton":true
+                }
+            },
+            {
+                "declaredClass":'xcf.manager.Context',
+                "mixin":{
+                    vfsConfigs:{
+                        "Driver" : {
+                            roots:{"System":{"name":"System","mount":"root"}}
+                        },
+                        "Device" : {
+                            roots:{"System":{"name":"System","mount":"root"}}
+                        }
+                    }
+                }
+            }
+        ]
+    };
+
+    var xFileConfig ={
+        "LAYOUT_PRESET":1,
+        "PANEL_OPTIONS":{
+            "ALLOW_COLUMN_RESIZE":true,
+            "ALLOW_COLUMN_REORDER":true,
+            "ALLOW_COLUMN_HIDE":true,
+            "ALLOW_NEW_TABS":true,
+            "ALLOW_MULTI_TAB":false,
+            "ALLOW_INFO_VIEW":true,
+            "ALLOW_LOG_VIEW":true,
+            "ALLOW_BREADCRUMBS":false,
+            "ALLOW_CONTEXT_MENU":true,
+            "ALLOW_LAYOUT_SELECTOR":true,
+            "ALLOW_SOURCE_SELECTOR":true
+        },
+        "ALLOWED_ACTIONS":[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"FILE_PANEL_OPTIONS_LEFT":{"LAYOUT":2,"AUTO_OPEN":"true"},"FILE_PANEL_OPTIONS_MAIN":{"LAYOUT":2,"AUTO_OPEN":"true"},"FILE_PANEL_OPTIONS_RIGHT":{"LAYOUT":2,"AUTO_OPEN":"true"}};
+
+    var xFileConfig={
+        FILES_STORE_URL:"http%3A%2F%2F127.0.0.1%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2Findex.php%3Fview%3Drpc%26theme%3Dblue%26debug%3Dfalse%26run%3Drun-release%26protocols%3Dfalse%26xideve%3Dtrue%26plugins%3Dfalse%26xblox%3Dtrue%26files%3Dtrue",
+        FILE_SERVICE:"http%3A%2F%2F127.0.0.1%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2Findex.php%3Fview%3Drpc%26theme%3Dblue%26debug%3Dfalse%26run%3Drun-release%26protocols%3Dfalse%26xideve%3Dtrue%26plugins%3Dfalse%26xblox%3Dtrue%26files%3Dtrue",
+        FILE_SERVICE_FULL:"http%3A%2F%2F127.0.0.1%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2Findex.php%3Fview%3Drpc%26theme%3Dblue%26debug%3Dfalse%26run%3Drun-release%26protocols%3Dfalse%26xideve%3Dtrue%26plugins%3Dfalse%26xblox%3Dtrue%26files%3Dtrue",
+        FILES_STORE_SERVICE_CLASS:'XCOM_Directory_Service',
+        defaultStoreName:'workspace',
+        RPC_PARAMS:{
+            rpcUserField:'user',
+            rpcUserValue:'e741198e1842408aa660459240d430a6',
+            rpcSignatureField:'sig',
+            rpcSignatureToken:'d39f3441e0f0cbe990c520f897bc84d7',
+            rpcFixedParams:{}
+        }
+    };
+    var xappPluginResources=[{"class":"cmx.types.Resource","enabled":true,"name":"ImageEdit","path":"ImageEdit\/xfile\/main","type":"JS-PLUGIN","url":"","urlOri":"","packageSuffix":""},{"class":"cmx.types.Resource","enabled":true,"name":"Markdown","path":"Markdown\/main","type":"JS-PLUGIN","url":"","urlOri":"","packageSuffix":"xfile-release"}];</script>
+
+    <style type="text/css">
+        .claro{
+            font-size: 0.85em;
+        }
+
+        .actionToolbarButtonElusive{
+            font-size: 1.2em;
+        }
+
+    </style>
+    <style type='text/css'>
+    </style>
+
+
+    <style  type="text/css">
+
+        #loader {
+            font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+            color: #5aacca;
+            font-size: 16px;
+            background-color: #ffffff;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: table;
+            /*opacity: 0.5;*/
+            /*max-height:750px;*/
+            text-align: center;
+            z-index: 999;
+            vertical-align: middle;
+        }
+        #loaderInner {
+            color: #5AACCA;
+            display: block;
+            /*left: 10%;*/
+            /*margin-top: 50% !important;*/
+            padding: 5px;
+            position: relative;
+            text-align: center;
+            width: 100%;
+            top: 76% !important;
+            /*padding:5px;
+            position:absolute;
+            left:10%;
+            top:76%;
+            width:275px;
+            */
+            font-size: 21px;
+            color: #5aacca;
+            /*display: table-cell;*/
+            /*vertical-align: middle;*/
+            /*margin: 0 auto;*/
+        }
+        #heading-inner {
+            width: 100%;
+        }
+        /**Loader new **/
+        .loaderProgContainer {
+            background-color: #000000;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            color: rgba(45, 44, 44, 0.898);
+            height: 80px !important;
+            left: 50%;
+            top: 65%;
+            width: 80px !important;
+        }
+        .loaderProgContainer {
+            height: 100%;
+            position: absolute;
+            width: 100%;
+        }
+        /**  Loading indicator : new !  */
+        /* Loading indicator */
+        .loadingWrapper {
+            height: 100%;
+            position: absolute;
+            z-index: 999999;
+            width: 100%;
+            top: 36%;
+            display: inline-block;
+        }
+        .loading {
+            position: relative !important;
+            width: 72px !important;
+            /* diameter */
+            height: 72px !important;
+            /* diameter */
+            margin: 0 auto;
+        }
+        .loadingWrapper .outer, .inner, .loading:after {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+        }
+        /* Mask */
+        .loadingWrapper .loading:after {
+            margin: 10%;
+            /* stroke width */
+            border-radius: 100%;
+            background: #888;
+            /* container background */
+            color: #FFFFFF;
+            content: "Loading";
+            font-size: 10px;
+            padding-top: 21px;
+            text-align: center;
+        }
+        /* Spinning gradients */
+        .loadingWrapper .outer, .inner {
+            animation-duration: 5s;
+            /* speed */
+            -webkit-animation-duration: 5s;
+            /* speed */
+            animation-iteration-count: infinite;
+            -webkit-animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            -webkit-animation-timing-function: linear;
+        }
+        .loadingWrapper .outer {
+            animation-name: rotate-outer;
+            -webkit-animation-name: rotate-outer;
+        }
+        .loadingWrapper .inner {
+            animation-name: rotate-inner;
+            -webkit-animation-name: rotate-inner;
+        }
+        /* Halfs */
+        .loadingWrapper .outer:before, .inner:before, .outer:after, .inner:after {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            content: " ";
+        }
+        /* Left half */
+        .loadingWrapper .outer:before, .inner:before {
+            left: 0;
+            right: 50%;
+            border-radius: 72px 0 0 72px;
+            /* diameter */
+        }
+        /* Right half */
+        .loadingWrapper .outer:after, .inner:after {
+            left: 50%;
+            right: 0;
+            border-radius: 0 72px 72px 0;
+            /* diameter */
+        }
+        /* Half gradients */
+        .loadingWrapper .outer:before {
+            background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5));
+            background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5));
+            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5));
+        }
+        .loadingWrapper .outer:after {
+            background-image: -webkit-linear-gradient(top, #ffffff, rgba(255, 255, 255, 0.5));
+            background-image: -moz-linear-gradient(top, #ffffff, rgba(255, 255, 255, 0.5));
+            background-image: linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0.5));
+        }
+        .loadingWrapper .inner:before {
+            background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.5), rgba(191, 191, 191, 0.5));
+            background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.5), rgba(191, 191, 191, 0.5));
+            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(191, 191, 191, 0.5));
+        }
+        .loadingWrapper .inner:after {
+            background-image: -webkit-linear-gradient(top, rgba(128, 128, 128, 0.5), rgba(191, 191, 191, 0.5));
+            background-image: -moz-linear-gradient(top, rgba(128, 128, 128, 0.5), rgba(191, 191, 191, 0.5));
+            background-image: linear-gradient(to bottom, rgba(128, 128, 128, 0.5), rgba(191, 191, 191, 0.5));
+        }
+        /* Spinning animations */
+        @keyframes rotate-outer {
+            0% {
+                transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(1080deg);
+                -moz-transform: rotate(1080deg);
+                -webkit-transform: rotate(1080deg);
+            }
+        }
+        @-webkit-keyframes rotate-outer {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(1080deg);
+            }
+        }
+        @keyframes rotate-inner {
+            0% {
+                transform: rotate(720deg);
+                -moz-transform: rotate(720deg);
+                -webkit-transform: rotate(720deg);
+            }
+            100% {
+                transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+            }
+        }
+        @-webkit-keyframes rotate-inner {
+            0% {
+                -webkit-transform: rotate(720deg);
+            }
+            100% {
+                -webkit-transform: rotate(0deg);
+            }
+        }
+
+    </style>
+
+
+    <script type="text/javascript" src="http://127.0.0.1/projects/x4mm/Code/client/src/xcf/dojo/xcf.js">
+        console.log('did load');
+    </script>
+
+
+    <!-- Run main2-->
+    <script type="text/javascript" src="http://127.0.0.1/projects/x4mm/Code/client/src/lib/xcf/run-release.js"></script>
+
+</head>
+
+
+
+
+
+<body class="xTheme-default xTheme-blue">
+
+
+
+<div id="root"  class="rootContainer">
+
+
+</div>
+
+<div id="widgetCache" style="maxHeight:0px;display:none;"></div>
+
+
+
+<div style="width: 474px;position: absolute;top:0px;" id="jig1" class="justified-image-grid jig-5d6fe2511be816e6d327f74ed60ea9fb jig-preset-global">
+    <div class="jig-clearfix"></div>
+</div>
+
+<div class="loadingWrapper" id="loadingWrapper">
+    <div class="loading">
+        <div class="outer"></div>
+        <div class="inner"></div>
+    </div>
+</div>
+
+
+<div id="xIFrames" style="display: block"/>
+
+
+</body>
+
+</html>

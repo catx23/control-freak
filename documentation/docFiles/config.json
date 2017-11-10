@@ -1,0 +1,28 @@
+{
+  "title": "Control-Freak",
+  "tagline": "IDE for Automation & IoT",
+  "author": "Justin Walsh",
+  "image": null,
+  "ignore": {
+    "files": ["Work_In_Progress.md"],
+    "folders": ["99_Not_Ready","assets","09_Folder_Structure","05_Deployment","07_Components","12_Raspberry_PI","15_Export","internal"]
+  },
+  "live": {
+    "clean_urls": true
+  },
+  "format": "html",
+  "processor": "",
+
+  "html": {
+    "edit_on_github": "net-commander/net-commander-documentation/blob/master/docFiles",
+    "theme": "mytheme-blue",
+    "breadcrumbs": true,
+    "breadcrumb_separator": "Chevrons",
+    "toggle_code": false,
+    "editor":false,
+    "date_modified": false,
+    "float": false,
+    "repo": false,
+    "auto_toc": false
+  }
+}

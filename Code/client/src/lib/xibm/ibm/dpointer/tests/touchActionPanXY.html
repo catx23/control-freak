@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!--
+-->
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>touch-action=PAN-X|Y</title>
+	<script src="../../requirejs/require.js"></script>
+	<script>
+		require.config({
+			baseUrl: "../.."
+		});
+		require([
+			"dpointer/events",
+			"requirejs-domready/domReady!"
+		], function () {
+			var msgLog = document.getElementById("msgLog");
+
+			function logMsg(msg, append) {
+				msgLog.innerHTML = (append ? "<br>" : "") + msg +
+						msgLog.innerHTML.substring(
+								msgLog.innerHTML.indexOf("<br>"), msgLog.innerHTML.length
+						);
+				console.log(msg);
+			}
+
+			function resetLog() {
+				msgLog.innerHTML = "<br>";
+			}
+
+			var VContainer = document.getElementById("VContainer");
+			VContainer.addEventListener("click", function () {
+				logMsg("--CLICK--", true);
+			});
+
+			["pointerover", "pointerenter", "pointerdown", "pointermove",
+				"pointerup", "pointerout", "pointerleave", "pointercancel"].forEach(function (name) {
+						window.document.body.addEventListener(name, function (e) {
+							if (e.type === "pointerover") {
+								resetLog();
+							}
+							logMsg(e.type + " [" + (e.target.id || e.target.tagName) + "]", true);
+						});
+					});
+
+			logMsg(navigator.userAgent, true);
+			logMsg("---", true);
+			logMsg("CSS touch-action " + (("touchAction" in document.body.style) ? "is" : "NOT") +
+					" supported by this user agent.", true);
+		});
+	</script>
+	<style>
+		#VContainer {
+			position: relative;
+			background-color: lightgreen;
+			width: 50%;
+			height: 300px;
+			overflow: auto;
+			-webkit-overflow-scrolling: touch;
+		}
+
+		#VContent {
+			position: relative;
+			width: 100%;
+		}
+
+		#HContainer {
+			position: relative;
+			background-color: lightgreen;
+			width: 100%;
+			height: 100px;
+			overflow: auto;
+			-webkit-overflow-scrolling: touch;
+		}
+
+		#HContent {
+			position: relative;
+			width: 500%;
+			height: auto;
+		}
+
+		#msgLog {
+			position: relative;
+			text-align: right;
+			float: right;
+			width: 50%;
+			background-color: lightblue;
+			height: 300px;
+			overflow: auto;
+		}
+	</style>
+</head>
+<body id="body">
+<h1>touch-action=PAN-X|Y</h1>
+<hr>
+<h4>PAN-Y: Scroll down/up: pointer must be cancelled. Scroll left/right: pointer events must be fired.</h4>
+<span id="msgLog"><br></span>
+
+<div id="VContainer" touch-action="pan-y">
+	<div id="VContent">
+		<p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diem
+			nonummy nibh euismod tincidunt ut lacreet dolore magna aliguam erat volutpat.
+			Ut wisis enim ad minim veniam, quis nostrud exerci tution ullamcorper suscipit
+			lobortis nisl ut aliquip ex ea commodo consequat.
+			Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diem
+			nonummy nibh euismod tincidunt ut lacreet dolore magna aliguam erat volutpat.
+			Ut wisis enim ad minim veniam, quis nostrud exerci tution ullamcorper suscipit
+			lobortis nisl ut aliquip ex ea commodo consequat.
+			Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diem
+			nonummy nibh euismod tincidunt ut lacreet dolore magna aliguam erat volutpat.
+			Ut wisis enim ad minim veniam, quis nostrud exerci tution ullamcorper suscipit
+			lobortis nisl ut aliquip ex ea commodo consequat.
+			Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diem
+			nonummy nibh euismod tincidunt ut lacreet dolore magna aliguam erat volutpat.
+			Ut wisis enim ad minim veniam, quis nostrud exerci tution ullamcorper suscipit
+			lobortis nisl ut aliquip ex ea commodo consequat.
+			Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diem
+			nonummy nibh euismod tincidunt ut lacreet dolore magna aliguam erat volutpat.
+			Ut wisis enim ad minim veniam, quis nostrud exerci tution ullamcorper suscipit
+			lobortis nisl ut aliquip ex ea commodo consequat.
+		</p>
+	</div>
+</div>
+<hr>
+<h4>PAN-X: Scroll down/up: pointer events must be fired. Scroll left/right: pointer must be cancelled.</h4>
+
+<div id="HContainer" touch-action="pan-x">
+	<div id="HContent">
+		<p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diem
+			nonummy nibh euismod tincidunt ut lacreet dolore magna aliguam erat volutpat.
+			Ut wisis enim ad minim veniam, quis nostrud exerci tution ullamcorper suscipit
+			lobortis nisl ut aliquip ex ea commodo consequat.
+			Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diem
+			nonummy nibh euismod tincidunt ut lacreet dolore magna aliguam erat volutpat.
+			Ut wisis enim ad minim veniam, quis nostrud exerci tution ullamcorper suscipit
+			lobortis nisl ut aliquip ex ea commodo consequat.
+			Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diem
+			nonummy nibh euismod tincidunt ut lacreet dolore magna aliguam erat volutpat.
+			Ut wisis enim ad minim veniam, quis nostrud exerci tution ullamcorper suscipit
+			lobortis nisl ut aliquip ex ea commodo consequat.
+			Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diem
+			nonummy nibh euismod tincidunt ut lacreet dolore magna aliguam erat volutpat.
+			Ut wisis enim ad minim veniam, quis nostrud exerci tution ullamcorper suscipit
+			lobortis nisl ut aliquip ex ea commodo consequat.
+			Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diem
+			nonummy nibh euismod tincidunt ut lacreet dolore magna aliguam erat volutpat.
+			Ut wisis enim ad minim veniam, quis nostrud exerci tution ullamcorper suscipit
+			lobortis nisl ut aliquip ex ea commodo consequat.
+		</p>
+	</div>
+</div>
+<hr>
+</body>
+</html>

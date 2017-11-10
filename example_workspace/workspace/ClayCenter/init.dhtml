@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+
+</head>
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="claro superhero" data-maq-ws="collapse" style="position: absolute; left: 0; top: 0; max-height: 1080px; max-width: 1920px; min-width: 1920px; min-height: 1080px; background-repeat: no-repeat; background-position: 0 0; width: 1920px; height: 1080px; background-size: 1920px 1080px; background-image: url('workspace_user://./backgrounds/CC_Skin.png');" id="myapp" data-maq-appstates="{}">
+
+<!-- Time Display******************************/--><button is="d-button" title="ShowTime" label="1:34:13" style="font: Arial; position: absolute; white-space: normal; font-weight: normal; vertical-align: middle; color: #AFAFAF; width: 300px; height: 100px; font-size: 50pt; text-align: left; left: 1080px; top: 87px;" class="fakeLabel" id="ShowTime">
+    <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=c89d05ec-1d76-a8ec-deba-8c68f7766f9e&amp;driver=8977f7eb-5e79-43b7-ef04-098b8727f825&amp;driverScope=user_drivers&amp;block=e34e4761-f851-c525-b0ab-ad56ad6af2f2" script="ShowTime" style="position: relative;"></d-xscript>
+</button>
+<button is="d-button" title="LTC" label="00:00:00.00" style="font: Arial; position: absolute; white-space: normal; font-weight: normal; vertical-align: middle; color: #E5E5E5; height: 100px; width: 400px; font-size: 50pt; top: 7px; text-align: left; left: 1080px;" class="fakeLabel" id="LTC">
+    <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=c89d05ec-1d76-a8ec-deba-8c68f7766f9e&amp;driver=8977f7eb-5e79-43b7-ef04-098b8727f825&amp;driverScope=user_drivers&amp;block=548b3488-ca66-a649-6e05-f0cc3813884b" script="LTC" style="position: relative;"></d-xscript>
+</button>
+
+
+<!-- meters******************************/--><d-slider value="83" slideRange="true" vertical="true" style="height: 129px; position: absolute; left: 1628px; top: 21.5px;" class="meterSlider" id="d-slider_0">
+    <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="value" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=cf09efdd-58b9-ad2f-8262-d922348f7a08" script="meterLR" style="position: relative;"></d-xscript>
+</d-slider>
+<d-slider value="83" slideRange="true" vertical="true" style="height: 129px; position: absolute; left: 1658px; top: 21.5px;" class="meterSlider" id="d-slider_1">
+    <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="value" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=26c3000f-b692-0e21-e3d2-990ed1d4a698" script="meterL" style="position: relative;"></d-xscript>
+</d-slider>
+<d-slider value="83" slideRange="true" vertical="true" style="height: 129px; position: absolute; left: 1688px; top: 21.5px;" class="meterSlider" id="d-slider_2">
+    <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="value" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=8ae4789d-cda2-d6b8-4edc-eef1732e7b4c" script="meterC" style="position: relative;"></d-xscript>
+</d-slider>
+<d-slider value="83" slideRange="true" vertical="true" style="height: 129px; position: absolute; left: 1718px; top: 21.5px;" class="meterSlider" id="d-slider_3">
+ <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="value" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=733590e8-47b7-5591-9a50-e78da0b92b55" script="meterR" style="position: relative;"></d-xscript>
+</d-slider>
+<d-slider value="83" slideRange="true" vertical="true" style="height: 129px; position: absolute; left: 1748px; top: 21.5px;" class="meterSlider" id="d-slider_4">
+ <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="value" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=d345d8b5-9bf9-8278-ceda-014b20137512" script="meterRR" style="position: relative;"></d-xscript>
+</d-slider>
+<d-slider value="83" slideRange="true" vertical="true" style="height: 129px; position: absolute; left: 1778px; top: 21.5px;" class="meterSlider" id="d-slider_5">
+    <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="value" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=201ecca8-a0d4-a831-595e-eb171c7cc675" script="meterCT" style="position: relative;"></d-xscript>
+</d-slider>
+<d-slider value="83" slideRange="true" vertical="true" style="height: 129px; position: absolute; left: 1807.5px; top: 21.5px;" class="meterSlider" id="d-slider_6">
+    <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="value" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=4c7e436c-00bb-63aa-245c-f6e218e297b5" script="meterSub" style="position: relative;"></d-xscript>
+</d-slider>
+<button is="d-button" title="Default Label" label="" iconClass="fa fa-list" style="position: absolute; left: 22px; top: 200px;" class="navBtn" onclick="vs.show(show);" id="navShow">
+  <d-xstate-css style="display: none;" name="0" cssClass="navBtn"></d-xstate-css>
+  <d-xstate-css style="display: none;" name="1" cssClass="navBtnOn"></d-xstate-css>
+</button>
+<button is="d-button" title="Default Label" label="" iconClass="fa fa-volume-up" style="position: absolute; left: 22px; top: 350px;" class="navBtn" onclick="vs.show(audio);" id="navAudio">
+  <d-xstate-css style="display: none;" name="0" cssClass="navBtn"></d-xstate-css>
+  <d-xstate-css style="display: none;" name="1" cssClass="navBtnOn"></d-xstate-css>
+</button>
+<button is="d-button" title="Default Label" label="" iconClass="fa fa-video-camera" style="position: absolute; left: 22px; top: 500px;" class="navBtn  .navBtn:hover" onclick="vs.show(video);" id="navVideo">
+<d-xstate-css style="display: none;" name="0" cssClass="navBtn"></d-xstate-css>
+<d-xstate-css style="display: none;" name="1" cssClass="navBtnOn"></d-xstate-css>
+</button>
+
+<button is="d-button" title="Default Label" label="" style="position: absolute; left: 22px; top: 650px;" class="navBtn  .navBtn:hover" iconClass="fa fa-gear" onclick="vs.show(utility);" id="navUtility">
+<d-xstate-css style="display: none;" name="0" cssClass="navBtn"></d-xstate-css>
+<d-xstate-css style="display: none;" name="1" cssClass="navBtnOn"></d-xstate-css>
+</button>
+
+<d-view-stack style="height: 900px; width: 1730px; left: 190px; position: absolute; min-height: 900; max-height: 900; min-width: 1730; max-width: 1730; top: 180px;" id="vs" transition="none">
+    <d-panel id="show" label="SHOW" style="position: absolute; font-family: Arial,Helvetica,sans-serif; font-size: 10pt; color: white; left: 0px; top: -1px;">
+        <button is="d-button" title="MonPgm" label="Program" state="1" style="position: absolute; height: 93px; width: 145px; left: 761px; top: 766px;" class="myButton" id="d-button_7">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=fe43a315-d065-3d9c-2fe4-c336fd109f5e" script="Mon Program" style="position: relative;"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=26b8758e-b5f3-95a9-5db9-4bced65c5b92" script="monPgm_Sources" style="position: relative;"></d-xscript>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_mon"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_mon"></d-xstate-css>
+        </button>
+        <button is="d-button" title="MonSS" label="ShowSource" state="0" style="position: absolute; width: 145px; height: 93px; padding-left: 7px; left: 941px; top: 766px;" class="myButton" id="ShowSourceButton">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=fbc323b6-b680-1be3-66c3-e00c6e4f9ab2" script="Mon SS Mute Toggle" style="position: relative;"></d-xscript>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_mon"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_mon"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=244061b5-77c0-2b10-85c9-0f09333284e8" script="monSS" style="position: relative; background-color: red;"></d-xscript>
+        </button>
+        <button is="d-button" title="MonAux" label="Aux" state="0" style="position: absolute; width: 145px; height: 93px; left: 1121px; top: 766px;" class="myButton" id="button_1">
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=05ba7fe2-13b7-51a0-18f1-d573953a6070" script="Mon Aux Mute Toggle"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=fa3bde45-4991-3cbc-63ed-e07e20f43a14" script="monAux" style="position: relative;"></d-xscript>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_mon"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_mon"></d-xstate-css>
+        </button>
+        <button is="d-button" title="MonAV" label="A/V 5.1" state="0" style="width: 145px; height: 93px; position: absolute; left: 1301px; top: 766px;" class="myButton" id="button_2">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=d17c71b9-0c8f-07d7-8477-f58ec4556ea3" script="Mon Planet Mute Toggle" style="position: relative;"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=f45d0411-d6dc-e78c-85a5-b2ca5a1a3a15" script="monAV" style="position: relative;"></d-xscript>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_mon"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_mon"></d-xstate-css>
+        </button>
+        <button is="d-button" title="monMP" label="Music Player" state="0" style="width: 145px; height: 93px; position: absolute; padding-left: 7px; left: 1481px; top: 766px;" class="myButton" id="btnMusicPlayer">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=2fa8cb48-6216-3e42-7960-d3f393032eca" script="Mon MP Mute Toggle" style="position: relative;"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=7c619b9c-7e1d-80a9-8dbb-770c0a5fda03" script="monMP" style="position: relative;"></d-xscript>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_mon"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_mon"></d-xstate-css>
+        </button>
+
+        <!-- LIGHTNING PRESETS--><button is="d-button" title="light1" label="ALL ON" style="width: 145px; height: 93px; position: absolute; left: 761px; top: 472px;" class="myButton" state="1" id="button_L1">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=8ca7dd21-181a-3b7c-2497-ea364a6ce239" script="Current Lighting Preset" style="position: relative;">
+
+                <d-script name="transform">
+                    if(arguments[0] !=='1'){
+                    return 0;
+                    }
+                </d-script>
+
+            </d-xscript>
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_lighting"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_lighting"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=e2d242fa-f0be-1d91-8095-e8a3fe80a775" script="Lighting Preset 1" style="position: relative;"></d-xscript>
+        </button>
+
+
+        <button is="d-button" title="light2" label="WALK IN" style="width: 145px; height: 93px; position: absolute; left: 941px; top: 472px;" class="myButton" state="0" id="button_L2">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=8ca7dd21-181a-3b7c-2497-ea364a6ce239" script="Current Lighting Preset" style="position: relative;">
+                <d-script name="transform">
+                    if(arguments[0] !=='2'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+            <d-xstate-css style="display: none;" name="2" cssClass="cssStateOn_lighting"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_lighting"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=8543fdb6-0723-ff1e-3838-f005526110f1" script="Lighting Preset 2" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="light3" label="Speakers" state="0" style="width: 145px; height: 93px; position: absolute; left: 1121px; top: 472px;" class="myButton" id="button_L3">
+          <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=8ca7dd21-181a-3b7c-2497-ea364a6ce239" script="Current Lighting Preset" style="position: relative;">
+            <d-script name="transform">
+                    if(arguments[0] !=='3'){
+                    return 0;
+                    }
+                </d-script>
+          </d-xscript>
+          <d-xstate-css style="display: none;" name="3" cssClass="cssStateOn_lighting"></d-xstate-css>
+          <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_lighting"></d-xstate-css>
+          <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=b97ff4a9-2e4d-4307-ee3b-42ef1028ec43" script="Lighting Preset 3" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="light4" label="Exit Info" state="0" style="width: 145px; height: 93px; position: absolute; left: 1301px; top: 472px;" class="myButton" id="button_L4">
+          <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=8ca7dd21-181a-3b7c-2497-ea364a6ce239" script="Current Lighting Preset" style="position: relative;">
+            <d-script name="transform">
+                    if(arguments[0] !=='4'){
+                    return 0;
+                    }
+                </d-script>
+          </d-xscript>
+          <d-xstate-css style="display: none;" name="4" cssClass="cssStateOn_lighting"></d-xstate-css>
+          <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=d58e39e1-3624-ef38-578c-70b9d077b92d" script="Lighting Preset 4" style="position: relative;"></d-xscript>
+          <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_lighting"></d-xstate-css>
+        </button>
+        <button is="d-button" title="light5" label="Feature" state="0" style="width: 145px; height: 93px; position: absolute; left: 1481px; top: 472px;" class="myButton" id="button_L5">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=8ca7dd21-181a-3b7c-2497-ea364a6ce239" script="Current Lighting Preset" style="position: relative;">
+
+                <d-script name="transform">
+                    if(arguments[0] !=='5'){
+                    return 0;
+                    }
+                </d-script>
+
+            </d-xscript>
+            <d-xstate-css style="display: none;" name="5" cssClass="cssStateOn_lighting"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=1b4ba3e6-7afa-baf1-db47-1a00e204ffd5" script="Lighting Preset 5" style="position: relative;">
+
+            </d-xscript>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_lighting"></d-xstate-css>
+        </button>
+        <button is="d-button" title="light6" label="Walk Out" style="width: 145px; height: 93px; position: absolute; left: 761px; top: 591px;" class="myButton" state="0" id="button_L6">
+            <d-xstate-css style="display: none;" name="6" cssClass="cssStateOn_lighting"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_lighting"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=6e7f5e6f-cf28-ef05-b8a1-e3e12640aab4" script="Lighting Preset 6" style="position: relative;">
+
+            </d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=8ca7dd21-181a-3b7c-2497-ea364a6ce239" script="Current Lighting Preset" style="position: relative;">
+
+                <d-script name="transform">
+                    if(arguments[0] !=='6'){
+                    return 0;
+                    }
+                </d-script>
+
+            </d-xscript>
+        </button>
+        <button is="d-button" title="light7" label="Presenter" style="width: 145px; height: 93px; position: absolute; left: 941px; top: 591px;" class="myButton" state="0" id="button_L7">
+            <d-xstate-css style="display: none;" name="7" cssClass="cssStateOn_lighting"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_lighting"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=5841b872-a7cf-a46a-1539-a9f858e9c785" script="Lighting Preset 7" style="position: relative;">
+            </d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=8ca7dd21-181a-3b7c-2497-ea364a6ce239" script="Current Lighting Preset" style="position: relative;">
+
+                <d-script name="transform">
+                    if(arguments[0] !=='7'){
+                    return 0;
+                    }
+                </d-script>
+
+            </d-xscript>
+        </button>
+        <button is="d-button" title="light8" label="Stage" state="0" style="width: 145px; height: 93px; position: absolute; left: 1121px; top: 591px;" class="myButton" id="button_L8">
+            <d-xstate-css style="display: none;" name="8" cssClass="cssStateOn_lighting"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_lighting"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=05ca63e1-ba91-f0a9-e8de-3af4bd7f11b7" script="Lighting Preset 8" style="position: relative;">
+
+            </d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=8ca7dd21-181a-3b7c-2497-ea364a6ce239" script="Current Lighting Preset" style="position: relative;">
+
+                <d-script name="transform">
+                    if(arguments[0] !=='8'){
+                    return 0;
+                    }
+                </d-script>
+
+            </d-xscript>
+        </button>
+        <button is="d-button" title="light9" label="Video" style="width: 145px; height: 93px; position: absolute; left: 1301px; top: 593px;" class="myButton" id="button_L9">
+            <d-xstate-css style="display: none;" name="9" cssClass="cssStateOn_lighting"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_lighting"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=48caceee-05df-84d8-e5e9-ac0f4dc96a86" script="Lighting Preset 9" style="position: relative;"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=8ca7dd21-181a-3b7c-2497-ea364a6ce239" script="Current Lighting Preset" style="position: relative;">
+
+                <d-script name="transform">
+                    if(arguments[0] !=='9'){
+                    return 0;
+                    }
+                </d-script>
+
+            </d-xscript>
+        </button>
+        <button is="d-button" title="light10" label="All Off" style="width: 145px; height: 93px; position: absolute; left: 1481px; top: 593px;" class="myButton" state="0" id="button_L10">
+            <d-xstate-css style="display: none;" name="10" cssClass="cssStateOn_lighting"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_lighting"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=6ecf7060-61c7-4d50-b447-9d52ca6c80fb" script="Lighting Preset 10" style="position: relative;"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=d844baf7-af5a-a875-768e-6fb24c30fbde&amp;driver=0eefab9e-6e36-e9dd-0e79-267593890e7b&amp;driverScope=user_drivers&amp;block=8ca7dd21-181a-3b7c-2497-ea364a6ce239" script="Current Lighting Preset" style="position: relative;">
+                <d-script name="transform">
+                    if(arguments[0] !=='10'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+        </button>
+        <button is="d-button" title="ann1" label="Ann1" state="1" style="position: absolute; width: 145px; height: 93px; left: 761px; top: 58px;" class="myButton" id="btnAnn1">
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_ann"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_ann"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=dbdebf31-8861-a8ed-a7cf-01a24c8d93bd&amp;driver=49141396-a2a9-72bc-24c6-494891707c9d&amp;driverScope=user_drivers&amp;block=5c33a592-8184-fa63-0c59-8a42c9037118" script="Ann-1"></d-xscript>
+        </button>
+        <button is="d-button" title="ann2" label="Ann2" state="0" style="position: absolute; width: 146px; height: 93px; left: 941px; top: 59px;" class="myButton" id="btnAnn2">
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_ann"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_ann"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=dbdebf31-8861-a8ed-a7cf-01a24c8d93bd&amp;driver=49141396-a2a9-72bc-24c6-494891707c9d&amp;driverScope=user_drivers&amp;block=ba41451f-1235-9781-683b-34f9d12d1a2f" script="Ann-2" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="ann3" label="Ann3" style="position: absolute; width: 146px; height: 93px; left: 1121px; top: 59px;" class="myButton" state="0" id="btnAnn3">
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_ann"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_ann"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=dbdebf31-8861-a8ed-a7cf-01a24c8d93bd&amp;driver=49141396-a2a9-72bc-24c6-494891707c9d&amp;driverScope=user_drivers&amp;block=d4616c16-4911-8e68-5d52-60f6414f2aa5" script="Ann-3"></d-xscript>
+        </button>
+        <button is="d-button" title="ann4" label="Ann4" style="position: absolute; width: 146px; height: 93px; left: 1301px; top: 59px;" class="myButton" state="0" id="btnAnn4">
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_ann"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_ann"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=dbdebf31-8861-a8ed-a7cf-01a24c8d93bd&amp;driver=49141396-a2a9-72bc-24c6-494891707c9d&amp;driverScope=user_drivers&amp;block=2d82c465-8821-e8b8-b02e-2c5482099adb" script="Ann-4"></d-xscript>
+        </button>
+        <button is="d-button" title="ann5" label="Ann5" style="position: absolute; width: 146px; height: 93px; left: 761px; top: 173px;" class="myButton" state="0" id="btnAnn5">
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_ann"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_ann"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=dbdebf31-8861-a8ed-a7cf-01a24c8d93bd&amp;driver=49141396-a2a9-72bc-24c6-494891707c9d&amp;driverScope=user_drivers&amp;block=95b6adfd-c1fd-b2a2-15eb-8c7c4da9098f" script="Ann-5"></d-xscript>
+        </button>
+        <button is="d-button" title="ann6" label="Ann6" style="position: absolute; width: 146px; height: 93px; left: 941px; top: 173px;" class="myButton" state="0" id="btnAnn6">
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_ann"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_ann"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=dbdebf31-8861-a8ed-a7cf-01a24c8d93bd&amp;driver=49141396-a2a9-72bc-24c6-494891707c9d&amp;driverScope=user_drivers&amp;block=a789db4e-5554-60cc-3108-ccc8331b773f" script="Ann-6"></d-xscript>
+        </button>
+        <button is="d-button" title="ann7" label="Ann7" style="position: absolute; width: 146px; height: 93px; left: 1121px; top: 173px;" class="myButton" state="0" id="btnAnn7">
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_ann"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_ann"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=dbdebf31-8861-a8ed-a7cf-01a24c8d93bd&amp;driver=49141396-a2a9-72bc-24c6-494891707c9d&amp;driverScope=user_drivers&amp;block=6fb6b076-6dbe-f901-1ed2-0341902ea7d3" script="Ann-7"></d-xscript>
+        </button>
+        <button is="d-button" title="ann8" label="Ann8" style="position: absolute; width: 146px; height: 93px; left: 1301px; top: 173px;" class="myButton" state="0" id="btnAnn8">
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_ann"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_ann"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=dbdebf31-8861-a8ed-a7cf-01a24c8d93bd&amp;driver=49141396-a2a9-72bc-24c6-494891707c9d&amp;driverScope=user_drivers&amp;block=a2fe0657-e05c-e5d3-30dc-b3297cdbb9e9" script="Ann-8"></d-xscript>
+        </button>
+        <button is="d-button" title="walkinSelect" label="Walk In" variable="WalkInList" targetVariable="CurrentWalkIn" targetText="#walkinPlaylistLabel" style="width: 140px; height: 72px; position: absolute; left: 27.359375px; top: 52px;" class="myButton showselectColor" onclick="openPlaylists(this);" id="walkinSelectBtn"></button>
+        <button is="d-button" title="preshowSelect" label="Preshow" style="width: 140px; height: 72px; position: absolute; left: 27.359375px; top: 144px;" variable="PreshowList" targetVariable="CurrentPreshow" targetText="#preshowPlaylistLabel" class="myButton showselectColor" onclick="openPlaylists(this);" id="preshowSelectBtn"></button>
+        <button is="d-button" title="featureSelect" label="Feature" variable="FeatureList" targetVariable="CurrentFeature" targetText="#featurePlaylistLabel" style="width: 140px; height: 72px; position: absolute; left: 27.359375px; top: 240px;" class="myButton showselectColor" onclick="openPlaylists(this);" id="featureSelectBtn"></button>
+        <button is="d-button" title="walkoutSelect" label="Walk Out" variable="WalkOutList" targetVariable="CurrentWalkOut" targetText="#walkoutPlaylistLabel" style="width: 140px; height: 72px; position: absolute; left: 27.359375px; top: 336px;" class="myButton showselectColor" onclick="openPlaylists(this);" id="walkoutSelectBtn"></button>
+
+        <label title="walkinPlaylist" id="walkinPlaylistLabel" style="position: absolute; height: 45px; width: 475px; left: 167px; top: 63px;" class="showTextBox">Walk
+            In Playlist</label>
+        <label title="preshowPlaylist" id="preshowPlaylistLabel" style="position: absolute; height: 45px; width: 475px; left: 167px; top: 158px;" class="showTextBox">Preshow
+            Playlist</label>
+        <label title="featurePlaylist" id="featurePlaylistLabel" style="position: absolute; height: 45px; width: 475px; left: 167px; top: 254px;" class="showTextBox">Feature
+            Playlist</label>
+        <label title="walkoutPlaylist" id="walkoutPlaylistLabel" style="position: absolute; height: 45px; width: 475px; left: 167px; top: 351px;" class="showTextBox">Walk
+            Out Playlist</label>
+
+        <button is="d-button" title="Start Show" label="Start Show" style="position: absolute; left: 174px; top: 411px;" class="showSeqBtn" id="button_startshow">
+         <d-xscript stop="false" bidirectional="false" mode="1" targetevent="dblclick" block="command://deviceScope=user_devices&amp;device=c89d05ec-1d76-a8ec-deba-8c68f7766f9e&amp;driver=8977f7eb-5e79-43b7-ef04-098b8727f825&amp;driverScope=user_drivers&amp;block=3533ab64-543f-abbd-09ef-ba57dfc6633f" script="Start Show" style="position: relative;"></d-xscript>
+       </button>
+        <button is="d-button" title="End Show" label="End Show" style="position: absolute; left: 344px; top: 411px;" class="showSeqBtn" id="button_endshow">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="dblclick" block="command://deviceScope=user_devices&amp;device=c89d05ec-1d76-a8ec-deba-8c68f7766f9e&amp;driver=8977f7eb-5e79-43b7-ef04-098b8727f825&amp;driverScope=user_drivers&amp;block=26d82f3c-68d9-ff17-b8ab-f47f2e7f9ab3" script="End Show" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="Next Cue" label="Next Cue" style="position: absolute; left: 514px; top: 411px;" class="showSeqBtn" id="button_nextcue">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="dblclick" block="command://deviceScope=user_devices&amp;device=c89d05ec-1d76-a8ec-deba-8c68f7766f9e&amp;driver=8977f7eb-5e79-43b7-ef04-098b8727f825&amp;driverScope=user_drivers&amp;block=9c86de96-b01c-f88f-ccd7-498e25e1e8ad" script="Next Cue" style="position: relative;"></d-xscript>
+        </button>
+
+        <div id="ann_inset" style="position: absolute; left: 689px; top: 14px; width: 1010px; height: 396px; color: #558B2F" class="cssInset">Announcements
+        </div>
+        <div id="lighting_inset" style="position: absolute; left: 689px; top: 428px; width: 1010px; height: 276px; color: #E48815" class="cssInset">Lighting
+        </div>
+        <div id="mon_inset" style="position: absolute; left: 689px; top: 722px; width: 1010px; height: 156px; color: #3CBECD" class="cssInset">Booth Monitor
+        </div>
+        <div id="show_inset" style="position: absolute; left: 6px; top: 14px; width: 660px; height: 486px; color: #9e825a" class="cssInset">Show Sequence
+        </div>
+        <div id="mp_inset" style="position: absolute; left: 6px; top: 514px; width: 660px; height: 365px; color: #E4E4E5" class="musicPlayer">Music Player
+        </div>
+        <div id="transport" style="position: absolute; left: 6px; top: 654px; " class="transportBar"></div>
+
+        <template id="myTemplate" attach-point="focusNode" style="display:none;pointer-events:none">
+
+            <button is="d-button" title="Play" label="" style="position: absolute; width: 148px; height: 148px; padding-right: 3px; font-size: 60px; left: 261px; top: 635px;" class="transportRoundButton" id="btnPlay">
+
+                <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=450d2c75-29b0-29b7-13c5-be175b2a5749" script="Play Args"></d-xscript>
+
+                <i class="fa fa-play"></i>
+            </button>
+
+            <button is="d-button" title="Stop" label="" style="position: absolute; left: 142.359375px; top: 660px;" class="transportRoundButton" id="btnStop">
+                <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=418f48fc-9d4d-9c8c-fc19-4674848fa55c" script="Stop"></d-xscript>
+                <i class="fa fa-stop"></i></button>
+            <button is="d-button" title="Pause" label="" style="position: absolute; left: 430.359375px; top: 660px;" class="transportRoundButton" id="btnPause">
+                <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=a3c0e8d7-e517-18a2-1405-0a46e6182aef" script="Pause"></d-xscript>
+                <i class="fa fa-pause"></i></button>
+            <button is="d-button" title="Next" label="" style="position: absolute; left: 549px; top: 660px;" class="transportRoundButton" id="btnNext">
+                <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=49936bba-e005-053f-b88d-48ec88688b8b" script="Next"></d-xscript>
+                <i class="fa fa-step-forward"></i></button>
+            <button is="d-button" title="Previous" label="" style="position: absolute; left: 24px; top: 660px;" class="transportRoundButton" id="btnPrev">
+                <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=ab927f79-8968-ff46-44a8-e5fbe5bbfdbe" script="Prev"></d-xscript>
+                <i class="fa fa-step-backward"></i></button>
+
+            <button attach-point="btnOpenFolder" is="d-button" title="Folder" label="" style="position: absolute; left: 24px; top: 805px; font-size: 32px; padding-top: 3px; padding-left: 16px;" class="transportOvalButton" id="btnFolder"><i class="fa fa-folder-open"></i></button>
+            <button is="d-button" title="Random" label="" style="position: absolute; left: 184px; top: 805px; font-size: 32px; padding-top: 3px; padding-left: 14px;" class="transportOvalButton" id="btnRandom">
+
+                <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=1e426e2a-c4b9-d745-eb14-cd148b9a55c9" script="Shuffle"></d-xscript>
+                <i class="fa fa-random"></i>
+
+            </button>
+            <button is="d-button" title="Repeat" label="" style="position: absolute; left: 344px; top: 805px; font-size: 32px; padding-top: 2px; padding-left: 14px;" class="transportOvalButton" id="btnRepeat">
+
+                <d-xstate-css style="display: none;" name="on" cssClass="repeatOn"></d-xstate-css>
+                <d-xstate-css style="display: none;" name="off" cssClass="repeatOff"></d-xstate-css>
+                <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=4c35c58a-e75d-de90-0219-73c60ce43693" script="Toggle Repeat"></d-xscript>
+                <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=91707495-68d6-fb6a-5c80-0ce1464ec920" script="Repeat" style="position: relative;"></d-xscript>
+
+                <i class="fa fa-repeat"></i>
+            </button>
+            <button is="d-button" title="Mute" label="" style="position: absolute; left: 504px; top: 805px; font-size: 32px; padding-top: 2px; padding-left: 14px;" class="transportOvalButton" id="btnMute">
+                <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=41338ac8-acad-1cb9-2861-2a026bbba13e" script="Toggle Mute"></d-xscript>
+                <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=cabd937b-28b7-3985-6a10-d456dbe74374" script="Muted" style="position: relative;"></d-xscript>
+                <d-xstate-css style="display: none;" name="on" cssClass="mutedOn"></d-xstate-css>
+                <d-xstate-css style="display: none;" name="off" cssClass="mutedOff"></d-xstate-css>
+
+                <i class="fa fa-volume-up"></i></button>
+
+            <button is="d-button" title="" label="mpDisplay" style="position: absolute; right: 20px; left: 33.359375px; top: 566px;" class="transportDisplay" id="mpDisplay">
+                <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=VLC&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=a158474d-ddb8-e9d7-97d1-9e61e60ebc5e" script="Current File Name" style="position: relative;"></d-xscript>
+            </button>
+
+        </template>
+
+        <d-media-player templateId="#myTemplate" style="min-width: 300px; min-height: 300px; position: absolute; left: 5.971590518951416px; top: 2.982954502105713px;" id="mediaPlayer223"></d-media-player>
+
+        <button is="d-button" title="AnnPlay" label="" style="border: 7px solid #558B2F; background: #7CB342; width: 120px; height: 120px; padding-right: 3px; font-size: 60px; position: absolute; font-size: 44px; left: 1492.359375px; top: 99px;" class="transportRoundButton" id="AnnPlay"><i class="fa fa-play"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=dbdebf31-8861-a8ed-a7cf-01a24c8d93bd&amp;driver=49141396-a2a9-72bc-24c6-494891707c9d&amp;driverScope=user_drivers&amp;block=282a2a36-45b0-1b95-c190-b420e9a8903a" script="Play Current Ann"></d-xscript>
+            <d-xstate-css style="display:none" name="playing" cssClass="annPlay_playing"></d-xstate-css>
+            <d-xstate-css style="display:none" name="stopped" cssClass="annPlay_stopped"></d-xstate-css>
+
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=dbdebf31-8861-a8ed-a7cf-01a24c8d93bd&amp;driver=49141396-a2a9-72bc-24c6-494891707c9d&amp;driverScope=user_drivers&amp;block=8b5a2990-cc8f-48dc-c9d5-4c313ef68cf3" script="Current State" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="Wls1 Mic" label="WLS MIC A" style="height: 93px; width: 146px; position: absolute; top: 297px; left: 941px;" class="myButton" state="0" id="WLS_A">
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOff_usher"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOn_usher"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=0c6b8768-3eb7-d1c0-5dab-dca0d784205c" script="WLS A Mute Toggle" style="position: relative;"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=e498e228-6992-79e2-798c-238a9c34b481" script="WLSAMuteState" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="Wls B" label="Wls Mic B" state="0" style="height: 93px; width: 146px; position: absolute; top: 297px; left: 1121px;" class="myButton" id="WLS_B">
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOff_usher"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOn_usher"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=86f5e167-b4e2-ffb4-3469-92e22dc5231f" script="WLS B Mute Toggle"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=a957455e-78ac-f04c-0b8a-3edc5d5ec495" script="WLSBMuteState" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="Wls C" label="Wls Mic C" state="1" style="height: 93px; width: 146px; position: absolute; left: 1301px; top: 297px;" class="myButton" id="WLS_C">
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOff_usher"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOn_usher"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=118d2011-5807-ebfe-cc06-b26dca4d0ee7" script="WLS C Mute Toggle" style="position: relative;"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=a14f629a-20e0-da53-de5a-55e3444902e2" script="WLSCMuteState" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="Wls D" label="Wls Mic D" style="height: 93px; width: 146px; position: absolute; top: 297px; left: 1481px;" class="myButton" id="WLS_D">
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOff_usher"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOn_usher"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=b9dd5d84-bad2-5b3a-e850-a1fe6b8db464" script="WLS D Mute Toggle"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=e9311929-368b-cd58-bfb6-bc46bf1d5811" script="WLSDMuteState" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="ann_mic" label="CONSOLE" state="1" style="height: 93px; width: 146px; position: absolute; left: 761px; top: 297px;" class="myButton" id="ann_mic">
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_usher"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_usher"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=e922a924-7c48-1c9a-7453-9bdb630f1a13" script="ConsoleMicMuteState" style="position: relative;"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=32d1ff79-a66a-dd88-f1da-364699293579" script="Console Mic Mute Toggle" style="position: relative;"></d-xscript>
+        </button>
+    </d-panel>
+
+    <!-- AUDIO PANEL******************************/--><d-panel id="audio" label="AUDIO" style="display: none; left: 0px; top: 0px;">
+        <div id="programs_switch" style="position: absolute; left: 10px; top: 5px; width: 200px; height: 435px; color: #FFFFFF" class="cssInset">PROGRAM
+        </div>
+        <div id="sources_inset1" style="position: absolute; left: 1090px; top: 5px; width: 625px; height: 435px; color: #FFFFFF" class="cssInset">SOURCES
+        </div>
+        <div id="mic_inset2" style="position: absolute; left: 10px; top: 450px; width: 1705px; height: 435px; color: #FFFFFF" class="cssInset">MICS
+        </div>
+
+        <button is="d-button" title="MPvol-" label="" style="position: absolute; left: 1123px; top: 284px;" class="volDownButton  .volDownButton:hover" id="MPvol-"><i class="fa fa-chevron-circle-down"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=ed39f96d-7a6b-7c10-d6d4-306df4e3256a" script="MP Volume Down"></d-xscript>
+        </button>
+        <button is="d-button" title="MPvol+" label="" style="position: absolute; left: 1123px; top: 151px;" class="volUpButton  .volUpButton:hover" id="MPvol+"><i class="fa fa-chevron-circle-up"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=391f41e0-c9fb-2956-3f9c-0c5bb99c9080" script="MP Volume Up"></d-xscript>
+        </button>
+        <button is="d-button" title="MPVol" label="-3.0 dB" style="position: absolute; left: 1123px; top: 244px;" class="volLabel .volLabel:hover" id="MPvol">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=f73a56ed-91c7-4ca3-205c-65e7db90d211" script="MPVol" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="MPMute" label="" style="position: absolute; left: 1123px; top: 43px;" class="volMuteButton  .volMuteButton:hover" id="MPMute"><i class="fa fa-volume-up"></i>
+            <d-xstate-css style="display: none;" name="1" cssClass="volMuteButtonOn"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="volMuteButtonOff"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=dca9da4d-c21d-aba6-bbfd-80bd96947a7f" script="MPMuteState" style="position: relative;"></d-xscript>
+        </button>
+        <label style="position: absolute; left: 1123px; top: 388px;" id="MP_Mute_Label" class="sourceLabel">MUSIC</label>
+
+        <button is="d-button" title="AVvol-" label="" style="position: absolute; left: 1277px; top: 284px;" class="volDownButton  .volDownButton:hover" id="AVvol-"><i class="fa fa-chevron-circle-down"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=b8caced4-294f-37b1-d77d-9c70f6f4a36d" script="AV Volume Down"></d-xscript>
+        </button>
+        <button is="d-button" title="AVvol+" label="" style="position: absolute; left: 1277px; top: 151px;" class="volUpButton  .volUpButton:hover" id="AVvol+"><i class="fa fa-chevron-circle-up"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=a85b762a-8876-5c3c-843e-7374bef36d24" script="AV Volume Up"></d-xscript>
+        </button>
+        <button is="d-button" title="AVVol" label="-3.0 dB" style="position: absolute; left: 1277px; top: 244px;" class="volLabel .volLabel:hover" id="AVvol">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=afed9e3e-a6db-9536-5265-0c5cfe15fd15" script="AVVol" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="AVMute" label="" style="position: absolute; left: 1277px; top: 43px;" class="volMuteButton  .volMuteButton:hover" id="AVMute"><i class="fa fa-volume-up"></i>
+            <d-xstate-css style="display: none;" name="1" cssClass="volMuteButtonOn"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="volMuteButtonOff"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=6bb4abc7-2acb-28e6-1f5d-a5cd107deb62" script="AVMuteState" style="position: relative;"></d-xscript>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=69e147bd-aaf2-d1f4-36b3-06a219ec547b" script="AV Mute Toggle"></d-xscript>
+        </button>
+        <label style="position: absolute; left: 1277px; top: 388px;" id="AV_Mute_Label" class="sourceLabel">A/V</label>
+
+        <button is="d-button" title="AUXMutevol-" label="" style="position: absolute; left: 1431px; top: 284px;" class="volDownButton  .volDownButton:hover" id="AUXvol-"><i class="fa fa-chevron-circle-down"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=794e5a72-3bc1-fbc0-f438-49519f09dc95" script="Aux Volume Down"></d-xscript>
+        </button>
+        <button is="d-button" title="AUXvol+" label="" style="position: absolute; left: 1431px; top: 151px;" class="volUpButton  .volUpButton:hover" id="AUXvol+"><i class="fa fa-chevron-circle-up"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=7c979a88-572b-3617-1188-68ad1bd65945" script="Aux Volume Up"></d-xscript>
+        </button>
+        <button is="d-button" title="AUXVol" label="-3.0 dB" style="position: absolute; left: 1431px; top: 244px;" class="volLabel .volLabel:hover" id="AUXVol">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=e60f6d6b-f83b-8c0c-7bc1-655f00854b42" script="AuxVol" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="AUXMute" label="" style="position: absolute; left: 1431px; top: 43px;" class="volMuteButton  .volMuteButton:hover" id="AUXMute"><i class="fa fa-volume-up"></i>
+            <d-xstate-css style="display: none;" name="1" cssClass="volMuteButtonOn"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="volMuteButtonOff"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=2e689f92-8552-fe4f-06b3-c0b55a53a4fb" script="AuxMuteState" style="position: relative;"></d-xscript>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=ca7a4949-edde-0c33-f870-9d20c0f07ddb" script="AUX Mute Toggle"></d-xscript>
+        </button>
+        <label style="position: absolute; left: 1431px; top: 388px;" id="AUX_Mute_Label" class="sourceLabel">AUX</label>
+
+        <button is="d-button" title="SSvol-" label="" style="position: absolute; left: 1585px; top: 284px;" class="volDownButton  .volDownButton:hover" id="SSvol-"><i class="fa fa-chevron-circle-down"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=0e2db9fd-da5e-5cb0-3e98-24c50e78075e" script="SS Volume Down"></d-xscript>
+        </button>
+        <button is="d-button" title="SSvol+" label="" style="position: absolute; left: 1585px; top: 151px;" class="volUpButton  .volUpButton:hover" id="SSvol+"><i class="fa fa-chevron-circle-up"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=066c9c72-9b29-9fc4-9827-f36630f990a7" script="SS Volume Up"></d-xscript>
+        </button>
+        <button is="d-button" title="SSVol" label="-3.0 dB" style="position: absolute; left: 1585px; top: 244px;" class="volLabel .volLabel:hover" id="SSvol">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=23968075-d244-d73c-0a00-8b86114080f7" script="SSVol" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="SSMute" label="" style="position: absolute; left: 1585px; top: 43px;" class="volMuteButton  .volMuteButton:hover" id="SSMute"><i class="fa fa-volume-up"></i>
+            <d-xstate-css style="display: none;" name="1" cssClass="volMuteButtonOn"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="volMuteButtonOff"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=0fca1bb4-2320-ad80-d33a-c9e9ea2ffdc6" script="SSMuteState" style="position: relative;"></d-xscript>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=ac5307bc-498b-ce11-6d41-4286f36c2231" script="SS Mute Toggle"></d-xscript>
+        </button>
+        <label style="position: absolute; left: 1585px; top: 388px;" id="SS_Mute_Label" class="sourceLabel">SERVER</label>
+
+
+        <!-- Mics******************************/--><button is="d-button" title="consoleMicVol-" label="" style="position: absolute; left: 45px; top: 731px;" class="volDownButton  .volDownButton:hover" id="consoleMicVol-"><i class="fa fa-chevron-circle-down"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=613121b5-3557-13a3-7e81-0d82cc03e9c5" script="Console Mic Volume Down"></d-xscript>
+        </button>
+        <button is="d-button" title="consoleMicVol+" label="" style="position: absolute; left: 45px; top: 601px;" class="volUpButton  .volUpButton:hover" id="consoleMicVol+"><i class="fa fa-chevron-circle-up"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=10e90bbb-b4e3-f701-98b0-5429a876ed6e" script="Console Mic Volume Up"></d-xscript>
+        </button>
+        <button is="d-button" title="consoleMicVol" label="-3.0 dB" style="position: absolute; left: 45px; top: 694px;" class="volLabel .volLabel:hover" id="consoleMicVol">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=71db83e6-9717-74f6-da8d-7290e02b0c26" script="ConsoleMicVol" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="consoleMicMute" label="" state="1" style="position: absolute; left: 45px; top: 494px;" class="volMuteButton  .volMuteButton:hover" id="consoleMicMute"><i class="fa fa-volume-up"></i>
+          <d-xstate-css style="display: none;" name="1" cssClass="volMuteButtonOff"></d-xstate-css>
+          <d-xstate-css style="display: none;" name="0" cssClass="volMuteButtonOn"></d-xstate-css>
+          <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=32d1ff79-a66a-dd88-f1da-364699293579" script="Console Mic Mute Toggle"></d-xscript>
+          <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=e922a924-7c48-1c9a-7453-9bdb630f1a13" script="ConsoleMicMuteState" style="position: relative;"></d-xscript>
+        </button>
+        <label style="position: absolute; left: 45px; top: 835px;" id="Console_Mic_Label" class="sourceLabel">CONSOLE</label>
+        <button is="d-button" title="mic1vol-" label="" style="position: absolute; left: 199px; top: 732px;" class="volDownButton  .volDownButton:hover" id="button_mic1vol-"><i class="fa fa-chevron-circle-down"></i>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=791955ed-c70a-2c00-b854-e4c768e4fc14" script="FBMic1 Volume Down" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="mic1vol+" label="" style="position: absolute; left: 199px; top: 604px;" class="volUpButton .volUpButton:hover" id="button_mic1vol+"><i class="fa fa-chevron-circle-up"></i>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=8c0b057e-f202-e492-a12b-370367263368" script="FBMic1 Volume Up" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="mic1Vol" label="mic1Vol" style="position: absolute; left: 199px; top: 694px;" class="volLabel .volLabel:hover" id="mic1_Vol">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=5e7a414d-94c9-e013-94f8-7197e59f7434" script="FBMic1Vol" style="position: relative; left: 36px; top: 21px;"></d-xscript>
+        </button>
+        <button is="d-button" title="mic1Mute" label="" style="position: absolute; left: 199px; top: 494px;" class="volMuteButton  .volMuteButton:hover" state="0" id="FBMic1_Mute"><i class="fa fa-volume-up"></i>
+            <d-xstate-css style="display: none;" name="1" cssClass="volMuteButtonOn"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="volMuteButtonOff"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=c1681a60-eb3a-ff9d-4146-2be698852591" script="FB Mic1 Mute Toggle" style="position: relative;"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=ff5ffd0e-4b80-f3ea-dcad-6bce671a4c00" script="FBMic1MuteState" style="position: relative;"></d-xscript>
+        </button>
+        <label style="position: absolute; left: 199px; top: 835px;" id="FBMic1_Mute_Label" class="sourceLabel">FB MIC
+            1</label>
+
+        <button is="d-button" title="mic2vol-" label="" style="position: absolute; left: 353px; top: 732px;" class="volDownButton  .volDownButton:hover" id="button_mic2-"><i class="fa fa-chevron-circle-down"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=3ff99e2a-3a3e-89da-a4a3-0e14ce0e4c4e" script="FBMic2 Volume Down"></d-xscript>
+        </button>
+        <button is="d-button" title="mic2vol+" label="" style="position: absolute; left: 353px; top: 604px;" class="volUpButton  .volUpButton:hover" id="button_mic2vol+"><i class="fa fa-chevron-circle-up"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=c5e43fa1-21d6-7f3e-0883-1861a96720b3" script="FBMic2 Volume Up"></d-xscript>
+        </button>
+        <button is="d-button" title="mic2Vol" label="mic2Vol" style="position: absolute; left: 353px; top: 694px;" class="volLabel .volLabel:hover" id="mic2_Vol">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=02a5e1b2-1575-2cab-d5fa-b63e209171ea" script="FBMic2Vol" style="position: relative; left: 36px; top: 21px;"></d-xscript>
+        </button>
+
+        <button is="d-button" title="mic2Mute" label="" style="position: absolute; left: 353px; top: 494px;" class="volMuteButton  .volMuteButton:hover" state="0" id="FBMic2_Mute"><i class="fa fa-volume-up"></i>
+            <d-xstate-css style="display: none;" name="1" cssClass="volMuteButtonOn"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="volMuteButtonOff"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=d10740ec-4878-90ee-8dee-2dd5df2087c4" script="FB Mic2 Mute Toggle"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=735bdcfa-c8b2-f25b-71a5-d15ffe88933c" script="FBMic2MuteState" style="position: relative;"></d-xscript>
+        </button>
+        <label style="position: absolute; left: 353px; top: 835px;" id="FBMic2_Mute_Label" class="sourceLabel">FB MIC
+            2</label>
+
+        <button is="d-button" title="mic3vol-" label="" style="position: absolute; left: 507px; top: 732px;" class="volDownButton  .volDownButton:hover" id="mic3vol-"><i class="fa fa-chevron-circle-down"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=468457e1-3af6-c200-4094-06b7351cec53" script="FBMic3 Volume Down"></d-xscript>
+        </button>
+        <button is="d-button" title="mic3vol+" label="" style="position: absolute; left: 507px; top: 604px;" class="volUpButton  .volUpButton:hover" id="mic3vol+"><i class="fa fa-chevron-circle-up"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=e5c8fcf8-3a49-3d69-b499-9badd28f08bd" script="FBMic3 Volume Up"></d-xscript>
+        </button>
+        <button is="d-button" title="mic3Vol" label="-1.5 dB" style="position: absolute; left: 507px; top: 694px;" class="volLabel .volLabel:hover" id="mic3Vol">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=22b42447-ef93-1427-1476-d49241f8637c" script="FBMic3Vol" style="position: relative; left: 36px; top: 21px;"></d-xscript>
+        </button>
+        <button is="d-button" title="mic3Mute" label="" style="position: absolute; left: 507px; top: 494px;" class="volMuteButton  .volMuteButton:hover" id="mic3Mute"><i class="fa fa-volume-up"></i>
+            <d-xstate-css style="display: none;" name="1" cssClass="volMuteButtonOn"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="volMuteButtonOff"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=98bf992e-ca0c-a902-27da-52eefdf8881d" script="FB Mic3 Mute Toggle"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=0f1e6f17-a92b-3f8f-e3e3-d221d45c8809" script="FBMic3MuteState" style="position: relative;"></d-xscript>
+        </button>
+        <label style="position: absolute; left: 507px; top: 835px;" id="FBMic3_Mute_Label" class="sourceLabel">FB MIC
+            3</label>
+
+        <button is="d-button" title="mic4vol-" label="" style="position: absolute; left: 661px; top: 732px;" class="volDownButton  .volDownButton:hover" id="mic4vol-"><i class="fa fa-chevron-circle-down"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=801f39d0-3883-a7e3-0e53-ab079bdc8c9a" script="FBMic4 Volume Down"></d-xscript>
+        </button>
+        <button is="d-button" title="mic4vol+" label="" style="position: absolute; left: 661px; top: 604px;" class="volUpButton  .volUpButton:hover" id="mic4vol+"><i class="fa fa-chevron-circle-up"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=57f6dfa6-efd3-decc-ba5c-43035a2f27c7" script="FBMic4 Volume Up"></d-xscript>
+        </button>
+        <button is="d-button" title="mic4Vol" label="-3.0 dB" style="position: absolute; left: 661px; top: 695px;" class="volLabel .volLabel:hover" id="mic4Vol">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=8687a715-e4c9-b76a-0c23-f0a06b256905" script="FBMic4Vol" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="mic4Mute" label="" style="position: absolute; left: 661px; top: 494px;" class="volMuteButton  .volMuteButton:hover" id="mic4Mute"><i class="fa fa-volume-up"></i>
+            <d-xstate-css style="display: none;" name="1" cssClass="volMuteButtonOn"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="volMuteButtonOff"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=957a0fe8-5aab-f895-cf4c-0e2bcf0e035c" script="FB Mic4 Mute Toggle"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=4a76991a-994a-dbca-7ebf-634fbdd64311" script="FBMic4MuteState" style="position: relative;"></d-xscript>
+        </button>
+        <label style="position: absolute; left: 661px; top: 835px;" id="FBMic4_Mute_Label" class="sourceLabel">FB MIC
+            4</label>
+
+        <button is="d-button" title="wlsAvol-" label="" style="position: absolute; left: 815px; top: 732px;" class="volDownButton  .volDownButton:hover" id="wlsAvol-"><i class="fa fa-chevron-circle-down"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=f4084240-5a5a-1066-d579-b9be3e7c79c9" script="WLSA Volume Down"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsAvol+" label="" style="position: absolute; left: 815px; top: 604px;" class="volUpButton  .volUpButton:hover" id="wlsAvol+"><i class="fa fa-chevron-circle-up"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=b9a74adb-dd3f-e821-b484-ce73d0a2de24" script="WLSA Volume Up"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsAVol" label="-3.0 dB" style="position: absolute; left: 815px; top: 695px;" class="volLabel .volLabel:hover" id="wlsAVol">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=26f8437d-ace3-fdfa-eaec-aa79a1a35fbc" script="WLSAVol" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsAMute" label="" style="position: absolute; left: 815px; top: 494px;" class="volMuteButton  .volMuteButton:hover" id="wlsAMute"><i class="fa fa-volume-up"></i>
+            <d-xstate-css style="display: none;" name="1" cssClass="volMuteButtonOn"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="volMuteButtonOff"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=0c6b8768-3eb7-d1c0-5dab-dca0d784205c" script="WLS A Mute Toggle"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=e498e228-6992-79e2-798c-238a9c34b481" script="WLSAMuteState" style="position: relative;"></d-xscript>
+        </button>
+        <label style="position: absolute; left: 815px; top: 835px;" id="FBMic4_Mute_Label" class="sourceLabel">WLS
+            A</label>
+
+        <button is="d-button" title="wlsBvol-" label="" style="position: absolute; left: 969px; top: 732px;" class="volDownButton  .volDownButton:hover" id="wlsBvol-"><i class="fa fa-chevron-circle-down"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=c36781d2-e6ff-b858-91f9-852121b578a7" script="WLSB Volume Down"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsBvol+" label="" style="position: absolute; left: 969px; top: 604px;" class="volUpButton  .volUpButton:hover" id="wlsBvol+"><i class="fa fa-chevron-circle-up"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=44088673-cdba-73b3-75de-a33e2212310f" script="WLSB Volume Up"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsBVol" label="-3.0 dB" style="position: absolute; left: 969px; top: 695px;" class="volLabel .volLabel:hover" id="wlsBVol">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=868dd4e5-c4fd-df37-f0e6-b11404b93d95" script="WLSBVol" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsBMute" label="" style="position: absolute; left: 969px; top: 494px;" class="volMuteButton  .volMuteButton:hover" id="wlsBMute"><i class="fa fa-volume-up"></i>
+            <d-xstate-css style="display: none;" name="1" cssClass="volMuteButtonOn"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="volMuteButtonOff"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=86f5e167-b4e2-ffb4-3469-92e22dc5231f" script="WLS B Mute Toggle"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=a957455e-78ac-f04c-0b8a-3edc5d5ec495" script="WLSBMuteState" style="position: relative;"></d-xscript>
+        </button>
+        <label style="position: absolute; left: 969px; top: 835px;" id="wlsB_Mute_Label" class="sourceLabel">WLS
+            B</label>
+
+        <button is="d-button" title="wlsCvol-" label="" style="position: absolute; left: 1123px; top: 732px;" class="volDownButton  .volDownButton:hover" id="wlsCvol-"><i class="fa fa-chevron-circle-down"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=4bf6e8e4-765f-40ce-37e5-f9ebbef0239c" script="WLSC Volume Down"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsCvol+" label="" style="position: absolute; left: 1123px; top: 604px;" class="volUpButton  .volUpButton:hover" id="wlsCvol+"><i class="fa fa-chevron-circle-up"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=a671712e-0507-93f3-ff56-5c649ebf991a" script="WLSC Volume Up"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsCVol" label="-3.0 dB" style="position: absolute; left: 1123px; top: 695px;" class="volLabel .volLabel:hover" id="wlsCVol">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=add27e44-0915-73b0-7fdd-e40577a928d6" script="WLSCVol" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsCMute" label="" style="position: absolute; left: 1123px; top: 494px;" class="volMuteButton  .volMuteButton:hover" id="wlsCMute"><i class="fa fa-volume-up"></i>
+            <d-xstate-css style="display: none;" name="1" cssClass="volMuteButtonOn"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="volMuteButtonOff"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=118d2011-5807-ebfe-cc06-b26dca4d0ee7" script="WLS C Mute Toggle"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=a14f629a-20e0-da53-de5a-55e3444902e2" script="WLSCMuteState" style="position: relative;"></d-xscript>
+        </button>
+        <label style="position: absolute; left: 1123px; top: 835px;" id="wlsC_Mute_Label" class="sourceLabel">WLS
+            C</label>
+
+        <button is="d-button" title="wlsDvol-" label="" style="position: absolute; left: 1277px; top: 732px;" class="volDownButton  .volDownButton:hover" id="wlsDvol-"><i class="fa fa-chevron-circle-down"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=a9ea508e-d2af-58ca-fa73-0f0a9814cef4" script="WLSD Volume Down"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsDvol+" label="" style="position: absolute; left: 1277px; top: 604px;" class="volUpButton  .volUpButton:hover" id="wlsDvol+"><i class="fa fa-chevron-circle-up"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=d99059d7-594d-dec4-9511-92e9a8879344" script="WLSD Volume Up"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsDVol" label="-3.0 dB" style="position: absolute; left: 1277px; top: 695px;" class="volLabel .volLabel:hover" id="wlsDvol">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=17f8185c-8b88-e3b5-1f62-4ef44b4354e8" script="WLSDVol" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsDMute" label="" style="position: absolute; left: 1277px; top: 494px;" class="volMuteButton  .volMuteButton:hover" id="wlsDMute"><i class="fa fa-volume-up"></i>
+            <d-xstate-css style="display: none;" name="1" cssClass="volMuteButtonOn"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="volMuteButtonOff"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=b9dd5d84-bad2-5b3a-e850-a1fe6b8db464" script="WLS D Mute Toggle"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=e9311929-368b-cd58-bfb6-bc46bf1d5811" script="WLSDMuteState" style="position: relative;"></d-xscript>
+        </button>
+        <label style="position: absolute; left: 1277px; top: 835px;" id="wlsD_Mute_Label" class="sourceLabel">WLS
+            D</label>
+
+        <button is="d-button" title="wlsEMutevol-" label="" style="position: absolute; left: 1431px; top: 732px;" class="volDownButton  .volDownButton:hover" id="wlsEvol-"><i class="fa fa-chevron-circle-down"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=ff75167c-c62f-e351-9a78-7adc6f8fe148" script="WLSE Volume Down"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsEvol+" label="" style="position: absolute; left: 1431px; top: 604px;" class="volUpButton  .volUpButton:hover" id="wlsEvol+"><i class="fa fa-chevron-circle-up"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=53424810-6fde-61a0-5f34-cbd01085cc27" script="WLSE Volume Up"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsEVol" label="-3.0 dB" style="position: absolute; left: 1431px; top: 695px;" class="volLabel .volLabel:hover" id="wlsEVol">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=daf3c6ca-35bf-5cc2-1ce9-7ccba66dff72" script="WLSEVol" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsEMute" label="" style="position: absolute; left: 1431px; top: 494px;" class="volMuteButton  .volMuteButton:hover" id="wlsEMute"><i class="fa fa-volume-up"></i>
+            <d-xstate-css style="display: none;" name="1" cssClass="volMuteButtonOn"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="volMuteButtonOff"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=9f436466-6f2b-8877-db3b-e91a6c92064f" script="WLS E Mute Toggle"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=7fd60aa4-d7ad-287d-4d2d-183236fe10f4" script="WLSEMuteState" style="position: relative;"></d-xscript>
+        </button>
+        <label style="position: absolute; left: 1431px; top: 835px;" id="wlsE_Mute_Label" class="sourceLabel">WLS
+            E</label>
+
+        <button is="d-button" title="wlsFvol-" label="" style="position: absolute; left: 1585px; top: 732px;" class="volDownButton  .volDownButton:hover" id="wlsFvol-"><i class="fa fa-chevron-circle-down"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=2229b607-8a3a-9707-d86a-eddba7e30a30" script="WLSF Volume Down"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsFvol+" label="" style="position: absolute; left: 1585px; top: 604px;" class="volUpButton  .volUpButton:hover" id="wlsFvol+"><i class="fa fa-chevron-circle-up"></i>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=9272479a-9877-0368-b137-3d046041cb4b" script="WLSF Volume Up"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsFVol" label="-3.0 dB" style="position: absolute; left: 1585px; top: 695px;" class="volLabel .volLabel:hover" id="wlsFvol">
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=3627a904-9f49-6c94-1ee4-cab56c6fff77" script="WLSFVol" style="position: relative;"></d-xscript>
+        </button>
+        <button is="d-button" title="wlsFMute" label="" style="position: absolute; left: 1585px; top: 494px;" class="volMuteButton  .volMuteButton:hover" id="wlsFMute"><i class="fa fa-volume-up"></i>
+            <d-xstate-css style="display: none;" name="1" cssClass="volMuteButtonOn"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="volMuteButtonOff"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=d930de7c-451d-8752-d389-be8e508cc9f0" script="WLS F Mute Toggle"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=edb793ec-82f3-799a-f62b-826d0c0038da" script="WLSFMuteState" style="position: relative;"></d-xscript>
+        </button>
+        <label style="position: absolute; left: 1585px; top: 835px;" id="wlsF_Mute_Label" class="sourceLabel">WLS
+            F</label>
+        <button is="d-button" title="source_SS" label="SHOWSOURCE" state="1" style="width: 145px; height: 93px; position: absolute; padding-left: 6px; vertical-align: middle; text-align: left; left: 37px; top: 42px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="source_SS">
+            <d-xstate-css style="display: none;" name="SS" cssClass="cssStateOn_pgm"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_pgm"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=69e918ae-2467-2faa-8d44-85c34d736733" script="Set Program SS" style="position: relative;"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=db084c96-736c-f566-b7e9-ff1da622e742" script="PgmSource" style="position: relative;">
+                <d-script name="transform">
+                    if(arguments[0] !=='SS'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+
+        </button>
+        <button is="d-button" title="source_planet" label="PLANETARIUM" state="0" style="width: 145px; height: 93px; padding-left: 6px; vertical-align: middle; text-align: left; position: absolute; left: 37px; top: 239px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="source_planet">
+            <d-xstate-css style="display: none;" name="PLANET" cssClass="cssStateOn_pgm"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_pgm"></d-xstate-css>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=db084c96-736c-f566-b7e9-ff1da622e742" script="PgmSource" style="position: relative;">
+                <d-script name="transform">
+                    if(arguments[0] !=='PLANET'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=507d7bb5-98d3-67a3-e514-4b6f681668da" script="Set Program Planetarium"></d-xscript>
+        </button>
+        <button is="d-button" title="source_AV" label="A/V 5.1" state="0" style="width: 145px; height: 93px; padding-left: 6px; vertical-align: middle; text-align: left; position: absolute; left: 37px; top: 338px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="source_AV">
+            <d-xstate-css style="display: none;" name="AV" cssClass="cssStateOn_pgm"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_pgm"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=190e3068-892a-19b4-130d-d6b46b81e433" script="Set Program AV"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=db084c96-736c-f566-b7e9-ff1da622e742" script="PgmSource" style="position: relative;">
+
+                <d-script name="transform">
+                    if(arguments[0] !=='AV'){
+                    return 0;
+                    }
+                </d-script>
+
+            </d-xscript>
+
+        </button>
+        <button is="d-button" title="source_aux" label="AUXILIARY" state="0" style="width: 145px; height: 93px; padding-left: 6px; vertical-align: middle; text-align: left; position: absolute; left: 37px; top: 141px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="source_aux">
+    <d-xstate-css style="display: none;" name="AUX" cssClass="cssStateOn_pgm"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_pgm"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=a7104eea-63a7-4b71-2860-3116d6754b40" script="Set Program Aux"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=e22be90b-e04c-8b15-1d3b-9c138c85c174&amp;driver=02d81fc4-6205-7122-2e2a-e517a67cc5d1&amp;driverScope=user_drivers&amp;block=db084c96-736c-f566-b7e9-ff1da622e742" script="PgmSource" style="position: relative;">
+                <d-script name="transform">
+                    if(arguments[0] !=='AUX'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+
+        </button>
+      </d-panel>
+
+    <d-panel id="video" label="VIDEO" style="display: none; left: 0px; top: 0px;">
+
+        <div id="video_main" style="position: absolute; left: 315px; top: 25px; width: 1100px; height: 180px; color: #FFFFFF" class="cssInset">VIDEO MAIN
+        </div>
+        <div id="video_pvw" style="position: absolute; left: 315px; top: 225px; width: 1100px; height: 180px; color: #FFFFFF" class="cssInset">VIDEO CUE
+        </div>
+
+        <button is="d-button" title="video_FB" label="FLOOR BOX" state="0" style="width: 145px; height: 93px; padding-left: 6px; vertical-align: middle; text-align: left; position: absolute; left: 346px; top: 81px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="video_FB">
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_pgm"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_pgm"></d-xstate-css>
+
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=120600e8-5253-13bd-b4a9-97fe262b1e45" script="FB Proj"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=7257ac2f-d88a-dd96-d7ec-615b6af02fda" script="currentInput1" style="position: relative;">
+                <d-script name="transform">
+                    if(arguments[0] !=='1'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+        </button>
+        <button is="d-button" title="video_console" label="CONSOLE" state="0" style="width: 145px; height: 93px; padding-left: 6px; vertical-align: middle; text-align: left; position: absolute; left: 524px; top: 81px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="video_console">
+            <d-xstate-css style="display: none;" name="2" cssClass="cssStateOn_pgm"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_pgm"></d-xstate-css>
+
+            <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=32f5424b-562a-4f96-56ba-9772c4b36b64" script="Console Proj" style="position: relative;"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=7257ac2f-d88a-dd96-d7ec-615b6af02fda" script="currentInput1" style="position: relative;">
+                <d-script name="transform">
+                    if(arguments[0] !=='2'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+        </button>
+        <button is="d-button" title="video_clickshare" label="CLICKSHARE" state="0" style="width: 145px; height: 93px; padding-left: 6px; vertical-align: middle; text-align: left; position: absolute; left: 700px; top: 81px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="video_clickshare">
+            <d-xstate-css style="display: none;" name="4" cssClass="cssStateOn_pgm"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_pgm"></d-xstate-css>
+
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=d2506ccc-b8a3-2612-93dd-9ccc25e91927" script="ClickShare Proj"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=7257ac2f-d88a-dd96-d7ec-615b6af02fda" script="currentInput1" style="position: relative;">
+                <d-script name="transform">
+                    if(arguments[0] !=='4'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+        </button>
+        <button is="d-button" title="video_bluray" label="BLU-RAY" state="0" style="width: 145px; height: 93px; padding-left: 6px; vertical-align: middle; text-align: left; position: absolute; left: 877px; top: 81px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="video_bluray">
+            <d-xstate-css style="display: none;" name="5" cssClass="cssStateOn_pgm"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_pgm"></d-xstate-css>
+
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=9290b62b-b59b-18f6-7db4-02ae32494d77" script="Blu-Ray Proj"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=7257ac2f-d88a-dd96-d7ec-615b6af02fda" script="currentInput1" style="position: relative;">
+                <d-script name="transform">
+
+                    if(arguments[0] !=='5'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+        </button>
+        <button is="d-button" title="video_ssmain" label="SHOWSOURCE" state="0" style="width: 145px; height: 93px; padding-left: 6px; vertical-align: middle; text-align: left; position: absolute; left: 1056px; top: 81px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="video_ssmain">
+            <d-xstate-css style="display: none;" name="6" cssClass="cssStateOn_pgm"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_pgm"></d-xstate-css>
+
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=f69abc02-8e29-0d72-1ac9-7c458be9fe61" script="SS Main Proj"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=7257ac2f-d88a-dd96-d7ec-615b6af02fda" script="currentInput1" style="position: relative;">
+                <d-script name="transform">
+                    if(arguments[0] !=='6'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+        </button>
+        <button is="d-button" title="video_FB_pvw" label="FLOOR BOX" state="0" style="width: 145px; height: 93px; padding-left: 6px; vertical-align: middle; text-align: left; position: absolute; left: 349px; top: 287px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="video_FB_pvw">
+            <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_pgm"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_pgm"></d-xstate-css>
+
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=5649d438-5121-6b88-a1be-ae86f4d22218" script="FB Cue"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=96f57577-4a24-4ae6-b6ee-b36a555e9086" script="currentInput2" style="position: relative;">
+                <d-script name="transform">
+                    if(arguments[0] !=='1'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+        </button>
+        <button is="d-button" title="video_console_pvw" label="CONSOLE" state="0" style="width: 145px; height: 93px; padding-left: 6px; vertical-align: middle; text-align: left; position: absolute; left: 527px; top: 287px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="video_console_pvw">
+            <d-xstate-css style="display: none;" name="2" cssClass="cssStateOn_pgm"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_pgm"></d-xstate-css>
+
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=6fe6c929-6ff6-7668-21bc-7584ea29e189" script="Console Cue"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=96f57577-4a24-4ae6-b6ee-b36a555e9086" script="currentInput2" style="position: relative;">
+                <d-script name="transform">
+                    if(arguments[0] !=='2'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+        </button>
+        <button is="d-button" title="video_clickshare_pvw" label="CLICKSHARE" state="0" style="width: 145px; height: 93px; padding-left: 6px; vertical-align: middle; text-align: left; position: absolute; left: 703px; top: 287px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="video_clickshare_pvw">
+            <d-xstate-css style="display: none;" name="4" cssClass="cssStateOn_pgm"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_pgm"></d-xstate-css>
+
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=c16d6389-a1ab-19bc-9d41-a4d06aee0178" script="ClickShare Cue"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=96f57577-4a24-4ae6-b6ee-b36a555e9086" script="currentInput2" style="position: relative;">
+                <d-script name="transform">
+                    if(arguments[0] !=='4'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+        </button>
+        <button is="d-button" title="video_bluray_pvw" label="BLU-RAY" state="0" style="width: 145px; height: 93px; padding-left: 6px; vertical-align: middle; text-align: left; position: absolute; left: 880px; top: 287px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="video_bluray_pvw">
+            <d-xstate-css style="display: none;" name="5" cssClass="cssStateOn_pgm"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_pgm"></d-xstate-css>
+
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=87ff10d0-a193-6029-d0c1-9394716f3f89" script="Blu-Ray Cue"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=96f57577-4a24-4ae6-b6ee-b36a555e9086" script="currentInput2" style="position: relative;">
+                <d-script name="transform">
+                    if(arguments[0] !=='5'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+        </button>
+        <button is="d-button" title="video_ss_pvw" label="SHOWSOURCE" state="0" style="width: 145px; height: 93px; padding-left: 6px; vertical-align: middle; text-align: left; position: absolute; left: 1059px; top: 287px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="video_ss_pvw">
+            <d-xstate-css style="display: none;" name="6" cssClass="cssStateOn_pgm"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_pgm"></d-xstate-css>
+
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=c1d8a34a-4b20-7130-28ca-fadd3950f102" script="SS Main Cue"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=96f57577-4a24-4ae6-b6ee-b36a555e9086" script="currentInput2" style="position: relative;">
+                <d-script name="transform">
+                    if(arguments[0] !=='6'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+        </button>
+        <button is="d-button" title="video_sswork" label="SS WORKING" state="0" style="width: 145px; height: 93px; padding-left: 6px; vertical-align: middle; text-align: left; position: absolute; left: 1238px; top: 287px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="button_7">
+          <d-xstate-css style="display: none;" name="7" cssClass="cssStateOn_pgm"></d-xstate-css>
+            <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_pgm"></d-xstate-css>
+            <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=ac8b5bbd-95e6-82bd-472f-6c4415efd06e" script="SS Working Cue"></d-xscript>
+            <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=812813c5-7a9d-9447-abff-795e93f0fe92&amp;driver=a1556c0f-718e-2dc8-a05e-40459b6c24b0&amp;driverScope=user_drivers&amp;block=96f57577-4a24-4ae6-b6ee-b36a555e9086" script="currentInput2" style="position: relative;">
+                <d-script name="transform">
+                    if(arguments[0] !=='7'){
+                    return 0;
+                    }
+                </d-script>
+            </d-xscript>
+        </button>
+        </d-panel>
+
+    <!-- Utility Panel******************************/--><d-panel id="utility" label="UTILITIY" style="display: none; left: 0px; top: 0px;">
+
+  <div id="coveLights" style="position: absolute; left: 10px; top: 5px; width: 855px; height: 520px; color: #FFFFFF" class="cssInset">COVE LIGHTS</div>
+  <div id="projector" style="position: absolute; left: 875px; top: 5px; width: 335px; height: 520px; color: #FFFFFF" class="cssInset">PROJECTOR</div>
+  <div id="system" style="position: absolute; left: 1220px; top: 5px; width: 550px; height: 520px; color: #FFFFFF" class="cssInset">SYSTEM</div>
+
+     <d-slider value="76" slideRange="true" vertical="true" style="position: absolute; width: 70px; height: 320px; left: 69px; top: 191px;" class="colorSlider" id="redCoveLevel"></d-slider>
+     <d-slider value="76" slideRange="true" vertical="true" style="width: 70px; position: absolute; height: 320px; left: 209px; top: 191px;" class="colorSlider" id="greenCoveLevel"></d-slider>
+     <d-slider value="76" slideRange="true" vertical="true" style="width: 70px; position: absolute; height: 320px; left: 349px; top: 191px;" class="colorSlider" id="blueCoveLevel"></d-slider>
+     <d-slider value="76" slideRange="true" vertical="true" style="width: 70px; position: absolute; height: 320px; left: 489px; top: 191px;" class="colorSlider" id="whiteCoveLevel"></d-slider>
+     <button is="d-button" title="coveLightRedEnable" iconClass="fa fa-circle-o" style="border: 7px solid #FF0000; position: absolute; color: #FF0000; left: 44px; top: 55px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" state="1" id="coveLightRedEnable">
+       <d-xstate-css style="display: none;" name="0" cssClass="coveLightButtonOff"></d-xstate-css>
+       <d-xstate-css style="display: none;" name="1" cssClass="coveLightRedButtonOn"></d-xstate-css>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=38172aac-483a-2879-c949-0e81f349331b" script="Toggle Red Cove" style="position: relative;"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=ddc67bde-828f-5e68-7179-d9a32fe82b99" script="Red Cove Enable" style="position: relative;"></d-xscript>
+     </button>
+     <button is="d-button" title="coveLightGreenEnable" iconClass="fa fa-circle-o" style="border: 7px solid #00FF00; position: absolute; color: #00FF00; left: 184px; top: 55px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" state="0" id="coveLightGreenEnable">
+       <d-xstate-css style="display: none;" name="0" cssClass="coveLightButtonOff"></d-xstate-css>
+       <d-xstate-css style="display: none;" name="1" cssClass="coveLightGreenButtonOn"></d-xstate-css>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=6d5adbf9-7daa-6dc8-67c2-2669d20d5014" script="Green Cove Enable" style="position: relative;"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=08d3e7a2-7e72-2010-2142-b327056330fa" script="Toggle Green Cove" style="position: relative;"></d-xscript>
+     </button>
+     <button is="d-button" title="coveLightBlueEnable" iconClass="fa fa-circle-o" style="border: 7px solid #0000FF; position: absolute; color: #0000FF; left: 324px; top: 55px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" state="1" id="coveLightBlueEnable">
+       <d-xstate-css style="display: none;" name="0" cssClass="coveLightButtonOff"></d-xstate-css>
+       <d-xstate-css style="display: none;" name="1" cssClass="coveLightBlueButtonOn"></d-xstate-css>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=81160efa-6f79-ed99-4239-c85aec072de3" script="Toggle Blue Cove" style="position: relative;"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=7ff196c4-791b-793e-5f41-9d57d525c453" script="Blue Cove Enable" style="position: relative;"></d-xscript>
+     </button>
+     <button is="d-button" title="coveLightWhiteEnable" iconClass="fa fa-circle-o" style="border: 7px solid #FFFFFF; position: absolute; color: #FFFFFF; left: 464px; top: 55px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" state="0" id="coveLightWhiteEnable">
+       <d-xstate-css style="display: none;" name="0" cssClass="coveLightButtonOff"></d-xstate-css>
+       <d-xstate-css style="display: none;" name="1" cssClass="coveLightWhiteButtonOn"></d-xstate-css>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=5592b176-8c9e-025d-de2d-ea7f82b2cd78" script="White Cove Enable" style="position: relative;"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=0ffa8cdd-cb63-b635-ecdf-e11829187d8a" script="Toggle White Cove" style="position: relative;"></d-xscript>
+     </button>
+     <button is="d-button" title="zone1Cove" label="1" style="border: 7px solid #FFFFFF; color: #FFFFFF; position: absolute; font-size: 40px; padding-top: 3px; left: 608px; top: 403px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" id="zone1Cove">
+       <d-xstate-css style="display: none;" name="0" cssClass="coveLightButtonOff"></d-xstate-css>
+       <d-xstate-css style="display: none;" name="1" cssClass="coveLightWhiteButtonOn"></d-xstate-css>
+       <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=8e86ed14-0c6d-c22a-9633-090b7f2560f4" script="Zone1 Toggle"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=eb0405c3-1a33-9afd-46a3-60881a3a9401" script="Zone1 Enable" style="position: relative;"></d-xscript>
+     </button>
+     <button is="d-button" title="zone2Cove" label="2" style="border: 7px solid #FFFFFF; color: #FFFFFF; font-size: 40px; padding-top: 3px; position: absolute; left: 608px; top: 287px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" state="0" id="zone2Cove">
+       <d-xstate-css style="display: none;" name="0" cssClass="coveLightButtonOff"></d-xstate-css>
+       <d-xstate-css style="display: none;" name="1" cssClass="coveLightWhiteButtonOn"></d-xstate-css>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=70487a35-59cf-1535-194a-3a118d9978ef" script="Zone2 Toggle" style="position: relative;"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=7b80a45d-2a5d-2537-88d3-8aebf4f61d2b" script="Zone2 Enable" style="position: relative;"></d-xscript>
+     </button>
+     <button is="d-button" title="zone3Cove" label="3" style="border: 7px solid #FFFFFF; color: #FFFFFF; font-size: 40px; padding-top: 3px; position: absolute; left: 608px; top: 171px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" state="0" id="zone3Cove">
+       <d-xstate-css style="display: none;" name="0" cssClass="coveLightButtonOff"></d-xstate-css>
+       <d-xstate-css style="display: none;" name="1" cssClass="coveLightWhiteButtonOn"></d-xstate-css>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=8315a9c4-9462-2df2-989a-d67316be2758" script="Zone3 Toggle" style="position: relative;"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=62fec95f-2dc4-319f-5961-037528ec36b0" script="Zone3 Enable" style="position: relative;"></d-xscript>
+     </button>
+     <button is="d-button" title="zone4Cove" label="4" style="border: 7px solid #FFFFFF; color: #FFFFFF; font-size: 40px; padding-top: 3px; position: absolute; left: 608px; top: 55px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" state="0" id="zone4Cove">
+       <d-xstate-css style="display: none;" name="0" cssClass="coveLightButtonOff"></d-xstate-css>
+       <d-xstate-css style="display: none;" name="1" cssClass="coveLightWhiteButtonOn"></d-xstate-css>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=a31ad4db-9d0e-4720-3d5a-6545616333fc" script="Zone4 Toggle" style="position: relative;"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=1380c61c-8cd9-fb87-8f34-c14b15542260" script="Zone4 Enable" style="position: relative;"></d-xscript>
+     </button>
+     <button is="d-button" title="zone5Cove" label="5" style="border: 7px solid #FFFFFF; color: #FFFFFF; font-size: 40px; padding-top: 3px; position: absolute; left: 739px; top: 55px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" state="0" id="zone5Cove">
+       <d-xstate-css style="display: none;" name="0" cssClass="coveLightButtonOff"></d-xstate-css>
+       <d-xstate-css style="display: none;" name="1" cssClass="coveLightWhiteButtonOn"></d-xstate-css>
+       <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=2c91917c-21ea-71b9-fa23-a0e537bdfca9" script="Zone5 Toggle"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=b8cc2e09-c8c7-93d6-f2a6-46abb3cc5350" script="Zone5 Enable" style="position: relative;"></d-xscript>
+     </button>
+     <button is="d-button" title="zone6Cove" label="6" style="border: 7px solid #FFFFFF; color: #FFFFFF; font-size: 40px; padding-top: 3px; position: absolute; left: 739px; top: 171px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" state="0" id="zone6Cove">
+       <d-xstate-css style="display: none;" name="0" cssClass="coveLightButtonOff"></d-xstate-css>
+       <d-xstate-css style="display: none;" name="1" cssClass="coveLightWhiteButtonOn"></d-xstate-css>
+       <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=987f8304-29b8-c626-c725-342628864b93" script="Zone6 Toggle"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=ae62b713-b921-fceb-3aa3-2cac0d23ec07" script="Zone6 Enable" style="position: relative;"></d-xscript>
+     </button>
+     <button is="d-button" title="zone7Cove" label="7" style="border: 7px solid #FFFFFF; color: #FFFFFF; font-size: 40px; padding-top: 3px; position: absolute; left: 739px; top: 287px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" state="0" id="zone7Cove">
+       <d-xstate-css style="display: none;" name="0" cssClass="coveLightButtonOff"></d-xstate-css>
+       <d-xstate-css style="display: none;" name="1" cssClass="coveLightWhiteButtonOn"></d-xstate-css>
+       <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=d71f51e8-735f-ce81-0921-741f5cd799a8" script="Zone7 Toggle"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=cd5887bd-b33d-5f74-e2a0-71bfc02ae234" script="Zone7 Enable" style="position: relative;"></d-xscript>
+     </button>
+     <button is="d-button" title="zone8Cove" label="8" style="border: 7px solid #FFFFFF; color: #FFFFFF; font-size: 40px; padding-top: 3px; position: absolute; left: 739px; top: 403px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" state="0" id="zone8Cove">
+<d-xstate-css style="display: none;" name="0" cssClass="coveLightButtonOff"></d-xstate-css>
+       <d-xstate-css style="display: none;" name="1" cssClass="coveLightWhiteButtonOn"></d-xstate-css>
+       <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=91f266e0-7358-0a22-c642-63391a08b415" script="Zone8 Toggle"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=23def160-cd24-e23a-f5a2-3b35f6f6d953&amp;driver=55d043c7-9b7c-7dbb-95c3-4f48d1f892e1&amp;driverScope=user_drivers&amp;block=799d696b-128e-7575-6723-e9ef646d8c6f" script="Zone8 Enable" style="position: relative;"></d-xscript>
+     </button>
+     <button is="d-button" title="projPower" label="" iconClass="fa fa-power-off" state="" style="width: 145px; height: vertical-align: middle; text-align: middle; position: absolute; left: 907px; top: 55px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="projPower">
+        <d-xstate-css style="display: none;" name="1" cssClass="cssStateOn_power"></d-xstate-css>
+        <d-xstate-css style="display: none;" name="0" cssClass="cssStateOff_power"></d-xstate-css>
+        <d-xstate-css style="display: none;" name="2" cssClass="cssStateWarming_power"></d-xstate-css>
+        <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=c5104255-692e-4a82-5186-6c25002c424f&amp;driver=3e1bfe69-9108-3a29-a688-935a566169eb&amp;driverScope=user_drivers&amp;block=54644c80-ab38-5dc9-f962-dae429243955" script="Power Toggle" style="position: relative;"></d-xscript>
+        <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=c5104255-692e-4a82-5186-6c25002c424f&amp;driver=3e1bfe69-9108-3a29-a688-935a566169eb&amp;driverScope=user_drivers&amp;block=74bd0779-36be-74f5-72e0-7fd3a3cfc079" script="PowerState" style="position: relative;"></d-xscript>
+     </button>
+     <button is="d-button" title="projMem1" label="M1" style="border: 7px solid #FFFFFF; color: #FFFFFF; font-size: 40px; padding-top: 3px; position: absolute; left: 1086px; top: 55px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" id="projMem1">
+      <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=c5104255-692e-4a82-5186-6c25002c424f&amp;driver=3e1bfe69-9108-3a29-a688-935a566169eb&amp;driverScope=user_drivers&amp;block=43c3141e-5b10-25d2-d192-a6e59f0b66b9" script="Recall Lens Mem1"></d-xscript>
+    </button>
+     <button is="d-button" title="projMem2" label="M2" style="border: 7px solid #FFFFFF; color: #FFFFFF; font-size: 40px; padding-top: 3px; position: absolute; left: 1086px; top: 171px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" id="projMem2">
+      <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=c5104255-692e-4a82-5186-6c25002c424f&amp;driver=3e1bfe69-9108-3a29-a688-935a566169eb&amp;driverScope=user_drivers&amp;block=37638b5c-725c-a891-db48-5eda9bf60745" script="Recall Lens Mem2"></d-xscript>
+    </button>
+     <button is="d-button" title="projMem3" label="M3" style="border: 7px solid #FFFFFF; color: #FFFFFF; font-size: 40px; padding-top: 3px; position: absolute; left: 1086px; top: 287px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" id="projMem3">
+      <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=c5104255-692e-4a82-5186-6c25002c424f&amp;driver=3e1bfe69-9108-3a29-a688-935a566169eb&amp;driverScope=user_drivers&amp;block=4aeae1df-659d-880c-f061-403d4a64cc98" script="Recall Lens Mem3"></d-xscript>
+    </button>
+     <button is="d-button" title="projMem4" label="M4" style="border: 7px solid #FFFFFF; color: #FFFFFF; font-size: 40px; padding-top: 3px; position: absolute; left: 1086px; top: 403px;" class="coveLightButton  .coveLightButton:hover .coveLightButton:focus" id="projMem4">
+      <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=c5104255-692e-4a82-5186-6c25002c424f&amp;driver=3e1bfe69-9108-3a29-a688-935a566169eb&amp;driverScope=user_drivers&amp;block=dbca92d8-4dad-e154-1636-19f857dd836d" script="Recall Lens Mem4"></d-xscript>
+    </button>
+     <button is="d-button" title="systemShutdown" label="" iconClass="fa fa-power-off" state="" style="width: 145px; height: vertical-align: middle; text-align: middle; position: absolute; left: 1254px; top: 55px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="systemShutdown">
+ <d-xscript stop="false" bidirectional="false" mode="1" targetevent="dblclick" block="command://deviceScope=user_devices&amp;device=c89d05ec-1d76-a8ec-deba-8c68f7766f9e&amp;driver=8977f7eb-5e79-43b7-ef04-098b8727f825&amp;driverScope=user_drivers&amp;block=63f9fc8a-e641-f63c-34c0-a434bf17d1e8" script="System Shutdown" style="position: relative;"></d-xscript>
+     </button>
+     <button is="d-button" title="ampsPower" iconClass="fa fa-power-off" state="" style="width: 145px; height: vertical-align: middle; text-align: middle; position: absolute; left: 1254px; top: 171px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" onclick="openFolderPicker(this)" id="ampsPower">
+<d-xstate-css style="display: none;" name="on" cssClass="cssStateOn_power"></d-xstate-css>
+       <d-xstate-css style="display: none;" name="standby" cssClass="cssStateOff_power"></d-xstate-css>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetevent="dblclick" block="command://deviceScope=user_devices&amp;device=0d80d883-f84c-5a82-faf4-0b25ba01c5bb&amp;driver=99a985fc-9b03-6cc8-33af-da1ca9038164&amp;driverScope=user_drivers&amp;block=65c0804f-17f7-8aa1-c6c0-b2257d73abff" script="Off" style="position: relative;"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetevent="dblclick" block="command://deviceScope=user_devices&amp;device=7309e834-f677-5554-74f8-a93518e91b34&amp;driver=99a985fc-9b03-6cc8-33af-da1ca9038164&amp;driverScope=user_drivers&amp;block=65c0804f-17f7-8aa1-c6c0-b2257d73abff" script="Off" style="position: relative;"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetevent="dblclick" block="command://deviceScope=user_devices&amp;device=d8785203-da30-9b14-4057-961570c57983&amp;driver=99a985fc-9b03-6cc8-33af-da1ca9038164&amp;driverScope=user_drivers&amp;block=65c0804f-17f7-8aa1-c6c0-b2257d73abff" script="Off" style="position: relative;"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=650f9d50-be8b-eea9-a974-eb1c72ad693b&amp;driver=99a985fc-9b03-6cc8-33af-da1ca9038164&amp;driverScope=user_drivers&amp;block=65c0804f-17f7-8aa1-c6c0-b2257d73abff" script="Off" style="position: relative;"></d-xscript>
+     </button>
+     <button is="d-button" title="projMute" iconClass="fa fa-square" style="width: 145px; height: vertical-align: middle; text-align: middle; position: absolute; left: 907px; top: 171px;" class="volMuteButton  .volMuteButton:hover .volMuteButton:focus" state="0" onclick="openFolderPicker(this)" id="projMute">
+       <d-xstate-css style="display: none;" name="0" cssClass="cssStateInactive_power"></d-xstate-css>
+       <d-xstate-css style="display: none;" name="1" cssClass="cssStateOff_power"></d-xstate-css>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetproperty="state" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=c5104255-692e-4a82-5186-6c25002c424f&amp;driver=3e1bfe69-9108-3a29-a688-935a566169eb&amp;driverScope=user_drivers&amp;block=cfedcffd-5d5f-0bbb-f2f9-ac17d382551d" script="MuteState" style="position: relative;"></d-xscript>
+       <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=c5104255-692e-4a82-5186-6c25002c424f&amp;driver=3e1bfe69-9108-3a29-a688-935a566169eb&amp;driverScope=user_drivers&amp;block=a2756709-1bb7-f2c8-9770-e10b43c761c5" script="Mute Toggle" style="position: relative;"></d-xscript>
+     </button>
+   </d-panel>
+     </d-view-stack>
+</body>
+</html>
+
+

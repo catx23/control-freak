@@ -1,0 +1,30 @@
+{
+  "watchr":{
+    "paths":[
+      "./system",
+      "./workspace"
+    ]
+  },
+  "data":"./",
+  "common":{
+      "createSocketServer":true,
+      "stdin":true,
+      "stdout":true
+  },
+  "socket_server": {
+      "port":9998,
+      "host":"0.0.0.0",
+      "debug":false
+  },
+
+  "debug": {
+      "all": false,
+      "protocol_connection": false,
+      "protocol_messages": false,
+      "socket_server":false,
+      "socket_client":false,
+      "socket_messages":false,
+      "debugDevices":false,
+      "main":false
+  }
+}

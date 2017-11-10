@@ -1,0 +1,63 @@
+{"total": 1, "status": 200, "items": [
+    {
+        "name": ".",
+        "path": ".",
+        "modified": 1391614445,
+        "owner": {
+            "user": {
+                "name": "mc007",
+                "passwd": "x",
+                "uid": 1000,
+                "gid": 1000,
+                "gecos": "mc007,,,",
+                "dir": "\/home\/mc007",
+                "shell": "\/bin\/bash"
+            },
+            "group": {
+                "name": "mc007",
+                "passwd": "x",
+                "members": [],
+                "gid": 1000
+            }
+        },
+        "group": true,
+        "read": true,
+        "write": false,
+        "permissions": "775 (rwxrwxr-x)",
+        "directory": true,
+        "children": [
+            {
+                "name": "project1",
+                "path": ".\/project1",
+                "modified": 1391614448,
+                "owner": {
+                    "user": {
+                        "name": "mc007",
+                        "passwd": "x",
+                        "uid": 1000,
+                        "gid": 1000,
+                        "gecos": "mc007,,,",
+                        "dir": "\/home\/mc007",
+                        "shell": "\/bin\/bash"
+                    },
+                    "group": {
+                        "name": "mc007",
+                        "passwd": "x",
+                        "members": [],
+                        "gid": 1000
+                    }
+                },
+                "group": true,
+                "read": true,
+                "write": false,
+                "permissions": "775 (rwxrwxr-x)",
+                "directory": true,
+                "children": [],
+                "_EX": false,
+                "size": 0
+            }
+        ],
+        "_EX": true,
+        "size": 0
+    }
+]}

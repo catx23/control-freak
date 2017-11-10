@@ -1,0 +1,65 @@
+{
+    "id": "http://dojotoolkit.org/delite/Slider",
+    "name": "delite.Slider",
+    "spec": "1.0",
+    "version": "1.7",
+    "require": [
+        {
+            "type": "javascript-module",
+            "format": "amd",
+            "src": "deliteful/Slider"
+        }
+    ],
+    "library": {
+
+    },
+    "property": {
+        "id": {
+            "datatype": "string"
+        },
+        "min": {
+            "datatype": "number",
+            "defaultValue": 0
+        },
+        "max": {
+            "datatype": "number",
+            "defaultValue": 100
+        },
+        "step": {
+            "datatype": "number",
+            "defaultValue": 1
+        },
+        "value": {
+            "datatype": "number",
+            "defaultValue": 0
+        },
+        "slideRange": {
+            "datatype": "boolean",
+            "defaultValue": false
+        },
+        "vertical": {
+            "datatype": "boolean",
+            "defaultValue": false
+        },
+        "flip": {
+            "datatype": "boolean",
+            "defaultValue": false
+        },
+        "label": {
+            "datatype": "string"
+        },
+        "disabled": {
+            "datatype": "boolean",
+            "defaultValue": true
+        }
+    },
+    "content": "<d-slider value='0' slideRange='false'></d-slider>",
+    "title": {
+        "type": "text/html",
+        "value": "<p>Non-templated BUTTON widget with a thin API wrapper for click \nevents and for setting the label.\n\n</p>\n<p>Buttons can display a label, an icon, or both.\nA label should always be specified (through innerHTML) or the label\nattribute.  It can be hidden via showLabel=false.</p>"
+    },
+    "examples": {
+        "type": "text/html",
+        "value": "<pre><code>&lt;button data-dojo-type=&quot;xide/mobile/Button&quot; onClick=&quot;...&quot;&gt;Hello world&lt;/button&gt;</code></pre>"
+    }
+}

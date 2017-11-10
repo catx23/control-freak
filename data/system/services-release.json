@@ -1,0 +1,33 @@
+{
+    "class":"cmx.types.Resources",
+    "includes":[
+    ],
+    "items":[
+        {
+            "class":"cmx.types.Resource",
+            "type":"NODE_JS_SERVICE",
+            "path":"%NODE_ROOT%/",
+            "enabled":true,
+            "url":"no url",
+            "main":"%EXE_PREFIX%server%EXE_SUFFIX% noob",
+            "name":"Device Control Server",
+            "autostart":true,
+            "port":9998,
+            "host":"0.0.0.0",
+            "isNode":false,
+            "can":{
+                "start":false,
+                "stop":false,
+                "stats":false,
+                "debug":false,
+                "info":true
+            },
+            "has":{
+                "dojo":false,
+                "logFile":null,
+                "options":"--jhelp"
+            }
+        }
+
+    ]
+}

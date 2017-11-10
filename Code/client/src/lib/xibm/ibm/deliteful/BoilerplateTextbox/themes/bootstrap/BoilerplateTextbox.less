@@ -1,0 +1,64 @@
+.d-boilerplate-textbox {
+	display: inline-block;
+	border: solid black 1px;
+	padding: 2px 10px;
+
+	// The <div> that has the <input> nodes and also the boilerplate text nodes.
+	.d-input-container-node {
+		display: inline-block;
+
+		* {
+			border: none;
+			padding: 0;
+			text-align: right;
+
+			// Set the same font for the <input> and boilerplate <div>.
+			// Overrides settings from user stylesheets.
+			font-family: monospace;
+			font-size: inherit;
+
+			// Prevent weird jiggle effect on IE11 where text sometimes shift up on focus.
+			height: 20px;
+			line-height: 20px;
+		}
+
+		// Setup indicator for the focused field within the BoilerplateTextbox.
+		input:focus {
+			color: white;
+			background: #9bcbff;
+			outline: none;
+		}
+
+		d-btb-boilerplate {
+			margin: 0 2px;
+		}
+
+		// Stop IE from displaying the (x) to clear the field.
+		input::-ms-clear {
+			display: none;
+		}
+
+		// Stop Safari from sometimes displaying the "auto fill button" user icon.
+		// For some reason, only happens on some pages.
+		input::-webkit-contacts-auto-fill-button {
+			visibility: hidden;
+			display: none !important;
+			pointer-events: none;
+			position: absolute;
+			right: 0;
+		}
+	}
+
+	// Fake focus outline around the widget itself.
+	// Designed to match what native <input> focus looks like, which varies
+	// according to the browser and the OS.  Note that Windows doesn't have any
+	// indicator besides the blinking caret, except for Chrome.
+	.d-webkit &.d-focused {
+		outline-offset: -2px;
+		outline: -webkit-focus-ring-color auto 5px;
+	}
+	.d-ff.d-mac &.d-focused {
+		outline-offset: -2px;
+		outline: #9bcbff auto 2px;
+	}
+}

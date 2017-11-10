@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>IBM ECMA-402 Demo</title>
+
+		<script src="../../requirejs/require.js"></script>
+		<script>
+			require.config({
+				baseUrl: "../..",
+				config: {
+					"ecma402/locales": /^(ar-(TN|SA|EG)|en|es|he|hi|ja|th|de|zh-Hant|zh-TW)$/
+				}
+			});
+		</script>
+		<script>
+			require(["ecma402/Intl"], function(IntlIbm) {
+				formatit = function (locale) {
+					var options = {
+						year : "numeric",
+						month : "long",
+						day : "numeric",
+						weekday : "short",
+						hour : "numeric",
+						minute : "numeric",
+						second : "numeric"
+					};
+
+					dateIBMFormatter = new IntlIbm.DateTimeFormat(locale, options);
+					var dateIBMField = document.getElementById("dateIBM");
+					var theDate = new Date();
+					// For debugging purposes to set to a specific date... theDate.setFullYear(1745,0,1);
+					dateIBMField.innerHTML = dateIBMFormatter.format(theDate);
+					numbIBMFormatter = new IntlIbm.NumberFormat(locale, options);
+					var numbIBMField = document.getElementById("numbIBM");
+					numbIBMField.innerHTML = numbIBMFormatter.format(123456.789);
+
+					if (typeof Intl !== "undefined") {
+						var dateNativeFormatter = new Intl.DateTimeFormat(locale, options);
+						var dateNativeField = document.getElementById("dateNative");
+						dateNativeField.innerHTML = dateNativeFormatter.format(theDate);
+
+						var numbNativeFormatter = new Intl.NumberFormat(locale, options);
+						var numbNativeField = document.getElementById("numbNative");
+						numbNativeField.innerHTML = numbNativeFormatter.format(123456.789);
+					}
+				};
+			});
+		</script>
+    </head>
+    <body>
+        <h1>IBM ECMA-402 Demo</h1>
+        <h3>Click a button to change the locale being formatted.</h3>
+		<table border="2" style="width:80%">
+		<tr>
+		  <th></th>
+		  <th>IBM</th>
+		  <th>Native</th>
+		</tr>
+		<tr>
+		  <td>Current Date/Time</td>
+		  <td id="dateIBM"></td>
+		  <td id="dateNative"></td>
+		</tr>
+		<tr>
+		  <td>Number</td>
+		  <td id="numbIBM"></td>
+		  <td id="numbNative"></td>
+		</tr>
+		</table>
+       <button onclick='formatit()'>[Default Locale]</button>
+       <button onclick='formatit("ar-SA-u-ca-islamic")'>Islamic - Saudi Arabia</button>
+       <button onclick='formatit("ar-SA-u-ca-islamic-umalqura")'>Umalqura - Saudi Arabia</button>
+       <button onclick='formatit("ar-EG-u-ca-islamic-civil")'>Civil - Egypt</button>
+       <button onclick='formatit("ar-EG-u-ca-islamic-tbla")'>Tabular - Egypt</button>
+       <button onclick='formatit("ar-TN")'>Arabic - Tunisia</button>
+       <button onclick='formatit("en")'>English</button>
+       <button onclick='formatit("de")'>German</button>
+       <button onclick='formatit("es")'>Spanish</button>
+       <button onclick='formatit("he-u-ca-hebrew")'>Hebrew w/Hebrew calendar</button>
+       <button onclick='formatit("hi-u-nu-deva")'>Hindi w/native digits</button>
+       <button onclick='formatit("ja")'>Japanese</button>
+       <button onclick='formatit("ja-u-ca-japanese")'>Japanese w/Japanese calendar</button>
+       <button onclick='formatit("th")'>Thai</button>
+       <button onclick='formatit("th-u-ca-gregory")'>Thai w/ Gregorian calendar</button>
+       <button onclick='formatit("zh-Hant")'>T-Chinese</button>
+       <button onclick='formatit("zh-TW-u-ca-roc")'>T-Chinese w/ ROC calendar</button>
+       <button onclick='formatit("fr")'>French (not preloaded)</button>
+</body>
+</html>

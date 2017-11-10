@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+</head>
+
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="claro superhero" data-maq-ws="collapse" style="position:absolute" data-maq-appstates="{}" id="myapp">
+<d-view-stack style="min-height: 300px; width: 330px; height: 170px;" id="vs" transition="none" title="sdf">
+  <d-panel id="first" label="First Header" iconClass="icon-minus" style="left: 17.822917938232422px; top: 0px;">
+     <button is="d-button" title="A Button" label="A Button" style="margin: 5%; width: 90%; left: -0.000024123535158793175px; top: 62.715254501953126px;" id="button_0"></button>
+  </d-panel>
+  <d-panel id="second" label="Second Header2" iconClass="icon-minus">
+     <button is="d-button" title="A Button" label="A Button" style="width: 90%; margin: 5%;" class="d-button-info" id="button_1"></button>
+  </d-panel>
+  <d-panel id="d-panel_0" label="Third Header" iconClass="icon-minus">
+     <button is="d-button" title="last" label="last" style="width: 90%; margin: 5%;" class="d-button-success" id="button_2"></button>
+  </d-panel>
+</d-view-stack>
+
+<d-tab-bar viewtack="vs" style="width: 149px; height: 35px;">
+</d-tab-bar>
+</body>
+</html>

@@ -1,0 +1,52 @@
+{
+  "blocks": [
+    {
+      "_containsChildrenIds": [],
+      "group": "d-slider_0__change",
+      "id": "248faad1-dcd4-66c6-a976-c695324ecceb",
+      "declaredClass": "xblox.model.code.RunScript",
+      "name": "Run Script",
+      "method": "console.log('changed ',arguments);",
+      "args": "",
+      "deferred": false,
+      "icon": "fa-code",
+      "enabled": true,
+      "shareTitle": "",
+      "order": 0,
+      "type": "added",
+      "description": "No Description"
+    },
+    {
+      "_containsChildrenIds": [],
+      "group": "d-slider_0__change",
+      "id": "57550d8f-020a-71d9-7e19-ebb9f4bbf2b0",
+      "reference": "{\"reference\":\"test\",\"mode\":\"byid\"}",
+      "declaredClass": "xblox.model.html.SetStyle",
+      "name": "Set Style",
+      "description": "Sets HTML Node Style Attribute",
+      "value": "background-color:rgba(255,{value},{value},1)",
+      "mode": 1,
+      "enabled": true,
+      "shareTitle": "",
+      "order": 0,
+      "type": "added",
+      "icon": "fa-play"
+    },
+    {
+      "_containsChildrenIds": [],
+      "group": "d-checkbox_0__change",
+      "id": "1b5cc90b-96ce-4cb6-e7d4-66cd10222cd8",
+      "declaredClass": "xblox.model.code.RunScript",
+      "name": "Run Script",
+      "method": "console.log('changed cb '  + arguments[0]);",
+      "args": "",
+      "deferred": false,
+      "icon": "fa-code",
+      "enabled": true,
+      "shareTitle": "",
+      "order": 0,
+      "type": "added"
+    }
+  ],
+  "variables": null
+}

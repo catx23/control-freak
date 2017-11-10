@@ -1,0 +1,81 @@
+@import "./mixins";
+// ----------------------------------------------
+// CSS classes common to all themes
+// ----------------------------------------------
+// * class MUST NOT depends on theme variables.
+// * DO NOT define tag selectors here.
+// ----------------------------------------------
+
+// Disabled cursor
+.d-readonly *,
+.d-disabled *,
+.d-readonly,
+.d-disabled {
+	// a region the user would be able to click on, but it's disabled
+	cursor: default;
+}
+
+.d-reset {
+	// Use this style to null out padding, margin, border in your template elements
+	// so that page specific styles don't break them.
+	// Use in all TABLE, TR and TD tags.
+	margin: 0;
+	border: 0;
+	padding: 0;
+	font: inherit;
+	line-height: normal;
+	color: inherit;
+}
+
+.d-inline {
+	//  To inline block elements.
+	display: inline-block;
+	border: 0;
+	padding: 0;
+	vertical-align: middle;
+}
+
+// Hide a node via class="d-hidden", or in templates, via either d-hidden="{{hideFlag}}" or d-shown="{{showFlag}}".
+.d-hidden, [d-hidden=true], [d-shown=false] {
+	display: none !important;
+}
+.d-invisible, [d-invisible=true], [d-visible=false] {
+	visibility: hidden !important;
+}
+
+.d-offscreen {
+	visibility: hidden;
+	position: absolute;
+	top: -9999px;
+	left: -9999px;
+	[dir=rtl] & {
+		left: auto;
+		right: -9999px;
+	}
+}
+
+// Popup items have a wrapper div (d-popup) with the real popup inside, and maybe an iframe too
+.d-popup {
+	position: absolute;
+	background-color: white;
+	margin: 0;
+	border: 0;
+	padding: 0;
+	.box-shadow(0 1px 5px rgba(0,0,0,0.25));
+	.box-sizing(border-box);
+}
+
+// And then the popup itself gets this styling.
+// Note that it needs to show a scrollbar if necessary, so it should set overflow:auto or extend Scrollable.
+.d-popup > * {
+	// we set the height and width on the wrapper, so the popup widget itself just needs to follow our lead
+	.box-sizing(border-box);
+	height: inherit;
+	width: inherit;
+}
+
+.d-tooltip-dialog-popup, .d-date-picker-popup {
+	// exception popups: do not use a shadow on these because they aren't rectangular,
+	// or the box shadow doesn't look right.
+	.box-shadow(none);
+}

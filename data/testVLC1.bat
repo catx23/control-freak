@@ -1,0 +1,2 @@
+REM "C:\Program Files (x86)\VideoLAN\VLC\vlc.exe" -vvv --verbose="2" --aout="waveout" --waveout-audio-device="Speakers (High Definition Audio ($1,$ffff)" C:\home\mc007\Music\BachGavotteShort.mp3
+"C:\Program Files (x86)\VideoLAN\VLC\vlc.exe" -vvv --verbose="2" --aout="waveout" --waveout-audio-device="Speakers (USB Sound Device      ($ffff,$ffff)" C:\home\mc007\Music\BachGavotteShort.mp3

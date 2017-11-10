@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+ <html>
+  <head>
+    <meta charset="utf-8"/>
+
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  </head>
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="claro superhero" data-maq-ws="collapse" style="position:absolute" id="myapp" data-maq-appstates="{}">
+ <d-media-player style="min-width: 300px; min-height: 300px; position: absolute; left: 14px; top: 19px;"></d-media-player>
+ <button is="d-button" label="Default Label" title="Default Label" id="d-button_1" style="position: absolute; left: 13px; top: 369px;">
+  <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=e5a06e24-6aa4-c8c5-3ffc-9d84d8528a91&amp;driver=235eb680-cb87-11e3-9c1a-0800200c9a66&amp;driverScope=user_drivers&amp;block=53a10527-709b-4c7d-7a90-37f58f17c8db" script="PowerOn"></d-xscript>
+</button>
+</body></html>

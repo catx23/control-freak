@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Blocks Template - Control-Freak</title>
+    <meta name="description" content="IDE for Automation & IoT" />
+    <meta name="author" content="Justin Walsh">
+    <meta charset="UTF-8">
+    <link rel="icon" href="../../themes/mytheme/img/favicon-blue.png" type="image/x-icon">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="../..//ext/easyXDM.js"></script>
+
+    
+    <script type="text/javascript">
+
+        var pixlrEditor = null;
+        var xdmSocket = null;
+        var editorImage=null;
+        var imageUrl=null;
+        var editorArgs=null;
+        var saveUrl=null;
+        var title='';
+        var format = 'jpg';
+
+        function urlDecode (string, overwrite) {
+            if (!string || !string.length) {
+                return{}
+            }
+            var obj = {};
+            var pairs = string.split("&");
+            var pair, name, value;
+            for (var i = 0, len = pairs.length; i < len; i++) {
+                pair = pairs[i].split("=");
+                name = decodeURIComponent(pair[0]);
+                value = decodeURIComponent(pair[1]);
+                if(value!=null && value==='true'){
+                    value=true;
+                }else if(value==='false'){
+                    value=false;
+                }
+                if (overwrite !== true) {
+                    if (typeof obj[name] == "undefined") {
+                        obj[name] = value
+                    } else {
+                        if (typeof obj[name] == "string") {
+                            obj[name] = [obj[name]];
+                            obj[name].push(value)
+                        } else {
+                            obj[name].push(value)
+                        }
+                    }
+                } else {
+                    obj[name] = value
+                }
+            }
+            return obj;
+        }
+
+
+        function onMessage(message){
+
+            var result  = JSON.parse(message);
+
+            console.log('message :',message);
+            if(result && result.command && result.command==='edit')
+            {
+                if(editorImage==null){
+                    img_create(result.url,'','');
+                }
+                imageUrl = result.url;
+                saveUrl = result.saveUrl;
+                title = result.title;
+                format = result.format;
+            }
+        }
+
+        function sendMessage(message)
+        {
+            xdmSocket.postMessage(JSON.stringify(message));
+        }
+
+        function init (){
+
+            return;
+            var inUrl = '' + window.location.href;
+
+            console.log('init url ' + inUrl);
+            //http://localhost/projects/x4mm/Code/xapp/xcf/?debug=true&run=run-release-debug&protocols=true&xideve=true&drivers=true&plugins=false&xblox=debug&files=true&dijit=debug&xdocker=debug&xfile=debug&davinci=debug&dgrid=debug&xgrid=debug&xace=debug&wcDocker=debug
+            if(!inUrl){
+                console.error('invalid');
+                //http://localhost/projects/x4mm/Code/xapp/xcf/?debug=true&run=run-release-debug&protocols=true&xideve=true&drivers=true&plugins=false&xblox=debug&files=true&dijit=debug&xdocker=debug&xfile=debug&davinci=debug&dgrid=debug&xgrid=debug&xace=debug&wcDocker=debug
+            }
+
+            var parameterString = '' ;
+
+            function base64_decode (encodedData) {
+
+                if (typeof window !== 'undefined') {
+                    if (typeof window.atob !== 'undefined') {
+                        return decodeURIComponent(escape(window.atob(encodedData)))
+                    }
+                } else {
+                    return new Buffer(encodedData, 'base64').toString('utf-8')
+                }
+
+                var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
+                var o1
+                var o2
+                var o3
+                var h1
+                var h2
+                var h3
+                var h4
+                var bits
+                var i = 0
+                var ac = 0
+                var dec = ''
+                var tmpArr = []
+
+                if (!encodedData) {
+                    return encodedData
+                }
+
+                encodedData += ''
+
+                do {
+                    // unpack four hexets into three octets using index points in b64
+                    h1 = b64.indexOf(encodedData.charAt(i++))
+                    h2 = b64.indexOf(encodedData.charAt(i++))
+                    h3 = b64.indexOf(encodedData.charAt(i++))
+                    h4 = b64.indexOf(encodedData.charAt(i++))
+
+                    bits = h1 << 18 | h2 << 12 | h3 << 6 | h4
+
+                    o1 = bits >> 16 & 0xff
+                    o2 = bits >> 8 & 0xff
+                    o3 = bits & 0xff
+
+                    if (h3 === 64) {
+                        tmpArr[ac++] = String.fromCharCode(o1)
+                    } else if (h4 === 64) {
+                        tmpArr[ac++] = String.fromCharCode(o1, o2)
+                    } else {
+                        tmpArr[ac++] = String.fromCharCode(o1, o2, o3)
+                    }
+                } while (i < encodedData.length)
+
+                dec = tmpArr.join('')
+
+                return decodeURIComponent(escape(dec.replace(/\0+$/, '')))
+            }
+
+            function base64_encode(data) {
+
+                // From: http://phpjs.org/functions
+                // +   original by: Tyler Akins (http://rumkin.com)
+                // +   improved by: Bayron Guevara
+                // +   improved by: Thunder.m
+                // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+                // +   bugfixed by: Pellentesque Malesuada
+                // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+                // +   improved by: Rafał Kukawski (http://kukawski.pl)
+                // *     example 1: base64_encode('Kevin van Zonneveld');
+                // *     returns 1: 'S2V2aW4gdmFuIFpvbm5ldmVsZA=='
+                // mozilla has this native
+                // - but breaks in 2.0.0.12!
+                //if (typeof this.window.btoa === 'function') {
+                //    return btoa(data);
+                //}
+                var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+                var o1, o2, o3, h1, h2, h3, h4, bits, i = 0,
+                    ac = 0,
+                    enc = '',
+                    tmp_arr = [];
+
+                if (!data) {
+                    return data;
+                }
+
+                do { // pack three octets into four hexets
+                    o1 = data.charCodeAt(i++);
+                    o2 = data.charCodeAt(i++);
+                    o3 = data.charCodeAt(i++);
+
+                    bits = o1 << 16 | o2 << 8 | o3;
+
+                    h1 = bits >> 18 & 0x3f;
+                    h2 = bits >> 12 & 0x3f;
+                    h3 = bits >> 6 & 0x3f;
+                    h4 = bits & 0x3f;
+
+                    // use hexets to index into b64, and append result to encoded string
+                    tmp_arr[ac++] = b64.charAt(h1) + b64.charAt(h2) + b64.charAt(h3) + b64.charAt(h4);
+                } while (i < data.length);
+
+                enc = tmp_arr.join('');
+
+                var r = data.length % 3;
+
+                return (r ? enc.slice(0, r - 3) : enc) + '==='.slice(r || 3);
+
+            }
+
+            if(inUrl.lastIndexOf('?')){
+
+                parameterString = inUrl.substring(inUrl.lastIndexOf('?')+1,inUrl.length);
+                var urlParameters=urlDecode(parameterString);
+
+                var target =urlParameters.xdmTarget;
+
+                if(!target || target && target=='undefined'){
+                    return;
+                }
+
+                if(target.indexOf('http:')==-1){
+                    target = base64_decode(target);
+                }
+
+                target=decodeURIComponent(target);
+                //http://localhost/projects/x4mm/Control-Freak-Documentation/daux/Getting_Started?xdmTarget=http%3A%2F%2Flocalhost%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2F%3Fdebug%3Dtrue%26run%3Drun-release-debug%26protocols%3Dtrue%26xideve%3Dtrue%26drivers%3Dtrue%26plugins%3Dfalse%26xblox%3Ddebug%26files%3Dtrue%26dijit%3Ddebug%26xdocker%3Ddebug%26xfile%3Ddebug%26davinci%3Ddebug%26dgrid%3Ddebug%26xgrid%3Ddebug%26xace%3Ddebug%26wcDocker%3Ddebug&xdm_e=http%3A%2F%2Flocalhost%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2F&xdm_c=default9743&xdm_p=4
+                //console.error('creating socket to '+target);
+                xdmSocket = new easyXDM.Socket({
+                    remote: "" + target,
+                    onMessage:function (message, origin)
+                    {
+                        onMessage(message);
+                    }
+                });
+
+                //console.error('xdmtarge = ' + target);
+
+                //var newUrl = + encodeURIComponent('' + window.location.href);
+
+                if(target && target!=='undefined' && target.length) {
+                    $(function () {
+                        $('a').each(function () {
+                            var cUrl = $(this).attr('href');
+                            var bindStr = '?';
+                            if (cUrl && cUrl.indexOf('xdmTarget') == -1) {
+                                if (cUrl.indexOf('?') != -1) {
+                                    bindStr = '&';
+                                }
+                                var newUrl = cUrl + bindStr + 'xdmTarget=' + base64_encode(target);
+                                //console.log('new url ' + newUrl);
+                                //$(this).attr('href', newUrl);
+                            }
+
+
+                        });
+                    });
+                }
+
+            }
+        }
+
+        document.onreadystatechange = function () {
+
+            if(typeof easyXDM !=='undefined') {
+
+                var state = document.readyState;
+                if (state == 'interactive') {
+                } else if (state == 'complete') {
+                    init();
+                }
+            }else{
+                console.error('easy xdm not defined');
+            }
+
+        }
+
+    </script>
+
+
+
+
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../themes/mytheme/css/theme-blue.min.css' rel='stylesheet' type='text/css'><link href='../../admin-theme/bower_components/font-awesome/css/font-awesome.min.css' rel='stylesheet' type='text/css'><link href='../../admin-theme/html-white/dist/css/application.css' rel='stylesheet' type='text/css'><link href='../../themes/mytheme/css/bootstrap-override-white.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class=" xTheme xTheme-white">
+    <header class="Navbar hidden-print">
+    <a class="Navbar__brand" href="../../index.html">Control-Freak</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451"><path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/></svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on" results=25 autosave=text_search>
+    </div>
+</header>
+<div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <div class="Collapsible__container">
+            <button type="button" class="Button Collapsible__trigger">
+                <span class="Collapsible__trigger--bar"></span>
+                <span class="Collapsible__trigger--bar"></span>
+                <span class="Collapsible__trigger--bar"></span>
+            </button>
+        </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item '><a href="../../Getting_Started.html">Getting Started</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Installation</a><ul class='Nav'><li class='Nav__item '><a href="../../Installation/Windows.html">Windows</a></li><li class='Nav__item '><a href="../../Installation/Linux.html">Linux</a></li><li class='Nav__item '><a href="../../Installation/Raspberry-PI.html">Raspberry-PI</a></li><li class='Nav__item '><a href="../../Installation/OSX.html">OSX</a></li><li class='Nav__item  has-children'><a href="../../Installation/WEB/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>WEB</a><ul class='Nav'><li class='Nav__item '><a href="../../Installation/WEB/Requirements.html">Requirements</a></li></ul></li></ul></li><li class='Nav__item  has-children'><a href="../../Interface_Designer/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Interface Designer</a><ul class='Nav'><li class='Nav__item '><a href="../../Interface_Designer/Guide.html">Guide</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Examples</a><ul class='Nav'><li class='Nav__item '><a href="../../Interface_Designer/Examples/Button_Group.html">Button Group</a></li><li class='Nav__item '><a href="../../Interface_Designer/Examples/States.html">States</a></li></ul></li><li class='Nav__item '><a href="../../Interface_Designer/States.html">States</a></li><li class='Nav__item '><a href="../../Interface_Designer/VariableStates.html">VariableStates</a></li><li class='Nav__item  has-children'><a href="../../Interface_Designer/Widgets/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Widgets</a><ul class='Nav'><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Accordion.html">deliteful/Accordion</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Button.html">deliteful/Button</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Checkbox.html">deliteful/Checkbox</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Combobox.html">deliteful/Combobox</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/features.html">deliteful/features</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/LinearLayout.html">deliteful/LinearLayout</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>list</a><ul class='Nav'><li class='Nav__item '><a href="../../Interface_Designer/Widgets/list/List.html">deliteful/list/List</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/list/PageableList.html">deliteful/list/PageableList</a></li></ul></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Panel.html">deliteful/Panel</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/ProgressBar.html">deliteful/ProgressBar</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/RadioButton.html">deliteful/RadioButton</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Select.html">deliteful/Select</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/SidePane.html">deliteful/SidePane</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Slider.html">deliteful/Slider</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/StarRating.html">deliteful/StarRating</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/styling.html">styling</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/SwapView.html">deliteful/SwapView</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Switch.html">deliteful/Switch</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Toaster.html">deliteful/Toaster</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/ToggleButton.html">deliteful/ToggleButton</a></li><li class='Nav__item  has-children'><a href="../../Interface_Designer/Widgets/tutorial/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>tutorial</a><ul class='Nav'><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part1GettingStarted.html">Deliteful Tutorial Part 1</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part2QuickLook.html">Deliteful Tutorial Part 2</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part3PhotoFeedApp.html">Deliteful Tutorial Part 3</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part4ListView.html">Deliteful Tutorial Part 4</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part5CustomRenderer.html">Deliteful Tutorial Part 5</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part6DetailsView.html">Deliteful Tutorial Part 6</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part7SettingsView.html">Deliteful Tutorial Part 7</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part8Build.html">Deliteful Tutorial Part 8</a></li></ul></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/ViewIndicator.html">deliteful/ViewIndicator</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/ViewStack.html">deliteful/ViewStack</a></li></ul></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../../Driver/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Driver</a><ul class='Nav'><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Code Examples</a><ul class='Nav'><li class='Nav__item '><a href="../../Driver/Code_Examples/Expressions.html">Expressions</a></li><li class='Nav__item '><a href="../../Driver/Code_Examples/Variable_Changes.html">Variable Changes</a></li></ul></li><li class='Nav__item  has-children'><a href="../../Driver/Built-In/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Built-In</a><ul class='Nav'><li class='Nav__item '><a href="../../Driver/Built-In/VLC.html">VLC</a></li></ul></li><li class='Nav__item '><a href="../../Driver/Guide.html">Guide</a></li><li class='Nav__item '><a href="../../Driver/API.html">API</a></li><li class='Nav__item '><a href="../../Driver/Editors.html">Editors</a></li><li class='Nav__item '><a href="../../Driver/Debugging.html">Debugging</a></li><li class='Nav__item '><a href="../../Driver/Intern.html">Intern</a></li><li class='Nav__item Nav__item--open has-children'><a href="../../Driver/Fiddle/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Fiddle</a><ul class='Nav'><li class='Nav__item '><a href="../../Driver/Fiddle/Blocks_Example.html">Blocks Example</a></li><li class='Nav__item Nav__item--active'><a href="../../Driver/Fiddle/Blocks_Template.html">Blocks Template</a></li></ul></li></ul></li><li class='Nav__item '><a href="../../Protocols/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Protocols</a><ul class='Nav'></ul></li><li class='Nav__item  has-children'><a href="../../Blocks/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Blocks</a><ul class='Nav'><li class='Nav__item '><a href="../../Blocks/Command.html">Command</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Events</a><ul class='Nav'><li class='Nav__item '><a href="../../Blocks/Events/OnEvent.html">OnEvent</a></li></ul></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>File</a><ul class='Nav'><li class='Nav__item '><a href="../../Blocks/File/ReadJSON.html">ReadJSON</a></li></ul></li></ul></li><li class='Nav__item '><a href="../../Exporter/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Exporter</a><ul class='Nav'></ul></li><li class='Nav__item '><a href="../../Device_Server/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Device Server</a><ul class='Nav'></ul></li><li class='Nav__item '><a href="../../Tutorials/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Tutorials</a><ul class='Nav'></ul></li><li class='Nav__item '><a href="../../Raspberry_PI/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Raspberry PI</a><ul class='Nav'></ul></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Resources</a><ul class='Nav'><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Software</a><ul class='Nav'><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>MQTT</a><ul class='Nav'><li class='Nav__item '><a href="../../Resources/Software/MQTT/Software.html">Software</a></li><li class='Nav__item '><a href="../../Resources/Software/MQTT/Architecture.html">Architecture</a></li></ul></li><li class='Nav__item '><a href="../../Resources/Software/Tools/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Tools</a><ul class='Nav'></ul></li></ul></li><li class='Nav__item '><a href="../../Resources/Utils_API/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Utils API</a><ul class='Nav'></ul></li></ul></li></ul>
+
+            <div class="Links">
+                
+                
+                            </div>
+        </div>
+    </aside>
+    <div class="Columns__right ">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../../Driver/index.html">Driver</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../../Driver/Fiddle/index.html">Fiddle</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../../Driver/Fiddle/Blocks_Template.html">Blocks Template</a></h1>
+                        <span style="float: right; font-size: 10px; color: gray;">
+            <a href="https://github.com/net-commander/net-commander-documentation/blob/master/docFiles/08_Driver/Fiddle/Blocks_Template.md" target="_blank">Edit on GitHub</a>
+        </span>
+            </div>
+
+
+    <div class="s-content">
+        <h1 id="page_Steps">Steps:</h1>
+<ol>
+<li>
+<p>Run File/Download action and copy the content of that file into the clipboard</p>
+</li>
+<li>
+<p>Open the <a href="https://jsfiddle.net/mc007ibi/s7t65x45" class="external">template fiddle</a>, and fork it (signup first)</p>
+</li>
+<li>
+<p>Replace from clipboard in the JS file :</p>
+</li>
+</ol>
+<pre><code>    var MY_BLOCKS = [];
+</code></pre>
+<p>to</p>
+<pre><code>    var MY_BLOCKS = PASTE_HERE
+</code></pre>
+<p><iframe width="100%" height="800" src="//jsfiddle.net/mc007ibi/s7t65x45/embedded/js,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../../Driver/Fiddle/Blocks_Example.html">Previous</a></li>            <li class=Pager--next><a href="../../Protocols/index.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../themes/daux/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../themes/daux/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    <script src="../../admin-theme/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="../../themes/daux/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--
+	use this page to test clientXY/pageXY coordinates.
+-->
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>check Pointer Events coordinates</title>
+	<script src="../../requirejs/require.js"></script>
+	<script>
+		require.config({
+			baseUrl: "../.."
+		});
+		require([
+			"dpointer/events",
+			"requirejs-domready/domReady!"
+		], function (dpointer) {
+			var testArea = document.getElementById("testArea"),
+					msgLog = document.getElementById("msgLog"),
+					captureBtn = document.getElementById("captureBtn"),
+					useCapture = false;
+
+			function logMsg(msg, append) {
+				msgLog.innerHTML = (append ? "<br>" : "") + msg +
+						msgLog.innerHTML.substring(
+								msgLog.innerHTML.indexOf("<br>"), msgLog.innerHTML.length
+						);
+			}
+
+			captureBtn.addEventListener("click", function (e) {
+				useCapture = !useCapture;
+				captureBtn.innerHTML = (useCapture ? "Dis" : "En") + "able capture";
+				testArea.style.backgroundColor = (useCapture ? "lightblue" : "lightgreen");
+			});
+
+			testArea.addEventListener("pointerdown", function (e) {
+				if (useCapture) {
+					dpointer.setPointerCapture(e.target, e.pointerId);
+				}
+			});
+
+			testArea.addEventListener("pointermove", function (e) {
+				logMsg("pageX,Y[" + e.pageX + "," + e.pageY + "]" +
+						" clientX,Y[" + e.clientX + "," + e.clientY + "]");
+				e.preventDefault();
+			});
+			dpointer.setTouchAction(testArea, "none");
+		});
+	</script>
+	<style>
+		body {
+			margin: 0;
+			width: 400px;
+			height: 400px;
+		}
+
+		#msgLog {
+			position: fixed;
+			right: 5px;
+			top: 15px;
+			text-align: right;
+			background-color: yellow;
+		}
+
+		#testArea {
+			position: relative;
+			width: 100px;
+			height: 300px;
+			background-color: lightgreen;
+		}
+	</style>
+</head>
+<body>
+<div id="testArea">
+	#1. Change the zoom level.<br>
+	#2. scroll to hide part of this area<br>
+	#3. move the pointer over this area<br>
+	#4. check the coordinates that are displayed<br>
+	<button id="captureBtn" type="button">Enable capture</button>
+</div>
+<span id="msgLog"><br></span>
+</body>
+</html>

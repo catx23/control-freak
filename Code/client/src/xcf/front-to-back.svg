@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2014 by original authors @ fontello.com</metadata>
+<defs>
+<font id="front-to-back" horiz-adv-x="1000" >
+<font-face font-family="front-to-back" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="send-back" unicode="&#xe800;" d="m0 873l0-495 244 0 0-237 237 0 0-244 496 0 0 496-245 0 0 236-235 0 0 244-497 0z m7-5l482 0 0-482 481 0 0-483-482 0 0 481-481 0 0 484z" horiz-adv-x="1000" />
+<glyph glyph-name="bring-front" unicode="&#xe801;" d="m1 873l0-487 244 0 0-244 244 0 0-245 487 0 0 488-244 0 0 244-244 0 0 244-487 0z m4-5l478 0 0-239-238 0 0-238-240 0 0 477z m727-488l239 0 0-478-477 0 0 240 238 0 0 238z" horiz-adv-x="1000" />
+<glyph glyph-name="send-back-multi" unicode="&#xe802;" d="m0 873l0-488 244 0 0-244 244 0 0-244 489 0 0 488-245 0 0 244-244 0 0 244-488 0z m252-251l473 0 0-474-473 0 0 474z" horiz-adv-x="1000" />
+<glyph glyph-name="bring-front-multi" unicode="&#xe803;" d="m1 873l0-487 244 0 0-244 244 0 0-245 487 0 0 488-244 0 0 244-244 0 0 244-487 0z m487-249l239 0 0-239-238 0 0-239-239 0 0 240 238 0 0 238z m0-238l0-1 1 0 0 1-1 0z" horiz-adv-x="1000" />
+</font>
+</defs>
+</svg>

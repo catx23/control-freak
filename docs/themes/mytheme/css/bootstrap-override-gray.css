@@ -1,0 +1,340 @@
+/* line 9, ../sass/ellipsis.scss */
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  -moz-binding: url('/css/xml/ellipsis.xml#ellipsis');
+}
+
+/* line 26, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .selectize-dropdown {
+  color: #4a5150;
+  background-color: #cacaca;
+}
+/* line 30, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .selectize-dropdown .active {
+  background-color: #e8e8e8;
+  color: #ad6600;
+}
+/* line 34, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .selectize-dropdown .active.create {
+  /*color: #262626;*/
+}
+/* line 38, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .dijitPopup {
+  background-color: #e8e8e8;
+}
+/* line 42, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .bootstrap-select > .dropdown-toggle.bs-placeholder,
+.xTheme-gray .bootstrap-select > .dropdown-toggle.bs-placeholder:hover,
+.xTheme-gray .bootstrap-select > .dropdown-toggle.bs-placeholder:focus,
+.xTheme-gray .bootstrap-select > .dropdown-toggle.bs-placeholder:active {
+  color: white !important;
+}
+/* line 48, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .text-warning {
+  color: #ad6600;
+}
+/* line 51, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .widget {
+  background: initial;
+}
+/* line 56, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray BODY {
+  background-image: none;
+}
+/* line 60, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .wcLayoutPane {
+  padding: 0px;
+}
+/* line 63, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .border-bottom {
+  border-bottom-color: #e6e6e6;
+}
+/* line 66, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .breadcrumb {
+  border-bottom: 1px solid #e6e6e6;
+}
+/* line 69, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .mainMenu {
+  border-bottom-color: rgba(0, 0, 0, 0.15);
+}
+/* line 73, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .jsPanel.panel {
+  border: 2px solid #4a5150;
+}
+/* line 76, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .dgrid-header-scroll, .xTheme-gray .xTheme-default .dgrid-header .dgrid-cell {
+  background-color: #e8e8e8;
+}
+/* line 79, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray a {
+  color: #5d5c66;
+  text-decoration: none;
+}
+/* line 83, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .wcSplitterBar {
+  /*box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);*/
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+/* line 87, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .actionToolbar {
+  background-color: #e8e8e8;
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
+}
+/* line 92, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .btn-default {
+  background-color: #cacaca;
+  color: #4a5150;
+}
+/* line 97, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .form-control::-webkit-input-placeholder {
+  color: #808080;
+}
+/* line 98, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .form-control:-moz-placeholder {
+  color: #808080;
+}
+/* line 99, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .form-control::-moz-placeholder {
+  color: #808080;
+}
+/* line 100, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .form-control:-ms-input-placeholder {
+  color: #808080;
+}
+/* line 102, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .dropdown-menu {
+  background-color: #f8f8f8;
+}
+/* line 106, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .dropdown-menu > li > a:hover .text-muted, .xTheme-gray .dropdown-menu > li > a:focus .text-muted {
+  color: #e8e8e8;
+}
+/* line 111, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .metro .tile .brand.opacity, .xTheme-gray .metro .tile .tile-status.opacity {
+  /*opacity: 1.0;*/
+}
+/* line 119, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .blockGrid [class*="fa-"] {
+  font-size: 120%;
+}
+/* line 122, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .blockGrid .xBloxIcon {
+  font-size: 120%;
+}
+@-webkit-keyframes flash {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0.5;
+  }
+}
+@keyframes flash {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0.5;
+  }
+}
+/* line 138, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .activeBlock {
+  background-color: rgba(169, 169, 169, 0.2) !important;
+  background-image: none;
+  color: #4a5150;
+  outline: 1px solid rgba(29, 255, 70, 0.69) !important;
+  outline-offset: -3px;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: flash;
+  animation-name: flash;
+}
+/* line 160, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .successBlock {
+  background-color: rgba(33, 58, 34, 0.73) !important;
+  background-image: none !important;
+  color: #e8e8e8;
+  outline: 2px solid #49ff70 !important;
+  outline-offset: -3px;
+}
+/* line 166, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .successBlock .text-info {
+  color: #e8e8e8;
+}
+/* line 169, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .successBlock A, .xTheme-gray .successBlock .text-primary {
+  color: #e8e8e8 !important;
+}
+/* line 174, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .failedBlock {
+  background-color: darkred !important;
+  background-image: none !important;
+  color: #4a5150;
+  border: 2px solid yellow;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: flash;
+  animation-name: flash;
+}
+/* line 193, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .form-control.input-transparent {
+  box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.2);
+}
+/* line 196, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .panel-heading {
+  border: 1px solid #cacaca;
+}
+/* line 199, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .modal-content, .xTheme-gray .modal-footer {
+  background-color: #ffffff;
+}
+/* line 203, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .jsoneditor-contextmenu .btn {
+  color: #4a5150;
+}
+/* line 207, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .wcSplitterBar {
+  /*background-color: $opaque-light !important;*/
+}
+/* line 211, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .dgrid-header-scroll, .xTheme-gray .dgrid-header .dgrid-cell {
+  background-color: #e8e8e8;
+  border-bottom: 1px solid #cacaca;
+}
+/* line 215, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .dgrid-row.dgrid-row-odd {
+  background-color: rgba(16, 16, 16, 0.09);
+}
+/* line 220, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .statusbar.widget {
+  border-top: 1px solid #cacaca;
+  background-color: #e8e8e8 !important;
+  color: #555 !important;
+  border-radius: 0px !important;
+}
+/* line 228, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .breadcrumb > .active {
+  color: #555;
+}
+/* line 231, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .thumbText {
+  margin-right: 2px !important;
+}
+/* line 236, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .metro .bg-dark {
+  background-color: rgba(232, 232, 232, 0.3) !important;
+}
+/* line 239, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .metro .tile .brand .badge,
+.xTheme-gray .metro .tile .tile-status .badge {
+  color: #4a5150;
+}
+/* line 254, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .body {
+  /*@include scrollbars(.5em, slategray);*/
+}
+/* line 260, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .widget {
+  /*font-weight: 400 !important;*/
+}
+/* line 265, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .widgetContainer {
+  margin: 0;
+  border-bottom: 1px solid #e6e6e6;
+}
+/* line 270, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .toolbar-button {
+  color: #666;
+}
+/* line 273, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .bg-opaque {
+  background-color: #f8f8f8 !important;
+}
+/* line 277, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .metro .tile .tile-content.icon [class*="fa-"],
+.xTheme-gray .metro .tile .tile-content.icon img {
+  color: #222222;
+}
+/* line 282, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .breadcrumb a {
+  color: inherit;
+}
+/* line 286, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .breadcrumb > li + li:before {
+  color: inherit;
+}
+/* line 294, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .dgrid-focus:active {
+  /*outline: 1px dotted rgba(255, 82, 0, 0.65)  !important;*/
+  outline-offset: -1px;
+  /*background-color: rgba(0,0,0,0.5);*/
+  font-weight: bold;
+}
+/* line 300, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .wcFrameButton {
+  /*font-size:inherit;*/
+}
+/* line 304, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray KBD {
+  background-color: initial;
+  box-shadow: none;
+  font-weight: bold;
+  /*color: $gray-semi-light;*/
+  /*font-family: inherit;*/
+  margin: 4px;
+}
+/* line 315, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .dgrid-selected {
+  /*background-color: rgba(44, 39, 36, 0.52) !important;*/
+  /*@include box-shadow(inset 0 1px 5px rgba(0, 0, 0, 0.8));*/
+  /*font-weight: $font-weight-bold;*/
+  border-radius: 4px;
+  /* #1 */
+  /* #2 */
+  /*padding: 5px;*/
+  outline: none;
+  /* #3
+  outline: 5px solid hsl(0, 0%, 60%); */
+  /* #4 AND INFINITY!!! (CSS3 only) */
+  box-shadow: inset 0 0 0 1px orange;
+}
+/* line 337, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .dgrid-focus:focus {
+  /*outline: 1px solid rgba(87, 96, 255,0.5);*/
+  outline-offset: -1px;
+  background-color: rgba(254, 0, 64, 0.02);
+  /*border-style: 2px solid $red-dark !important;*/
+  box-shadow: inset 0 0 0 2px rgba(101, 0, 30, 0.5);
+  /*font-weight: bold;*/
+  /*border-color: rgba(255, 82, 0, 1) !important;
+  border-style: groove inset;
+  @include box-sizing(content-box);*/
+}
+/* line 351, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .dgrid-selected .metro .tile .tile-content.icon [class*="fa-"] {
+  color: #f8f8f8 !important;
+}
+/* line 356, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .dgrid-scroller {
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.89) !important;
+}
+/* line 362, ../sass/bootstrap-override-gray.scss */
+.xTheme-gray .metro .tile .tile-content.icon img {
+  color: #f8f8f8 !important;
+}

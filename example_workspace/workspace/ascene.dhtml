@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+</head>
+
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="claro superhero" data-maq-ws="collapse" style="position:absolute" id="myapp" data-maq-appstates="{}">
+ <button is="d-button" title="Default Label" label="FAN OFF" iconClass="fa fa-play" style="position: absolute; width: 191.2257080078125px; height: 77.07986450195312px; left: 19.73090362548828px; top: 31px;" id="d-button_2">
+   <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=user_devices&amp;device=e5a06e24-6aa4-c8c5-3ffc-9d84d8528a91&amp;driver=235eb680-cb87-11e3-9c1a-0800200c9a66&amp;driverScope=user_drivers&amp;block=a5423bf7-7b99-023d-c637-363fbf9a7f18" script="Ping - Power" style="position: relative;"></d-xscript>
+ </button>
+ <button is="d-button" title="Default Label" label="System Devices Ping" style="position: absolute; left: 34px; top: 142px;" id="d-button_0">
+   <d-xscript stop="false" bidirectional="false" mode="1" targetevent="click" block="command://deviceScope=system_devices&amp;device=2a34a9e0-2db1-7023-6bac-106845427c73&amp;driver=52d3d32b-654a-a905-901a-12479829650b&amp;driverScope=system_drivers&amp;block=2557e688-48b5-fb32-af7c-946304d160a1" script="whoami" style="position: relative;"></d-xscript>
+ </button>
+ <button is="d-button" title="Default Label" label="User-Device-Ping" style="position: absolute; left: 38px; top: 226px;" id="d-button_3">
+<d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=83a2e4ab-27b0-6c89-23c9-743ad6c40031&amp;driver=b08405ac-a878-351f-7bab-f4174de7e669&amp;driverScope=user_drivers&amp;block=2557e688-48b5-fb32-af7c-946304d160a1" script="whoami"></d-xscript>
+</button>
+ <button is="d-button" title="Default Label" label="Test Echo" style="position: absolute; left: 37px; top: 321px;" id="d-button_4">
+<d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=83a2e4ab-27b0-6c89-23c9-743ad6c40031&amp;driver=b08405ac-a878-351f-7bab-f4174de7e669&amp;driverScope=user_drivers&amp;block=1939edde-b32c-3e4b-5cf4-7bd1d9b7412f" script="test"></d-xscript>
+</button>
+ </body>
+</html>

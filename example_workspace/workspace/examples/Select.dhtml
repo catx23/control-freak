@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <script type="text/javascript" src="http://localhost/projects/x4mm/Code/client/src/lib/external/moment-with-langs.min.js"></script>
+</head>
+
+
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="claro superhero" data-maq-ws="collapse" style="position: absolute;" id="myapp" data-maq-appstates="{}">
+ <d-select id="select" style="position: absolute; width: 149px; height: 53px; left: 88px; top: 87px;">
+    { "text": "Option 1", "value": "1" },
+	  { "text": "Option 2", "value": "2" },
+	  { "text": "Option 3", "value": "3" }
+ </d-select>
+ <d-checkbox id="cb" name="test" checked="true" style="position: absolute; left: 88px; top: 191px;"></d-checkbox>
+ 
+</body>
+</html>
+

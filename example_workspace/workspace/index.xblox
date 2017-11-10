@@ -1,0 +1,91 @@
+{
+  "blocks": [
+    {
+      "_containsChildrenIds": [],
+      "name": "PowerState",
+      "send": "nada",
+      "group": "Variables",
+      "id": "31c98cdd-02a8-3af1-3a49-11955c0fad48",
+      "declaredClass": "xcf.model.Variable",
+      "gui": "off",
+      "cmd": "off",
+      "save": false,
+      "target": "None",
+      "type": "added",
+      "value": "off",
+      "register": true,
+      "readOnly": false,
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "canDelete": true,
+      "order": 0,
+      "isCommand": false,
+      "allowActionOverride": true,
+      "icon": "fa-play"
+    },
+    {
+      "_containsChildrenIds": [
+        "items"
+      ],
+      "group": "On Load",
+      "id": "e813a85f-7511-723f-bc1f-c13698456a5b",
+      "method": "console.log('script!!:',this);",
+      "name": "Run Script",
+      "args": "",
+      "deferred": false,
+      "declaredClass": "xblox.model.code.RunScript",
+      "enabled": true,
+      "shareTitle": "Log Me",
+      "description": "No Description",
+      "canDelete": true,
+      "order": 0,
+      "items": [
+        "b59b0d8d-7010-e9d7-5ab5-d2c86f124e97"
+      ],
+      "icon": "fa-code",
+      "isCommand": false,
+      "allowActionOverride": true,
+      "type": "added"
+    },
+    {
+      "_containsChildrenIds": [],
+      "parentId": "e813a85f-7511-723f-bc1f-c13698456a5b",
+      "id": "b59b0d8d-7010-e9d7-5ab5-d2c86f124e97",
+      "method": "console.error('error');",
+      "name": "Run Script",
+      "args": "",
+      "deferred": false,
+      "declaredClass": "xblox.model.code.RunScript",
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "canDelete": true,
+      "order": 0,
+      "icon": "fa-code",
+      "isCommand": false,
+      "allowActionOverride": true,
+      "type": "added"
+    },
+    {
+      "_containsChildrenIds": [],
+      "group": "btnRadio2__click",
+      "id": "0df3d9dc-bff2-ea90-8141-8bb108dd4ed1",
+      "declaredClass": "xblox.model.code.RunScript",
+      "name": "Run Script",
+      "method": "console.log(this);",
+      "args": "",
+      "deferred": false,
+      "icon": "fa-code",
+      "isCommand": false,
+      "enabled": true,
+      "shareTitle": "",
+      "allowActionOverride": true,
+      "description": "Runs an expression.<br/>\n\n<b>Behaviour</b>\n\n<pre>\n\n    //to abort execution (child blocks), return something negative as -1 or false.\n    return false;\n\n</pre>",
+      "canDelete": true,
+      "order": 0,
+      "type": "added"
+    }
+  ],
+  "variables": null
+}

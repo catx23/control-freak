@@ -1,0 +1,2340 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Utils API - Control-Freak</title>
+    <meta name="description" content="IDE for Automation & IoT" />
+    <meta name="author" content="Justin Walsh">
+    <meta charset="UTF-8">
+    <link rel="icon" href="../../themes/mytheme/img/favicon-blue.png" type="image/x-icon">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="../..//ext/easyXDM.js"></script>
+
+    
+    <script type="text/javascript">
+
+        var pixlrEditor = null;
+        var xdmSocket = null;
+        var editorImage=null;
+        var imageUrl=null;
+        var editorArgs=null;
+        var saveUrl=null;
+        var title='';
+        var format = 'jpg';
+
+        function urlDecode (string, overwrite) {
+            if (!string || !string.length) {
+                return{}
+            }
+            var obj = {};
+            var pairs = string.split("&");
+            var pair, name, value;
+            for (var i = 0, len = pairs.length; i < len; i++) {
+                pair = pairs[i].split("=");
+                name = decodeURIComponent(pair[0]);
+                value = decodeURIComponent(pair[1]);
+                if(value!=null && value==='true'){
+                    value=true;
+                }else if(value==='false'){
+                    value=false;
+                }
+                if (overwrite !== true) {
+                    if (typeof obj[name] == "undefined") {
+                        obj[name] = value
+                    } else {
+                        if (typeof obj[name] == "string") {
+                            obj[name] = [obj[name]];
+                            obj[name].push(value)
+                        } else {
+                            obj[name].push(value)
+                        }
+                    }
+                } else {
+                    obj[name] = value
+                }
+            }
+            return obj;
+        }
+
+
+        function onMessage(message){
+
+            var result  = JSON.parse(message);
+
+            console.log('message :',message);
+            if(result && result.command && result.command==='edit')
+            {
+                if(editorImage==null){
+                    img_create(result.url,'','');
+                }
+                imageUrl = result.url;
+                saveUrl = result.saveUrl;
+                title = result.title;
+                format = result.format;
+            }
+        }
+
+        function sendMessage(message)
+        {
+            xdmSocket.postMessage(JSON.stringify(message));
+        }
+
+        function init (){
+
+            return;
+            var inUrl = '' + window.location.href;
+
+            console.log('init url ' + inUrl);
+            //http://localhost/projects/x4mm/Code/xapp/xcf/?debug=true&run=run-release-debug&protocols=true&xideve=true&drivers=true&plugins=false&xblox=debug&files=true&dijit=debug&xdocker=debug&xfile=debug&davinci=debug&dgrid=debug&xgrid=debug&xace=debug&wcDocker=debug
+            if(!inUrl){
+                console.error('invalid');
+                //http://localhost/projects/x4mm/Code/xapp/xcf/?debug=true&run=run-release-debug&protocols=true&xideve=true&drivers=true&plugins=false&xblox=debug&files=true&dijit=debug&xdocker=debug&xfile=debug&davinci=debug&dgrid=debug&xgrid=debug&xace=debug&wcDocker=debug
+            }
+
+            var parameterString = '' ;
+
+            function base64_decode (encodedData) {
+
+                if (typeof window !== 'undefined') {
+                    if (typeof window.atob !== 'undefined') {
+                        return decodeURIComponent(escape(window.atob(encodedData)))
+                    }
+                } else {
+                    return new Buffer(encodedData, 'base64').toString('utf-8')
+                }
+
+                var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
+                var o1
+                var o2
+                var o3
+                var h1
+                var h2
+                var h3
+                var h4
+                var bits
+                var i = 0
+                var ac = 0
+                var dec = ''
+                var tmpArr = []
+
+                if (!encodedData) {
+                    return encodedData
+                }
+
+                encodedData += ''
+
+                do {
+                    // unpack four hexets into three octets using index points in b64
+                    h1 = b64.indexOf(encodedData.charAt(i++))
+                    h2 = b64.indexOf(encodedData.charAt(i++))
+                    h3 = b64.indexOf(encodedData.charAt(i++))
+                    h4 = b64.indexOf(encodedData.charAt(i++))
+
+                    bits = h1 << 18 | h2 << 12 | h3 << 6 | h4
+
+                    o1 = bits >> 16 & 0xff
+                    o2 = bits >> 8 & 0xff
+                    o3 = bits & 0xff
+
+                    if (h3 === 64) {
+                        tmpArr[ac++] = String.fromCharCode(o1)
+                    } else if (h4 === 64) {
+                        tmpArr[ac++] = String.fromCharCode(o1, o2)
+                    } else {
+                        tmpArr[ac++] = String.fromCharCode(o1, o2, o3)
+                    }
+                } while (i < encodedData.length)
+
+                dec = tmpArr.join('')
+
+                return decodeURIComponent(escape(dec.replace(/\0+$/, '')))
+            }
+
+            function base64_encode(data) {
+
+                // From: http://phpjs.org/functions
+                // +   original by: Tyler Akins (http://rumkin.com)
+                // +   improved by: Bayron Guevara
+                // +   improved by: Thunder.m
+                // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+                // +   bugfixed by: Pellentesque Malesuada
+                // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+                // +   improved by: Rafał Kukawski (http://kukawski.pl)
+                // *     example 1: base64_encode('Kevin van Zonneveld');
+                // *     returns 1: 'S2V2aW4gdmFuIFpvbm5ldmVsZA=='
+                // mozilla has this native
+                // - but breaks in 2.0.0.12!
+                //if (typeof this.window.btoa === 'function') {
+                //    return btoa(data);
+                //}
+                var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+                var o1, o2, o3, h1, h2, h3, h4, bits, i = 0,
+                    ac = 0,
+                    enc = '',
+                    tmp_arr = [];
+
+                if (!data) {
+                    return data;
+                }
+
+                do { // pack three octets into four hexets
+                    o1 = data.charCodeAt(i++);
+                    o2 = data.charCodeAt(i++);
+                    o3 = data.charCodeAt(i++);
+
+                    bits = o1 << 16 | o2 << 8 | o3;
+
+                    h1 = bits >> 18 & 0x3f;
+                    h2 = bits >> 12 & 0x3f;
+                    h3 = bits >> 6 & 0x3f;
+                    h4 = bits & 0x3f;
+
+                    // use hexets to index into b64, and append result to encoded string
+                    tmp_arr[ac++] = b64.charAt(h1) + b64.charAt(h2) + b64.charAt(h3) + b64.charAt(h4);
+                } while (i < data.length);
+
+                enc = tmp_arr.join('');
+
+                var r = data.length % 3;
+
+                return (r ? enc.slice(0, r - 3) : enc) + '==='.slice(r || 3);
+
+            }
+
+            if(inUrl.lastIndexOf('?')){
+
+                parameterString = inUrl.substring(inUrl.lastIndexOf('?')+1,inUrl.length);
+                var urlParameters=urlDecode(parameterString);
+
+                var target =urlParameters.xdmTarget;
+
+                if(!target || target && target=='undefined'){
+                    return;
+                }
+
+                if(target.indexOf('http:')==-1){
+                    target = base64_decode(target);
+                }
+
+                target=decodeURIComponent(target);
+                //http://localhost/projects/x4mm/Control-Freak-Documentation/daux/Getting_Started?xdmTarget=http%3A%2F%2Flocalhost%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2F%3Fdebug%3Dtrue%26run%3Drun-release-debug%26protocols%3Dtrue%26xideve%3Dtrue%26drivers%3Dtrue%26plugins%3Dfalse%26xblox%3Ddebug%26files%3Dtrue%26dijit%3Ddebug%26xdocker%3Ddebug%26xfile%3Ddebug%26davinci%3Ddebug%26dgrid%3Ddebug%26xgrid%3Ddebug%26xace%3Ddebug%26wcDocker%3Ddebug&xdm_e=http%3A%2F%2Flocalhost%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2F&xdm_c=default9743&xdm_p=4
+                //console.error('creating socket to '+target);
+                xdmSocket = new easyXDM.Socket({
+                    remote: "" + target,
+                    onMessage:function (message, origin)
+                    {
+                        onMessage(message);
+                    }
+                });
+
+                //console.error('xdmtarge = ' + target);
+
+                //var newUrl = + encodeURIComponent('' + window.location.href);
+
+                if(target && target!=='undefined' && target.length) {
+                    $(function () {
+                        $('a').each(function () {
+                            var cUrl = $(this).attr('href');
+                            var bindStr = '?';
+                            if (cUrl && cUrl.indexOf('xdmTarget') == -1) {
+                                if (cUrl.indexOf('?') != -1) {
+                                    bindStr = '&';
+                                }
+                                var newUrl = cUrl + bindStr + 'xdmTarget=' + base64_encode(target);
+                                //console.log('new url ' + newUrl);
+                                //$(this).attr('href', newUrl);
+                            }
+
+
+                        });
+                    });
+                }
+
+            }
+        }
+
+        document.onreadystatechange = function () {
+
+            if(typeof easyXDM !=='undefined') {
+
+                var state = document.readyState;
+                if (state == 'interactive') {
+                } else if (state == 'complete') {
+                    init();
+                }
+            }else{
+                console.error('easy xdm not defined');
+            }
+
+        }
+
+    </script>
+
+
+
+
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../themes/mytheme/css/theme-blue.min.css' rel='stylesheet' type='text/css'><link href='../../admin-theme/bower_components/font-awesome/css/font-awesome.min.css' rel='stylesheet' type='text/css'><link href='../../admin-theme/html-white/dist/css/application.css' rel='stylesheet' type='text/css'><link href='../../themes/mytheme/css/bootstrap-override-white.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class=" xTheme xTheme-white">
+    <header class="Navbar hidden-print">
+    <a class="Navbar__brand" href="../../index.html">Control-Freak</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451"><path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/></svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on" results=25 autosave=text_search>
+    </div>
+</header>
+<div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <div class="Collapsible__container">
+            <button type="button" class="Button Collapsible__trigger">
+                <span class="Collapsible__trigger--bar"></span>
+                <span class="Collapsible__trigger--bar"></span>
+                <span class="Collapsible__trigger--bar"></span>
+            </button>
+        </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item '><a href="../../Getting_Started.html">Getting Started</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Installation</a><ul class='Nav'><li class='Nav__item '><a href="../../Installation/Windows.html">Windows</a></li><li class='Nav__item '><a href="../../Installation/Linux.html">Linux</a></li><li class='Nav__item '><a href="../../Installation/Raspberry-PI.html">Raspberry-PI</a></li><li class='Nav__item '><a href="../../Installation/OSX.html">OSX</a></li><li class='Nav__item  has-children'><a href="../../Installation/WEB/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>WEB</a><ul class='Nav'><li class='Nav__item '><a href="../../Installation/WEB/Requirements.html">Requirements</a></li></ul></li></ul></li><li class='Nav__item  has-children'><a href="../../Interface_Designer/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Interface Designer</a><ul class='Nav'><li class='Nav__item '><a href="../../Interface_Designer/Guide.html">Guide</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Examples</a><ul class='Nav'><li class='Nav__item '><a href="../../Interface_Designer/Examples/Button_Group.html">Button Group</a></li><li class='Nav__item '><a href="../../Interface_Designer/Examples/States.html">States</a></li></ul></li><li class='Nav__item '><a href="../../Interface_Designer/States.html">States</a></li><li class='Nav__item '><a href="../../Interface_Designer/VariableStates.html">VariableStates</a></li><li class='Nav__item  has-children'><a href="../../Interface_Designer/Widgets/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Widgets</a><ul class='Nav'><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Accordion.html">deliteful/Accordion</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Button.html">deliteful/Button</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Checkbox.html">deliteful/Checkbox</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Combobox.html">deliteful/Combobox</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/features.html">deliteful/features</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/LinearLayout.html">deliteful/LinearLayout</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>list</a><ul class='Nav'><li class='Nav__item '><a href="../../Interface_Designer/Widgets/list/List.html">deliteful/list/List</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/list/PageableList.html">deliteful/list/PageableList</a></li></ul></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Panel.html">deliteful/Panel</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/ProgressBar.html">deliteful/ProgressBar</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/RadioButton.html">deliteful/RadioButton</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Select.html">deliteful/Select</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/SidePane.html">deliteful/SidePane</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Slider.html">deliteful/Slider</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/StarRating.html">deliteful/StarRating</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/styling.html">styling</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/SwapView.html">deliteful/SwapView</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Switch.html">deliteful/Switch</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/Toaster.html">deliteful/Toaster</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/ToggleButton.html">deliteful/ToggleButton</a></li><li class='Nav__item  has-children'><a href="../../Interface_Designer/Widgets/tutorial/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>tutorial</a><ul class='Nav'><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part1GettingStarted.html">Deliteful Tutorial Part 1</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part2QuickLook.html">Deliteful Tutorial Part 2</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part3PhotoFeedApp.html">Deliteful Tutorial Part 3</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part4ListView.html">Deliteful Tutorial Part 4</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part5CustomRenderer.html">Deliteful Tutorial Part 5</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part6DetailsView.html">Deliteful Tutorial Part 6</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part7SettingsView.html">Deliteful Tutorial Part 7</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/tutorial/Part8Build.html">Deliteful Tutorial Part 8</a></li></ul></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/ViewIndicator.html">deliteful/ViewIndicator</a></li><li class='Nav__item '><a href="../../Interface_Designer/Widgets/ViewStack.html">deliteful/ViewStack</a></li></ul></li></ul></li><li class='Nav__item  has-children'><a href="../../Driver/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Driver</a><ul class='Nav'><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Code Examples</a><ul class='Nav'><li class='Nav__item '><a href="../../Driver/Code_Examples/Expressions.html">Expressions</a></li><li class='Nav__item '><a href="../../Driver/Code_Examples/Variable_Changes.html">Variable Changes</a></li></ul></li><li class='Nav__item  has-children'><a href="../../Driver/Built-In/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Built-In</a><ul class='Nav'><li class='Nav__item '><a href="../../Driver/Built-In/VLC.html">VLC</a></li></ul></li><li class='Nav__item '><a href="../../Driver/Guide.html">Guide</a></li><li class='Nav__item '><a href="../../Driver/API.html">API</a></li><li class='Nav__item '><a href="../../Driver/Editors.html">Editors</a></li><li class='Nav__item '><a href="../../Driver/Debugging.html">Debugging</a></li><li class='Nav__item '><a href="../../Driver/Intern.html">Intern</a></li><li class='Nav__item  has-children'><a href="../../Driver/Fiddle/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Fiddle</a><ul class='Nav'><li class='Nav__item '><a href="../../Driver/Fiddle/Blocks_Example.html">Blocks Example</a></li><li class='Nav__item '><a href="../../Driver/Fiddle/Blocks_Template.html">Blocks Template</a></li></ul></li></ul></li><li class='Nav__item '><a href="../../Protocols/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Protocols</a><ul class='Nav'></ul></li><li class='Nav__item  has-children'><a href="../../Blocks/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Blocks</a><ul class='Nav'><li class='Nav__item '><a href="../../Blocks/Command.html">Command</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Events</a><ul class='Nav'><li class='Nav__item '><a href="../../Blocks/Events/OnEvent.html">OnEvent</a></li></ul></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>File</a><ul class='Nav'><li class='Nav__item '><a href="../../Blocks/File/ReadJSON.html">ReadJSON</a></li></ul></li></ul></li><li class='Nav__item '><a href="../../Exporter/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Exporter</a><ul class='Nav'></ul></li><li class='Nav__item '><a href="../../Device_Server/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Device Server</a><ul class='Nav'></ul></li><li class='Nav__item '><a href="../../Tutorials/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Tutorials</a><ul class='Nav'></ul></li><li class='Nav__item '><a href="../../Raspberry_PI/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Raspberry PI</a><ul class='Nav'></ul></li><li class='Nav__item Nav__item--open has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Resources</a><ul class='Nav'><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Software</a><ul class='Nav'><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>MQTT</a><ul class='Nav'><li class='Nav__item '><a href="../../Resources/Software/MQTT/Software.html">Software</a></li><li class='Nav__item '><a href="../../Resources/Software/MQTT/Architecture.html">Architecture</a></li></ul></li><li class='Nav__item '><a href="../../Resources/Software/Tools/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Tools</a><ul class='Nav'></ul></li></ul></li><li class='Nav__item Nav__item--open'><a href="../../Resources/Utils_API/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Utils API</a><ul class='Nav'></ul></li></ul></li></ul>
+
+            <div class="Links">
+                
+                
+                            </div>
+        </div>
+    </aside>
+    <div class="Columns__right ">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../../Resources/Software/MQTT/Software.html">Resources</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../../Resources/Utils_API/index.html">Utils API</a></h1>
+                        <span style="float: right; font-size: 10px; color: gray;">
+            <a href="https://github.com/net-commander/net-commander-documentation/blob/master/docFiles/Resources/03_Utils_API/_index.md" target="_blank">Edit on GitHub</a>
+        </span>
+            </div>
+
+
+    <div class="s-content">
+        <h3 id="page_jQuery">jQuery</h3>
+<p><a href="../../jQuery/index.html/broken">Please find a built-in documentation here</a></p>
+<h3 id="page_Times_and_Dates">Times and Dates</h3>
+<p>The <em>Control Freak</em> SDK provides a general purpose API dealing with times and dates. This API is implemented
+by <a href="https://http://momentjs.com/docs">Momentjs</a></p>
+<h3 id="page_Strings_and_Numbers">Strings and Numbers</h3>
+<p>The <em>Control Freak</em> SDK provides a general purpose API dealing with arrays, numbers and strings. This API is implemented
+by <a href="https://lodash.com/">lodash</a> <span>Lodash</span></p>
+<!-- div class="toc-container" -->
+<!-- div -->
+<h2 id="page_"><code>Array</code></h2>
+<ul>
+<li>
+<a href="#_chunkarray-size1"><code>_.chunk</code></a>
+</li>
+<li>
+<a href="#_compactarray"><code>_.compact</code></a>
+</li>
+<li>
+<a href="#_differencearray-values"><code>_.difference</code></a>
+</li>
+<li>
+<a href="#_droparray-n1"><code>_.drop</code></a>
+</li>
+<li>
+<a href="#_droprightarray-n1"><code>_.dropRight</code></a>
+</li>
+<li>
+<a href="#_droprightwhilearray-predicate_identity-thisarg"><code>_.dropRightWhile</code></a>
+</li>
+<li>
+<a href="#_dropwhilearray-predicate_identity-thisarg"><code>_.dropWhile</code></a>
+</li>
+<li>
+<a href="#_fillarray-value-start0-endarraylength"><code>_.fill</code></a>
+</li>
+<li>
+<a href="#_findindexarray-predicate_identity-thisarg"><code>_.findIndex</code></a>
+</li>
+<li>
+<a href="#_findlastindexarray-predicate_identity-thisarg"><code>_.findLastIndex</code></a>
+</li>
+<li>
+<a href="#_firstarray"><code>_.first</code></a>
+</li>
+<li>
+<a href="#_flattenarray-isdeep"><code>_.flatten</code></a>
+</li>
+<li>
+<a href="#_flattendeeparray"><code>_.flattenDeep</code></a>
+</li>
+<li>
+<a href="#_firstarray" class="alias"><code>_.head</code> -&gt; <code>first</code></a>
+</li>
+<li>
+<a href="#_indexofarray-value-fromindex0"><code>_.indexOf</code></a>
+</li>
+<li>
+<a href="#_initialarray"><code>_.initial</code></a>
+</li>
+<li>
+<a href="#_intersectionarrays"><code>_.intersection</code></a>
+</li>
+<li>
+<a href="#_lastarray"><code>_.last</code></a>
+</li>
+<li>
+<a href="#_lastindexofarray-value-fromindexarraylength-1"><code>_.lastIndexOf</code></a>
+</li>
+<li>
+<a href="#_zipobjectprops-values" class="alias"><code>_.object</code> -&gt; <code>zipObject</code></a>
+</li>
+<li>
+<a href="#_pullarray-values"><code>_.pull</code></a>
+</li>
+<li>
+<a href="#_pullatarray-indexes"><code>_.pullAt</code></a>
+</li>
+<li>
+<a href="#_removearray-predicate_identity-thisarg"><code>_.remove</code></a>
+</li>
+<li>
+<a href="#_restarray"><code>_.rest</code></a>
+</li>
+<li>
+<a href="#_slicearray-start0-endarraylength"><code>_.slice</code></a>
+</li>
+<li>
+<a href="#_sortedindexarray-value-iteratee_identity-thisarg"><code>_.sortedIndex</code></a>
+</li>
+<li>
+<a href="#_sortedlastindexarray-value-iteratee_identity-thisarg"><code>_.sortedLastIndex</code></a>
+</li>
+<li>
+<a href="#_restarray" class="alias"><code>_.tail</code> -&gt; <code>rest</code></a>
+</li>
+<li>
+<a href="#_takearray-n1"><code>_.take</code></a>
+</li>
+<li>
+<a href="#_takerightarray-n1"><code>_.takeRight</code></a>
+</li>
+<li>
+<a href="#_takerightwhilearray-predicate_identity-thisarg"><code>_.takeRightWhile</code></a>
+</li>
+<li>
+<a href="#_takewhilearray-predicate_identity-thisarg"><code>_.takeWhile</code></a>
+</li>
+<li>
+<a href="#_unionarrays"><code>_.union</code></a>
+</li>
+<li>
+<a href="#_uniqarray-issorted-iteratee-thisarg"><code>_.uniq</code></a>
+</li>
+<li>
+<a href="#_uniqarray-issorted-iteratee-thisarg" class="alias"><code>_.unique</code> -&gt; <code>uniq</code></a>
+</li>
+<li>
+<a href="#_unziparray"><code>_.unzip</code></a>
+</li>
+<li>
+<a href="#_withoutarray-values"><code>_.without</code></a>
+</li>
+<li>
+<a href="#_xorarrays"><code>_.xor</code></a>
+</li>
+<li>
+<a href="#_ziparrays"><code>_.zip</code></a>
+</li>
+<li>
+<a href="#_zipobjectprops-values"><code>_.zipObject</code></a>
+</li>
+</ul>
+<!-- /div -->
+<!-- div -->
+<h2 id="page_"><code>Chain</code></h2>
+<ul>
+<li>
+<a href="#_value"><code>_</code></a>
+</li>
+<li>
+<a href="#_chainvalue"><code>_.chain</code></a>
+</li>
+<li>
+<a href="#_tapvalue-interceptor-thisarg"><code>_.tap</code></a>
+</li>
+<li>
+<a href="#_thruvalue-interceptor-thisarg"><code>_.thru</code></a>
+</li>
+<li>
+<a href="#_prototypechain"><code>_.prototype.chain</code></a>
+</li>
+<li>
+<a href="#_prototypecommit"><code>_.prototype.commit</code></a>
+</li>
+<li>
+<a href="#_prototypeplant"><code>_.prototype.plant</code></a>
+</li>
+<li>
+<a href="#_prototypereverse"><code>_.prototype.reverse</code></a>
+</li>
+<li>
+<a href="#_prototypevalue" class="alias"><code>_.prototype.run</code> -&gt; <code>value</code></a>
+</li>
+<li>
+<a href="#_prototypevalue" class="alias"><code>_.prototype.toJSON</code> -&gt; <code>value</code></a>
+</li>
+<li>
+<a href="#_prototypetostring"><code>_.prototype.toString</code></a>
+</li>
+<li>
+<a href="#_prototypevalue"><code>_.prototype.value</code></a>
+</li>
+<li>
+<a href="#_prototypevalue" class="alias"><code>_.prototype.valueOf</code> -&gt; <code>value</code></a>
+</li>
+</ul>
+<!-- /div -->
+<!-- div -->
+<h2 id="page_"><code>Collection</code></h2>
+<ul>
+<li>
+<a href="#_everycollection-predicate_identity-thisarg" class="alias"><code>_.all</code> -&gt; <code>every</code></a>
+</li>
+<li>
+<a href="#_somecollection-predicate_identity-thisarg" class="alias"><code>_.any</code> -&gt; <code>some</code></a>
+</li>
+<li>
+<a href="#_atcollection-props"><code>_.at</code></a>
+</li>
+<li>
+<a href="#_mapcollection-iteratee_identity-thisarg" class="alias"><code>_.collect</code> -&gt; <code>map</code></a>
+</li>
+<li>
+<a href="#_includescollection-target-fromindex0" class="alias"><code>_.contains</code> -&gt; <code>includes</code></a>
+</li>
+<li>
+<a href="#_countbycollection-iteratee_identity-thisarg"><code>_.countBy</code></a>
+</li>
+<li>
+<a href="#_findcollection-predicate_identity-thisarg" class="alias"><code>_.detect</code> -&gt; <code>find</code></a>
+</li>
+<li>
+<a href="#_foreachcollection-iteratee_identity-thisarg" class="alias"><code>_.each</code> -&gt; <code>forEach</code></a>
+</li>
+<li>
+<a href="#_foreachrightcollection-iteratee_identity-thisarg" class="alias"><code>_.eachRight</code> -&gt; <code>forEachRight</code></a>
+</li>
+<li>
+<a href="#_everycollection-predicate_identity-thisarg"><code>_.every</code></a>
+</li>
+<li>
+<a href="#_filtercollection-predicate_identity-thisarg"><code>_.filter</code></a>
+</li>
+<li>
+<a href="#_findcollection-predicate_identity-thisarg"><code>_.find</code></a>
+</li>
+<li>
+<a href="#_findlastcollection-predicate_identity-thisarg"><code>_.findLast</code></a>
+</li>
+<li>
+<a href="#_findwherecollection-source"><code>_.findWhere</code></a>
+</li>
+<li>
+<a href="#_reducecollection-iteratee_identity-accumulator-thisarg" class="alias"><code>_.foldl</code> -&gt; <code>reduce</code></a>
+</li>
+<li>
+<a href="#_reducerightcollection-iteratee_identity-accumulator-thisarg" class="alias"><code>_.foldr</code> -&gt; <code>reduceRight</code></a>
+</li>
+<li>
+<a href="#_foreachcollection-iteratee_identity-thisarg"><code>_.forEach</code></a>
+</li>
+<li>
+<a href="#_foreachrightcollection-iteratee_identity-thisarg"><code>_.forEachRight</code></a>
+</li>
+<li>
+<a href="#_groupbycollection-iteratee_identity-thisarg"><code>_.groupBy</code></a>
+</li>
+<li>
+<a href="#_includescollection-target-fromindex0" class="alias"><code>_.include</code> -&gt; <code>includes</code></a>
+</li>
+<li>
+<a href="#_includescollection-target-fromindex0"><code>_.includes</code></a>
+</li>
+<li>
+<a href="#_indexbycollection-iteratee_identity-thisarg"><code>_.indexBy</code></a>
+</li>
+<li>
+<a href="#_reducecollection-iteratee_identity-accumulator-thisarg" class="alias"><code>_.inject</code> -&gt; <code>reduce</code></a>
+</li>
+<li>
+<a href="#_invokecollection-methodname-args"><code>_.invoke</code></a>
+</li>
+<li>
+<a href="#_mapcollection-iteratee_identity-thisarg"><code>_.map</code></a>
+</li>
+<li>
+<a href="#_partitioncollection-predicate_identity-thisarg"><code>_.partition</code></a>
+</li>
+<li>
+<a href="#_pluckcollection-key"><code>_.pluck</code></a>
+</li>
+<li>
+<a href="#_reducecollection-iteratee_identity-accumulator-thisarg"><code>_.reduce</code></a>
+</li>
+<li>
+<a href="#_reducerightcollection-iteratee_identity-accumulator-thisarg"><code>_.reduceRight</code></a>
+</li>
+<li>
+<a href="#_rejectcollection-predicate_identity-thisarg"><code>_.reject</code></a>
+</li>
+<li>
+<a href="#_samplecollection-n"><code>_.sample</code></a>
+</li>
+<li>
+<a href="#_filtercollection-predicate_identity-thisarg" class="alias"><code>_.select</code> -&gt; <code>filter</code></a>
+</li>
+<li>
+<a href="#_shufflecollection"><code>_.shuffle</code></a>
+</li>
+<li>
+<a href="#_sizecollection"><code>_.size</code></a>
+</li>
+<li>
+<a href="#_somecollection-predicate_identity-thisarg"><code>_.some</code></a>
+</li>
+<li>
+<a href="#_sortbycollection-iteratee_identity-thisarg"><code>_.sortBy</code></a>
+</li>
+<li>
+<a href="#_sortbyallcollection-props"><code>_.sortByAll</code></a>
+</li>
+<li>
+<a href="#_sortbyordercollection-props-orders"><code>_.sortByOrder</code></a>
+</li>
+<li>
+<a href="#_wherecollection-source"><code>_.where</code></a>
+</li>
+</ul>
+<!-- /div -->
+<!-- div -->
+<h2 id="page_"><code>Date</code></h2>
+<ul>
+<li>
+<a href="#_now"><code>_.now</code></a>
+</li>
+</ul>
+<!-- /div -->
+<!-- div -->
+<h2 id="page_"><code>Function</code></h2>
+<ul>
+<li>
+<a href="#_aftern-func"><code>_.after</code></a>
+</li>
+<li>
+<a href="#_aryfunc-nfunclength"><code>_.ary</code></a>
+</li>
+<li>
+<a href="#_flowrightfuncs" class="alias"><code>_.backflow</code> -&gt; <code>flowRight</code></a>
+</li>
+<li>
+<a href="#_beforen-func"><code>_.before</code></a>
+</li>
+<li>
+<a href="#_bindfunc-thisarg-partials"><code>_.bind</code></a>
+</li>
+<li>
+<a href="#_bindallobject-methodnames"><code>_.bindAll</code></a>
+</li>
+<li>
+<a href="#_bindkeyobject-key-partials"><code>_.bindKey</code></a>
+</li>
+<li>
+<a href="#_flowrightfuncs" class="alias"><code>_.compose</code> -&gt; <code>flowRight</code></a>
+</li>
+<li>
+<a href="#_curryfunc-arityfunclength"><code>_.curry</code></a>
+</li>
+<li>
+<a href="#_curryrightfunc-arityfunclength"><code>_.curryRight</code></a>
+</li>
+<li>
+<a href="#_debouncefunc-wait0-options"><code>_.debounce</code></a>
+</li>
+<li>
+<a href="#_deferfunc-args"><code>_.defer</code></a>
+</li>
+<li>
+<a href="#_delayfunc-wait-args"><code>_.delay</code></a>
+</li>
+<li>
+<a href="#_flowfuncs"><code>_.flow</code></a>
+</li>
+<li>
+<a href="#_flowrightfuncs"><code>_.flowRight</code></a>
+</li>
+<li>
+<a href="#_memoizefunc-resolver"><code>_.memoize</code></a>
+</li>
+<li>
+<a href="#_negatepredicate"><code>_.negate</code></a>
+</li>
+<li>
+<a href="#_oncefunc"><code>_.once</code></a>
+</li>
+<li>
+<a href="#_partialfunc-partials"><code>_.partial</code></a>
+</li>
+<li>
+<a href="#_partialrightfunc-partials"><code>_.partialRight</code></a>
+</li>
+<li>
+<a href="#_reargfunc-indexes"><code>_.rearg</code></a>
+</li>
+<li>
+<a href="#_restparamfunc-startfunclength-1"><code>_.restParam</code></a>
+</li>
+<li>
+<a href="#_spreadfunc"><code>_.spread</code></a>
+</li>
+<li>
+<a href="#_throttlefunc-wait0-options"><code>_.throttle</code></a>
+</li>
+<li>
+<a href="#_wrapvalue-wrapper"><code>_.wrap</code></a>
+</li>
+</ul>
+<!-- /div -->
+<!-- div -->
+<h2 id="page_"><code>Lang</code></h2>
+<ul>
+<li>
+<a href="#_clonevalue-isdeep-customizer-thisarg"><code>_.clone</code></a>
+</li>
+<li>
+<a href="#_clonedeepvalue-customizer-thisarg"><code>_.cloneDeep</code></a>
+</li>
+<li>
+<a href="#_isargumentsvalue"><code>_.isArguments</code></a>
+</li>
+<li>
+<a href="#_isarrayvalue"><code>_.isArray</code></a>
+</li>
+<li>
+<a href="#_isbooleanvalue"><code>_.isBoolean</code></a>
+</li>
+<li>
+<a href="#_isdatevalue"><code>_.isDate</code></a>
+</li>
+<li>
+<a href="#_iselementvalue"><code>_.isElement</code></a>
+</li>
+<li>
+<a href="#_isemptyvalue"><code>_.isEmpty</code></a>
+</li>
+<li>
+<a href="#_isequalvalue-other-customizer-thisarg"><code>_.isEqual</code></a>
+</li>
+<li>
+<a href="#_iserrorvalue"><code>_.isError</code></a>
+</li>
+<li>
+<a href="#_isfinitevalue"><code>_.isFinite</code></a>
+</li>
+<li>
+<a href="#_isfunctionvalue"><code>_.isFunction</code></a>
+</li>
+<li>
+<a href="#_ismatchobject-source-customizer-thisarg"><code>_.isMatch</code></a>
+</li>
+<li>
+<a href="#_isnanvalue"><code>_.isNaN</code></a>
+</li>
+<li>
+<a href="#_isnativevalue"><code>_.isNative</code></a>
+</li>
+<li>
+<a href="#_isnullvalue"><code>_.isNull</code></a>
+</li>
+<li>
+<a href="#_isnumbervalue"><code>_.isNumber</code></a>
+</li>
+<li>
+<a href="#_isobjectvalue"><code>_.isObject</code></a>
+</li>
+<li>
+<a href="#_isplainobjectvalue"><code>_.isPlainObject</code></a>
+</li>
+<li>
+<a href="#_isregexpvalue"><code>_.isRegExp</code></a>
+</li>
+<li>
+<a href="#_isstringvalue"><code>_.isString</code></a>
+</li>
+<li>
+<a href="#_istypedarrayvalue"><code>_.isTypedArray</code></a>
+</li>
+<li>
+<a href="#_isundefinedvalue"><code>_.isUndefined</code></a>
+</li>
+<li>
+<a href="#_toarrayvalue"><code>_.toArray</code></a>
+</li>
+<li>
+<a href="#_toplainobjectvalue"><code>_.toPlainObject</code></a>
+</li>
+</ul>
+<!-- /div -->
+<!-- div -->
+<h2 id="page_"><code>Math</code></h2>
+<ul>
+<li>
+<a href="#_addaugend-addend"><code>_.add</code></a>
+</li>
+<li>
+<a href="#_maxcollection-iteratee-thisarg"><code>_.max</code></a>
+</li>
+<li>
+<a href="#_mincollection-iteratee-thisarg"><code>_.min</code></a>
+</li>
+<li>
+<a href="#_sumcollection-iteratee-thisarg"><code>_.sum</code></a>
+</li>
+</ul>
+<!-- /div -->
+<!-- div -->
+<h2 id="page_"><code>Number</code></h2>
+<ul>
+<li>
+<a href="#_inrangen-start0-end"><code>_.inRange</code></a>
+</li>
+<li>
+<a href="#_randommin0-max1-floating"><code>_.random</code></a>
+</li>
+</ul>
+<!-- /div -->
+<!-- div -->
+<h2 id="page_"><code>Object</code></h2>
+<ul>
+<li>
+<a href="#_assignobject-sources-customizer-thisarg"><code>_.assign</code></a>
+</li>
+<li>
+<a href="#_createprototype-properties"><code>_.create</code></a>
+</li>
+<li>
+<a href="#_defaultsobject-sources"><code>_.defaults</code></a>
+</li>
+<li>
+<a href="#_assignobject-sources-customizer-thisarg" class="alias"><code>_.extend</code> -&gt; <code>assign</code></a>
+</li>
+<li>
+<a href="#_findkeyobject-predicate_identity-thisarg"><code>_.findKey</code></a>
+</li>
+<li>
+<a href="#_findlastkeyobject-predicate_identity-thisarg"><code>_.findLastKey</code></a>
+</li>
+<li>
+<a href="#_forinobject-iteratee_identity-thisarg"><code>_.forIn</code></a>
+</li>
+<li>
+<a href="#_forinrightobject-iteratee_identity-thisarg"><code>_.forInRight</code></a>
+</li>
+<li>
+<a href="#_forownobject-iteratee_identity-thisarg"><code>_.forOwn</code></a>
+</li>
+<li>
+<a href="#_forownrightobject-iteratee_identity-thisarg"><code>_.forOwnRight</code></a>
+</li>
+<li>
+<a href="#_functionsobject"><code>_.functions</code></a>
+</li>
+<li>
+<a href="#_hasobject-key"><code>_.has</code></a>
+</li>
+<li>
+<a href="#_invertobject-multivalue"><code>_.invert</code></a>
+</li>
+<li>
+<a href="#_keysobject"><code>_.keys</code></a>
+</li>
+<li>
+<a href="#_keysinobject"><code>_.keysIn</code></a>
+</li>
+<li>
+<a href="#_mapvaluesobject-iteratee_identity-thisarg"><code>_.mapValues</code></a>
+</li>
+<li>
+<a href="#_mergeobject-sources-customizer-thisarg"><code>_.merge</code></a>
+</li>
+<li>
+<a href="#_functionsobject" class="alias"><code>_.methods</code> -&gt; <code>functions</code></a>
+</li>
+<li>
+<a href="#_omitobject-predicate-thisarg"><code>_.omit</code></a>
+</li>
+<li>
+<a href="#_pairsobject"><code>_.pairs</code></a>
+</li>
+<li>
+<a href="#_pickobject-predicate-thisarg"><code>_.pick</code></a>
+</li>
+<li>
+<a href="#_resultobject-key-defaultvalue"><code>_.result</code></a>
+</li>
+<li>
+<a href="#_transformobject-iteratee_identity-accumulator-thisarg"><code>_.transform</code></a>
+</li>
+<li>
+<a href="#_valuesobject"><code>_.values</code></a>
+</li>
+<li>
+<a href="#_valuesinobject"><code>_.valuesIn</code></a>
+</li>
+</ul>
+<!-- /div -->
+<!-- div -->
+<h2 id="page_"><code>String</code></h2>
+<ul>
+<li>
+<a href="#_camelcasestring"><code>_.camelCase</code></a>
+</li>
+<li>
+<a href="#_capitalizestring"><code>_.capitalize</code></a>
+</li>
+<li>
+<a href="#_deburrstring"><code>_.deburr</code></a>
+</li>
+<li>
+<a href="#_endswithstring-target-positionstringlength"><code>_.endsWith</code></a>
+</li>
+<li>
+<a href="#_escapestring"><code>_.escape</code></a>
+</li>
+<li>
+<a href="#_escaperegexpstring"><code>_.escapeRegExp</code></a>
+</li>
+<li>
+<a href="#_kebabcasestring"><code>_.kebabCase</code></a>
+</li>
+<li>
+<a href="#_padstring-length0-chars"><code>_.pad</code></a>
+</li>
+<li>
+<a href="#_padleftstring-length0-chars"><code>_.padLeft</code></a>
+</li>
+<li>
+<a href="#_padrightstring-length0-chars"><code>_.padRight</code></a>
+</li>
+<li>
+<a href="#_parseintstring-radix"><code>_.parseInt</code></a>
+</li>
+<li>
+<a href="#_repeatstring-n0"><code>_.repeat</code></a>
+</li>
+<li>
+<a href="#_snakecasestring"><code>_.snakeCase</code></a>
+</li>
+<li>
+<a href="#_startcasestring"><code>_.startCase</code></a>
+</li>
+<li>
+<a href="#_startswithstring-target-position0"><code>_.startsWith</code></a>
+</li>
+<li>
+<a href="#_templatestring-options"><code>_.template</code></a>
+</li>
+<li>
+<a href="#_trimstring-charswhitespace"><code>_.trim</code></a>
+</li>
+<li>
+<a href="#_trimleftstring-charswhitespace"><code>_.trimLeft</code></a>
+</li>
+<li>
+<a href="#_trimrightstring-charswhitespace"><code>_.trimRight</code></a>
+</li>
+<li>
+<a href="#_truncstring-options-optionslength30-optionsomission-optionsseparator"><code>_.trunc</code></a>
+</li>
+<li>
+<a href="#_unescapestring"><code>_.unescape</code></a>
+</li>
+<li>
+<a href="#_wordsstring-pattern"><code>_.words</code></a>
+</li>
+</ul>
+<!-- /div -->
+<!-- div -->
+<h2 id="page_"><code>Utility</code></h2>
+<ul>
+<li>
+<a href="#_attemptfunc"><code>_.attempt</code></a>
+</li>
+<li>
+<a href="#_callbackfunc_identity-thisarg"><code>_.callback</code></a>
+</li>
+<li>
+<a href="#_constantvalue"><code>_.constant</code></a>
+</li>
+<li>
+<a href="#_identityvalue"><code>_.identity</code></a>
+</li>
+<li>
+<a href="#_callbackfunc_identity-thisarg" class="alias"><code>_.iteratee</code> -&gt; <code>callback</code></a>
+</li>
+<li>
+<a href="#_matchessource"><code>_.matches</code></a>
+</li>
+<li>
+<a href="#_matchespropertykey-value"><code>_.matchesProperty</code></a>
+</li>
+<li>
+<a href="#_mixinobjectthis-source-options"><code>_.mixin</code></a>
+</li>
+<li>
+<a href="#_noconflict"><code>_.noConflict</code></a>
+</li>
+<li>
+<a href="#_noop"><code>_.noop</code></a>
+</li>
+<li>
+<a href="#_propertykey"><code>_.property</code></a>
+</li>
+<li>
+<a href="#_propertyofobject"><code>_.propertyOf</code></a>
+</li>
+<li>
+<a href="#_rangestart0-end-step1"><code>_.range</code></a>
+</li>
+<li>
+<a href="#_runincontextcontextroot"><code>_.runInContext</code></a>
+</li>
+<li>
+<a href="#_timesn-iteratee_identity-thisarg"><code>_.times</code></a>
+</li>
+<li>
+<a href="#_uniqueidprefix"><code>_.uniqueId</code></a>
+</li>
+</ul>
+<!-- /div -->
+<!-- div -->
+<h2 id="page_"><code>Methods</code></h2>
+<ul>
+<li>
+<a href="#_templatesettingsimports_"><code>_.templateSettings.imports._</code></a>
+</li>
+</ul>
+<!-- /div -->
+<!-- div -->
+<h2 id="page_"><code>Properties</code></h2>
+<ul>
+<li>
+<a href="#_version"><code>_.VERSION</code></a>
+</li>
+<li>
+<a href="#_support"><code>_.support</code></a>
+</li>
+<li>
+<a href="#_supportargstag"><code>_.support.argsTag</code></a>
+</li>
+<li>
+<a href="#_supportenumerrorprops"><code>_.support.enumErrorProps</code></a>
+</li>
+<li>
+<a href="#_supportenumprototypes"><code>_.support.enumPrototypes</code></a>
+</li>
+<li>
+<a href="#_supportfuncdecomp"><code>_.support.funcDecomp</code></a>
+</li>
+<li>
+<a href="#_supportfuncnames"><code>_.support.funcNames</code></a>
+</li>
+<li>
+<a href="#_supportnodetag"><code>_.support.nodeTag</code></a>
+</li>
+<li>
+<a href="#_supportnonenumshadows"><code>_.support.nonEnumShadows</code></a>
+</li>
+<li>
+<a href="#_supportnonenumstrings"><code>_.support.nonEnumStrings</code></a>
+</li>
+<li>
+<a href="#_supportownlast"><code>_.support.ownLast</code></a>
+</li>
+<li>
+<a href="#_supportspliceobjects"><code>_.support.spliceObjects</code></a>
+</li>
+<li>
+<a href="#_supportunindexedchars"><code>_.support.unindexedChars</code></a>
+</li>
+<li>
+<a href="#_templatesettings"><code>_.templateSettings</code></a>
+</li>
+<li>
+<a href="#_templatesettingsescape"><code>_.templateSettings.escape</code></a>
+</li>
+<li>
+<a href="#_templatesettingsevaluate"><code>_.templateSettings.evaluate</code></a>
+</li>
+<li>
+<a href="#_templatesettingsimports"><code>_.templateSettings.imports</code></a>
+</li>
+<li>
+<a href="#_templatesettingsinterpolate"><code>_.templateSettings.interpolate</code></a>
+</li>
+<li>
+<a href="#_templatesettingsvariable"><code>_.templateSettings.variable</code></a>
+</li>
+</ul>
+<!-- /div -->
+<!-- /div -->
+<!-- div class="doc-container" -->
+<!-- div -->
+<h2 id="page_"><code>“Array” Methods</code></h2>
+<!-- div -->
+<h3 id="page_"><a id="_chunkarray-size1"></a><code>_.chunk(array, [size=1])</code></h3>
+<p><a href="#_chunkarray-size1">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L4536" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.chunk" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates an array of elements split into groups the length of <code>size</code>.
+If <code>collection</code> can't be split evenly, the final chunk will be the remaining
+elements.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to process.</li>
+<li>
+<code>[size=1]</code> <em>(number)</em>: The length of each chunk.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the new array containing chunks.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.chunk(['a', 'b', 'c', 'd'], 2);
+// =&gt; [['a', 'b'], ['c', 'd']]
+
+_.chunk(['a', 'b', 'c', 'd'], 3);
+// =&gt; [['a', 'b', 'c'], ['d']]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_compactarray"></a><code>_.compact(array)</code></h3>
+<p><a href="#_compactarray">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L4567" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.compact" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates an array with all falsey values removed. The values <code>false</code>, <code>null</code>,
+<code>0</code>, <code>&quot;&quot;</code>, <code>undefined</code>, and <code>NaN</code> are falsey.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to compact.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the new array of filtered values.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.compact([0, 1, false, 2, '', 3]);
+// =&gt; [1, 2, 3]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_differencearray-values"></a><code>_.difference(array, [values])</code></h3>
+<p><a href="#_differencearray-values">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L4602" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.difference" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates an array excluding all values of the provided arrays using
+<code>SameValueZero</code> for equality comparisons.
+<br>
+<br>
+<strong>Note:</strong> <code>SameValueZero</code> comparisons are like strict equality comparisons,
+e.g. <code>===</code>, except that <code>NaN</code> matches <code>NaN</code>. See the
+<a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero" class="external">ES spec</a>
+for more details.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to inspect.</li>
+<li>
+<code>[values]</code> <em>(...Array)</em>: The arrays of values to exclude.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the new array of filtered values.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.difference([1, 2, 3], [4, 2]);
+// =&gt; [1, 3]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_droparray-n1"></a><code>_.drop(array, [n=1])</code></h3>
+<p><a href="#_droparray-n1">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L4632" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.drop" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates a slice of <code>array</code> with <code>n</code> elements dropped from the beginning.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to query.</li>
+<li>
+<code>[n=1]</code> <em>(number)</em>: The number of elements to drop.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the slice of <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.drop([1, 2, 3]);
+// =&gt; [2, 3]
+
+_.drop([1, 2, 3], 2);
+// =&gt; [3]
+
+_.drop([1, 2, 3], 5);
+// =&gt; []
+
+_.drop([1, 2, 3], 0);
+// =&gt; [1, 2, 3]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_droprightarray-n1"></a><code>_.dropRight(array, [n=1])</code></h3>
+<p><a href="#_droprightarray-n1">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L4667" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.dropright" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates a slice of <code>array</code> with <code>n</code> elements dropped from the end.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to query.</li>
+<li>
+<code>[n=1]</code> <em>(number)</em>: The number of elements to drop.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the slice of <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.dropRight([1, 2, 3]);
+// =&gt; [1, 2]
+
+_.dropRight([1, 2, 3], 2);
+// =&gt; [1]
+
+_.dropRight([1, 2, 3], 5);
+// =&gt; []
+
+_.dropRight([1, 2, 3], 0);
+// =&gt; [1, 2, 3]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_droprightwhilearray-predicate_identity-thisarg"></a><code>_.dropRightWhile(array, [predicate=_.identity], [thisArg])</code></h3>
+<p><a href="#_droprightwhilearray-predicate_identity-thisarg">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L4728" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.droprightwhile" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates a slice of <code>array</code> excluding elements dropped from the end.
+Elements are dropped until <code>predicate</code> returns falsey. The predicate is
+bound to <code>thisArg</code> and invoked with three arguments: (value, index, array).
+<br>
+<br>
+If a property name is provided for <code>predicate</code> the created <code>_.property</code>
+style callback returns the property value of the given element.
+<br>
+<br>
+If a value is also provided for <code>thisArg</code> the created <code>_.matchesProperty</code>
+style callback returns <code>true</code> for elements that have a matching property
+value, else <code>false</code>.
+<br>
+<br>
+If an object is provided for <code>predicate</code> the created <code>_.matches</code> style
+callback returns <code>true</code> for elements that match the properties of the given
+object, else <code>false</code>.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to query.</li>
+<li>
+<code>[predicate=_.identity]</code> <em>(Function|Object|string)</em>: The function invoked per iteration.</li>
+<li>
+<code>[thisArg]</code> <em>(*)</em>: The <code>this</code> binding of <code>predicate</code>.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the slice of <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.dropRightWhile([1, 2, 3], function(n) {
+  return n &gt; 1;
+});
+// =&gt; [1]
+
+var users = [
+  { 'user': 'barney',  'active': true },
+  { 'user': 'fred',    'active': false },
+  { 'user': 'pebbles', 'active': false }
+];
+
+// using the `_.matches` callback shorthand
+_.pluck(_.dropRightWhile(users, { 'user': 'pebbles', 'active': false }), 'user');
+// =&gt; ['barney', 'fred']
+
+// using the `_.matchesProperty` callback shorthand
+_.pluck(_.dropRightWhile(users, 'active', false), 'user');
+// =&gt; ['barney']
+
+// using the `_.property` callback shorthand
+_.pluck(_.dropRightWhile(users, 'active'), 'user');
+// =&gt; ['barney', 'fred', 'pebbles']
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_dropwhilearray-predicate_identity-thisarg"></a><code>_.dropWhile(array, [predicate=_.identity], [thisArg])</code></h3>
+<p><a href="#_dropwhilearray-predicate_identity-thisarg">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L4783" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.dropwhile" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates a slice of <code>array</code> excluding elements dropped from the beginning.
+Elements are dropped until <code>predicate</code> returns falsey. The predicate is
+bound to <code>thisArg</code> and invoked with three arguments: (value, index, array).
+<br>
+<br>
+If a property name is provided for <code>predicate</code> the created <code>_.property</code>
+style callback returns the property value of the given element.
+<br>
+<br>
+If a value is also provided for <code>thisArg</code> the created <code>_.matchesProperty</code>
+style callback returns <code>true</code> for elements that have a matching property
+value, else <code>false</code>.
+<br>
+<br>
+If an object is provided for <code>predicate</code> the created <code>_.matches</code> style
+callback returns <code>true</code> for elements that have the properties of the given
+object, else <code>false</code>.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to query.</li>
+<li>
+<code>[predicate=_.identity]</code> <em>(Function|Object|string)</em>: The function invoked per iteration.</li>
+<li>
+<code>[thisArg]</code> <em>(*)</em>: The <code>this</code> binding of <code>predicate</code>.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the slice of <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.dropWhile([1, 2, 3], function(n) {
+  return n &lt; 3;
+});
+// =&gt; [3]
+
+var users = [
+  { 'user': 'barney',  'active': false },
+  { 'user': 'fred',    'active': false },
+  { 'user': 'pebbles', 'active': true }
+];
+
+// using the `_.matches` callback shorthand
+_.pluck(_.dropWhile(users, { 'user': 'barney', 'active': false }), 'user');
+// =&gt; ['fred', 'pebbles']
+
+// using the `_.matchesProperty` callback shorthand
+_.pluck(_.dropWhile(users, 'active', false), 'user');
+// =&gt; ['pebbles']
+
+// using the `_.property` callback shorthand
+_.pluck(_.dropWhile(users, 'active'), 'user');
+// =&gt; ['barney', 'fred', 'pebbles']
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_fillarray-value-start0-endarraylength"></a><code>_.fill(array, value, [start=0], [end=array.length])</code></h3>
+<p><a href="#_fillarray-value-start0-endarraylength">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L4817" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.fill" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Fills elements of <code>array</code> with <code>value</code> from <code>start</code> up to, but not
+including, <code>end</code>.
+<br>
+<br>
+<strong>Note:</strong> This method mutates <code>array</code>.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to fill.</li>
+<li>
+<code>value</code> <em>(*)</em>: The value to fill <code>array</code> with.</li>
+<li>
+<code>[start=0]</code> <em>(number)</em>: The start position.</li>
+<li>
+<code>[end=array.length]</code> <em>(number)</em>: The end position.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">var array = [1, 2, 3];
+
+_.fill(array, 'a');
+console.log(array);
+// =&gt; ['a', 'a', 'a']
+
+_.fill(Array(3), 2);
+// =&gt; [2, 2, 2]
+
+_.fill([4, 6, 8], '*', 1, 2);
+// =&gt; [4, '*', 8]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_findindexarray-predicate_identity-thisarg"></a><code>_.findIndex(array, [predicate=_.identity], [thisArg])</code></h3>
+<p><a href="#_findindexarray-predicate_identity-thisarg">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L4877" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.findindex" title="See the npm package" class="external">Ⓝ</a></p>
+<p>This method is like <code>_.find</code> except that it returns the index of the first
+element <code>predicate</code> returns truthy for instead of the element itself.
+<br>
+<br>
+If a property name is provided for <code>predicate</code> the created <code>_.property</code>
+style callback returns the property value of the given element.
+<br>
+<br>
+If a value is also provided for <code>thisArg</code> the created <code>_.matchesProperty</code>
+style callback returns <code>true</code> for elements that have a matching property
+value, else <code>false</code>.
+<br>
+<br>
+If an object is provided for <code>predicate</code> the created <code>_.matches</code> style
+callback returns <code>true</code> for elements that have the properties of the given
+object, else <code>false</code>.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to search.</li>
+<li>
+<code>[predicate=_.identity]</code> <em>(Function|Object|string)</em>: The function invoked per iteration.</li>
+<li>
+<code>[thisArg]</code> <em>(*)</em>: The <code>this</code> binding of <code>predicate</code>.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(number)</em>:  Returns the index of the found element, else <code>-1</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">var users = [
+  { 'user': 'barney',  'active': false },
+  { 'user': 'fred',    'active': false },
+  { 'user': 'pebbles', 'active': true }
+];
+
+_.findIndex(users, function(chr) {
+  return chr.user == 'barney';
+});
+// =&gt; 0
+
+// using the `_.matches` callback shorthand
+_.findIndex(users, { 'user': 'fred', 'active': false });
+// =&gt; 1
+
+// using the `_.matchesProperty` callback shorthand
+_.findIndex(users, 'active', false);
+// =&gt; 0
+
+// using the `_.property` callback shorthand
+_.findIndex(users, 'active');
+// =&gt; 2
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_findlastindexarray-predicate_identity-thisarg"></a><code>_.findLastIndex(array, [predicate=_.identity], [thisArg])</code></h3>
+<p><a href="#_findlastindexarray-predicate_identity-thisarg">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L4927" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.findlastindex" title="See the npm package" class="external">Ⓝ</a></p>
+<p>This method is like <code>_.findIndex</code> except that it iterates over elements
+of <code>collection</code> from right to left.
+<br>
+<br>
+If a property name is provided for <code>predicate</code> the created <code>_.property</code>
+style callback returns the property value of the given element.
+<br>
+<br>
+If a value is also provided for <code>thisArg</code> the created <code>_.matchesProperty</code>
+style callback returns <code>true</code> for elements that have a matching property
+value, else <code>false</code>.
+<br>
+<br>
+If an object is provided for <code>predicate</code> the created <code>_.matches</code> style
+callback returns <code>true</code> for elements that have the properties of the given
+object, else <code>false</code>.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to search.</li>
+<li>
+<code>[predicate=_.identity]</code> <em>(Function|Object|string)</em>: The function invoked per iteration.</li>
+<li>
+<code>[thisArg]</code> <em>(*)</em>: The <code>this</code> binding of <code>predicate</code>.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(number)</em>:  Returns the index of the found element, else <code>-1</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">var users = [
+  { 'user': 'barney',  'active': true },
+  { 'user': 'fred',    'active': false },
+  { 'user': 'pebbles', 'active': false }
+];
+
+_.findLastIndex(users, function(chr) {
+  return chr.user == 'pebbles';
+});
+// =&gt; 2
+
+// using the `_.matches` callback shorthand
+_.findLastIndex(users, { 'user': 'barney', 'active': true });
+// =&gt; 0
+
+// using the `_.matchesProperty` callback shorthand
+_.findLastIndex(users, 'active', false);
+// =&gt; 2
+
+// using the `_.property` callback shorthand
+_.findLastIndex(users, 'active');
+// =&gt; 0
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_firstarray"></a><code>_.first(array)</code></h3>
+<p><a href="#_firstarray">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L4946" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.first" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Gets the first element of <code>array</code>.</p>
+<h4 id="page_Aliases">Aliases</h4>
+<p><em>_.head</em></p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to query.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(*)</em>:  Returns the first element of <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.first([1, 2, 3]);
+// =&gt; 1
+
+_.first([]);
+// =&gt; undefined
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_flattenarray-isdeep"></a><code>_.flatten(array, [isDeep])</code></h3>
+<p><a href="#_flattenarray-isdeep">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L4970" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.flatten" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Flattens a nested array. If <code>isDeep</code> is <code>true</code> the array is recursively
+flattened, otherwise it is only flattened a single level.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to flatten.</li>
+<li>
+<code>[isDeep]</code> <em>(boolean)</em>: Specify a deep flatten.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the new flattened array.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.flatten([1, [2, 3, [4]]]);
+// =&gt; [1, 2, 3, [4]]
+
+// using `isDeep`
+_.flatten([1, [2, 3, [4]]], true);
+// =&gt; [1, 2, 3, 4]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_flattendeeparray"></a><code>_.flattenDeep(array)</code></h3>
+<p><a href="#_flattendeeparray">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L4991" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.flattendeep" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Recursively flattens a nested array.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to recursively flatten.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the new flattened array.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.flattenDeep([1, [2, 3, [4]]]);
+// =&gt; [1, 2, 3, 4]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_indexofarray-value-fromindex0"></a><code>_.indexOf(array, value, [fromIndex=0])</code></h3>
+<p><a href="#_indexofarray-value-fromindex0">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5028" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.indexof" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Gets the index at which the first occurrence of <code>value</code> is found in <code>array</code>
+using <code>SameValueZero</code> for equality comparisons. If <code>fromIndex</code> is negative,
+it is used as the offset from the end of <code>array</code>. If <code>array</code> is sorted
+providing <code>true</code> for <code>fromIndex</code> performs a faster binary search.
+<br>
+<br>
+<strong>Note:</strong> <code>SameValueZero</code> comparisons are like strict equality comparisons,
+e.g. <code>===</code>, except that <code>NaN</code> matches <code>NaN</code>. See the
+<a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero" class="external">ES spec</a>
+for more details.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to search.</li>
+<li>
+<code>value</code> <em>(*)</em>: The value to search for.</li>
+<li>
+<code>[fromIndex=0]</code> <em>(boolean|number)</em>: The index to search from or <code>true</code> to perform a binary search on a sorted array.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(number)</em>:  Returns the index of the matched value, else <code>-1</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.indexOf([1, 2, 1, 2], 2);
+// =&gt; 1
+
+// using `fromIndex`
+_.indexOf([1, 2, 1, 2], 2, 2);
+// =&gt; 3
+
+// performing a binary search
+_.indexOf([1, 1, 2, 2], 2, true);
+// =&gt; 2
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_initialarray"></a><code>_.initial(array)</code></h3>
+<p><a href="#_initialarray">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5060" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.initial" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Gets all but the last element of <code>array</code>.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to query.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the slice of <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.initial([1, 2, 3]);
+// =&gt; [1, 2]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_intersectionarrays"></a><code>_.intersection([arrays])</code></h3>
+<p><a href="#_intersectionarrays">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5082" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.intersection" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates an array of unique values in all provided arrays using <code>SameValueZero</code>
+for equality comparisons.
+<br>
+<br>
+<strong>Note:</strong> <code>SameValueZero</code> comparisons are like strict equality comparisons,
+e.g. <code>===</code>, except that <code>NaN</code> matches <code>NaN</code>. See the
+<a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero" class="external">ES spec</a>
+for more details.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>[arrays]</code> <em>(...Array)</em>: The arrays to inspect.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the new array of shared values.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.intersection([1, 2], [4, 2], [2, 1]);
+// =&gt; [2]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_lastarray"></a><code>_.last(array)</code></h3>
+<p><a href="#_lastarray">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5137" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.last" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Gets the last element of <code>array</code>.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to query.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(*)</em>:  Returns the last element of <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.last([1, 2, 3]);
+// =&gt; 3
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_lastindexofarray-value-fromindexarraylength-1"></a><code>_.lastIndexOf(array, value, [fromIndex=array.length-1])</code></h3>
+<p><a href="#_lastindexofarray-value-fromindexarraylength-1">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5167" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.lastindexof" title="See the npm package" class="external">Ⓝ</a></p>
+<p>This method is like <code>_.indexOf</code> except that it iterates over elements of
+<code>array</code> from right to left.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to search.</li>
+<li>
+<code>value</code> <em>(*)</em>: The value to search for.</li>
+<li>
+<code>[fromIndex=array.length-1]</code> <em>(boolean|number)</em>: The index to search from or <code>true</code> to perform a binary search on a sorted array.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(number)</em>:  Returns the index of the matched value, else <code>-1</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.lastIndexOf([1, 2, 1, 2], 2);
+// =&gt; 3
+
+// using `fromIndex`
+_.lastIndexOf([1, 2, 1, 2], 2, 2);
+// =&gt; 1
+
+// performing a binary search
+_.lastIndexOf([1, 1, 2, 2], 2, true);
+// =&gt; 3
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_pullarray-values"></a><code>_.pull(array, [values])</code></h3>
+<p><a href="#_pullarray-values">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5218" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.pull" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Removes all provided values from <code>array</code> using <code>SameValueZero</code> for equality
+comparisons.
+<br>
+<br>
+<strong>Notes:</strong>
+<br></p>
+<ul>
+<li>Unlike <code>_.without</code>, this method mutates <code>array</code>.</li>
+</ul>
+<br>
+* `SameValueZero` comparisons are like strict equality comparisons, e.g. `===`,
+except that `NaN` matches `NaN`. See the [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+for more details.
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to modify.</li>
+<li>
+<code>[values]</code> <em>(...*)</em>: The values to remove.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">var array = [1, 2, 3, 1, 2, 3];
+
+_.pull(array, 2, 3);
+console.log(array);
+// =&gt; [1, 1]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_pullatarray-indexes"></a><code>_.pullAt(array, [indexes])</code></h3>
+<p><a href="#_pullatarray-indexes">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5265" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.pullat" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Removes elements from <code>array</code> corresponding to the given indexes and returns
+an array of the removed elements. Indexes may be specified as an array of
+indexes or as individual arguments.
+<br>
+<br>
+<strong>Note:</strong> Unlike <code>_.at</code>, this method mutates <code>array</code>.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to modify.</li>
+<li>
+<code>[indexes]</code> <em>(...(number|number[])</em>: The indexes of elements to remove, specified as individual indexes or arrays of indexes.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the new array of removed elements.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">var array = [5, 10, 15, 20];
+var evens = _.pullAt(array, 1, 3);
+
+console.log(array);
+// =&gt; [5, 15]
+
+console.log(evens);
+// =&gt; [10, 20]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_removearray-predicate_identity-thisarg"></a><code>_.remove(array, [predicate=_.identity], [thisArg])</code></h3>
+<p><a href="#_removearray-predicate_identity-thisarg">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5322" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.remove" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Removes all elements from <code>array</code> that <code>predicate</code> returns truthy for
+and returns an array of the removed elements. The predicate is bound to
+<code>thisArg</code> and invoked with three arguments: (value, index, array).
+<br>
+<br>
+If a property name is provided for <code>predicate</code> the created <code>_.property</code>
+style callback returns the property value of the given element.
+<br>
+<br>
+If a value is also provided for <code>thisArg</code> the created <code>_.matchesProperty</code>
+style callback returns <code>true</code> for elements that have a matching property
+value, else <code>false</code>.
+<br>
+<br>
+If an object is provided for <code>predicate</code> the created <code>_.matches</code> style
+callback returns <code>true</code> for elements that have the properties of the given
+object, else <code>false</code>.
+<br>
+<br>
+<strong>Note:</strong> Unlike <code>_.filter</code>, this method mutates <code>array</code>.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to modify.</li>
+<li>
+<code>[predicate=_.identity]</code> <em>(Function|Object|string)</em>: The function invoked per iteration.</li>
+<li>
+<code>[thisArg]</code> <em>(*)</em>: The <code>this</code> binding of <code>predicate</code>.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the new array of removed elements.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">var array = [1, 2, 3, 4];
+var evens = _.remove(array, function(n) {
+  return n % 2 == 0;
+});
+
+console.log(array);
+// =&gt; [1, 3]
+
+console.log(evens);
+// =&gt; [2, 4]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_restarray"></a><code>_.rest(array)</code></h3>
+<p><a href="#_restarray">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5353" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.rest" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Gets all but the first element of <code>array</code>.</p>
+<h4 id="page_Aliases">Aliases</h4>
+<p><em>_.tail</em></p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to query.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the slice of <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.rest([1, 2, 3]);
+// =&gt; [2, 3]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_slicearray-start0-endarraylength"></a><code>_.slice(array, [start=0], [end=array.length])</code></h3>
+<p><a href="#_slicearray-start0-endarraylength">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5371" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.slice" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates a slice of <code>array</code> from <code>start</code> up to, but not including, <code>end</code>.
+<br>
+<br>
+<strong>Note:</strong> This function is used instead of <code>Array#slice</code> to support node
+lists in IE &lt; 9 and to ensure dense arrays are returned.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to slice.</li>
+<li>
+<code>[start=0]</code> <em>(number)</em>: The start position.</li>
+<li>
+<code>[end=array.length]</code> <em>(number)</em>: The end position.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the slice of <code>array</code>.</p>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_sortedindexarray-value-iteratee_identity-thisarg"></a><code>_.sortedIndex(array, value, [iteratee=_.identity], [thisArg])</code></h3>
+<p><a href="#_sortedindexarray-value-iteratee_identity-thisarg">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5431" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.sortedindex" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Uses a binary search to determine the lowest index at which <code>value</code> should
+be inserted into <code>array</code> in order to maintain its sort order. If an iteratee
+function is provided it is invoked for <code>value</code> and each element of <code>array</code>
+to compute their sort ranking. The iteratee is bound to <code>thisArg</code> and
+invoked with one argument; (value).
+<br>
+<br>
+If a property name is provided for <code>iteratee</code> the created <code>_.property</code>
+style callback returns the property value of the given element.
+<br>
+<br>
+If a value is also provided for <code>thisArg</code> the created <code>_.matchesProperty</code>
+style callback returns <code>true</code> for elements that have a matching property
+value, else <code>false</code>.
+<br>
+<br>
+If an object is provided for <code>iteratee</code> the created <code>_.matches</code> style
+callback returns <code>true</code> for elements that have the properties of the given
+object, else <code>false</code>.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The sorted array to inspect.</li>
+<li>
+<code>value</code> <em>(*)</em>: The value to evaluate.</li>
+<li>
+<code>[iteratee=_.identity]</code> <em>(Function|Object|string)</em>: The function invoked per iteration.</li>
+<li>
+<code>[thisArg]</code> <em>(*)</em>: The <code>this</code> binding of <code>iteratee</code>.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(number)</em>:  Returns the index at which <code>value</code> should be inserted
+into <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.sortedIndex([30, 50], 40);
+// =&gt; 1
+
+_.sortedIndex([4, 4, 5, 5], 5);
+// =&gt; 2
+
+var dict = { 'data': { 'thirty': 30, 'forty': 40, 'fifty': 50 } };
+
+// using an iteratee function
+_.sortedIndex(['thirty', 'fifty'], 'forty', function(word) {
+  return this.data[word];
+}, dict);
+// =&gt; 1
+
+// using the `_.property` callback shorthand
+_.sortedIndex([{ 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
+// =&gt; 1
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_sortedlastindexarray-value-iteratee_identity-thisarg"></a><code>_.sortedLastIndex(array, value, [iteratee=_.identity], [thisArg])</code></h3>
+<p><a href="#_sortedlastindexarray-value-iteratee_identity-thisarg">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5453" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.sortedlastindex" title="See the npm package" class="external">Ⓝ</a></p>
+<p>This method is like <code>_.sortedIndex</code> except that it returns the highest
+index at which <code>value</code> should be inserted into <code>array</code> in order to
+maintain its sort order.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The sorted array to inspect.</li>
+<li>
+<code>value</code> <em>(*)</em>: The value to evaluate.</li>
+<li>
+<code>[iteratee=_.identity]</code> <em>(Function|Object|string)</em>: The function invoked per iteration.</li>
+<li>
+<code>[thisArg]</code> <em>(*)</em>: The <code>this</code> binding of <code>iteratee</code>.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(number)</em>:  Returns the index at which <code>value</code> should be inserted
+into <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.sortedLastIndex([4, 4, 5, 5], 5);
+// =&gt; 4
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_takearray-n1"></a><code>_.take(array, [n=1])</code></h3>
+<p><a href="#_takearray-n1">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5479" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.take" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates a slice of <code>array</code> with <code>n</code> elements taken from the beginning.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to query.</li>
+<li>
+<code>[n=1]</code> <em>(number)</em>: The number of elements to take.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the slice of <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.take([1, 2, 3]);
+// =&gt; [1]
+
+_.take([1, 2, 3], 2);
+// =&gt; [1, 2]
+
+_.take([1, 2, 3], 5);
+// =&gt; [1, 2, 3]
+
+_.take([1, 2, 3], 0);
+// =&gt; []
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_takerightarray-n1"></a><code>_.takeRight(array, [n=1])</code></h3>
+<p><a href="#_takerightarray-n1">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5514" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.takeright" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates a slice of <code>array</code> with <code>n</code> elements taken from the end.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to query.</li>
+<li>
+<code>[n=1]</code> <em>(number)</em>: The number of elements to take.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the slice of <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.takeRight([1, 2, 3]);
+// =&gt; [3]
+
+_.takeRight([1, 2, 3], 2);
+// =&gt; [2, 3]
+
+_.takeRight([1, 2, 3], 5);
+// =&gt; [1, 2, 3]
+
+_.takeRight([1, 2, 3], 0);
+// =&gt; []
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_takerightwhilearray-predicate_identity-thisarg"></a><code>_.takeRightWhile(array, [predicate=_.identity], [thisArg])</code></h3>
+<p><a href="#_takerightwhilearray-predicate_identity-thisarg">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5575" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.takerightwhile" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates a slice of <code>array</code> with elements taken from the end. Elements are
+taken until <code>predicate</code> returns falsey. The predicate is bound to <code>thisArg</code>
+and invoked with three arguments: (value, index, array).
+<br>
+<br>
+If a property name is provided for <code>predicate</code> the created <code>_.property</code>
+style callback returns the property value of the given element.
+<br>
+<br>
+If a value is also provided for <code>thisArg</code> the created <code>_.matchesProperty</code>
+style callback returns <code>true</code> for elements that have a matching property
+value, else <code>false</code>.
+<br>
+<br>
+If an object is provided for <code>predicate</code> the created <code>_.matches</code> style
+callback returns <code>true</code> for elements that have the properties of the given
+object, else <code>false</code>.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to query.</li>
+<li>
+<code>[predicate=_.identity]</code> <em>(Function|Object|string)</em>: The function invoked per iteration.</li>
+<li>
+<code>[thisArg]</code> <em>(*)</em>: The <code>this</code> binding of <code>predicate</code>.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the slice of <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.takeRightWhile([1, 2, 3], function(n) {
+  return n &gt; 1;
+});
+// =&gt; [2, 3]
+
+var users = [
+  { 'user': 'barney',  'active': true },
+  { 'user': 'fred',    'active': false },
+  { 'user': 'pebbles', 'active': false }
+];
+
+// using the `_.matches` callback shorthand
+_.pluck(_.takeRightWhile(users, { 'user': 'pebbles', 'active': false }), 'user');
+// =&gt; ['pebbles']
+
+// using the `_.matchesProperty` callback shorthand
+_.pluck(_.takeRightWhile(users, 'active', false), 'user');
+// =&gt; ['fred', 'pebbles']
+
+// using the `_.property` callback shorthand
+_.pluck(_.takeRightWhile(users, 'active'), 'user');
+// =&gt; []
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_takewhilearray-predicate_identity-thisarg"></a><code>_.takeWhile(array, [predicate=_.identity], [thisArg])</code></h3>
+<p><a href="#_takewhilearray-predicate_identity-thisarg">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5630" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.takewhile" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates a slice of <code>array</code> with elements taken from the beginning. Elements
+are taken until <code>predicate</code> returns falsey. The predicate is bound to
+<code>thisArg</code> and invoked with three arguments: (value, index, array).
+<br>
+<br>
+If a property name is provided for <code>predicate</code> the created <code>_.property</code>
+style callback returns the property value of the given element.
+<br>
+<br>
+If a value is also provided for <code>thisArg</code> the created <code>_.matchesProperty</code>
+style callback returns <code>true</code> for elements that have a matching property
+value, else <code>false</code>.
+<br>
+<br>
+If an object is provided for <code>predicate</code> the created <code>_.matches</code> style
+callback returns <code>true</code> for elements that have the properties of the given
+object, else <code>false</code>.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to query.</li>
+<li>
+<code>[predicate=_.identity]</code> <em>(Function|Object|string)</em>: The function invoked per iteration.</li>
+<li>
+<code>[thisArg]</code> <em>(*)</em>: The <code>this</code> binding of <code>predicate</code>.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the slice of <code>array</code>.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.takeWhile([1, 2, 3], function(n) {
+  return n &lt; 3;
+});
+// =&gt; [1, 2]
+
+var users = [
+  { 'user': 'barney',  'active': false },
+  { 'user': 'fred',    'active': false},
+  { 'user': 'pebbles', 'active': true }
+];
+
+// using the `_.matches` callback shorthand
+_.pluck(_.takeWhile(users, { 'user': 'barney', 'active': false }), 'user');
+// =&gt; ['barney']
+
+// using the `_.matchesProperty` callback shorthand
+_.pluck(_.takeWhile(users, 'active', false), 'user');
+// =&gt; ['barney', 'fred']
+
+// using the `_.property` callback shorthand
+_.pluck(_.takeWhile(users, 'active'), 'user');
+// =&gt; []
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_unionarrays"></a><code>_.union([arrays])</code></h3>
+<p><a href="#_unionarrays">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5655" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.union" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates an array of unique values, in order, of the provided arrays using
+<code>SameValueZero</code> for equality comparisons.
+<br>
+<br>
+<strong>Note:</strong> <code>SameValueZero</code> comparisons are like strict equality comparisons,
+e.g. <code>===</code>, except that <code>NaN</code> matches <code>NaN</code>. See the
+<a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero" class="external">ES spec</a>
+for more details.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>[arrays]</code> <em>(...Array)</em>: The arrays to inspect.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the new array of combined values.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.union([1, 2], [4, 2], [2, 1]);
+// =&gt; [1, 2, 4]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_uniqarray-issorted-iteratee-thisarg"></a><code>_.uniq(array, [isSorted], [iteratee], [thisArg])</code></h3>
+<p><a href="#_uniqarray-issorted-iteratee-thisarg">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5711" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.uniq" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates a duplicate-value-free version of an array using <code>SameValueZero</code>
+for equality comparisons. Providing <code>true</code> for <code>isSorted</code> performs a faster
+search algorithm for sorted arrays. If an iteratee function is provided it
+is invoked for each value in the array to generate the criterion by which
+uniqueness is computed. The <code>iteratee</code> is bound to <code>thisArg</code> and invoked
+with three arguments: (value, index, array).
+<br>
+<br>
+If a property name is provided for <code>iteratee</code> the created <code>_.property</code>
+style callback returns the property value of the given element.
+<br>
+<br>
+If a value is also provided for <code>thisArg</code> the created <code>_.matchesProperty</code>
+style callback returns <code>true</code> for elements that have a matching property
+value, else <code>false</code>.
+<br>
+<br>
+If an object is provided for <code>iteratee</code> the created <code>_.matches</code> style
+callback returns <code>true</code> for elements that have the properties of the given
+object, else <code>false</code>.
+<br>
+<br>
+<strong>Note:</strong> <code>SameValueZero</code> comparisons are like strict equality comparisons,
+e.g. <code>===</code>, except that <code>NaN</code> matches <code>NaN</code>. See the
+<a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero" class="external">ES spec</a>
+for more details.</p>
+<h4 id="page_Aliases">Aliases</h4>
+<p><em>_.unique</em></p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to inspect.</li>
+<li>
+<code>[isSorted]</code> <em>(boolean)</em>: Specify the array is sorted.</li>
+<li>
+<code>[iteratee]</code> <em>(Function|Object|string)</em>: The function invoked per iteration.</li>
+<li>
+<code>[thisArg]</code> <em>(*)</em>: The <code>this</code> binding of <code>iteratee</code>.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the new duplicate-value-free array.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.uniq([1, 2, 1]);
+// =&gt; [1, 2]
+
+// using `isSorted`
+_.uniq([1, 1, 2], true);
+// =&gt; [1, 2]
+
+// using an iteratee function
+_.uniq([1, 2.5, 1.5, 2], function(n) {
+  return this.floor(n);
+}, Math);
+// =&gt; [1, 2.5]
+
+// using the `_.property` callback shorthand
+_.uniq([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
+// =&gt; [{ 'x': 1 }, { 'x': 2 }]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_unziparray"></a><code>_.unzip(array)</code></h3>
+<p><a href="#_unziparray">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5748" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.unzip" title="See the npm package" class="external">Ⓝ</a></p>
+<p>This method is like <code>_.zip</code> except that it accepts an array of grouped
+elements and creates an array regrouping the elements to their pre-<code>_.zip</code>
+configuration.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array of grouped elements to process.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the new array of regrouped elements.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">var zipped = _.zip(['fred', 'barney'], [30, 40], [true, false]);
+// =&gt; [['fred', 30, true], ['barney', 40, false]]
+
+_.unzip(zipped);
+// =&gt; [['fred', 'barney'], [30, 40], [true, false]]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_withoutarray-values"></a><code>_.without(array, [values])</code></h3>
+<p><a href="#_withoutarray-values">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5779" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.without" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates an array excluding all provided values using <code>SameValueZero</code> for
+equality comparisons.
+<br>
+<br>
+<strong>Note:</strong> <code>SameValueZero</code> comparisons are like strict equality comparisons,
+e.g. <code>===</code>, except that <code>NaN</code> matches <code>NaN</code>. See the
+<a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero" class="external">ES spec</a>
+for more details.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>array</code> <em>(Array)</em>: The array to filter.</li>
+<li>
+<code>[values]</code> <em>(...*)</em>: The values to exclude.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the new array of filtered values.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.without([1, 2, 1, 3], 1, 2);
+// =&gt; [3]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_xorarrays"></a><code>_.xor([arrays])</code></h3>
+<p><a href="#_xorarrays">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5800" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.xor" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates an array that is the symmetric difference of the provided arrays.
+See <a href="https://en.wikipedia.org/wiki/Symmetric_difference" class="external">Wikipedia</a> for
+more details.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>[arrays]</code> <em>(...Array)</em>: The arrays to inspect.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the new array of values.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.xor([1, 2], [4, 2]);
+// =&gt; [1, 4]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_ziparrays"></a><code>_.zip([arrays])</code></h3>
+<p><a href="#_ziparrays">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5830" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.zip" title="See the npm package" class="external">Ⓝ</a></p>
+<p>Creates an array of grouped elements, the first of which contains the first
+elements of the given arrays, the second of which contains the second elements
+of the given arrays, and so on.</p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>[arrays]</code> <em>(...Array)</em>: The arrays to process.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Array)</em>:  Returns the new array of grouped elements.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.zip(['fred', 'barney'], [30, 40], [true, false]);
+// =&gt; [['fred', 30, true], ['barney', 40, false]]
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- div -->
+<h3 id="page_"><a id="_zipobjectprops-values"></a><code>_.zipObject(props, [values=[]])</code></h3>
+<p><a href="#_zipobjectprops-values">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L5853" title="View in source" class="external">Ⓢ</a> [Ⓣ][1] <a href="https://www.npmjs.com/package/lodash.zipobject" title="See the npm package" class="external">Ⓝ</a></p>
+<p>The inverse of <code>_.pairs</code>; this method returns an object composed from arrays
+of property names and values. Provide either a single two dimensional array,
+e.g. <code>[[key1, value1], [key2, value2]]</code> or two arrays, one of property names
+and one of corresponding values.</p>
+<h4 id="page_Aliases">Aliases</h4>
+<p><em>_.object</em></p>
+<h4 id="page_Arguments">Arguments</h4>
+<ol>
+<li>
+<code>props</code> <em>(Array)</em>: The property names.</li>
+<li>
+<code>[values=[]]</code> <em>(Array)</em>: The property values.</li>
+</ol>
+<h4 id="page_Returns">Returns</h4>
+<p><em>(Object)</em>:  Returns the new object.</p>
+<h4 id="page_Example">Example</h4>
+<pre><code class="language-js">_.zipObject([['fred', 30], ['barney', 40]]);
+// =&gt; { 'fred': 30, 'barney': 40 }
+
+_.zipObject(['fred', 'barney'], [30, 40]);
+// =&gt; { 'fred': 30, 'barney': 40 }
+</code></pre>
+<hr />
+<!-- /div -->
+<!-- /div -->
+<!-- div -->
+<h2 id="page_"><code>“Chain” Methods</code></h2>
+<!-- div -->
+<h3 id="page_"><a id="_value"></a><code>_(value)</code></h3>
+<p><a href="#_value">#</a> <a href="https://github.com/lodash/lodash/blob/3.6.0/lodash.src.js#L962" title="View in source" class="external">Ⓢ</a> [Ⓣ][1]</p>
+<p>Creates a <code>lodash</code> object which wraps <code>value</code> to enable implicit chaining.
+Methods that operate on and return arrays, collections, and functions can
+be chained together. Methods that return a boolean or single value will
+automati</p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../../Resources/Software/Tools/index.html">Previous</a></li>                    </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../themes/daux/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../themes/daux/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    <script src="../../admin-theme/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="../../themes/daux/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

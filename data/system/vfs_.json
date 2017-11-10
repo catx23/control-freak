@@ -1,0 +1,263 @@
+{
+	"class": "cmx.types.Resources",
+	"includes": [
+	],
+	"items": [
+        {
+            "class": "cmx.types.Resource",
+            "type": "FILE_PROXY",
+            "name": "workspace",
+            "path": "%workspace%",
+            "url": "NOT SET",
+            "enabled": true,
+            "readOnly": true,
+            "label": "Workspace"
+        },
+		{
+			"class": "cmx.types.Resource",
+			"enabled": true,
+			"label": "sld2",
+			"config": {
+				"root": "",
+				"host": "188.40.39.21",
+				"username": "vu2003",
+				"password": "",
+				"port": 22
+			},
+			"adapter": "Sftp",
+			"type": "REMOTE_FILE_PROXY",
+			"name": "sld2",
+			"path": "sld2:\/\/"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"name": "dropbox",
+			"config": {
+				"pathPrefix": "",
+				"token": "h16UVItP7qQAAAAAAAAABP3qmBJFOHj3fA5ffKyaHH-j7HCLvFOceZxhENV0sy24",
+				"appname": "xapp_local"
+			},
+			"adapter": "Dropbox",
+			"type": "REMOTE_FILE_PROXY",
+			"label": "Dropbox",
+			"path": "dropbox:\/\/",
+			"enabled": true
+		},
+	  {
+		"class": "cmx.types.Resource",
+		"enabled": true,
+		"label": "sld",
+		"config": {
+		  "root": "",
+		  "host": "pi",
+		  "username": "root",
+		  "password": "asdasd",
+		  "port": 22
+		},
+		"adapter": "Sftp",
+		"type": "REMOTE_FILE_PROXY",
+		"name": "sld",
+		"path": "sld:\/\/"
+	  },
+        {
+            "class": "cmx.types.Resource",
+            "type": "FILE_PROXY",
+            "name": "docs",
+            "path": "%docs%",
+            "url": "NOT SET",
+            "enabled": true,
+            "readOnly": true,
+            "label": "Documentation"
+        },
+        {
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "root",
+			"path": "%root%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "Root"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "system_devices",
+			"path": "%system_devices%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "System Devices"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "system_drivers",
+			"path": "%system_drivers%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "System Drivers"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "system_protocols",
+			"path": "%system_protocols%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "System Protocols"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "user_drivers",
+			"path": "%user_drivers%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "User Drivers"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "master",
+			"path": "%master%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "Master"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "javascript",
+			"path": "%javascript%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "Javascript"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "php",
+			"path": "%php%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "PHP"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "cfjs",
+			"path": "%cfjs%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true,
+			"label": "CF-JS"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"type": "FILE_PROXY",
+			"name": "xidejs",
+			"label": "XIDE-JS",
+			"path": "%xidejs%",
+			"url": "NOT SET",
+			"enabled": true,
+			"readOnly": true
+		},
+		{
+			"class": "cmx.types.Resource",
+			"name": "dropbox",
+			"config": {
+				"pathPrefix": "",
+				"token": "h16UVItP7qQAAAAAAAAABP3qmBJFOHj3fA5ffKyaHH-j7HCLvFOceZxhENV0sy24",
+				"appname": "xapp_local"
+			},
+			"adapter": "Dropbox",
+			"type": "REMOTE_FILE_PROXY",
+			"label": "Dropbox",
+			"path": "dropbox:\/\/",
+			"enabled": true
+		},
+        {
+            "class": "cmx.types.Resource",
+            "name": "google",
+            "config": {
+                "pathPrefix": "",
+                "clientId": "34179804656-v7ckk0id5h1dcrpoj07c2343vbf2qto2.apps.googleusercontent.com",
+                "secret": "ZnWLJFaJh_c1AO8wk_d4Y7fk"
+            },
+            "adapter": "GoogleDriver",
+            "type": "REMOTE_FILE_PROXY",
+            "label": "Google",
+            "path": "google:\/\/",
+            "enabled": true
+        },
+		{
+			"class": "cmx.types.Resource",
+			"enabled": false,
+			"name": "home",
+			"path": "/home/",
+			"type": "FILE_PROXY",
+			"label": "home"
+		},
+		{
+			"class": "cmx.types.Resource",
+			"enabled": true,
+			"name": "Desktop",
+			"path": "/home/mc007/Desktop",
+			"type": "FILE_PROXY",
+			"label": "Desktop"
+		},
+		{
+		  "class": "cmx.types.Resource",
+		  "type": "FILE_PROXY",
+		  "name": "xide-js",
+		  "path": "%master%/Code/client/src/lib/xide",
+		  "url": "NOT SET",
+		  "enabled": true,
+		  "label": "xide-js"
+		},
+		{
+		  "class": "cmx.types.Resource",
+		  "type": "FILE_PROXY",
+		  "name": "xgrid-js",
+		  "path": "%master%/Code/client/src/lib/xgrid",
+		  "url": "NOT SET",
+		  "enabled": true,
+		  "label": "xgrid-js"
+		},
+		{
+		  "class": "cmx.types.Resource",
+		  "type": "FILE_PROXY",
+		  "name": "xfile-js",
+		  "path": "%master%/Code/client/src/lib/xfile",
+		  "url": "NOT SET",
+		  "enabled": true,
+		  "label": "xfile-js"
+		},
+		{
+		  "class": "cmx.types.Resource",
+		  "type": "FILE_PROXY",
+		  "name": "xblox-js",
+		  "path": "%master%/Code/client/src/lib/xblox",
+		  "url": "NOT SET",
+		  "enabled": true,
+		  "label": "xblox-js"
+		},
+		{
+		  "class": "cmx.types.Resource",
+		  "type": "FILE_PROXY",
+		  "name": "xbox-app2",
+		  "path": "/PMaster/projects/xbox-app2",
+		  "url": "NOT SET",
+		  "enabled": true,
+		  "label": "xbox-app2"
+		}
+		
+	]
+}

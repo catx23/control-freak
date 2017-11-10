@@ -1,0 +1,12 @@
+define([
+	"./bind",
+	"./Destroyable",
+	"./Evented",
+	"./Invalidating",
+	"./observe",
+	"./Observable",
+	"./ObservableArray",
+	"./schedule",
+	"./sniff",
+	"./Stateful"
+]);

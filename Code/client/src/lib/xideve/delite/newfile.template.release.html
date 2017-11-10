@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html style="height: 100%; width: 100%; margin: 0;">
+	<head>
+		<!--base href="{{baseUrl}}"/-->
+		<meta charset="utf-8"/>
+        <script src="{{lodashUrl}}"></script>
+        <script src="{{requireUrl}}"></script>
+        <script src="{{jQueryUrl}}"></script>
+        <link rel="stylesheet" type="text/css" href="{{offset}}/xapp/build/themes/layer_bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="{{APP_CSS}}">
+        <script>
+            require.config({
+                config: {
+                    'delite/theme':{
+                        theme:'{{theme}}'
+                    },
+                    'xdelite/theme':{
+                        theme:'superhero',
+                        variables:{
+                            theme:'superhero',
+                            themeRoot:'xdelite/themes/'
+                        }
+                    }
+                },
+                baseUrl: "{{ibmRoot}}",
+                paths: {
+                },
+                shim: {
+                    // Libraries
+                    lodash: {
+                        exports: '_'
+                    }
+                },
+                packages:[
+                    {
+                        name: 'lodash',
+                        location: './lodash-compat'   //points to bower_components/dcl
+                    },
+                    {
+                        name:'xide',
+                        location:'{{baseUrl}}xide'
+                    },
+                    {
+                        name:'xblox',
+                        location:'{{baseUrl}}xblox'
+                    },
+                    {
+                        name:'xdelite',
+                        location:'%requireBaseUrl%/../xibm/delite'
+                    },
+                    {
+                        name:'xcf',
+                        location:'{{baseUrl}}xcf'
+                    },
+                    {
+                        name:'xlang',
+                        location:'{{baseUrl}}xlang'
+                    },
+                    {
+                        name:'xlog',
+                        location:'{{baseUrl}}xlog'
+                    },
+                    {
+                        name:'xnode',
+                        location:'{{baseUrl}}xnode'
+                    },
+                    {
+                        name:'xace',
+                        location:'{{baseUrl}}xace'
+                    },
+                    {
+                        name:'dstore',
+                        location:'{{baseUrl}}dstore'
+                    },
+                    {
+                        name:'xdocker',
+                        location:'{{baseUrl}}xdocker'
+                    },
+                    {
+                        name:'wcDocker',
+                        location:'{{baseUrl}}wcDocker/src'
+                    },
+                    {
+                        name:'xgrid',
+                        location:'{{baseUrl}}xgrid'
+                    },
+                    {
+                        name:'xblox',
+                        location:'{{baseUrl}}xblox'
+                    },
+                    {
+                        name:'xapp',
+                        location:'{{baseUrl}}xapp'
+                    },
+                    {
+                        name:'dijit',
+                        location:'{{baseUrl}}dijit'
+                    },
+                    {
+                        name:'dijit',
+                        location:'{{baseUrl}}dijit'
+                    },
+                    {
+                        name:'xwire',
+                        location:'{{baseUrl}}xwire'
+                    },
+                    {
+                        name:'dojo',
+                        location:'dojo'
+                    },
+                    {
+                        name:'dojox',
+                        location:'{{baseUrl}}dojox'
+                    },
+                    {
+                        name:'xfile',
+                        location:'{{baseUrl}}xfile'
+                    },
+                    {
+                        name:'xdojo',
+                        location:'{{baseUrl}}xdojo'
+                    },
+                    {
+                        name:'xaction',
+                        location:'{{baseUrl}}/xaction/src'
+                    },
+                    {
+                        name:'xdelite',
+                        location:'{{baseUrl}}xdelite'
+                    },
+                    {
+                        name:'xdeliteful',
+                        location:'{{baseUrl}}/xibm/xibm/deliteful'
+                    },
+                    {
+                        name:'xdelite',
+                        location:'{{baseUrl}}/xibm/xibm/delite'
+                    },
+                    {
+                        name:'project',
+                        location:'{{baseUrl}}xwire'
+                    },
+                    {
+                        name:'projectx',
+                        location:'{{projectx}}xwire'
+                    },
+                    {
+                        name:'workspace_user',
+                        location:'{{workspace_user}}'
+                    },
+                    {
+                        name:'custom',
+                        location:'{{workspace_user}}/lib/custom'
+                    }
+                ]
+            });
+
+            require({
+                map:{
+                    '*':{
+                        'deliteful/Button':'xdeliteful/Button',
+                        'delite/Viewport':'xdelite/Viewport',
+                        'deliteful/Slider':'xdeliteful/Slider',
+                        'dpointer/build/dpointerr':'../xibm/dpointer/build/dpointerr',
+                        'decor/build/decorr':'../xibm/decor/build/decorr',
+                        'delite/Container':'../xibm/delite/Container',
+                        'nls/main_build_root':'xapp/build/nls/main_build_root'
+                    }
+                }
+            });
+
+            // base dependencies needed for VE
+
+            require(["xapp/build/main_build"],function(){
+
+                require([
+                    "dcl/dcl",
+                    "xapp/bootr",
+                    "delite/register",
+                    "deliteful/Button",
+                    "deliteful/Slider",
+                    "deliteful/Combobox",
+                    "deliteful/Select",
+                    "deliteful/Checkbox",
+                    "deliteful/ToggleButton",
+                    "dojo/dom",
+                    'dojo/query',
+                    'dojo/dom-construct',
+                    'dojo/dom-style',
+                    'dojo/dom-attr',
+                    'dojo/_base/html',
+                    'dojo/Deferred',
+                    'dojo/_base/lang',
+                    'xdojo/declare',
+                    'dojox/html/_base',
+                    "deliteful/ViewStack",
+                    "deliteful/Panel",
+                    "xdeliteful/TabBar",
+                    "xdeliteful/MediaPlayer",
+                    "xdeliteful/Script",
+                    "delite/theme!delite/themes/{{theme}}/global.css",
+                    "requirejs-dplugins/css!Font-Awesome/css/font-awesome.css"
+                    ], window.parent.loading{{id}});
+
+            })
+
+        </script>
+
+        {{themeCssFiles}}
+
+        <style>
+            {{styles}}
+        </style>
+
+        <script type="text/javascript">
+            var xideveSettings={
+                xbloxScripts: [
+
+                ],
+                item:{
+                    path:"{{path}}",
+                    mount:"{{mount}}"
+                }
+            };
+            var appContext = null;
+
+            var runBlox = function(path,id,context,settings){
+                appContext.application.runBlox(path,id,context,settings);
+            };
+
+            var runx = function(ctx,expression,args){
+                var _function = new Function("{" +expression+"; }");
+                return _function.call(ctx,args);
+            };
+
+            var runExpression =function(expression,context,args){
+                var _function = new Function("{" + expression + "}");
+                return _function.apply(context || this, args || {});
+            };
+
+            var startx = function (dfd, bootStrapper, context, settings) {
+                console.log('Checkpoint 6. all dependencies loaded');
+                appContext = context;
+                dfd.resolve({
+                    bootstrap: bootStrapper,
+                    context: context,
+                    settings: settings
+                });
+            };
+
+            var bootx = function (settings,Deferred) {
+                var headDfd = new Deferred();
+                require(['xapp/boot','xide/utils','dojo/_base/kernel'], function (boot,utils,dojo) {
+                    document.dojo = dojo;
+                    window.dojo = dojo;
+                    var bootStrap = new boot();
+                    bootStrap.load().then(function () {
+                        console.log('   Checkpoint 3.1 xapp/boot load()');
+                        utils.mixin(settings,xideveSettings);
+                        bootStrap.start(settings).then(function (ctx) {
+                            console.log('   Checkpoint 5.2 xapp/boot start',xideveSettings);
+                            startx(headDfd, bootStrap, ctx, xideveSettings);
+                        },function(e){
+                            console.error('error starting xapp/boot/start ' + e,e);
+                        });
+                    },function(e){
+                        console.error('error starting xapp/boot/load ' + e,e);
+                    });
+                });
+                return headDfd;
+            }
+        </script>
+        <script src="{{appUrl}}/xcf/ext/xapp-externals.js"></script>
+	</head>
+	<body>
+	</body>
+</html>

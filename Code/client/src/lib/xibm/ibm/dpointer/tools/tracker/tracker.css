@@ -1,0 +1,128 @@
+/* displays scroll bar on adnroid < 4.2.2 */
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: graytext;
+    border-width: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border-width: 0;
+}
+
+/**
+ * container
+ **/
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    background-color: white;
+    font-family: courier, monospace;
+    font-size: 0.95em;
+    overflow: hidden;
+}
+
+/**
+ * event log table and buttons
+ */
+#eventlog {
+    height: 40%;
+    position: relative;
+}
+
+#ctrlBar {
+    background-color: #000000;
+    color: wheat;
+    font-weight: bold;
+    padding: 2px;
+    -ms-touch-action: none;
+}
+
+#options {
+    display: inline-block;
+}
+
+.ctrlContainer {
+    padding: 2px;
+    margin: 2px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    background-color: #166B81;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#logscroll {
+    overflow: auto;
+    background-color: wheat;
+}
+
+#eventtable {
+    border-spacing: 0;
+    border-width: 0;
+    text-align: left;
+}
+
+#eventtable td {
+    border-color: #808080;
+    border-bottom-width: 1px;
+    border-bottom-style: dashed;
+    padding-left: 15px;
+}
+
+input[type="checkbox"], label {
+    vertical-align: middle;
+    height: 20px;
+    width: 20px;
+    margin: 1px;
+    padding: 0px;
+}
+
+/**
+ * events tracker area
+ */
+#base1 {
+    height: 60%;
+    background-color: yellowgreen;
+}
+
+#base2 {
+    position: relative;
+    background-color: orange;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+#leftBlock {
+    position: absolute;
+    background-color: red;
+    width: 50%;
+    height: 100%;
+    display: table-cell;
+}
+
+#rightBlock {
+    position: absolute;
+    background-color: #0000ff;
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+}
+
+#middleBlock {
+    position: absolute;
+    background-color: #ffff00;
+    top: 50%;
+    left: 25%;
+    height: 50%;
+    width: 50%;
+}

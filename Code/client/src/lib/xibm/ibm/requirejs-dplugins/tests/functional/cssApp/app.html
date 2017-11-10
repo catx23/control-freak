@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>CSS plugin build test</title>
+	<script type="text/javascript" src="bower_components/requirejs/require.js"></script>
+</head>
+<body>
+	<h1>CSS plugin build test</h1>
+	<p id="result">This checks that the CSS plugin built the CSS correctly.</p>
+</body>
+<script language="JavaScript" type="text/javascript">
+	var ready = false; // set to true when the test page is ready
+	require({
+		baseUrl: "build",
+		paths: {
+			// Needed for browser which does not support Promise natively.
+			lie: "../bower_components/lie"
+		}
+	}, [
+		"app"	// first load the layer
+	], function () {
+		require(["src"], function () {
+			// Set global variable to signal that the test page is ready
+			ready = true;
+		});
+	});
+</script>
+</html>

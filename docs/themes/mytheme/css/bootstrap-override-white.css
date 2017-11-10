@@ -1,0 +1,67 @@
+/* line 9, ../sass/ellipsis.scss */
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  -moz-binding: url('/css/xml/ellipsis.xml#ellipsis');
+}
+
+/* line 23, ../sass/bootstrap-override-white.scss */
+.xTheme-white .Navbar.hidden-print {
+  display: none;
+}
+/* line 26, ../sass/bootstrap-override-white.scss */
+.xTheme-white .content {
+  padding-left: 0;
+  padding-right: 0;
+}
+/* line 31, ../sass/bootstrap-override-white.scss */
+.xTheme-white code {
+  color: #03308A;
+}
+/* line 34, ../sass/bootstrap-override-white.scss */
+.xTheme-white BODY {
+  background: none;
+  background-image: none;
+  background-color: #e8e8e8;
+}
+/* line 39, ../sass/bootstrap-override-white.scss */
+.xTheme-white .content-page {
+  background-color: white;
+}
+/* line 44, ../sass/bootstrap-override-white.scss */
+.xTheme-white .columns .left-column {
+  background-color: white;
+}
+/* line 49, ../sass/bootstrap-override-white.scss */
+.xTheme-white .columns .right-column .content-page {
+  background-color: white;
+}
+/* line 54, ../sass/bootstrap-override-white.scss */
+.xTheme-white h1, .xTheme-white h2, .xTheme-white h3, .xTheme-white h4, .xTheme-white h5, .xTheme-white h6 {
+  color: #4a5150;
+}
+/* line 59, ../sass/bootstrap-override-white.scss */
+.xTheme-white .nav.nav-list li a {
+  color: #4a5150;
+}
+/* line 64, ../sass/bootstrap-override-white.scss */
+.xTheme-white .content {
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-top: 0;
+  border: none;
+}
+
+/* line 72, ../sass/bootstrap-override-white.scss */
+.responsive-collapse {
+  display: block !important;
+}
+
+/* line 75, ../sass/bootstrap-override-white.scss */
+.sub-nav-collapse {
+  display: block !important;
+}

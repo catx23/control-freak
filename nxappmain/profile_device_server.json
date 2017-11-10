@@ -1,0 +1,47 @@
+{
+  "watchr":{
+    "paths":[
+      "../../../../data/system",
+      "../../../../data/workspace"
+    ]
+  },
+  "system":"./data/",
+  "common":{
+      "createSocketServer":true,
+      "stdin":true,
+      "stdout":true
+  },
+  "socket_server": {
+      "port":9998,
+      "host":"0.0.0.0",
+      "debug":false
+  },
+  "mongo":{
+    "port":27017
+  },
+  "http":{
+    "port":5555
+  },
+  "ascoltatore" : {
+    "type": "mongo",
+    "url": "mongodb://localhost:27017/mqtt",
+    "pubsubCollection": "xcf",
+    "mongo": {}
+  },
+  "mosca":{
+    "port": 1883,
+    "persistence": {
+      "url": "mongodb://localhost:27017/mqtt"
+    }
+  },
+  "debug": {
+      "all": false,
+      "protocol_connection": false,
+      "protocol_messages": false,
+      "socket_server":false,
+      "socket_client":false,
+      "socket_messages":false,
+      "debugDevices":false,
+      "main":false
+  }
+}

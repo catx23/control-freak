@@ -1,0 +1,143 @@
+{
+  "blocks": [
+    {
+      "_containsChildrenIds": [
+        "items"
+      ],
+      "group": "init",
+      "id": "105c6870-86ce-a275-bbd3-2dd158b1074d",
+      "declaredClass": "xblox.model.mqtt.Subscribe",
+      "name": "Cam move",
+      "topic": "camMove",
+      "args": "",
+      "deferred": false,
+      "icon": "fa-bell",
+      "path": "camMove",
+      "qos": 0,
+      "outlet": 0,
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "order": 0,
+      "type": "added",
+      "items": [
+        "9fc90c77-3cbf-1dec-0dab-6a65534d3ea0",
+        "bf7f0b01-2f08-8750-4ef7-dd439fa5f974",
+        "d932e1ab-f0ae-6b87-8149-42be007247bc"
+      ]
+    },
+    {
+      "_containsChildrenIds": [],
+      "id": "c8f38e6e-2697-bedd-42bc-069e184036e6",
+      "name": "value",
+      "type": "added",
+      "group": "processVariables",
+      "gui": false,
+      "cmd": false,
+      "declaredClass": "xcf.model.Variable",
+      "save": false,
+      "target": "None",
+      "register": true,
+      "readOnly": false,
+      "isVariable": true,
+      "outlet": 0,
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "order": 0,
+      "icon": "fa-play"
+    },
+    {
+      "_containsChildrenIds": [],
+      "condition": "",
+      "parentId": "105c6870-86ce-a275-bbd3-2dd158b1074d",
+      "id": "9fc90c77-3cbf-1dec-0dab-6a65534d3ea0",
+      "declaredClass": "xblox.model.functions.CallBlock",
+      "command": "command://deviceScope=user_devices&device=deda59c1-0386-bb6c-548d-8b0300736e0e&driver=52f4b5dd-889d-a5c9-0221-edaa0dce1a6f&driverScope=user_drivers&block=6253e301-a9ee-f03c-87a4-cb4666ce00f8",
+      "icon": "",
+      "_timeout": 100,
+      "outlet": 0,
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "order": 0,
+      "type": "added"
+    },
+    {
+      "_containsChildrenIds": [
+        "items"
+      ],
+      "group": "init",
+      "id": "5ad2654e-d325-007d-f7ee-1f2e8a022753",
+      "items": [
+        "aa830cbe-8870-dd00-9ad4-ba10ade4baf3"
+      ],
+      "declaredClass": "xblox.model.mqtt.Subscribe",
+      "name": "Subscribe",
+      "topic": "camMoveStopped",
+      "args": "",
+      "deferred": false,
+      "icon": "fa-bell",
+      "path": "",
+      "qos": 0,
+      "outlet": 0,
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "order": 0,
+      "type": "added"
+    },
+    {
+      "_containsChildrenIds": [],
+      "parentId": "5ad2654e-d325-007d-f7ee-1f2e8a022753",
+      "id": "aa830cbe-8870-dd00-9ad4-ba10ade4baf3",
+      "declaredClass": "xblox.model.code.RunScript",
+      "name": "Run Script",
+      "method": "console.error('not moving');",
+      "args": "",
+      "deferred": false,
+      "icon": "fa-code",
+      "outlet": 0,
+      "enabled": true,
+      "shareTitle": "",
+      "order": 0,
+      "type": "added",
+      "description": "No Description"
+    },
+    {
+      "_containsChildrenIds": [],
+      "condition": "",
+      "parentId": "105c6870-86ce-a275-bbd3-2dd158b1074d",
+      "id": "bf7f0b01-2f08-8750-4ef7-dd439fa5f974",
+      "declaredClass": "xblox.model.functions.CallBlock",
+      "command": "command://deviceScope=user_devices&device=1b53dd5c-bda3-a45b-27ea-b1adb876d729&driver=117554bc-f6ef-3442-f163-901d5d35d158&driverScope=user_drivers&block=2d2ce608-9a1f-18d6-5298-fefcd85f8bc9",
+      "icon": "",
+      "_timeout": 100,
+      "outlet": 0,
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "order": 0,
+      "type": "added"
+    },
+    {
+      "_containsChildrenIds": [],
+      "parentId": "105c6870-86ce-a275-bbd3-2dd158b1074d",
+      "id": "d932e1ab-f0ae-6b87-8149-42be007247bc",
+      "declaredClass": "xblox.model.logging.Log",
+      "name": "Log Message",
+      "level": "info",
+      "message": "return \"Something Moved \";",
+      "_type": "XBlox",
+      "host": "this host",
+      "outlet": 0,
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "order": 0,
+      "type": "added",
+      "icon": "fa-play"
+    }
+  ],
+  "variables": null
+}

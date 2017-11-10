@@ -1,0 +1,62 @@
+{
+    "id": "http://dojotoolkit.org/delite/Combobox",
+    "name": "delite.Combobox",
+    "spec": "1.0",
+    "version": "1.7",
+    "require": [
+        {
+            "type": "javascript-module",
+            "format": "amd",
+            "src": "deliteful/Combobox"
+        }
+    ],
+    "library": {
+
+    },
+    "property": {
+        "autoFilter": {
+            "datatype": "boolean",
+            "defaultValue": false
+        },
+        "filterMode": {
+            "datatype": "string",
+            "defaultValue": "startsWidth",
+            "option": [
+                {
+                    "value": "slide"
+                },
+                {
+                    "value":"contains"
+                },
+                {
+                    "value":"is"
+                }
+            ]
+        },
+        "ignoreCase": {
+            "datatype": "boolean",
+            "defaultValue": true
+        },
+        "selectionMode": {
+            "datatype": "string",
+            "defaultValue": "single",
+            "option": [
+                {
+                    "value": "single"
+                },
+                {
+                    "value":"multiple"
+                }
+            ]
+        }
+    },
+    "content": "<d-combobox></d-combobox>",
+    "title": {
+        "type": "text/html",
+        "value": "<p>Non-templated BUTTON widget with a thin API wrapper for click \nevents and for setting the label.\n\n</p>\n<p>Buttons can display a label, an icon, or both.\nA label should always be specified (through innerHTML) or the label\nattribute.  It can be hidden via showLabel=false.</p>"
+    },
+    "examples": {
+        "type": "text/html",
+        "value": "<pre><code>&lt;button data-dojo-type=&quot;xide/mobile/Button&quot; onClick=&quot;...&quot;&gt;Hello world&lt;/button&gt;</code></pre>"
+    }
+}

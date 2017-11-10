@@ -1,0 +1,10 @@
+{
+	"name": "requirejs-dplugins-jquery-plugin-test-app",
+	"version": "0.1.0",
+	"description": "Test application using jquery! plugin",
+	"dependencies": {
+		"lie":  ">=2.8",
+		"jquery": ">=2.1",
+		"requirejs": "2.1.x"
+	}
+}

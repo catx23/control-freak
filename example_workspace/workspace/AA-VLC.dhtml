@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <viewHeaderTemplate/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+</head>
+
+<body data-maq-flow-layout="false" data-maq-comptype="delite" class="superhero" data-maq-ws="collapse" style="position: absolute; left: 0px; top: 0px; max-height: 1080; max-width: 1920; min-width: 1920; min-height: 1080; background-repeat: no-repeat; background-position: 0px 0px; width: 1920px; height: 1080px; background-size: 1920px 1080px; background-image: url('workspace_user://backgrounds/CC_Skin.png');" id="myapp" data-maq-appstates="{}">
+ <d-slider style="position: absolute; left: 7.71875px; top: 70px;" id="d-slider_3"></d-slider>
+ <d-xscript style="position:relative" targetevent="click" block="command://deviceScope=user_devices&amp;device=bc09b5c4-cfe6-b621-c412-407dbb7bcef8&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=450d2c75-29b0-29b7-13c5-be175b2a5749" script="Play Args"></d-xscript>
+ <button is="d-button" title="Default Label" label="2:13:292" style="position: absolute; left: 50px; top: 114px;" id="btnPos">
+ <d-xscript id="xxxx" stop="false" bidirectional="false" mode="1" targetproperty="label" sourceevent="onDriverVariableChanged" sourceeventvaluepath="item.value" sourceeventnamepath="item.name" block="variable://deviceScope=user_devices&amp;device=bc09b5c4-cfe6-b621-c412-407dbb7bcef8&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=3a0e4519-b167-85ec-9e3a-6b22ecf5013c" script="Current Progress" style="position: relative;">
+     <d-script>
+       console.error('xx');
+    </d-script>
+   </d-xscript>
+   <d-xscript style="position:relative" block="variable://deviceScope=user_devices&amp;device=bc09b5c4-cfe6-b621-c412-407dbb7bcef8&amp;driver=9db866a4-bb3e-137b-ae23-793b729c44f8&amp;driverScope=user_drivers&amp;block=8b5a2990-cc8f-48dc-c9d5-4c313ef68cf3" script="Current State" sourceevent="onDriverVariableChanged" targetproperty="label" sourceeventnamepath="item.name" sourceeventvaluepath="item.value" mode="1"></d-xscript>
+ </button>
+ </body>
+</html>
+
+

@@ -1,0 +1,266 @@
+{"total": 1, "status": 200, "items": [
+    {
+        "name": ".",
+        "path": ".",
+        "modified": 1391606708,
+        "owner": {
+            "user": {
+                "name": "mc007",
+                "passwd": "x",
+                "uid": 1000,
+                "gid": 1000,
+                "gecos": "mc007,,,",
+                "dir": "\/home\/mc007",
+                "shell": "\/bin\/bash"
+            },
+            "group": {
+                "name": "mc007",
+                "passwd": "x",
+                "members": [],
+                "gid": 1000
+            }
+        },
+        "group": true,
+        "read": true,
+        "write": true,
+        "permissions": "777 (rwxrwxrwx)",
+        "directory": true,
+        "children": [
+            {
+                "name": "xapp",
+                "path": ".\/xapp",
+                "modified": 1391519922,
+                "owner": {
+                    "user": {
+                        "name": "mc007",
+                        "passwd": "x",
+                        "uid": 1000,
+                        "gid": 1000,
+                        "gecos": "mc007,,,",
+                        "dir": "\/home\/mc007",
+                        "shell": "\/bin\/bash"
+                    },
+                    "group": {
+                        "name": "mc007",
+                        "passwd": "x",
+                        "members": [],
+                        "gid": 1000
+                    }
+                },
+                "group": true,
+                "read": true,
+                "write": true,
+                "permissions": "777 (rwxrwxrwx)",
+                "directory": true,
+                "children": [],
+                "_EX": false,
+                "size": 0
+            },
+            {
+                "name": "LICENSE",
+                "path": ".\/LICENSE",
+                "modified": 1391519552,
+                "owner": {
+                    "user": {
+                        "name": "mc007",
+                        "passwd": "x",
+                        "uid": 1000,
+                        "gid": 1000,
+                        "gecos": "mc007,,,",
+                        "dir": "\/home\/mc007",
+                        "shell": "\/bin\/bash"
+                    },
+                    "group": {
+                        "name": "mc007",
+                        "passwd": "x",
+                        "members": [],
+                        "gid": 1000
+                    }
+                },
+                "group": true,
+                "read": true,
+                "write": true,
+                "permissions": "00777 (rwxrwxrwx)",
+                "mime": "text\/plain",
+                "size": "17.40 KB"
+            },
+            {
+                "name": "eva_mendes_blog-1s.jpg",
+                "path": ".\/eva_mendes_blog-1s.jpg",
+                "modified": 1391606407,
+                "owner": {
+                    "user": {
+                        "name": "www-data",
+                        "passwd": "x",
+                        "uid": 33,
+                        "gid": 33,
+                        "gecos": "www-data",
+                        "dir": "\/var\/www",
+                        "shell": "\/bin\/sh"
+                    },
+                    "group": {
+                        "name": "www-data",
+                        "passwd": "x",
+                        "members": [],
+                        "gid": 33
+                    }
+                },
+                "group": true,
+                "read": true,
+                "write": true,
+                "permissions": "00644 (rw-r--r--)",
+                "mime": "image\/jpeg",
+                "size": "67.13 KB"
+            },
+            {
+                "name": "log",
+                "path": ".\/log",
+                "modified": 1391519552,
+                "owner": {
+                    "user": {
+                        "name": "mc007",
+                        "passwd": "x",
+                        "uid": 1000,
+                        "gid": 1000,
+                        "gecos": "mc007,,,",
+                        "dir": "\/home\/mc007",
+                        "shell": "\/bin\/bash"
+                    },
+                    "group": {
+                        "name": "mc007",
+                        "passwd": "x",
+                        "members": [],
+                        "gid": 1000
+                    }
+                },
+                "group": true,
+                "read": true,
+                "write": true,
+                "permissions": "777 (rwxrwxrwx)",
+                "directory": true,
+                "children": [],
+                "_EX": false,
+                "size": 0
+            },
+            {
+                "name": "eva_mendes_blog.jpg",
+                "path": ".\/eva_mendes_blog.jpg",
+                "modified": 1391606385,
+                "owner": {
+                    "user": {
+                        "name": "www-data",
+                        "passwd": "x",
+                        "uid": 33,
+                        "gid": 33,
+                        "gecos": "www-data",
+                        "dir": "\/var\/www",
+                        "shell": "\/bin\/sh"
+                    },
+                    "group": {
+                        "name": "www-data",
+                        "passwd": "x",
+                        "members": [],
+                        "gid": 33
+                    }
+                },
+                "group": true,
+                "read": true,
+                "write": true,
+                "permissions": "00644 (rw-r--r--)",
+                "mime": "image\/jpeg",
+                "size": "67.13 KB"
+            },
+            {
+                "name": "server",
+                "path": ".\/server",
+                "modified": 1391519552,
+                "owner": {
+                    "user": {
+                        "name": "mc007",
+                        "passwd": "x",
+                        "uid": 1000,
+                        "gid": 1000,
+                        "gecos": "mc007,,,",
+                        "dir": "\/home\/mc007",
+                        "shell": "\/bin\/bash"
+                    },
+                    "group": {
+                        "name": "mc007",
+                        "passwd": "x",
+                        "members": [],
+                        "gid": 1000
+                    }
+                },
+                "group": true,
+                "read": true,
+                "write": true,
+                "permissions": "777 (rwxrwxrwx)",
+                "directory": true,
+                "children": [],
+                "_EX": false,
+                "size": 0
+            },
+            {
+                "name": "client",
+                "path": ".\/client",
+                "modified": 1391519546,
+                "owner": {
+                    "user": {
+                        "name": "mc007",
+                        "passwd": "x",
+                        "uid": 1000,
+                        "gid": 1000,
+                        "gecos": "mc007,,,",
+                        "dir": "\/home\/mc007",
+                        "shell": "\/bin\/bash"
+                    },
+                    "group": {
+                        "name": "mc007",
+                        "passwd": "x",
+                        "members": [],
+                        "gid": 1000
+                    }
+                },
+                "group": true,
+                "read": true,
+                "write": true,
+                "permissions": "777 (rwxrwxrwx)",
+                "directory": true,
+                "children": [],
+                "_EX": false,
+                "size": 0
+            },
+            {
+                "name": "index.php",
+                "path": ".\/index.php",
+                "modified": 1391519552,
+                "owner": {
+                    "user": {
+                        "name": "mc007",
+                        "passwd": "x",
+                        "uid": 1000,
+                        "gid": 1000,
+                        "gecos": "mc007,,,",
+                        "dir": "\/home\/mc007",
+                        "shell": "\/bin\/bash"
+                    },
+                    "group": {
+                        "name": "mc007",
+                        "passwd": "x",
+                        "members": [],
+                        "gid": 1000
+                    }
+                },
+                "group": true,
+                "read": true,
+                "write": true,
+                "permissions": "00777 (rwxrwxrwx)",
+                "mime": "text\/x-php",
+                "size": "3.82 KB"
+            }
+        ],
+        "_EX": true,
+        "size": 0
+    }
+]}
+

@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "inputs": [
+      {
+        "dataRef": null,
+        "description": "Title",
+        "enabled": true,
+        "flags": -1,
+        "group": "General",
+        "id": "Title",
+        "name": "Title",
+        "order": -1,
+        "params": null,
+        "parentId": -1,
+        "platform": null,
+        "storeDestination": null,
+        "title": "Title",
+        "type": 13,
+        "uid": -1,
+        "value": "Marantz",
+        "visible": true,
+        "enumType": "-1"
+      },
+      {
+        "dataRef": null,
+        "description": "Protocol",
+        "enabled": true,
+        "flags": -1,
+        "group": "General",
+        "id": "Protocol",
+        "name": "Protocol",
+        "order": -1,
+        "params": null,
+        "parentId": -1,
+        "platform": null,
+        "storeDestination": null,
+        "title": "Protocol",
+        "type": 13,
+        "uid": -1,
+        "value": "tcp",
+        "visible": true,
+        "enumType": "-1"
+      },
+      {
+        "dataRef": null,
+        "description": "Id",
+        "enabled": true,
+        "flags": -1,
+        "group": "General",
+        "id": "Id",
+        "name": "Id",
+        "order": -1,
+        "params": null,
+        "parentId": -1,
+        "platform": null,
+        "storeDestination": null,
+        "title": "Id",
+        "type": 13,
+        "uid": -1,
+        "value": "efdc4832-5487-5023-9f15-30285538d870",
+        "visible": false,
+        "enumType": "-1"
+      }
+    ]
+  },
+  "commands": [
+    {
+      "name": "PowerOff2",
+      "value": "xxx"
+    }
+  ],
+  "variables": [
+    {
+      "name": "ProtocolVariable-1",
+      "value": "proto-1"
+    },
+    {
+      "name": "No asdasd",
+      "value": "asdfsddsd"
+    },
+    {
+      "name": "No Title",
+      "value": ""
+    },
+    {
+      "name": "No Title",
+      "value": ""
+    },
+    {
+      "name": "No Title",
+      "value": ""
+    }
+  ]
+}

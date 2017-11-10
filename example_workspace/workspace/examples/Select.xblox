@@ -1,0 +1,86 @@
+{
+  "blocks": [
+    {
+      "_containsChildrenIds": [],
+      "group": "select__change",
+      "id": "37f2924b-51a7-d1f1-af5f-70c7a442f3a9",
+      "declaredClass": "xblox.model.code.RunScript",
+      "name": "Run Script",
+      "method": "console.log('select changed ' + arguments[0]);",
+      "args": "",
+      "deferred": false,
+      "icon": "fa-code",
+      "enabled": true,
+      "shareTitle": "",
+      "order": 0,
+      "type": "added",
+      "description": "No Description"
+    },
+    {
+      "_containsChildrenIds": [
+        "items"
+      ],
+      "group": "select__change",
+      "id": "a0ab02bd-3942-0f22-33fc-3f9dcca29c51",
+      "items": [
+        "6674f7ff-260f-81f1-5a07-b1ec9fad7fc2"
+      ],
+      "declaredClass": "xblox.model.logic.SwitchBlock",
+      "name": "Switch",
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "order": 0,
+      "type": "added",
+      "_stopped": false
+    },
+    {
+      "_containsChildrenIds": [],
+      "comparator": "==",
+      "expression": "3",
+      "id": "6674f7ff-260f-81f1-5a07-b1ec9fad7fc2",
+      "declaredClass": "xblox.model.logic.CaseBlock",
+      "name": "Case",
+      "icon": "",
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "parentId": "a0ab02bd-3942-0f22-33fc-3f9dcca29c51",
+      "order": 0,
+      "type": "added"
+    },
+    {
+      "_containsChildrenIds": [
+        "items"
+      ],
+      "group": "cb__change",
+      "id": "2e35f24d-48e3-4699-a816-6d8bddf86859",
+      "items": [
+        "36fe209d-b75e-4ff4-9824-3d2c6991ec1b"
+      ],
+      "declaredClass": "xblox.model.logic.SwitchBlock",
+      "name": "Switch",
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "order": 0,
+      "type": "added"
+    },
+    {
+      "_containsChildrenIds": [],
+      "comparator": "==",
+      "expression": "true",
+      "id": "36fe209d-b75e-4ff4-9824-3d2c6991ec1b",
+      "declaredClass": "xblox.model.logic.CaseBlock",
+      "name": "Case",
+      "icon": "",
+      "enabled": true,
+      "shareTitle": "",
+      "description": "No Description",
+      "parentId": "2e35f24d-48e3-4699-a816-6d8bddf86859",
+      "order": 0,
+      "type": "added"
+    }
+  ],
+  "variables": null
+}

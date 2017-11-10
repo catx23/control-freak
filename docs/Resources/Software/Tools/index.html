@@ -1,0 +1,2146 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Tools - Control-Freak</title>
+    <meta name="description" content="IDE for Automation & IoT" />
+    <meta name="author" content="Justin Walsh">
+    <meta charset="UTF-8">
+    <link rel="icon" href="../../../themes/mytheme/img/favicon-blue.png" type="image/x-icon">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="../../..//ext/easyXDM.js"></script>
+
+    
+    <script type="text/javascript">
+
+        var pixlrEditor = null;
+        var xdmSocket = null;
+        var editorImage=null;
+        var imageUrl=null;
+        var editorArgs=null;
+        var saveUrl=null;
+        var title='';
+        var format = 'jpg';
+
+        function urlDecode (string, overwrite) {
+            if (!string || !string.length) {
+                return{}
+            }
+            var obj = {};
+            var pairs = string.split("&");
+            var pair, name, value;
+            for (var i = 0, len = pairs.length; i < len; i++) {
+                pair = pairs[i].split("=");
+                name = decodeURIComponent(pair[0]);
+                value = decodeURIComponent(pair[1]);
+                if(value!=null && value==='true'){
+                    value=true;
+                }else if(value==='false'){
+                    value=false;
+                }
+                if (overwrite !== true) {
+                    if (typeof obj[name] == "undefined") {
+                        obj[name] = value
+                    } else {
+                        if (typeof obj[name] == "string") {
+                            obj[name] = [obj[name]];
+                            obj[name].push(value)
+                        } else {
+                            obj[name].push(value)
+                        }
+                    }
+                } else {
+                    obj[name] = value
+                }
+            }
+            return obj;
+        }
+
+
+        function onMessage(message){
+
+            var result  = JSON.parse(message);
+
+            console.log('message :',message);
+            if(result && result.command && result.command==='edit')
+            {
+                if(editorImage==null){
+                    img_create(result.url,'','');
+                }
+                imageUrl = result.url;
+                saveUrl = result.saveUrl;
+                title = result.title;
+                format = result.format;
+            }
+        }
+
+        function sendMessage(message)
+        {
+            xdmSocket.postMessage(JSON.stringify(message));
+        }
+
+        function init (){
+
+            return;
+            var inUrl = '' + window.location.href;
+
+            console.log('init url ' + inUrl);
+            //http://localhost/projects/x4mm/Code/xapp/xcf/?debug=true&run=run-release-debug&protocols=true&xideve=true&drivers=true&plugins=false&xblox=debug&files=true&dijit=debug&xdocker=debug&xfile=debug&davinci=debug&dgrid=debug&xgrid=debug&xace=debug&wcDocker=debug
+            if(!inUrl){
+                console.error('invalid');
+                //http://localhost/projects/x4mm/Code/xapp/xcf/?debug=true&run=run-release-debug&protocols=true&xideve=true&drivers=true&plugins=false&xblox=debug&files=true&dijit=debug&xdocker=debug&xfile=debug&davinci=debug&dgrid=debug&xgrid=debug&xace=debug&wcDocker=debug
+            }
+
+            var parameterString = '' ;
+
+            function base64_decode (encodedData) {
+
+                if (typeof window !== 'undefined') {
+                    if (typeof window.atob !== 'undefined') {
+                        return decodeURIComponent(escape(window.atob(encodedData)))
+                    }
+                } else {
+                    return new Buffer(encodedData, 'base64').toString('utf-8')
+                }
+
+                var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
+                var o1
+                var o2
+                var o3
+                var h1
+                var h2
+                var h3
+                var h4
+                var bits
+                var i = 0
+                var ac = 0
+                var dec = ''
+                var tmpArr = []
+
+                if (!encodedData) {
+                    return encodedData
+                }
+
+                encodedData += ''
+
+                do {
+                    // unpack four hexets into three octets using index points in b64
+                    h1 = b64.indexOf(encodedData.charAt(i++))
+                    h2 = b64.indexOf(encodedData.charAt(i++))
+                    h3 = b64.indexOf(encodedData.charAt(i++))
+                    h4 = b64.indexOf(encodedData.charAt(i++))
+
+                    bits = h1 << 18 | h2 << 12 | h3 << 6 | h4
+
+                    o1 = bits >> 16 & 0xff
+                    o2 = bits >> 8 & 0xff
+                    o3 = bits & 0xff
+
+                    if (h3 === 64) {
+                        tmpArr[ac++] = String.fromCharCode(o1)
+                    } else if (h4 === 64) {
+                        tmpArr[ac++] = String.fromCharCode(o1, o2)
+                    } else {
+                        tmpArr[ac++] = String.fromCharCode(o1, o2, o3)
+                    }
+                } while (i < encodedData.length)
+
+                dec = tmpArr.join('')
+
+                return decodeURIComponent(escape(dec.replace(/\0+$/, '')))
+            }
+
+            function base64_encode(data) {
+
+                // From: http://phpjs.org/functions
+                // +   original by: Tyler Akins (http://rumkin.com)
+                // +   improved by: Bayron Guevara
+                // +   improved by: Thunder.m
+                // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+                // +   bugfixed by: Pellentesque Malesuada
+                // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+                // +   improved by: Rafał Kukawski (http://kukawski.pl)
+                // *     example 1: base64_encode('Kevin van Zonneveld');
+                // *     returns 1: 'S2V2aW4gdmFuIFpvbm5ldmVsZA=='
+                // mozilla has this native
+                // - but breaks in 2.0.0.12!
+                //if (typeof this.window.btoa === 'function') {
+                //    return btoa(data);
+                //}
+                var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+                var o1, o2, o3, h1, h2, h3, h4, bits, i = 0,
+                    ac = 0,
+                    enc = '',
+                    tmp_arr = [];
+
+                if (!data) {
+                    return data;
+                }
+
+                do { // pack three octets into four hexets
+                    o1 = data.charCodeAt(i++);
+                    o2 = data.charCodeAt(i++);
+                    o3 = data.charCodeAt(i++);
+
+                    bits = o1 << 16 | o2 << 8 | o3;
+
+                    h1 = bits >> 18 & 0x3f;
+                    h2 = bits >> 12 & 0x3f;
+                    h3 = bits >> 6 & 0x3f;
+                    h4 = bits & 0x3f;
+
+                    // use hexets to index into b64, and append result to encoded string
+                    tmp_arr[ac++] = b64.charAt(h1) + b64.charAt(h2) + b64.charAt(h3) + b64.charAt(h4);
+                } while (i < data.length);
+
+                enc = tmp_arr.join('');
+
+                var r = data.length % 3;
+
+                return (r ? enc.slice(0, r - 3) : enc) + '==='.slice(r || 3);
+
+            }
+
+            if(inUrl.lastIndexOf('?')){
+
+                parameterString = inUrl.substring(inUrl.lastIndexOf('?')+1,inUrl.length);
+                var urlParameters=urlDecode(parameterString);
+
+                var target =urlParameters.xdmTarget;
+
+                if(!target || target && target=='undefined'){
+                    return;
+                }
+
+                if(target.indexOf('http:')==-1){
+                    target = base64_decode(target);
+                }
+
+                target=decodeURIComponent(target);
+                //http://localhost/projects/x4mm/Control-Freak-Documentation/daux/Getting_Started?xdmTarget=http%3A%2F%2Flocalhost%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2F%3Fdebug%3Dtrue%26run%3Drun-release-debug%26protocols%3Dtrue%26xideve%3Dtrue%26drivers%3Dtrue%26plugins%3Dfalse%26xblox%3Ddebug%26files%3Dtrue%26dijit%3Ddebug%26xdocker%3Ddebug%26xfile%3Ddebug%26davinci%3Ddebug%26dgrid%3Ddebug%26xgrid%3Ddebug%26xace%3Ddebug%26wcDocker%3Ddebug&xdm_e=http%3A%2F%2Flocalhost%2Fprojects%2Fx4mm%2FCode%2Fxapp%2Fxcf%2F&xdm_c=default9743&xdm_p=4
+                //console.error('creating socket to '+target);
+                xdmSocket = new easyXDM.Socket({
+                    remote: "" + target,
+                    onMessage:function (message, origin)
+                    {
+                        onMessage(message);
+                    }
+                });
+
+                //console.error('xdmtarge = ' + target);
+
+                //var newUrl = + encodeURIComponent('' + window.location.href);
+
+                if(target && target!=='undefined' && target.length) {
+                    $(function () {
+                        $('a').each(function () {
+                            var cUrl = $(this).attr('href');
+                            var bindStr = '?';
+                            if (cUrl && cUrl.indexOf('xdmTarget') == -1) {
+                                if (cUrl.indexOf('?') != -1) {
+                                    bindStr = '&';
+                                }
+                                var newUrl = cUrl + bindStr + 'xdmTarget=' + base64_encode(target);
+                                //console.log('new url ' + newUrl);
+                                //$(this).attr('href', newUrl);
+                            }
+
+
+                        });
+                    });
+                }
+
+            }
+        }
+
+        document.onreadystatechange = function () {
+
+            if(typeof easyXDM !=='undefined') {
+
+                var state = document.readyState;
+                if (state == 'interactive') {
+                } else if (state == 'complete') {
+                    init();
+                }
+            }else{
+                console.error('easy xdm not defined');
+            }
+
+        }
+
+    </script>
+
+
+
+
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../../themes/mytheme/css/theme-blue.min.css' rel='stylesheet' type='text/css'><link href='../../../admin-theme/bower_components/font-awesome/css/font-awesome.min.css' rel='stylesheet' type='text/css'><link href='../../../admin-theme/html-white/dist/css/application.css' rel='stylesheet' type='text/css'><link href='../../../themes/mytheme/css/bootstrap-override-white.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class=" xTheme xTheme-white">
+    <header class="Navbar hidden-print">
+    <a class="Navbar__brand" href="../../../index.html">Control-Freak</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451"><path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/></svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on" results=25 autosave=text_search>
+    </div>
+</header>
+<div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <div class="Collapsible__container">
+            <button type="button" class="Button Collapsible__trigger">
+                <span class="Collapsible__trigger--bar"></span>
+                <span class="Collapsible__trigger--bar"></span>
+                <span class="Collapsible__trigger--bar"></span>
+            </button>
+        </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item '><a href="../../../Getting_Started.html">Getting Started</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Installation</a><ul class='Nav'><li class='Nav__item '><a href="../../../Installation/Windows.html">Windows</a></li><li class='Nav__item '><a href="../../../Installation/Linux.html">Linux</a></li><li class='Nav__item '><a href="../../../Installation/Raspberry-PI.html">Raspberry-PI</a></li><li class='Nav__item '><a href="../../../Installation/OSX.html">OSX</a></li><li class='Nav__item  has-children'><a href="../../../Installation/WEB/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>WEB</a><ul class='Nav'><li class='Nav__item '><a href="../../../Installation/WEB/Requirements.html">Requirements</a></li></ul></li></ul></li><li class='Nav__item  has-children'><a href="../../../Interface_Designer/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Interface Designer</a><ul class='Nav'><li class='Nav__item '><a href="../../../Interface_Designer/Guide.html">Guide</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Examples</a><ul class='Nav'><li class='Nav__item '><a href="../../../Interface_Designer/Examples/Button_Group.html">Button Group</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Examples/States.html">States</a></li></ul></li><li class='Nav__item '><a href="../../../Interface_Designer/States.html">States</a></li><li class='Nav__item '><a href="../../../Interface_Designer/VariableStates.html">VariableStates</a></li><li class='Nav__item  has-children'><a href="../../../Interface_Designer/Widgets/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Widgets</a><ul class='Nav'><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Accordion.html">deliteful/Accordion</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Button.html">deliteful/Button</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Checkbox.html">deliteful/Checkbox</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Combobox.html">deliteful/Combobox</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/features.html">deliteful/features</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/LinearLayout.html">deliteful/LinearLayout</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>list</a><ul class='Nav'><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/list/List.html">deliteful/list/List</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/list/PageableList.html">deliteful/list/PageableList</a></li></ul></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Panel.html">deliteful/Panel</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/ProgressBar.html">deliteful/ProgressBar</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/RadioButton.html">deliteful/RadioButton</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Select.html">deliteful/Select</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/SidePane.html">deliteful/SidePane</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Slider.html">deliteful/Slider</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/StarRating.html">deliteful/StarRating</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/styling.html">styling</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/SwapView.html">deliteful/SwapView</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Switch.html">deliteful/Switch</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/Toaster.html">deliteful/Toaster</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/ToggleButton.html">deliteful/ToggleButton</a></li><li class='Nav__item  has-children'><a href="../../../Interface_Designer/Widgets/tutorial/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>tutorial</a><ul class='Nav'><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part1GettingStarted.html">Deliteful Tutorial Part 1</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part2QuickLook.html">Deliteful Tutorial Part 2</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part3PhotoFeedApp.html">Deliteful Tutorial Part 3</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part4ListView.html">Deliteful Tutorial Part 4</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part5CustomRenderer.html">Deliteful Tutorial Part 5</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part6DetailsView.html">Deliteful Tutorial Part 6</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part7SettingsView.html">Deliteful Tutorial Part 7</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/tutorial/Part8Build.html">Deliteful Tutorial Part 8</a></li></ul></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/ViewIndicator.html">deliteful/ViewIndicator</a></li><li class='Nav__item '><a href="../../../Interface_Designer/Widgets/ViewStack.html">deliteful/ViewStack</a></li></ul></li></ul></li><li class='Nav__item  has-children'><a href="../../../Driver/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Driver</a><ul class='Nav'><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Code Examples</a><ul class='Nav'><li class='Nav__item '><a href="../../../Driver/Code_Examples/Expressions.html">Expressions</a></li><li class='Nav__item '><a href="../../../Driver/Code_Examples/Variable_Changes.html">Variable Changes</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../Driver/Built-In/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Built-In</a><ul class='Nav'><li class='Nav__item '><a href="../../../Driver/Built-In/VLC.html">VLC</a></li></ul></li><li class='Nav__item '><a href="../../../Driver/Guide.html">Guide</a></li><li class='Nav__item '><a href="../../../Driver/API.html">API</a></li><li class='Nav__item '><a href="../../../Driver/Editors.html">Editors</a></li><li class='Nav__item '><a href="../../../Driver/Debugging.html">Debugging</a></li><li class='Nav__item '><a href="../../../Driver/Intern.html">Intern</a></li><li class='Nav__item  has-children'><a href="../../../Driver/Fiddle/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Fiddle</a><ul class='Nav'><li class='Nav__item '><a href="../../../Driver/Fiddle/Blocks_Example.html">Blocks Example</a></li><li class='Nav__item '><a href="../../../Driver/Fiddle/Blocks_Template.html">Blocks Template</a></li></ul></li></ul></li><li class='Nav__item '><a href="../../../Protocols/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Protocols</a><ul class='Nav'></ul></li><li class='Nav__item  has-children'><a href="../../../Blocks/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Blocks</a><ul class='Nav'><li class='Nav__item '><a href="../../../Blocks/Command.html">Command</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Events</a><ul class='Nav'><li class='Nav__item '><a href="../../../Blocks/Events/OnEvent.html">OnEvent</a></li></ul></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>File</a><ul class='Nav'><li class='Nav__item '><a href="../../../Blocks/File/ReadJSON.html">ReadJSON</a></li></ul></li></ul></li><li class='Nav__item '><a href="../../../Exporter/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Exporter</a><ul class='Nav'></ul></li><li class='Nav__item '><a href="../../../Device_Server/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Device Server</a><ul class='Nav'></ul></li><li class='Nav__item '><a href="../../../Tutorials/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Tutorials</a><ul class='Nav'></ul></li><li class='Nav__item '><a href="../../../Raspberry_PI/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Raspberry PI</a><ul class='Nav'></ul></li><li class='Nav__item Nav__item--open has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Resources</a><ul class='Nav'><li class='Nav__item Nav__item--open has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Software</a><ul class='Nav'><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>MQTT</a><ul class='Nav'><li class='Nav__item '><a href="../../../Resources/Software/MQTT/Software.html">Software</a></li><li class='Nav__item '><a href="../../../Resources/Software/MQTT/Architecture.html">Architecture</a></li></ul></li><li class='Nav__item Nav__item--open'><a href="../../../Resources/Software/Tools/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Tools</a><ul class='Nav'></ul></li></ul></li><li class='Nav__item '><a href="../../../Resources/Utils_API/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Utils API</a><ul class='Nav'></ul></li></ul></li></ul>
+
+            <div class="Links">
+                
+                
+                            </div>
+        </div>
+    </aside>
+    <div class="Columns__right ">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../../../Resources/Software/MQTT/Software.html">Resources</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../../../Resources/Software/MQTT/Software.html">Software</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../../../Resources/Software/Tools/index.html">Tools</a></h1>
+                        <span style="float: right; font-size: 10px; color: gray;">
+            <a href="https://github.com/net-commander/net-commander-documentation/blob/master/docFiles/Resources/01_Software/Tools/_index.md" target="_blank">Edit on GitHub</a>
+        </span>
+            </div>
+
+
+    <div class="s-content">
+        <h3 id="page_Here_a_list_of_useful_tools_and_resources">Here a list of useful tools and resources</h3>
+<h1 id="page_Tools_for_HTML_Javascript_CSS"><strong>Tools for HTML &amp; Javascript &amp;&amp; CSS</strong></h1>
+<p><a href="http://jsfiddle.net" class="external">Sandbox</a></p>
+<h1 id="page_HTML_CSS"><strong>HTML &amp; CSS</strong></h1>
+<p>Below, you will find:</p>
+<ul>
+<li>
+<strong>Expert Guidance</strong>
+</li>
+<li>
+<strong>Books &amp; Reference</strong>
+</li>
+<li>
+<strong>CSS:</strong>   Animation ・ Effects ・  Frameworks ・ Grid Systems</li>
+<li>
+<strong>Design:</strong>   Colors &amp; Patterns ・ Icons &amp; Fonts ・ Responsive Web Design</li>
+<li>
+<strong>Tools:</strong>   Code Playgrounds ・ CSS Preprocessors ・ Image Editors ・ Interactive Mockups ・ Vector Graphics Editors</li>
+</ul>
+<hr />
+<h2 id="page_Expert_Guidance"><strong><em>Expert Guidance</em></strong></h2>
+<p>These sites are the best of the best at providing compelling, current content on design and CSS coding.</p>
+<h4 id="page_Highest_Recommendation">Highest Recommendation</h4>
+<ul>
+<li>
+<a href="http://css-tricks.com/" class="external">CSS-Tricks</a>
+</li>
+</ul>
+<h4 id="page_Other_Recommended_Options">Other Recommended Options</h4>
+<ul>
+<li>
+<a href="http://www.alistapart.com/" class="external">A List Apart</a>
+</li>
+<li>
+<a href="http://www.boxesandarrows.com/" class="external">Boxes and Arrows</a>
+</li>
+<li>
+<a href="http://tympanus.net/codrops/" class="external">Codrops</a>
+</li>
+</ul>
+<h4 id="page_Articles_Discussions">Articles &amp; Discussions</h4>
+<ul>
+<li>
+<a href="http://paulirish.com/2012/box-sizing-border-box-ftw/" class="external">* { box-sizing: border-box } FTW</a>
+</li>
+<li>
+<a href="http://css-tricks.com/centering-in-the-unknown" class="external">Centering in the Unknown</a>
+</li>
+<li>
+<a href="http://www.phpied.com/when-is-a-stylesheet-really-loaded/" class="external">When is a stylesheet really loaded?</a>
+</li>
+</ul>
+<hr />
+<h2 id="page_Books_Reference"><strong><em>Books &amp; Reference</em></strong></h2>
+<p>These resources are more static in nature and provide a great foundation for your CSS learning.</p>
+<h4 id="page_Highest_Recommendation">Highest Recommendation</h4>
+<p><a href="https://developer.mozilla.org/en-US/docs/CSS/CSS_Reference" class="external">Mozilla Developer Network (MDN)</a></p>
+<h4 id="page_Other_Recommended_Options">Other Recommended Options</h4>
+<ul>
+<li>
+<a href="http://learn.shayhowe.com/html-css/" class="external">A Beginner’s Guide to HTML &amp; CSS</a>
+</li>
+<li>
+<a href="http://learn.shayhowe.com/advanced-html-css/" class="external">An Advanced Guide to HTML &amp; CSS</a>
+</li>
+<li>
+<a href="http://en.wikibooks.org/wiki/CSS_Programming" class="external">CSS Programming</a>
+</li>
+<li>
+<a href="http://jonrohan.me" class="external">Field Guide</a>
+</li>
+<li>
+<a href="http://google-styleguide.googlecode.com/svn/trunk/htmlcssguide.xml" class="external">Google Style Guide</a>
+</li>
+<li>
+<a href="http://smacss.com" class="external">Scalable and Modular Architecture for CSS</a>
+</li>
+</ul>
+<hr />
+<h2 id="page_CSS_Animation"><strong><em>CSS: Animation</em></strong></h2>
+<p>Animation, transitions, and motion effects have become essential for an effective user experience.</p>
+<h4 id="page_Highest_Recommendation">Highest Recommendation</h4>
+<ul>
+<li>
+<a href="http://daneden.me/animate/" class="external">Animate.css</a>
+</li>
+<li>
+<a href="http://processing.org" class="external">Processing</a>
+</li>
+</ul>
+<h4 id="page_Other_Recommended_Options">Other Recommended Options</h4>
+<ul>
+<li>
+<a href="http://labs.adobe.com/technologies/edge/" class="external">Adobe Edge</a>
+</li>
+<li>
+<a href="http://matthewlein.com/ceaser/" class="external">Ceaser - CSS Easing Animation Tool</a>
+</li>
+<li>
+<a href="http://www.sencha.com/products/animator/" class="external">Sencha Animator</a>
+</li>
+<li>
+<a href="http://tumultco.com/hype/" class="external">Tumult Hype</a>
+</li>
+</ul>
+<h4 id="page_Articles_Discussions">Articles &amp; Discussions</h4>
+<ul>
+<li>
+<a href="http://www.alessioatzeni.com/wp-content/tutorials/html-css/CSS3-Loading-Animation/index.html" class="external">Loading Animations</a>
+</li>
+<li>
+<a href="https://medium.com/design-ux/926eb80d64e3" class="external">Transitional Interfaces</a>
+</li>
+</ul>
+<hr />
+<h2 id="page_CSS_Effects"><strong><em>CSS: Effects</em></strong></h2>
+<p>Techniques used to achieve various visual effects using CSS.</p>
+<h4 id="page_Articles_Discussions">Articles &amp; Discussions</h4>
+<ul>
+<li>
+<a href="http://www.pvmgarage.com/downloads/ribbon/" class="external">3d Ribbons</a>
+</li>
+<li>
+<a href="http://tympanus.net/Tutorials/CSS3Accordion/" class="external">Accordion with CSS3</a>
+</li>
+<li>
+<a href="http://lea.verou.me/css3patterns/" class="external">CSS3 Patterns Library</a>
+</li>
+<li>
+<a href="http://37signals.com/svn/posts/2609-customizing-web-forms-with-css3-and-webkit" class="external">Custom Forms</a>
+</li>
+<li>
+<a href="http://designmodo.com/slider-css3/" class="external">Image Content Slider</a>
+</li>
+<li>
+<a href="http://tympanus.net/Tutorials/ItemBlur/" class="external">Item Blur Effect</a>
+</li>
+<li>
+<a href="http://lab.hakim.se/reveal-js/#/" class="external">reveal.js</a>
+</li>
+<li>
+<a href="http://tympanus.net/Tutorials/Billboard/" class="external">Rotating Billboard</a>
+</li>
+<li>
+<a href="http://demo.tutorialzine.com/2011/11/pretty-switches-css3-jquery/" class="external">Shiny Knobs</a>
+</li>
+<li>
+<a href="http://css-tricks.com/set-text-on-a-circle/" class="external">Text on a Circle</a>
+</li>
+</ul>
+<hr />
+<h2 id="page_CSS_Frameworks"><strong><em>CSS: Frameworks</em></strong></h2>
+<p>Front-end frameworks allow you to style and layout your UI's more efficiently.</p>
+<h4 id="page_Highest_Recommendation">Highest Recommendation</h4>
+<ul>
+<li>
+<a href="http://twitter.github.com/bootstrap/" class="external">Bootstrap</a>
+<ul>
+<li>also useful: <a href="http://bootswatch.com/" class="external">Bootswatch</a>)</li>
+</ul>
+</li>
+</ul>
+<h4 id="page_Other_Recommended_Options">Other Recommended Options</h4>
+<ul>
+<li>
+<a href="http://foundation.zurb.com/" class="external">Foundation</a>
+</li>
+</ul>
+<h4 id="page_Articles_Discussions">Articles &amp; Discussions</h4>
+<ul>
+<li>
+<a href="http://responsive.vermilion.com/compare.php" class="external">Responsive CSS Framework Comparison</a>
+</li>
+<li>
+<a href="http://webdesign.tutsplus.com/tutorials/complete-websites/twitter-bootstrap-101-introduction/" class="external">Twitter Bootstrap 101</a>
+</li>
+</ul>
+<hr />
+<h2 id="page_CSS_Grid_Systems"><strong><em>CSS: Grid Systems</em></strong></h2>
+<p>Grids allow you to split your screen up into blocks, similar to newspapers, allowing you to more easily control layout.</p>
+<h4 id="page_Highest_Recommendation">Highest Recommendation</h4>
+<ul>
+<li>
+<a href="http://twitter.github.io/bootstrap/scaffolding.html" class="external">Bootstrap Scaffolding</a>
+</li>
+</ul>
+<h4 id="page_Other_Recommended_Options">Other Recommended Options</h4>
+<ul>
+<li>
+<a href="http://960.gs/" class="external">960.gs</a>
+</li>
+<li>
+<a href="http://www.blueprintcss.org/" class="external">Blueprint</a>
+</li>
+<li>
+<a href="http://foundation.zurb.com/grid.php" class="external">Foundation: Grid System</a>
+</li>
+<li>
+<a href="http://thatcoolguy.github.com/gridless-boilerplate/" class="external">Gridless</a>
+</li>
+<li>
+<a href="http://www.yaml.de/" class="external">YAML CSS Framework</a>
+</li>
+<li>
+<a href="http://developer.yahoo.com/yui/grids/" class="external">YUI 2: Grids CSS</a>
+</li>
+</ul>
+<h4 id="page_Articles_Discussions">Articles &amp; Discussions</h4>
+<ul>
+<li>
+<a href="http://www.smashingmagazine.com/2007/04/14/designing-with-grid-based-approach/" class="external">Designing With Grid-Based Approach</a>
+</li>
+<li>
+<a href="http://css-tricks.com/dont-overthink-it-grids/" class="external">Don't Overthink It Grids</a>
+</li>
+<li>
+<a href="http://stackoverflow.com/questions/3455024/grid-css-layouts-tell-me-the-reasons-to-not-use" class="external">Grid CSS layouts. Tell me the reasons to not use</a>
+</li>
+</ul>
+<hr />
+<h2 id="page_Design_Colors_Patterns"><strong><em>Design: Colors &amp; Patterns</em></strong></h2>
+<p>An effective color palette can enhance the appeal of your site or app.</p>
+<h4 id="page_Highest_Recommendation">Highest Recommendation</h4>
+<ul>
+<li>
+<a href="http://colorschemedesigner.com/" class="external">Color Scheme Designer</a>
+</li>
+</ul>
+<h4 id="page_Other_Recommended_Options">Other Recommended Options</h4>
+<ul>
+<li>
+<a href="http://www.colourlovers.com/palettes" class="external">COLOURlovers</a>
+</li>
+<li>
+<a href="http://lea.verou.me/css3patterns/" class="external">CSS3 Patterns Library</a>
+</li>
+<li>
+<a href="https://kuler.adobe.com/" class="external">kuler</a>
+</li>
+</ul>
+<hr />
+<h2 id="page_Design_Icons_Fonts"><strong><em>Design: Icons &amp; Fonts</em></strong></h2>
+<p>Using icon fonts in today's world of varying screen sizes and resolutions is a very effective technique.</p>
+<h4 id="page_Highest_Recommendation">Highest Recommendation</h4>
+<ul>
+<li>
+<a href="http://icomoon.io/" class="external">IcoMoon</a>
+</li>
+</ul>
+<h4 id="page_Other_Recommended_Options">Other Recommended Options</h4>
+<ul>
+<li>
+<a href="http://www.entypo.com" class="external">Entypo</a>
+</li>
+<li>
+<a href="http://fortawesome.github.io/Font-Awesome/" class="external">Font Awesome</a>
+</li>
+<li>
+<a href="http://www.fontsquirrel.com/" class="external">Font Squirrel</a>
+</li>
+<li>
+<a href="http://fontello.com/" class="external">Fontello</a>
+</li>
+<li>
+<a href="http://www.google.com/webfonts" class="external">Google Web Fonts</a>
+</li>
+<li>
+<a href="http://raphaeljs.com/icons/" class="external">Raphael.js Free Icons</a>
+</li>
+</ul>
+<h4 id="page_Articles_Discussions">Articles &amp; Discussions</h4>
+<ul>
+<li>
+<a href="http://hellohappy.org/beautiful-web-type/" class="external">Beautiful web type</a>
+</li>
+<li>
+<a href="http://css-tricks.com/video-screencasts/113-creating-and-using-a-custom-icon-font/" class="external">Creating and Using a Custom Icon Font</a>
+</li>
+<li>
+<a href="http://css-tricks.com/examples/IconFont/" class="external">Icon Fonts Are Awesome</a>
+</li>
+<li>
+<a href="http://www.vanseodesign.com/web-design/icon-fonts/" class="external">Why And How To Use Icon Fonts</a>
+</li>
+</ul>
+<hr />
+<h2 id="page_Design_Responsive_Web_Design"><strong><em>Design: Responsive Web Design</em></strong></h2>
+<p>RWD is without a doubt one of the most overused, overhyped, and overloaded buzzwords in the history of the web.  That being said, it remains a solid design technique for many situations.</p>
+<h4 id="page_Articles_Discussions">Articles &amp; Discussions</h4>
+<ul>
+<li>
+<a href="http://www.html5rocks.com/en/mobile/cross-device/" class="external">Cross Device Tutorial</a>
+</li>
+<li>
+<a href="http://www.teehanlax.com/blog/density-converter/" class="external">Density Converter</a>
+</li>
+<li>
+<a href="http://blog.responsivenews.co.uk/post/13925578846/fluid-grids-orientation-resolution-independence" class="external">Fluid grids, orientation &amp; resolution independence</a>
+</li>
+<li>
+<a href="http://www.stuffandnonsense.co.uk/blog/about/hardboiled_css3_media_queries/" class="external">Hardboiled CSS3 Media Queries</a>
+</li>
+<li>
+<a href="http://upstatement.com/blog/2012/01/how-to-approach-a-responsive-design/" class="external">How to Approach a Responsive Design</a>
+</li>
+<li>
+<a href="http://css-tricks.com/snippets/css/media-queries-for-standard-devices/" class="external">Media Queries for Standard Devices</a>
+</li>
+<li>
+<a href="http://mediaqueri.es" class="external">Media Queries</a>
+</li>
+<li>
+<a href="http://www.lukew.com/ff/entry.asp?1514" class="external">Multi-Device Layout Patterns</a>
+</li>
+<li>
+<a href="http://css-tricks.com/responsive-data-table-roundup/" class="external">Responsive Data Table Roundup</a>
+</li>
+<li>
+<a href="http://bradfrostweb.com/blog/web/responsive-nav-patterns/" class="external">Responsive Navigation Patterns</a>
+</li>
+<li>
+<a href="http://www.thismanslife.co.uk/projects/lab/responsivewireframes/" class="external">Responsive Wireframes</a>
+</li>
+<li>
+<a href="http://www.metaltoad.com/blog/simple-device-diagram-responsive-design-planning" class="external">Simple Responsive Device Diagram</a>
+</li>
+<li>
+<a href="http://goldilocksapproach.com/" class="external">The Goldilocks Approach</a>
+</li>
+<li>
+<a href="http://www.paulrhayes.com/2011-11/use-css-transitions-to-link-media-queries-and-javascript/" class="external">Use CSS transitions to link Media Queries and JavaScript</a>
+</li>
+</ul>
+<hr />
+<h2 id="page_Tools_Code_Playgrounds"><strong><em>Tools: Code Playgrounds</em></strong></h2>
+<p>If you want to have a sandbox, where you can play around with your latest CSS ideas and tests, these resources will give you what you need.  Make changes to your changes in your code and instantly see the results, all within your browser.</p>
+<h4 id="page_Highest_Recommendation">Highest Recommendation</h4>
+<ul>
+<li>
+<a href="http://codepen.io/" class="external">CodePen</a>
+</li>
+</ul>
+<h4 id="page_Other_Recommended_Options">Other Recommended Options</h4>
+<ul>
+<li>
+<a href="http://dabblet.com/" class="external">Dabblet</a>
+</li>
+</ul>
+<h4 id="page_Articles_Discussions">Articles &amp; Discussions</h4>
+<ul>
+<li>
+<a href="http://hugogiraudel.com/2012/11/19/css-playgrounds/" class="external">A Round-up On CSS Playgrounds</a>
+</li>
+<li>
+<a href="http://designshack.net/articles/css/meet-codepen-dribbble-for-coders/" class="external">Meet CodePen: Dribbble for Coders</a>
+</li>
+</ul>
+<hr />
+<h2 id="page_Tools_CSS_Preprocessors"><strong><em>Tools: CSS Preprocessors</em></strong></h2>
+<p>Preprocessors save you time and make your CSS code more manageable through the use of variables, mix-in's (reusable groups of styles), and many other constructs.  The preprocessing &quot;language&quot; is a superset of CSS and compiles into pure CSS for deployment.</p>
+<h4 id="page_Highest_Recommendation">Highest Recommendation</h4>
+<ul>
+<li>
+<a href="http://lesscss.org/" class="external">LESS</a>
+</li>
+</ul>
+<h4 id="page_Other_Recommended_Options">Other Recommended Options</h4>
+<ul>
+<li>
+<a href="http://sass-lang.com/" class="external">Sass</a>
+</li>
+</ul>
+<h4 id="page_Articles_Discussions">Articles &amp; Discussions</h4>
+<ul>
+<li>
+<a href="http://www.vanseodesign.com/css/css-preprocessors/" class="external">An Introduction to CSS Preprocessors</a>
+</li>
+<li>
+<a href="http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/get-into-less-the-programmable-stylesheet-language/" class="external">Get into LESS</a>
+</li>
+<li>
+<a href="http://blog.millermedeiros.com/the-problem-with-css-pre-processors/" class="external">The problem with CSS pre-processors</a>
+</li>
+</ul>
+<hr />
+<h2 id="page_Tools_Image_Editors"><strong><em>Tools: Image Editors</em></strong></h2>
+<p>These tools are a must have for any graphic designer.  They are essential for creating app icons, backgrounds, or nearly any other graphic resource.</p>
+<h4 id="page_Highest_Recommendation">Highest Recommendation</h4>
+<ul>
+<li>
+<a href="http://www.adobe.com/products/photoshop.html" class="external">Adobe Photoshop</a>
+</li>
+</ul>
+<h4 id="page_Other_Recommended_Options">Other Recommended Options</h4>
+<ul>
+<li>
+<a href="http://www.gimp.org/" class="external">GIMP - The GNU Image Manipulation Program</a>
+</li>
+<li>
+<a href="http://www.pixelmator.com/" class="external">Pixelmator</a>
+</li>
+</ul>
+<hr />
+<h2 id="page_Tools_Interactive_Mockups"><strong><em>Tools: Interactive Mockups</em></strong></h2>
+<p>While static images have their place, they are just not enough to convey user interactions, and things like animation.  This is where interactive mockups can help get the point across.</p>
+<h4 id="page_Highest_Recommendation">Highest Recommendation</h4>
+<ul>
+<li>
+<a href="http://www.apple.com/iwork/keynote/" class="external">Keynote</a> with templates:
+<ul>
+<li>
+<a href="http://keynotekungfu.com/" class="external">Keynote Kung-Fu</a>
+</li>
+<li>
+<a href="http://keynotopia.com/" class="external">Keynotopia</a>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="page_Other_Recommended_Options">Other Recommended Options</h4>
+<ul>
+<li>
+<a href="http://www.balsamiq.com/" class="external">balsamiq</a>
+</li>
+<li>
+<a href="http://tobiasahlin.com/blog/introducing-loremify/" class="external">Loremify</a>
+</li>
+<li>
+<a href="https://developer.apple.com/technologies/mac/graphics-and-animation.html" class="external">Quartz Composer</a>
+</li>
+</ul>
+<h4 id="page_Articles_Discussions">Articles &amp; Discussions</h4>
+<ul>
+<li>
+<a href="http://keynotopia.com/guides/" class="external">Creating Interactive Prototypes With Keynote</a>
+</li>
+<li>
+<a href="https://news.layervault.com/stories/3117-facebook-home-prototyped-in-quartz-composer--tutorial" class="external">Facebook Home prototyped in Quartz Composer - Tutorial</a>
+</li>
+</ul>
+<hr />
+<h2 id="page_Tools_Vector_Graphics_Editors"><strong><em>Tools: Vector Graphics Editors</em></strong></h2>
+<p>These tools seem to be more relevent now than ever.  Due to the increase in the variation of screen size, resolutions, and pixel densities, more and more products require the use of scalable vector graphics.  These tools are used to create such graphics.</p>
+<h4 id="page_Highest_Recommendation">Highest Recommendation</h4>
+<ul>
+<li>
+<a href="http://www.adobe.com/products/illustrator.html" class="external">Adobe Illustrator</a>
+</li>
+</ul>
+<h4 id="page_Other_Recommended_Options">Other Recommended Options</h4>
+<ul>
+<li>
+<a href="http://www.corel.com/corel/category.jsp?rootCat=cat20146&amp;cat=cat3430091" class="external">Corel Draw</a>
+</li>
+<li>
+<a href="http://inkscape.org/" class="external">Inkscape</a>
+</li>
+</ul>
+<hr/>
+<h1 id="page_JavaScript"><strong>JavaScript</strong></h1>
+<p>A collection of awesome browser-side <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" class="external">JavaScript</a> libraries, resources and shiny things.</p>
+<ul>
+<li>
+<a href="#awesome-javascript">Awesome JavaScript</a>
+<ul>
+<li>
+<a href="#package-managers">Package Managers</a>
+</li>
+<li>
+<a href="#loaders">Loaders</a>
+</li>
+<li>
+<a href="#bundlers">Bundlers</a>
+</li>
+<li>
+<a href="#testing-frameworks">Testing Frameworks</a>
+</li>
+<li>
+<a href="#qa-tools">QA Tools</a>
+</li>
+<li>
+<a href="#mvc-frameworks-and-libraries">MVC Frameworks and Libraries</a>
+</li>
+<li>
+<a href="#node-powered-cms-frameworks">Node-Powered CMS Frameworks</a>
+</li>
+<li>
+<a href="#templating-engines">Templating Engines</a>
+</li>
+<li>
+<a href="#articles-and-posts">Articles/Posts</a>
+</li>
+<li>
+<a href="#data-visualization">Data Visualization</a>
+<ul>
+<li>
+<a href="#timeline">Timeline</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#editors">Editors</a>
+</li>
+<li>Utilities
+<ul>
+<li>
+<a href="#files">Files</a>
+</li>
+<li>
+<a href="#functional-programming">Functional Programming</a>
+</li>
+<li>
+<a href="#reactive-programming">Reactive Programming</a>
+</li>
+<li>
+<a href="#data-structure">Data Structure</a>
+</li>
+<li>
+<a href="#date">Date</a>
+</li>
+<li>
+<a href="#string">String</a>
+</li>
+<li>
+<a href="#number">Number</a>
+</li>
+<li>
+<a href="#storage">Storage</a>
+</li>
+<li>
+<a href="#color">Color</a>
+</li>
+<li>
+<a href="#i18n-and-l10n">I18n And L10n</a>
+</li>
+<li>
+<a href="#class">Class</a>
+</li>
+<li>
+<a href="#control-flow">Control Flow</a>
+</li>
+<li>
+<a href="#routing">Routing</a>
+</li>
+<li>
+<a href="#security">Security</a>
+</li>
+<li>
+<a href="#log">Log</a>
+</li>
+<li>
+<a href="#regexp">RegExp</a>
+</li>
+<li>
+<a href="#media">Media</a>
+</li>
+<li>
+<a href="#voice-command">Voice Command</a>
+</li>
+<li>
+<a href="#api">API</a>
+</li>
+<li>
+<a href="#vision-detection">Vision Detection</a>
+</li>
+<li>
+<a href="#browser-detection">Browser Detection</a>
+</li>
+</ul>
+</li>
+<li>UI
+<ul>
+<li>
+<a href="#code-highlighting">Code Highlighting</a>
+</li>
+<li>
+<a href="#loading-status">Loading Status</a>
+</li>
+<li>
+<a href="#validation">Validation</a>
+</li>
+<li>
+<a href="#keyboard-wrappers">Keyboard Wrappers</a>
+</li>
+<li>
+<a href="#tours-and-guides">Tours And Guides</a>
+</li>
+<li>
+<a href="#notifications">Notifications</a>
+</li>
+<li>
+<a href="#sliders">Sliders</a>
+</li>
+<li>
+<a href="#range-sliders">Range Sliders</a>
+</li>
+<li>
+<a href="#form-widgets">Form Widgets</a>
+</li>
+<li>
+<a href="#tips">Tips</a>
+</li>
+<li>
+<a href="#modals-and-popups">Modals and Popups</a>
+</li>
+<li>
+<a href="#scroll">Scroll</a>
+</li>
+<li>
+<a href="#menu">Menu</a>
+</li>
+<li>
+<a href="#tablegrid">Table/Grid</a>
+</li>
+<li>
+<a href="#frameworks-1">Frameworks</a>
+</li>
+</ul>
+</li>
+<li>Mobile
+<ul>
+<li>
+<a href="#gesture">Gesture</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#maps">Maps</a>
+</li>
+<li>
+<a href="#animations">Animations</a>
+</li>
+<li>
+<a href="#image-processing">Image processing</a>
+</li>
+<li>
+<a href="#es6">ES6</a>
+</li>
+<li>
+<a href="#sdk">SDK</a>
+</li>
+<li>
+<a href="#misc">Misc</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#worth-reading">Worth Reading</a>
+</li>
+<li>
+<a href="#other-awesome-lists">Other Awesome Lists</a>
+</li>
+<li>
+<a href="#contributing">Contributing</a>
+</li>
+</ul>
+<hr />
+<h2 id="page_Package_Managers">Package Managers</h2>
+<p><em>Host the javascript libraries and provide tools for fetching and packaging them.</em></p>
+<ul>
+<li>
+<a href="https://www.npmjs.com/" class="external">npm</a> - npm is the package manager for javascript.</li>
+<li>
+<a href="https://github.com/bower/bower" class="external">Bower</a> - A package manager for the web.</li>
+<li>
+<a href="https://github.com/component/component" class="external">component</a> - Client package management for building better web applications.</li>
+<li>
+<a href="https://github.com/spmjs/spm" class="external">spm</a> - Brand new static package manager.</li>
+<li>
+<a href="https://github.com/caolan/jam" class="external">jam</a> - A package manager using a browser-focused and RequireJS compatible repository.</li>
+<li>
+<a href="https://github.com/jspm/jspm-cli" class="external">jspm</a> - Frictionless browser package management.</li>
+<li>
+<a href="https://github.com/ender-js/Ender" class="external">Ender</a> - The no-library library.</li>
+<li>
+<a href="https://github.com/volojs/volo" class="external">volo</a> - Create front end projects from templates, add dependencies, and automate the resulting projects.</li>
+<li>
+<a href="https://github.com/duojs/duo" class="external">Duo</a> - Next-generation package manager that blends the best ideas from Component, Browserify and Go to make organizing and writing front-end code quick and painless.</li>
+</ul>
+<h2 id="page_Loaders">Loaders</h2>
+<p><em>Module or loading system for JavaScript.</em></p>
+<ul>
+<li>
+<a href="https://github.com/jrburke/requirejs" class="external">RequireJS</a> - A file and module loader for JavaScript.</li>
+<li>
+<a href="https://github.com/substack/node-browserify" class="external">browserify</a> - Browser-side require() the node.js way.</li>
+<li>
+<a href="https://github.com/seajs/seajs" class="external">SeaJS</a> - A Module Loader for the Web.</li>
+<li>
+<a href="https://github.com/headjs/headjs" class="external">HeadJS</a> - The only script in your HEAD.</li>
+<li>
+<a href="https://github.com/cujojs/curl" class="external">curl</a> - A small, fast, extensible module loader that handles AMD, CommonJS Modules/1.1, CSS, HTML/text, and legacy scripts.</li>
+<li>
+<a href="https://github.com/rgrove/lazyload/" class="external">lazyload</a> - Tiny, dependency-free async JavaScript and CSS loader.</li>
+<li>
+<a href="https://github.com/ded/script.js" class="external">script.js</a> - Asyncronous JavaScript loader and dependency manager.</li>
+<li>
+<a href="https://github.com/systemjs/systemjs" class="external">systemjs</a> - AMD, CJS &amp; ES6 spec-compliant module loader.</li>
+<li>
+<a href="https://github.com/yanhaijing/lodjs" class="external">LodJS</a> - Module loader based on AMD</li>
+<li>
+<a href="https://github.com/ecomfe/esl" class="external">ESL</a> - Module loader browser first, support lazy define and AMD.</li>
+<li>
+<a href="https://github.com/lrsjng/modulejs" class="external">modulejs</a> - Lightweight JavaScript module system.</li>
+</ul>
+<h2 id="page_Bundlers">Bundlers</h2>
+<ul>
+<li>
+<a href="https://github.com/substack/node-browserify" class="external">browserify</a> - Browserify lets you require('modules') in the browser by bundling up all of your dependencies.</li>
+<li>
+<a href="https://github.com/webpack/webpack" class="external">webpack</a> - Packs CommonJs/AMD modules for the browser.</li>
+</ul>
+<h2 id="page_Testing_Frameworks">Testing Frameworks</h2>
+<h3 id="page_Frameworks">Frameworks</h3>
+<ul>
+<li>
+<a href="https://github.com/visionmedia/mocha" class="external">mocha</a> - Simple, flexible, fun javascript test framework for node.js &amp; the browser.</li>
+<li>
+<a href="https://github.com/pivotal/jasmine" class="external">jasmine</a> - DOM-less simple JavaScript testing framework.</li>
+<li>
+<a href="https://github.com/jquery/qunit" class="external">qunit</a> - An easy-to-use JavaScript Unit Testing framework.</li>
+<li>
+<a href="http://github.com/facebook/jest" class="external">jest</a> - Painless Javascript Unit Testing.</li>
+<li>
+<a href="http://github.com/azer/prova" class="external">prova</a> - Node &amp; Browser test runner based on Tape and Browserify</li>
+<li>
+<a href="https://github.com/dalekjs/dalek" class="external">DalekJS</a> - Automated cross browser functional testing with JavaScript</li>
+</ul>
+<h3 id="page_Assertion">Assertion</h3>
+<ul>
+<li>
+<a href="https://github.com/chaijs/chai" class="external">chai</a> - BDD / TDD assertion framework for node.js and the browser that can be paired with any testing framework.</li>
+<li>
+<a href="https://github.com/cjohansen/Sinon.JS" class="external">Sinon.JS</a> - Test spies, stubs, and mocks for JavaScript.</li>
+<li>
+<a href="https://github.com/LearnBoost/expect.js" class="external">expect.js</a> - Minimalistic BDD-style assertions for Node.JS and the browser.</li>
+</ul>
+<h3 id="page_Coverage">Coverage</h3>
+<ul>
+<li>
+<a href="https://github.com/gotwarlost/istanbul" class="external">istanbul</a> - Yet another JS code coverage tool.</li>
+<li>
+<a href="https://github.com/alex-seville/blanket" class="external">blanket</a> - A simple code coverage library for javascript. Designed to be easy to install and use, for both browser and nodejs.</li>
+<li>
+<a href="https://github.com/tntim96/JSCover" class="external">JSCover</a> - JSCover is a tool that measures code coverage for JavaScript programs.</li>
+</ul>
+<h3 id="page_Runner">Runner</h3>
+<ul>
+<li>
+<a href="https://github.com/ariya/phantomjs" class="external">phantomjs</a> - Scriptable Headless WebKit.</li>
+<li>
+<a href="https://github.com/laurentj/slimerjs" class="external">slimerjs</a> - A PhantomJS-like tool running Gecko.</li>
+<li>
+<a href="https://github.com/n1k0/casperjs" class="external">casperjs</a> - Navigation scripting &amp; testing utility for PhantomJS and SlimerJS.</li>
+<li>
+<a href="https://github.com/assaf/zombie" class="external">zombie</a> - Insanely fast, full-stack, headless browser testing using node.js.</li>
+<li>
+<a href="https://github.com/totorojs/totoro" class="external">totoro</a> - A simple and stable cross-browser testing tool.</li>
+<li>
+<a href="https://github.com/karma-runner/karma" class="external">karma</a> - Spectacular Test Runner for JavaScript.</li>
+<li>
+<a href="https://github.com/beatfactor/nightwatch" class="external">nightwatch</a> - UI automated testing framework based on node.js and selenium webdriver.</li>
+<li>
+<a href="https://github.com/theintern/intern" class="external">intern</a> - A next-generation code testing stack for JavaScript.</li>
+<li>
+<a href="http://www.yolpo.com" class="external">yolpo</a> - A statement-by-statement javascript interpreter in the browser.</li>
+</ul>
+<h2 id="page_QA_Tools">QA Tools</h2>
+<ul>
+<li>
+<a href="https://github.com/jshint/jshint/" class="external">JSHint</a> - JSHint is a tool that helps to detect errors and potential problems in your JavaScript code.</li>
+<li>
+<a href="https://github.com/jscs-dev/node-jscs" class="external">jscs</a> - JavaScript Code Style checker.</li>
+<li>
+<a href="https://github.com/rdio/jsfmt" class="external">jsfmt</a> - For formatting, searching, and rewriting JavaScript.</li>
+<li>
+<a href="https://github.com/danielstjules/jsinspect" class="external">jsinspect</a> - Detect copy-pasted and structurally similar code.</li>
+<li>
+<a href="https://github.com/danielstjules/buddy.js" class="external">buddy.js</a> - Magic number detection for JavaScript.</li>
+<li>
+<a href="https://github.com/eslint/eslint" class="external">ESLint</a> - A fully pluggable tool for identifying and reporting on patterns in JavaScript.</li>
+<li>
+<a href="https://github.com/douglascrockford/JSLint" class="external">JSLint</a> - High-standards, strict &amp; opinionated code quality tool, aiming to keep only good parts of the language.</li>
+</ul>
+<h2 id="page_MVC_Frameworks_and_Libraries">MVC Frameworks and Libraries</h2>
+<ul>
+<li>
+<a href="https://github.com/angular/angular.js" class="external">angular.js</a> - HTML enhanced for web apps.</li>
+<li>
+<a href="http://aurelia.io" class="external">aurelia</a> - A Javascript client framework for mobile, desktop and web.</li>
+<li>
+<a href="https://github.com/jashkenas/backbone" class="external">backbone</a> - Give your JS App some Backbone with Models, Views, Collections, and Events.</li>
+<li>
+<a href="http://batmanjs.org/" class="external">batman.js</a> - The best JavaScript framework for Rails developers.</li>
+<li>
+<a href="https://github.com/emberjs/ember.js" class="external">ember.js</a> - A JavaScript framework for creating ambitious web applications.</li>
+<li>
+<a href="https://github.com/meteor/meteor" class="external">meteor</a> - An ultra-simple, database-everywhere, data-on-the-wire, pure-Javascript web framework.</li>
+<li>
+<a href="https://github.com/ractivejs/ractive" class="external">ractive</a> - Next-generation DOM manipulation.</li>
+<li>
+<a href="https://github.com/yyx990803/vue" class="external">vue</a> - Intuitive, fast &amp; composable MVVM for building interactive interfaces.</li>
+<li>
+<a href="https://github.com/knockout/knockout" class="external">knockout</a> - Knockout makes it easier to create rich, responsive UIs with JavaScript.</li>
+<li>
+<a href="https://github.com/spine/spine" class="external">spine</a> - Lightweight MVC library for building JavaScript applications.</li>
+<li>
+<a href="https://github.com/techlayer/espresso.js" class="external">espresso.js</a> - A minimal javascript library for crafting user interfaces.</li>
+<li>
+<a href="https://github.com/bitovi/canjs" class="external">canjs</a> - Can do JS, better, faster, easier.</li>
+<li>
+<a href="https://facebook.github.io/react/" class="external">react</a> - A library for building user interfaces. It's declarative, efficient, and extremely flexible. Works with a Virtual DOM.</li>
+<li>
+<a href="https://github.com/facebook/react-native" class="external">react-native</a> - A framework for building native apps with React.</li>
+<li>
+<a href="https://github.com/riot/riot" class="external">riot</a> - React-like library, but with very small size.</li>
+<li>
+<a href="https://github.com/walmartlabs/thorax" class="external">thorax</a> - Strengthening your Backbone.</li>
+<li>
+<a href="https://github.com/chaplinjs/chaplin" class="external">chaplin</a> - An architecture for JavaScript applications using the Backbone.js library.</li>
+<li>
+<a href="https://github.com/marionettejs/backbone.marionette" class="external">marionette</a> - A composite application library for Backbone.js that aims to simplify the construction of large scale JavaScript applications.</li>
+<li>
+<a href="https://github.com/ripplejs/ripple" class="external">ripple</a> - A tiny foundation for building reactive views.</li>
+<li>
+<a href="https://github.com/mikeric/rivets" class="external">rivets</a> - Lightweight and powerful data binding + templating solution.</li>
+<li>
+<a href="https://github.com/derbyjs/derby" class="external">derby</a> - MVC framework making it easy to write realtime, collaborative applications that run in both Node.js and browsers.
+<ul>
+<li>
+<a href="https://github.com/onerussell/awesome-derby" class="external">derby-awesome</a> - A collection of awesome derby components</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/gwendall/way.js" class="external">way.js</a> - Simple, lightweight, persistent two-way databinding.</li>
+<li>
+<a href="https://github.com/lhorie/mithril.js" class="external">mithril.js</a> - Mithril is a client-side MVC framework (Light-weight, Robust, Fast).</li>
+<li>
+<a href="https://github.com/astoilkov/jsblocks" class="external">jsblocks</a> - jsblocks is better MV-ish framework.</li>
+<li>
+<a href="http://www.lava-framework.com/" class="external">LiquidLava</a> - Transparent MVC framework for building user interfaces.</li>
+</ul>
+<h2 id="page_Node_Powered_CMS_Frameworks">Node-Powered CMS Frameworks</h2>
+<ul>
+<li>
+<a href="https://github.com/keystonejs/keystone" class="external">KeystoneJS</a> - powerful CMS and web app framework</li>
+<li>
+<a href="https://github.com/reactioncommerce/reaction" class="external">Reaction Commerce</a> - reactive CMS, real-time architecture and design</li>
+<li>
+<a href="https://github.com/tryghost/Ghost" class="external">Ghost</a> - simple, powerful publishing platform</li>
+<li>
+<a href="https://github.com/punkave/apostrophe" class="external">Apostrophe</a> - CMS with content editing and essential services</li>
+<li>
+<a href="https://github.com/wejs/we/" class="external">We.js</a> - framework for real time apps, sites or blogs</li>
+<li>
+<a href="https://github.com/inventures/hatchjs" class="external">Hatch.js</a> - CMS platform with social features.</li>
+<li>
+<a href="https://github.com/xtremespb/taracotjs-generator/" class="external">TaracotJS</a> - fast and minimalist CMS based on Node.js.</li>
+<li>
+<a href="https://github.com/nodize/nodizecms" class="external">Nodizecms</a> - CMS for CoffeeScript lovers</li>
+<li>
+<a href="https://github.com/jcoppieters/cody" class="external">Cody</a> - CMS with WSYWYG editor</li>
+<li>
+<a href="https://github.com/pencilblue/pencilblue/" class="external">PencilBlue</a> - CMS and blogging platform</li>
+</ul>
+<h2 id="page_Templating_Engines">Templating Engines</h2>
+<p><em>Templating engines allow you to perform string interpolation.</em></p>
+<ul>
+<li>
+<a href="https://github.com/janl/mustache.js" class="external">mustache.js</a> - Minimal templating with {{mustaches}} in JavaScript.</li>
+<li>
+<a href="https://github.com/wycats/handlebars.js/" class="external">handlebars.js</a> - An extension to the Mustache templating language.</li>
+<li>
+<a href="https://github.com/twitter/hogan.js" class="external">hogan.js</a> - A compiler for the Mustache templating language.</li>
+<li>
+<a href="https://github.com/olado/doT" class="external">doT</a> - The fastest + concise javascript template engine for nodejs and browsers.</li>
+<li>
+<a href="https://github.com/linkedin/dustjs/" class="external">dustjs</a> - Asynchronous templates for the browser and node.js.</li>
+<li>
+<a href="https://github.com/sstephenson/eco/" class="external">eco</a> - Embedded CoffeeScript templates.</li>
+<li>
+<a href="https://github.com/blueimp/JavaScript-Templates" class="external">JavaScript-Templates</a> - &lt; 1KB lightweight, fast &amp; powerful JavaScript templating engine with zero dependencies.</li>
+<li>
+<a href="https://github.com/jasonmoo/t.js" class="external">t.js</a> - A tiny javascript templating framework in ~400 bytes gzipped.</li>
+<li>
+<a href="https://github.com/jadejs/jade" class="external">Jade</a> - Robust, elegant, feature rich template engine for nodejs.</li>
+<li>
+<a href="https://github.com/mde/ejs" class="external">EJS</a> - Effective JavaScript templating.</li>
+<li>
+<a href="https://github.com/xtemplate/xtemplate" class="external">xtemplate</a> - eXtensible Template Engine lib for node and the browser</li>
+<li>
+<a href="https://github.com/marko-js/marko" class="external">marko</a> - A fast, lightweight, HTML-based templating engine for Node.js and the browser with async, streaming, custom tags and CommonJS modules as compiled output.</li>
+</ul>
+<h2 id="page_Articles_and_Posts">Articles and Posts</h2>
+<ul>
+<li>
+<a href="https://medium.com/@pedropolisenso/o-javasscript-que-voc%C3%AA-deveria-conhecer-b70e94d1d706" class="external">The JavaScript that you should know</a> - Article about concepts of JavaScript Functional.</li>
+</ul>
+<h2 id="page_Data_Visualization">Data Visualization</h2>
+<p><em>Data visualization tools for the web.</em></p>
+<ul>
+<li>
+<a href="https://github.com/mbostock/d3" class="external">d3</a> - A JavaScript visualization library for HTML and SVG.
+<ul>
+<li>
+<a href="https://github.com/mozilla/metrics-graphics" class="external">metrics-graphics</a> - A library optimized for concise, principled data graphics and layouts.</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/pykih/PykCharts.js" class="external">pykcharts.js</a> - Well designed d3.js charting without the complexity of d3.js.</li>
+<li>
+<a href="https://github.com/mrdoob/three.js" class="external">three.js</a> - JavaScript 3D library.</li>
+<li>
+<a href="https://github.com/nnnick/Chart.js" class="external">Chart.js</a> - Simple HTML5 Charts using the <canvas> tag.</li>
+<li>
+<a href="https://github.com/paperjs/paper.js" class="external">paper.js</a> - The Swiss Army Knife of Vector Graphics Scripting – Scriptographer ported to JavaScript and the browser, using HTML5 Canvas.</li>
+<li>
+<a href="https://github.com/kangax/fabric.js" class="external">fabric.js</a> - Javascript Canvas Library, SVG-to-Canvas (&amp; canvas-to-SVG) Parser.</li>
+<li>
+<a href="https://github.com/benpickles/peity" class="external">peity</a> - Progressive <svg> bar, line and pie charts.</li>
+<li>
+<a href="https://github.com/DmitryBaranovskiy/raphael" class="external">raphael</a> - JavaScript Vector Library.</li>
+<li>
+<a href="https://github.com/ecomfe/echarts" class="external">echarts</a> - Enterprise Charts.</li>
+<li>
+<a href="https://github.com/almende/vis" class="external">vis</a> - Dynamic, browser-based visualization library.</li>
+<li>
+<a href="https://github.com/jonobr1/two.js" class="external">two.js</a> - A renderer agnostic two-dimensional drawing api for the web.</li>
+<li>
+<a href="https://github.com/DmitryBaranovskiy/g.raphael" class="external">g.raphael</a> - Charts for Raphaël.</li>
+<li>
+<a href="https://github.com/jacomyal/sigma.js" class="external">sigma.js</a> - A JavaScript library dedicated to graph drawing.</li>
+<li>
+<a href="https://github.com/samizdatco/arbor" class="external">arbor</a> - A graph visualization library using web workers and jQuery.</li>
+<li>
+<a href="https://github.com/square/cubism" class="external">cubism</a> - A D3 plugin for visualizing time series.</li>
+<li>
+<a href="https://github.com/dc-js/dc.js" class="external">dc.js</a> - Multi-Dimensional charting built to work natively with crossfilter rendered with d3.js</li>
+<li>
+<a href="https://github.com/trifacta/vega" class="external">vega</a> - A visualization grammar.</li>
+<li>
+<a href="http://processingjs.org/" class="external">processing.js</a> - Processing.js makes your data visualizations work using web standards and without any plug-ins</li>
+<li>
+<a href="https://github.com/HumbleSoftware/envisionjs" class="external">envisionjs</a> - Dynamic HTML5 visualization.</li>
+<li>
+<a href="https://github.com/shutterstock/rickshaw" class="external">rickshaw</a> - JavaScript toolkit for creating interactive real-time graphs.</li>
+<li>
+<a href="https://github.com/flot/flot" class="external">flot</a> - Attractive JavaScript charts for jQuery.</li>
+<li>
+<a href="https://github.com/morrisjs/morris.js" class="external">morris.js</a> - Pretty time-series line graphs.</li>
+<li>
+<a href="https://github.com/novus/nvd3" class="external">nvd3</a> - Build re-usable charts and chart components for d3.js</li>
+<li>
+<a href="https://github.com/wout/svg.js" class="external">svg.js</a> - A lightweight library for manipulating and animating SVG.</li>
+<li>
+<a href="https://github.com/pa7/heatmap.js" class="external">heatmap.js</a> - JavaScript Library for HTML5 canvas based heatmaps.</li>
+<li>
+<a href="https://github.com/gwatts/jquery.sparkline" class="external">jquery.sparkline</a> - A plugin for the jQuery javascript library to generate small sparkline charts directly in the browser.</li>
+<li>
+<a href="https://github.com/tenxer/xCharts" class="external">xCharts</a> - A D3-based library for building custom charts and graphs.</li>
+<li>
+<a href="https://github.com/qrohlf/trianglify" class="external">trianglify</a> - Low poly style background generator with d3.js</li>
+<li>
+<a href="https://github.com/jasondavies/d3-cloud" class="external">d3-cloud</a> - Create word clouds in JavaScript.</li>
+<li>
+<a href="https://github.com/heavysixer/d4" class="external">d4</a> - A friendly reusable charts DSL for D3.</li>
+<li>
+<a href="http://dimplejs.org" class="external">dimple.js</a> -  Easy charts for business analytics powered by d3</li>
+<li>
+<a href="https://github.com/gionkunz/chartist-js" class="external">chartist-js</a> - Simple responsive charts.</li>
+<li>
+<a href="https://github.com/fastly/epoch" class="external">epoch</a> - A general purpose real-time charting library.</li>
+<li>
+<a href="https://github.com/masayuki0812/c3" class="external">c3</a> - D3-based reusable chart library.</li>
+<li>
+<a href="https://github.com/BabylonJS/Babylon.js" class="external">BabylonJS</a> - A framework for building 3D games with HTML 5 and WebGL.</li>
+</ul>
+<p>There're also some great commercial libraries, like <a href="http://www.amcharts.com/" class="external">amchart</a>, <a href="https://www.plot.ly/" class="external">plotly</a>, and <a href="http://www.highcharts.com/" class="external">highchart</a>.</p>
+<h2 id="page_Timeline">Timeline</h2>
+<ul>
+<li>
+<a href="https://github.com/NUKnightLab/TimelineJS" class="external">TimelineJS</a> - A Storytelling Timeline built in JavaScript.</li>
+<li>
+<a href="https://github.com/semu/timesheet.js" class="external">timesheet.js</a> - JavaScript library for simple HTML5 &amp; CSS3 time sheets.</li>
+</ul>
+<h2 id="page_Editors">Editors</h2>
+<ul>
+<li>
+<a href="https://github.com/ajaxorg/ace" class="external">ace</a> - Ace (Ajax.org Cloud9 Editor).</li>
+<li>
+<a href="https://github.com/marijnh/CodeMirror" class="external">CodeMirror</a> - In-browser code editor.</li>
+<li>
+<a href="https://github.com/ariya/esprima" class="external">esprima</a> - ECMAScript parsing infrastructure for multipurpose analysis.</li>
+<li>
+<a href="https://github.com/quilljs/quill" class="external">quill</a> - A cross browser rich text editor with an API.</li>
+<li>
+<a href="https://github.com/daviferreira/medium-editor" class="external">medium-editor</a> - Medium.com WYSIWYG editor clone.</li>
+<li>
+<a href="https://github.com/sofish/pen" class="external">pen</a> - enjoy live editing (+markdown).</li>
+<li>
+<a href="https://github.com/raphaelcruzeiro/jquery-notebook" class="external">jquery-notebook</a> - A simple, clean and elegant text editor. Inspired by the awesomeness of Medium.</li>
+<li>
+<a href="https://github.com/mindmup/bootstrap-wysiwyg" class="external">bootstrap-wysiwyg</a> - Tiny bootstrap-compatible WYSIWYG rich text editor.</li>
+<li>
+<a href="https://github.com/ckeditor/ckeditor-releases" class="external">ckeditor-releases</a> - The best web text editor for everyone.</li>
+<li>
+<a href="https://github.com/lepture/editor" class="external">editor</a> - A markdown editor. still on development.</li>
+<li>
+<a href="https://github.com/OscarGodson/EpicEditor" class="external">EpicEditor</a> - An embeddable JavaScript Markdown editor with split fullscreen editing, live previewing, automatic draft saving, offline support, and more.</li>
+<li>
+<a href="https://github.com/josdejong/jsoneditor" class="external">jsoneditor</a> - A web-based tool to view, edit and format JSON.</li>
+<li>
+<a href="https://github.com/coolwanglu/vim.js" class="external">vim.js</a> - JavaScript port of Vim with a persistent ~/.vimrc</li>
+<li>
+<a href="https://github.com/neilj/Squire" class="external">Squire</a> - HTML5 rich text editor.</li>
+<li>
+<a href="https://github.com/tinymce/tinymce" class="external">TinyMCE</a> - The JavaScript Rich Text editor.</li>
+<li>
+<a href="https://github.com/basecamp/trix" class="external">trix</a> - A rich text editor for everyday writing. By Basecamp.</li>
+</ul>
+<h2 id="page_Files">Files</h2>
+<p><em>Libraries for working with files.</em></p>
+<ul>
+<li>
+<a href="https://github.com/mholt/PapaParse" class="external">Papa Parse</a> - A powerful CSV library that supports parsing CSV files/strings and also exporting to CSV.</li>
+<li>
+<a href="https://github.com/jDataView/jBinary" class="external">jBinary</a> - High-level I/O (loading, parsing, manipulating, serializing, saving) for binary files with declarative syntax for describing file types and data structures.</li>
+</ul>
+<h2 id="page_Functional_Programming">Functional Programming</h2>
+<p><em>Functional programming libraries to extend JavaScript’s capabilities.</em></p>
+<ul>
+<li>
+<a href="https://github.com/jashkenas/underscore" class="external">underscore</a> - JavaScript's utility _ belt.</li>
+<li>
+<a href="https://github.com/lodash/lodash" class="external">lodash</a> - A utility library delivering consistency, customization, performance, &amp; extras.</li>
+<li>
+<a href="https://github.com/andrewplummer/Sugar" class="external">Sugar</a> - A Javascript library for working with native objects.</li>
+<li>
+<a href="https://github.com/dtao/lazy.js" class="external">lazy.js</a> - Like Underscore, but lazier.</li>
+<li>
+<a href="https://github.com/CrossEye/ramda" class="external">ramda</a> - A practical functional library for Javascript programmers.</li>
+<li>
+<a href="https://github.com/mout/mout" class="external">mout</a> - Modular JavaScript Utilities.</li>
+<li>
+<a href="https://github.com/mojo-js/mesh.js" class="external">mesh</a> - Streamable data synchronization utility.</li>
+</ul>
+<h2 id="page_Reactive_Programming">Reactive Programming</h2>
+<p><em>Reactive programming libraries to extend JavaScript’s capabilities.</em></p>
+<ul>
+<li>
+<a href="https://github.com/Reactive-Extensions/RxJS" class="external">RxJs</a> - The Reactive Extensions for JavaScript.</li>
+<li>
+<a href="https://github.com/baconjs/bacon.js" class="external">Bacon</a> - FRP (functional reactive programming) library for Javascript.</li>
+<li>
+<a href="https://github.com/pozadi/kefir" class="external">Kefir</a> - FRP library for JavaScript inspired by Bacon.js and RxJS with focus on high performance and low memory consumption.</li>
+<li>[Highland] (http://highlandjs.org/) - Re-thinking the JavaScript utility belt, Highland manages synchronous and asynchronous code easily, using nothing more than standard JavaScript and Node-like Streams.</li>
+<li>
+<a href="https://github.com/cujojs/most" class="external">Most.js</a> - high performance FRP library.</li>
+</ul>
+<h2 id="page_Data_Structure">Data Structure</h2>
+<p><em>Data structure libraries to build a more sophisticated application.</em></p>
+<ul>
+<li>
+<a href="https://github.com/facebook/immutable-js" class="external">immutable-js</a> - Immutable Data Collections including Sequence, Range, Repeat, Map, OrderedMap, Set and a sparse Vector.</li>
+<li>
+<a href="https://github.com/swannodette/mori" class="external">mori</a> - A library for using ClojureScript's persistent data structures and supporting API from the comfort of vanilla JavaScript.</li>
+<li>
+<a href="https://github.com/mauriciosantos/buckets" class="external">buckets</a> - A complete, fully tested and documented data structure library written in JavaScript.</li>
+<li>
+<a href="https://github.com/flesler/hashmap" class="external">hashmap</a> - Simple hashmap implementation that supports any kind of keys.</li>
+</ul>
+<h2 id="page_Date">Date</h2>
+<p><em>Date Libraries.</em></p>
+<ul>
+<li>
+<a href="https://github.com/moment/moment" class="external">moment</a> - Parse, validate, manipulate, and display dates in javascript.</li>
+<li>
+<a href="https://github.com/moment/moment-timezone" class="external">moment-timezone</a> - Timezone support for moment.js.</li>
+<li>
+<a href="https://github.com/rmm5t/jquery-timeago" class="external">jquery-timeago</a> - A jQuery plugin that makes it easy to support automatically updating fuzzy timestamps (e.g. &quot;4 minutes ago&quot;).</li>
+<li>
+<a href="https://github.com/mde/timezone-js" class="external">timezone-js</a> - Timezone-enabled JavaScript Date object. Uses Olson zoneinfo files for timezone data.</li>
+<li>
+<a href="https://github.com/MatthewMueller/date" class="external">date</a> - Date() for humans.</li>
+<li>
+<a href="https://github.com/guille/ms.js" class="external">ms.js</a> - Tiny millisecond conversion utility.</li>
+</ul>
+<h2 id="page_String">String</h2>
+<p><em>String Libraries.</em></p>
+<ul>
+<li>
+<a href="https://github.com/EvandroLG/selecting" class="external">selecting</a> - A library that allows you to access the text selected by the user</li>
+<li>
+<a href="https://github.com/epeli/underscore.string" class="external">underscore.string</a> - String manipulation extensions for Underscore.js javascript library.</li>
+<li>
+<a href="https://github.com/jprichardson/string.js" class="external">string.js</a> - Extra JavaScript string methods.</li>
+<li>
+<a href="https://github.com/mathiasbynens/he" class="external">he</a> - A robust HTML entity encoder/decoder written in JavaScript.</li>
+<li>
+<a href="https://github.com/sindresorhus/multiline" class="external">multiline</a> - Multiline strings in JavaScript.</li>
+<li>
+<a href="https://github.com/sindresorhus/query-string" class="external">query-string</a> - Parse and stringify URL query strings.</li>
+<li>
+<a href="https://github.com/medialize/URI.js/" class="external">URI.js</a> - Javascript URL mutation library.</li>
+<li>
+<a href="https://github.com/Mikhus/jsurl" class="external">jsurl</a> - Lightweight URL manipulation with JavaScript.</li>
+<li>
+<a href="https://github.com/alexei/sprintf.js" class="external">sprintf.js</a> - A sprintf implementation.</li>
+<li>
+<a href="https://github.com/snd/url-pattern" class="external">url-pattern</a> - Easier than regex string matching patterns for urls and other strings. Turn strings into data or data into strings</li>
+</ul>
+<h2 id="page_Number">Number</h2>
+<ul>
+<li>
+<a href="https://github.com/adamwdraper/Numeral-js" class="external">Numeral-js</a> - A javascript library for formatting and manipulating numbers.</li>
+<li>
+<a href="https://github.com/HubSpot/odometer" class="external">odometer</a> - Smoothly transitions numbers with ease.</li>
+<li>
+<a href="https://github.com/josscrowcroft/accounting.js" class="external">accounting.js</a> - A lightweight JavaScript library for number, money and currency formatting - fully localisable, zero dependencies.</li>
+<li>
+<a href="https://github.com/josscrowcroft/money.js" class="external">money.js</a> - A tiny (1kb) javascript currency conversion library, for web &amp; nodeJS.</li>
+<li>
+<a href="https://github.com/infusion/Fraction.js" class="external">Fraction.js</a> - A rational number library for JavaScript</li>
+<li>
+<a href="https://github.com/infusion/Complex.js" class="external">Complex.js</a> - A complex number library for JavaScript</li>
+<li>
+<a href="https://github.com/infusion/Polynomial.js" class="external">Polynomial.js</a> - A polynomials library for JavaScript</li>
+</ul>
+<h2 id="page_Storage">Storage</h2>
+<ul>
+<li>
+<a href="https://github.com/marcuswestin/store.js" class="external">store.js</a> - LocalStorage wrapper for all browsers without using cookies or flash. Uses localStorage, globalStorage, and userData behavior under the hood.</li>
+<li>
+<a href="https://github.com/mozilla/localForage" class="external">localForage</a> - Offline storage, improved. Wraps IndexedDB, WebSQL, or localStorage using a simple but powerful API.</li>
+<li>
+<a href="https://github.com/andris9/jStorage" class="external">jStorage</a> - jStorage is a simple key/value database to store data on browser side.</li>
+<li>
+<a href="https://github.com/zendesk/cross-storage" class="external">cross-storage</a> - Cross domain local storage, with permissions.</li>
+<li>
+<a href="https://github.com/addyosmani/basket.js" class="external">basket.js</a> - A script and resource loader for caching &amp; loading scripts with localStorage.</li>
+<li>
+<a href="https://github.com/nodeca/bag.js" class="external">bag.js</a> - A caching script and resource loader, similar to basket.js, but with additional k/v interface and localStorage / websql / indexedDB support.</li>
+<li>
+<a href="https://github.com/Wisembly/basil.js" class="external">basil.js</a> - The missing Javascript smart persistent layer.</li>
+<li>
+<a href="https://github.com/carhartl/jquery-cookie" class="external">jquery-cookie</a> - A simple, lightweight jQuery plugin for reading, writing and deleting cookies.</li>
+<li>
+<a href="https://github.com/ScottHamper/Cookies" class="external">Cookies</a> - JavaScript Client-Side Cookie Manipulation Library.</li>
+<li>[DB.js] (https://github.com/aaronpowell/db.js/) - Promise based IndexDB Wrapper library</li>
+<li>[lawnchair.js] (https://github.com/brianleroux/lawnchair/) - Simple client-side JSON storage.</li>
+</ul>
+<h2 id="page_Color">Color</h2>
+<ul>
+<li>
+<a href="https://github.com/davidmerfield/randomColor" class="external">randomColor</a> - A color generator for JavaScript.</li>
+<li>
+<a href="https://github.com/gka/chroma.js" class="external">chroma.js</a> - JavaScript library for all kinds of color manipulations.</li>
+<li>
+<a href="https://github.com/harthur/color" class="external">color</a> - JavaScript color conversion and manipulation library.</li>
+<li>
+<a href="https://github.com/mrmrs/colors" class="external">colors</a> - Smarter defaults for colors on the web.</li>
+<li>
+<a href="https://github.com/Fooidge/PleaseJS" class="external">PleaseJS</a> - JavaScript Library for creating random pleasing colors and color schemes.</li>
+<li>
+<a href="https://github.com/bgrins/TinyColor" class="external">TinyColor</a> - Fast, small color manipulation and conversion for JavaScript.</li>
+<li>[Vibrant.js] (https://github.com/jariz/vibrant.js/) - Extract prominent colors from an image.</li>
+</ul>
+<h2 id="page_I18n_And_L10n">I18n And L10n</h2>
+<p><em>Localization (l10n) and internationalization (i18n) JavaScript libraries.</em></p>
+<ul>
+<li>
+<a href="https://github.com/jamuhl/i18next" class="external">i18next</a> - internationalisation (i18n) with javascript the easy way.</li>
+<li>
+<a href="https://github.com/airbnb/polyglot.js" class="external">polyglot</a> - tiny i18n helper library.</li>
+<li>
+<a href="https://github.com/nodeca/babelfish/" class="external">babelfish</a> - i18n with human friendly API and built in plurals support.</li>
+</ul>
+<h2 id="page_Class">Class</h2>
+<ul>
+<li>
+<a href="https://github.com/kogarashisan/ClassManager" class="external">ClassManager</a> - One of the fastest and most convenient class systems in the world</li>
+<li>
+<a href="https://github.com/ded/klass" class="external">klass</a> - A utility for creating expressive classes in JavaScript.</li>
+<li>
+<a href="https://github.com/javascript/augment" class="external">augment</a> - The world's smallest and fastest classical JavaScript inheritance pattern.</li>
+</ul>
+<h2 id="page_Control_Flow">Control Flow</h2>
+<ul>
+<li>
+<a href="https://github.com/caolan/async" class="external">async</a> - Async utilities for node and the browser.</li>
+<li>
+<a href="https://github.com/kriskowal/q" class="external">q</a> - A tool for making and composing asynchronous promises in JavaScript.</li>
+<li>
+<a href="https://github.com/creationix/step/" class="external">step</a> - An async control-flow library that makes stepping through logic easy.</li>
+<li>
+<a href="https://github.com/bevacqua/contra/" class="external">contra</a> - Asynchronous flow control with a functional taste to it.</li>
+<li>
+<a href="https://github.com/petkaantonov/bluebird/" class="external">Bluebird</a> - fully featured promise library with focus on innovative features and performance.</li>
+<li>
+<a href="https://github.com/cujojs/when" class="external">when</a> - A solid, fast Promises/A+ and when() implementation, plus other async goodies.</li>
+<li>
+<a href="https://github.com/gartz/ObjectEventTarget" class="external">ObjectEventTarget</a> - Provide a prototype that add support to event listeners (with same behavior of EventTarget from DOMElements available on browsers).</li>
+</ul>
+<h2 id="page_Routing">Routing</h2>
+<ul>
+<li>
+<a href="https://github.com/flatiron/director" class="external">director</a> - A tiny and isomorphic URL router for JavaScript.</li>
+<li>
+<a href="https://github.com/visionmedia/page.js" class="external">page.js</a> - Micro client-side router inspired by the Express router (~1200 bytes).</li>
+<li>
+<a href="https://github.com/mtrpcic/pathjs" class="external">pathjs</a> - Simple, lightweight routing for web browsers.</li>
+<li>
+<a href="https://github.com/millermedeiros/crossroads.js" class="external">crossroads</a> - JavaScript Routes.</li>
+<li>
+<a href="https://github.com/olivernn/davis.js" class="external">davis.js</a> - RESTful degradable JavaScript routing using pushState.</li>
+</ul>
+<h2 id="page_Security">Security</h2>
+<ul>
+<li>
+<a href="https://github.com/cure53/DOMPurify" class="external">DOMPurify</a> - A DOM-only, super-fast, uber-tolerant XSS sanitizer for HTML, MathML and SVG.</li>
+<li>
+<a href="https://github.com/leizongmin/js-xss" class="external">js-xss</a> - Sanitize untrusted HTML (to prevent XSS) with a configuration specified by a Whitelist.</li>
+</ul>
+<h2 id="page_Log">Log</h2>
+<ul>
+<li>
+<a href="https://github.com/adamschwartz/log" class="external">log</a> - Console.log with style.</li>
+<li>
+<a href="https://github.com/Oaxoa/Conzole" class="external">Conzole</a> - A debug panel built in javascript that wraps javascript native console object methods and functionality in a panel displayed inside the page.</li>
+<li>
+<a href="https://github.com/patik/console.log-wrapper" class="external">console.log-wrapper</a> - Log to the console in any browser with clarity.</li>
+<li>
+<a href="https://github.com/pimterry/loglevel" class="external">loglevel</a> - Minimal lightweight logging for JavaScript, adding reliable log level methods to wrap any available console.log methods.</li>
+<li>
+<a href="http://mixu.net/minilog/" class="external">minilog</a> – Lightweight client &amp; server-side logging with Stream-API backends</li>
+</ul>
+<h2 id="page_RegExp">RegExp</h2>
+<ul>
+<li>
+<a href="https://regex101.com/#javascript" class="external">RegEx101</a> - Online regex tester and debugger for JavaScript. Also supports Python, PHP and PCRE.</li>
+<li>
+<a href="http://regexr.com" class="external">RegExr</a> - HTML/JS based tool for creating, testing, and learning about Regular Expressions.</li>
+<li>
+<a href="https://github.com/thebinarysearchtree/regexpbuilderjs" class="external">RegExpBuilder</a> - Create regular expressions using chained methods.</li>
+</ul>
+<h2 id="page_Media">Media</h2>
+<ul>
+<li>
+<a href="https://github.com/IonDen/ion.sound" class="external">Ion.Sound</a> - Simple sounds on any web page</li>
+</ul>
+<h2 id="page_Voice_Command">Voice Command</h2>
+<ul>
+<li>
+<a href="https://github.com/TalAter/annyang" class="external">annyang</a> - A JavaScript library for adding voice commands to your site, using speech recognition.</li>
+<li>
+<a href="https://github.com/pazguille/voix" class="external">voix.js</a> - A JavaScript library to add voice commands to your sites, apps or games.</li>
+</ul>
+<h2 id="page_API">API</h2>
+<ul>
+<li>
+<a href="https://github.com/SGrondin/bottleneck" class="external">bottleneck</a> - A powerful rate limiter that makes throttling easy.</li>
+<li>
+<a href="https://github.com/bettiolo/oauth-signature-js" class="external">oauth-signature-js</a> - JavaScript OAuth 1.0a signature generator for node and the browser.</li>
+<li>
+<a href="https://github.com/lincolnloop/amygdala" class="external">amygdala</a> - RESTful HTTP client for JavaScript powered web applications.</li>
+<li>
+<a href="https://github.com/jpillora/jquery.rest" class="external">jquery.rest</a> - A jQuery plugin for easy consumption of RESTful APIs.</li>
+</ul>
+<h2 id="page_Vision_Detection">Vision Detection</h2>
+<ul>
+<li>
+<a href="https://github.com/eduardolundgren/tracking.js" class="external">tracking.js</a> - A modern approach for Computer Vision on the web.</li>
+<li>
+<a href="https://github.com/antimatter15/ocrad.js" class="external">ocrad.js</a> - OCR in Javascript via Emscripten.</li>
+</ul>
+<h2 id="page_Browser_Detection">Browser Detection</h2>
+<ul>
+<li>
+<a href="https://github.com/ded/bowser" class="external">bowser</a> - a browser detector</li>
+</ul>
+<h2 id="page_Code_highlighting">Code highlighting</h2>
+<ul>
+<li>
+<a href="https://github.com/isagalaev/highlight.js" class="external">Highlight.js</a> - Javascript syntax highlighter.</li>
+<li>
+<a href="https://github.com/LeaVerou/prism" class="external">PrismJS</a> - Lightweight, robust, elegant syntax highlighting.</li>
+</ul>
+<h2 id="page_Loading_Status">Loading Status</h2>
+<p><em>Libraries for indicate load status.</em></p>
+<ul>
+<li>
+<a href="https://github.com/lightningtgc/MProgress.js" class="external">Mprogress.js</a> - Create Google Material Design progress linear bars.</li>
+<li>
+<a href="http://ricostacruz.com/nprogress/" class="external">NProgress</a> - Slim progress bars for Ajax'y applications.</li>
+<li>
+<a href="https://github.com/fgnass/spin.js" class="external">Spin.js</a> - A spinning activity indicator.</li>
+<li>
+<a href="https://github.com/usablica/progress.js" class="external">progress.js</a> - Create and manage progress bar for every objects on the page.</li>
+<li>
+<a href="https://github.com/kimmobrunfeldt/progressbar.js" class="external">progressbar.js</a> - Beautiful and responsive progress bars with animated SVG paths.</li>
+<li>
+<a href="https://github.com/HubSpot/pace" class="external">pace</a> - Automatically add a progress bar to your site.</li>
+<li>
+<a href="https://github.com/buunguyen/topbar" class="external">topbar</a> - Tiny &amp; beautiful site-wide progress indicator.</li>
+<li>
+<a href="https://github.com/jacoborus/nanobar" class="external">nanobar</a> - Very lightweight progress bars. No jQuery.</li>
+<li>
+<a href="https://github.com/codrops/PageLoadingEffects" class="external">PageLoadingEffects</a> - Modern ways of revealing new content using SVG animations.</li>
+<li>
+<a href="https://github.com/tobiasahlin/SpinKit" class="external">SpinKit</a> - A collection of loading indicators animated with CSS.</li>
+<li>
+<a href="https://github.com/hakimel/Ladda" class="external">Ladda</a> - Buttons with built-in loading indicators.</li>
+<li>
+<a href="https://github.com/lukehaas/css-loaders" class="external">css-loaders</a> - A collection of loading spinners animated with CSS.</li>
+</ul>
+<p>Besides libraries, there're <a href="http://codepen.io/collection/HtAne/" class="external">Collection on Codepen</a>, and generators like <a href="http://www.ajaxload.info/" class="external">Ajaxload</a>, <a href="http://preloaders.net/" class="external">Preloaders</a> and <a href="http://cssload.net/" class="external">CSSLoad</a>.</p>
+<h2 id="page_Validation">Validation</h2>
+<ul>
+<li>
+<a href="https://github.com/guillaumepotier/Parsley.js" class="external">Parsley.js</a> - Validate your forms, frontend, without writing a single line of javascript.</li>
+<li>
+<a href="https://github.com/jzaefferer/jquery-validation" class="external">jquery-validation</a> - jQuery Validation Plugin.</li>
+<li>
+<a href="https://github.com/chriso/validator.js" class="external">validator.js</a> - String validation and sanitization.</li>
+<li>
+<a href="https://github.com/rickharrison/validate.js" class="external">validate.js</a> - Lightweight JavaScript form validation library inspired by CodeIgniter.</li>
+<li>
+<a href="https://github.com/jaymorrow/validatr/" class="external">validatr</a> - Cross Browser HTML5 Form Validation.</li>
+<li>
+<a href="https://github.com/nghuuphuoc/bootstrapvalidator" class="external">BootstrapValidator</a> - The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3.</li>
+<li>
+<a href="https://github.com/arasatasaygin/is.js" class="external">is.js</a> -  Check types, regexps, presence, time and more.</li>
+<li>
+<a href="https://github.com/FieldVal/fieldval-js" class="external">FieldVal</a> - multipurpose validation library. Supports both sync and async validation.</li>
+</ul>
+<h2 id="page_Keyboard_Wrappers">Keyboard Wrappers</h2>
+<ul>
+<li>
+<a href="https://github.com/ccampbell/mousetrap" class="external">mousetrap</a> - Simple library for handling keyboard shortcuts in Javascript.</li>
+<li>
+<a href="https://github.com/madrobby/keymaster" class="external">keymaster</a> - A simple micro-library for defining and dispatching keyboard shortcuts.</li>
+<li>
+<a href="https://github.com/dmauro/Keypress" class="external">Keypress</a> - A keyboard input capturing utility in which any key can be a modifier key.</li>
+<li>
+<a href="https://github.com/RobertWHurst/KeyboardJS" class="external">KeyboardJS</a> - A JavaScript library for binding keyboard combos without the pain of key codes and key combo conflicts.</li>
+<li>
+<a href="https://github.com/jeresig/jquery.hotkeys" class="external">jquery.hotkeys</a> - jQuery Hotkeys lets you watch for keyboard events anywhere in your code supporting almost any key combination.</li>
+<li>
+<a href="https://github.com/keithamus/jwerty" class="external">jwerty</a> - Awesome handling of keyboard events.</li>
+</ul>
+<h2 id="page_Tours_And_Guides">Tours And Guides</h2>
+<ul>
+<li>
+<a href="https://github.com/usablica/intro.js" class="external">intro.js</a> - A better way for new feature introduction and step-by-step users guide for your website and project.</li>
+<li>
+<a href="https://github.com/HubSpot/shepherd" class="external">shepherd</a> - Guide your users through a tour of your app.</li>
+<li>
+<a href="https://github.com/sorich87/bootstrap-tour" class="external">bootstrap-tour</a> - Quick and easy product tours with Twitter Bootstrap Popovers.</li>
+<li>
+<a href="https://github.com/easelinc/tourist" class="external">tourist</a> - Simple, flexible tours for your app.</li>
+<li>
+<a href="https://github.com/heelhook/chardin.js" class="external">chardin.js</a> - Simple overlay instructions for your apps.</li>
+<li>
+<a href="https://github.com/tracelytics/pageguide" class="external">pageguide</a> - An interactive guide for web page elements using jQuery and CSS3.</li>
+<li>
+<a href="https://github.com/linkedin/hopscotch" class="external">hopscotch</a> - A framework to make it easy for developers to add product tours to their pages.</li>
+<li>
+<a href="https://github.com/zurb/joyride" class="external">joyride</a> - jQuery feature tour plugin.</li>
+<li>
+<a href="https://github.com/zzarcon/focusable" class="external">focusable</a> - Set a spotlight focus on DOM element adding a overlay layer to the rest of the page.</li>
+</ul>
+<h2 id="page_Notifications">Notifications</h2>
+<ul>
+<li>
+<a href="https://github.com/HubSpot/messenger" class="external">messenger</a> - Growl-style alerts and messages for your app.</li>
+<li>
+<a href="https://github.com/needim/noty" class="external">noty</a> - jQuery notification plugin.</li>
+<li>
+<a href="https://github.com/sciactive/pnotify" class="external">pnotify</a> - JavaScript notifications for Bootstrap, jQuery UI, and the Web Notifications Draft.</li>
+<li>
+<a href="https://github.com/CodeSeven/toastr" class="external">toastr</a> - Simple javascript toast notifications.</li>
+<li>
+<a href="https://github.com/wavded/humane-js" class="external">humane-js</a> - A simple, modern, browser notification system.</li>
+<li>
+<a href="https://github.com/hxgf/smoke.js" class="external">smoke.js</a> - Framework-agnostic styled alert system for javascript.</li>
+</ul>
+<h2 id="page_Sliders">Sliders</h2>
+<ul>
+<li>
+<a href="https://github.com/nolimits4web/Swiper" class="external">Swiper</a> - Mobile touch slider and framework with hardware accelerated transitions.</li>
+<li>
+<a href="https://github.com/kenwheeler/slick" class="external">slick</a> - The last carousel you'll ever need.</li>
+<li>
+<a href="http://www.slidesjs.com" class="external">slidesJs</a> - Is a ressponsive slideshow plug-in for JQuery(1.7.1+) with features like touch and CSS3 transitions</li>
+<li>
+<a href="https://github.com/woothemes/FlexSlider" class="external">FlexSlider</a> - An awesome, fully responsive jQuery slider plugin.</li>
+<li>
+<a href="https://github.com/idiot/unslider" class="external">unslider</a> - The simplest jQuery slider there is.</li>
+<li>
+<a href="https://github.com/jackmoore/colorbox" class="external">colorbox</a> - A light-weight, customizable lightbox plugin for jQuery.</li>
+<li>
+<a href="https://github.com/fancyapps/fancyBox" class="external">fancyBox</a> - A tool that offers a nice and elegant way to add zooming functionality for images, html content and multi-media on your webpages.</li>
+<li>
+<a href="https://github.com/darsain/sly" class="external">sly</a> - JavaScript library for one-directional scrolling with item based navigation support.</li>
+<li>
+<a href="https://github.com/jaysalvat/vegas" class="external">vegas</a> - A jQuery plugin to add beautiful fullscreen backgrounds to your webpages. It even allows Slideshows.</li>
+<li>
+<a href="https://github.com/IanLunn/Sequence" class="external">Sequence</a> - CSS animation framework for creating responsive sliders, presentations, banners, and other step-based applications.</li>
+<li>
+<a href="https://github.com/feimosi/baguetteBox.js" class="external">baguetteBox.js</a> - Simple and easy to use lightbox script written in pure JavaScript.</li>
+<li>
+<a href="https://github.com/hakimel/reveal.js" class="external">reveal.js</a> - A framework for easily creating beautiful presentations using HTML.</li>
+<li>
+<a href="https://github.com/dimsemenov/PhotoSwipe" class="external">PhotoSwipe</a> - JavaScript image gallery for mobile and desktop, modular, framework independent.</li>
+<li>
+<a href="https://github.com/JoanClaret/jcSlider" class="external">jcSlider</a> - A responsive slider jQuery plugin with CSS animations.</li>
+<li>
+<a href="https://github.com/jcobb/basic-jquery-slider" class="external">basic-jquery-slider</a> - Simple to use, simple to theme, simple to customise.</li>
+<li>
+<a href="https://github.com/idiot/unslider" class="external">unslider</a> - The simplest jQuery slider there is.</li>
+<li>
+<a href="https://github.com/creative-punch/jQuery.adaptive-slider/" class="external">jQuery.adaptive-slider</a> - A jQuery plugin for a slider with adaptive colored figcaption and navigation.</li>
+<li>
+<a href="https://github.com/bchanx/slidr" class="external">slidr</a> - add some slide effects.</li>
+<li>
+<a href="https://github.com/metafizzy/flickity" class="external">Flickity</a> - Touch, responsive, flickable galleries.</li>
+</ul>
+<h2 id="page_Range_Sliders">Range Sliders</h2>
+<ul>
+<li>
+<a href="https://github.com/IonDen/ion.rangeSlider" class="external">Ion.RangeSlider</a> - Powerful and easily customizable range slider with many options and skin support.</li>
+<li>
+<a href="https://github.com/ghusse/jQRangeSlider" class="external">jQRangeSlider</a> - A javascript slider selector that supports dates.</li>
+<li>
+<a href="https://github.com/leongersen/noUiSlider" class="external">noUiSlider</a> - A lightweight, highly customizable range slider without bloat.</li>
+<li>
+<a href="https://github.com/andreruffert/rangeslider.js" class="external">rangeslider.js</a> - HTML5 input range slider element polyfill.</li>
+</ul>
+<h2 id="page_Form_Widgets">Form Widgets</h2>
+<h3 id="page_Input">Input</h3>
+<ul>
+<li>
+<a href="https://github.com/twitter/typeahead.js" class="external">typeahead.js</a> - A fast and fully-featured autocomplete library.</li>
+<li>
+<a href="https://github.com/aehlke/tag-it" class="external">tag-it</a> - A jQuery UI plugin to handle multi-tag fields as well as tag suggestions/autocomplete.</li>
+<li>
+<a href="https://github.com/ichord/At.js" class="external">At.js</a> - Add Github like mentions autocomplete to your application.</li>
+<li>
+<a href="https://github.com/jamesallardice/Placeholders.js" class="external">Placeholders.js</a> - A JavaScript polyfill for the HTML5 placeholder attribute.</li>
+<li>
+<a href="https://github.com/yairEO/fancyInput" class="external">fancyInput</a> - Makes typing in input fields fun with CSS3 effects.</li>
+<li>
+<a href="https://github.com/xoxco/jQuery-Tags-Input" class="external">jQuery-Tags-Input</a> - Magically convert a simple text input into a cool tag list with this jQuery plugin.</li>
+<li>
+<a href="https://github.com/BankFacil/vanilla-masker" class="external">vanilla-masker</a> - A pure javascript mask input.</li>
+<li>
+<a href="https://github.com/IonDen/ion.checkRadio" class="external">Ion.CheckRadio</a> - jQuery plugin for styling checkboxes and radio-buttons. With skin support.</li>
+</ul>
+<h3 id="page_Calendar">Calendar</h3>
+<ul>
+<li>
+<a href="https://github.com/amsul/pickadate.js" class="external">pickadate.js</a> - The mobile-friendly, responsive, and lightweight jQuery date &amp; time input picker.</li>
+<li>
+<a href="https://github.com/eternicode/bootstrap-datepicker" class="external">bootstrap-datepicker</a> - A datepicker for @twitter bootstrap forked from Stefan Petre's (of eyecon.ro), improvements by @eternicode.</li>
+<li>
+<a href="https://github.com/dbushell/Pikaday" class="external">Pikaday</a> - A refreshing JavaScript Datepicker — lightweight, no dependencies, modular CSS.</li>
+<li>
+<a href="https://github.com/arshaw/fullcalendar" class="external">fullcalendar</a> - Full-sized drag &amp; drop event calendar (jQuery plugin).</li>
+<li>
+<a href="https://github.com/bevacqua/rome" class="external">rome</a> - A customizable date (and time) picker. Dependency free, opt-in UI.</li>
+<li>
+<a href="https://github.com/felicegattuso/datedropper" class="external">datedropper</a> -  datedropper is a jQuery plugin that provides a quick and easy way to manage dates for input fields.</li>
+</ul>
+<h3 id="page_Select">Select</h3>
+<ul>
+<li>
+<a href="https://github.com/brianreavis/selectize.js" class="external">selectize.js</a> - Selectize is the hybrid of a textbox and select box. It's jQuery based and it has autocomplete and native-feeling keyboard navigation; useful for tagging, contact lists, etc.</li>
+<li>
+<a href="https://github.com/ivaynberg/select2" class="external">select2</a> - a jQuery based replacement for select boxes. It supports searching, remote data sets, and infinite scrolling of results.</li>
+<li>
+<a href="https://github.com/harvesthq/chosen" class="external">chosen</a> - A library for making long, unwieldy select boxes more friendly.</li>
+</ul>
+<h3 id="page_File_Uploader">File Uploader</h3>
+<ul>
+<li>
+<a href="https://github.com/blueimp/jQuery-File-Upload" class="external">jQuery-File-Upload</a> - File Upload widget with multiple file selection, drag&amp;drop support, progress bar, validation and preview images, audio and video for jQuery.</li>
+<li>
+<a href="https://github.com/enyo/dropzone" class="external">dropzone</a> - Dropzone is an easy to use drag'n'drop library. It supports image previews and shows nice progress bars.</li>
+<li>
+<a href="https://github.com/flowjs/flow.js" class="external">flow.js</a> - A JavaScript library providing multiple simultaneous, stable, fault-tolerant and resumable/restartable file uploads via the HTML5 File API.</li>
+<li>
+<a href="https://github.com/Widen/fine-uploader" class="external">fine-uploader</a> - Multiple file upload plugin with progress-bar, drag-and-drop, direct-to-S3 uploading.</li>
+<li>
+<a href="https://github.com/mailru/FileAPI" class="external">FileAPI</a> - A set of javascript tools for working with files. Multiupload, drag'n'drop and chunked file upload. Images: crop, resize and auto orientation by EXIF.</li>
+<li>
+<a href="https://github.com/moxiecode/plupload" class="external">plupload</a> - A JavaScript API for dealing with file uploads it supports features like multiple file selection, file type filtering, request chunking, client side image scaling and it uses different runtimes to achieve this such as HTML 5, Silverlight and Flash.</li>
+</ul>
+<h3 id="page_Other">Other</h3>
+<ul>
+<li>
+<a href="https://github.com/malsup/form" class="external">form</a> - jQuery Form Plugin.</li>
+<li>
+<a href="https://github.com/guillaumepotier/Garlic.js" class="external">Garlic.js</a> - Automatically persist your forms' text and select field values locally, until the form is submitted.</li>
+<li>
+<a href="https://github.com/RadLikeWhoa/Countable" class="external">Countable</a> - A JavaScript function to add live paragraph-, word- and character-counting to an HTML element.</li>
+<li>
+<a href="https://github.com/jessepollak/card" class="external">card</a> - Make your credit card form better in one line of code.</li>
+<li>
+<a href="https://github.com/LeaVerou/stretchy" class="external">stretchy</a> - Form element autosizing, the way it should be.</li>
+<li>
+<a href="https://github.com/javve/list.js" class="external">list.js</a> -  Adds search, sort, filters and flexibility to tables, lists and various HTML elements. Built to be invisible and work on existing HTML.
+http://www.listjs.com</li>
+</ul>
+<h2 id="page_Tips">Tips</h2>
+<ul>
+<li>
+<a href="https://github.com/jaz303/tipsy" class="external">tipsy</a> - Facebook-style tooltips plugin for jQuery.</li>
+<li>
+<a href="https://github.com/enyo/opentip" class="external">opentip</a> - An open source javascript tooltip based on the prototype framework.</li>
+<li>
+<a href="https://github.com/qTip2/qTip2" class="external">qTip2</a> - Pretty powerful tooltips.</li>
+<li>
+<a href="https://github.com/iamceege/tooltipster" class="external">tooltipster</a> - A jQuery tooltip plugin.</li>
+<li>
+<a href="https://github.com/arashmanteghi/simptip" class="external">simptip</a> - A simple CSS tooltip made with Sass.</li>
+<li>
+<a href="https://github.com/vast-engineering/jquery-popup-overlay" class="external">jquery-popup-overlay</a> - jQuery plugin for responsive and accessible modal windows and tooltips.</li>
+</ul>
+<h2 id="page_Modals_and_Popups">Modals and Popups</h2>
+<ul>
+<li>
+<a href="https://github.com/dimsemenov/Magnific-Popup" class="external">Magnific-Popup</a> - Light and responsive lightbox script with focus on performance.</li>
+<li>
+<a href="https://github.com/gristmill/jquery-popbox" class="external">jquery-popbox</a> - jQuery PopBox UI Element.</li>
+<li>
+<a href="https://github.com/voronianski/jquery.avgrund.js" class="external">jquery.avgrund.js</a> - A jQuery plugin with new modal concept for popups.</li>
+<li>
+<a href="https://github.com/HubSpot/vex" class="external">vex</a> - A modern dialog library which is highly configurable and easy to style.</li>
+<li>
+<a href="https://github.com/jschr/bootstrap-modal" class="external">bootstrap-modal</a> - Extends the default Bootstrap Modal class. Responsive, stackable, ajax and more.</li>
+<li>
+<a href="https://github.com/drublic/css-modal" class="external">css-modal</a> - A modal built out of pure CSS.</li>
+<li>
+<a href="https://github.com/vast-engineering/jquery-popup-overlay" class="external">jquery-popup-overlay</a> - jQuery plugin for responsive and accessible modal windows and tooltips.</li>
+</ul>
+<h2 id="page_Scroll">Scroll</h2>
+<ul>
+<li>
+<a href="https://github.com/sakabako/scrollMonitor" class="external">scrollMonitor</a> - A simple and fast API to monitor elements as you scroll.</li>
+<li>
+<a href="https://github.com/WickyNilliams/headroom.js" class="external">headroom</a> - Give your pages some headroom. Hide your header until you need it.</li>
+<li>
+<a href="https://github.com/peachananr/onepage-scroll" class="external">onepage-scroll</a> - Create an Apple-like one page scroller website (iPhone 5S website) with One Page Scroll plugin.</li>
+<li>
+<a href="https://github.com/cubiq/iscroll" class="external">iscroll</a> - iScroll is a high performance, small footprint, dependency free, multi-platform javascript scroller.</li>
+<li>
+<a href="https://github.com/Prinzhorn/skrollr" class="external">skrollr</a> - Stand-alone parallax scrolling library for mobile (Android + iOS) and desktop. No jQuery.</li>
+<li>
+<a href="https://github.com/wagerfield/parallax" class="external">parallax</a> - Parallax Engine that reacts to the orientation of a smart device.</li>
+<li>
+<a href="https://github.com/markdalgleish/stellar.js" class="external">stellar.js</a> - Parallax scrolling made easy.</li>
+<li>
+<a href="https://github.com/cameronmcefee/plax" class="external">plax</a> - jQuery powered parallaxing.</li>
+<li>
+<a href="https://github.com/stephband/jparallax" class="external">jparallax</a> - jQuery plugin for creating interactive parallax effect.</li>
+<li>
+<a href="https://github.com/alvarotrigo/fullPage.js" class="external">fullPage</a> - A simple and easy to use plugin to create fullscreen scrolling websites (also known as single page websites).</li>
+<li>
+<a href="https://github.com/s-yadav/ScrollMenu" class="external">ScrollMenu</a> - A new interface to replace old boring scrollbar.</li>
+</ul>
+<h2 id="page_Menu">Menu</h2>
+<ul>
+<li>
+<a href="https://github.com/kamens/jQuery-menu-aim" class="external">jQuery-menu-aim</a> - jQuery plugin to fire events when user's cursor aims at particular dropdown menu items. For making responsive mega dropdowns like Amazon's.</li>
+<li>[jQuery contextMenu] (https://github.com/medialize/jQuery-contextMenu) -  contextMenu manager.</li>
+<li>
+<a href="https://github.com/mango/slideout" class="external">Slideout</a> - A responsive touch slideout navigation menu for mobile web apps.</li>
+<li>
+<a href="https://github.com/JoanClaret/slide-and-swipe-menu" class="external">Slide and swipe</a> - A sliding swipe menu that works with touchSwipe library.</li>
+</ul>
+<h2 id="page_TableGrid">Table/Grid</h2>
+<ul>
+<li>
+<a href="https://github.com/hikalkan/jtable" class="external">jTable</a> - A jQuery plugin to create AJAX based CRUD tables.</li>
+<li>
+<a href="http://www.datatables.net/" class="external">DataTables</a> - (jQuery plug-in) It is a highly flexible tool, based upon the foundations of progressive enhancement, and will add advanced interaction controls to any HTML table.</li>
+<li>
+<a href="https://github.com/mkoryak/floatThead" class="external">floatThead</a> - (jQuery plug-in) lock any table's header while scrolling within the body. Works on any table and requires no custom html or css.</li>
+<li>
+<a href="http://masonry.desandro.com/" class="external">Masonry</a> - A cascading grid layout library.</li>
+<li>
+<a href="http://packery.metafizzy.co/" class="external">Packery</a> - A grid layout library that uses a bin-packing algorithm. Useable for draggable layouts.</li>
+<li>
+<a href="http://isotope.metafizzy.co/" class="external">Isotope</a> - A filterable, sortable, grid layout library. Can implement Masonry, Packery, and other layouts.</li>
+</ul>
+<h2 id="page_Frameworks">Frameworks</h2>
+<ul>
+<li>
+<a href="http://semantic-ui.com/" class="external">Semantic UI</a> - UI Kit with lots of themes and elements</li>
+</ul>
+<h2 id="page_Gesture">Gesture</h2>
+<ul>
+<li>
+<a href="https://github.com/hammerjs/hammer.js" class="external">hammer.js</a> - A javascript library for multi-touch gestures.</li>
+<li>
+<a href="https://github.com/hammerjs/touchemulator" class="external">touchemulator</a> - Emulate touch input on your desktop.</li>
+<li>[Dragula] (https://github.com/bevacqua/dragula/) - Drag and drop so simple it hurts</li>
+</ul>
+<h2 id="page_Maps">Maps</h2>
+<ul>
+<li>
+<a href="https://github.com/Leaflet/Leaflet" class="external">Leaflet</a> - JavaScript library for mobile-friendly interactive maps.</li>
+<li>
+<a href="https://github.com/AnalyticalGraphicsInc/cesium" class="external">Cesium</a> - Open Source WebGL virtual globe and map engine.</li>
+<li>
+<a href="https://github.com/HPNeo/gmaps" class="external">gmaps</a> - The easiest way to use Google Maps.</li>
+<li>
+<a href="https://github.com/simplegeo/polymaps" class="external">polymaps</a> - A free JavaScript library for making dynamic, interactive maps in modern web browsers.</li>
+<li>
+<a href="https://github.com/kartograph/kartograph.js" class="external">kartograph.js</a> - Open source JavaScript renderer for Kartograph SVG maps.</li>
+<li>
+<a href="https://github.com/mapbox/mapbox.js" class="external">mapbox.js</a> - Mapbox JavaScript API, a Leaflet Plugin.</li>
+<li>
+<a href="https://github.com/manifestinteractive/jqvmap" class="external">jqvmap</a> - jQuery Vector Map Library.</li>
+<li>
+<a href="http://openlayers.org/" class="external">OpenLayers3</a> - A high-performance, feature-packed library for all your mapping needs.</li>
+</ul>
+<h2 id="page_VideoAudio">Video/Audio</h2>
+<ul>
+<li>
+<a href="https://github.com/mike-zarandona/prettyembed.js" class="external">prettyembed.js</a> - Prettier embeds for your YouTubes - with nice options like high-res preview images, advanced customization of embed options, and optional FitVids support.</li>
+<li>
+<a href="https://github.com/etianen/html5media" class="external">html5media</a> -  Enables <video> and <audio> tags in all major browsers. <a href="http://html5media.info/" class="external">http://html5media.info/</a>
+</li>
+<li>
+<a href="https://github.com/adrienjoly/playemjs" class="external">Play-em JS</a> -  Play'em is a javascript component that manages a music/video track queue and plays a sequence of songs by embedding several players in a HTML DIV including Youtube, Soundcloud and Vimeo.</li>
+<li>
+<a href="https://github.com/Acconut/polyplayer" class="external">polyplayer</a> - Rule YouTube, Soundcloud and Vimeo player with one API</li>
+<li>
+<a href="https://github.com/flowplayer/flowplayer" class="external">flowplayer</a> -  The HTML5 video player for the web
+<a href="http://flowplayer.org/" class="external">http://flowplayer.org/</a>
+</li>
+<li>
+<a href="https://github.com/johndyer/mediaelement" class="external">mediaelement</a> -  HTML5 <audio> or <video> player with Flash and Silverlight shims that mimics the HTML5 MediaElement API, enabling a consistent UI in all browsers. <a href="http://mediaelementjs.com/" class="external">http://mediaelementjs.com/</a>
+</li>
+<li>
+<a href="https://github.com/CreateJS/SoundJS" class="external">SoundJS</a> - A library to make working with audio on the web easier. It provides a consistent API for playing audio in different browsers.</li>
+</ul>
+<h2 id="page_Animations">Animations</h2>
+<ul>
+<li>
+<a href="https://github.com/julianshapiro/velocity" class="external">velocity</a> - Accelerated JavaScript animation.</li>
+<li>
+<a href="https://github.com/rstacruz/jquery.transit" class="external">jquery.transit</a> - Super-smooth CSS3 transformations and transitions for jQuery.</li>
+<li>
+<a href="https://github.com/impress/impress.js" class="external">impess.js</a> - Make Prezi-like presentations with CSS3 transformations/transitions in an HTML document.</li>
+<li>
+<a href="https://github.com/tictail/bounce.js" class="external">bounce.js</a> - Create tasty CSS3 powered animations in no time.</li>
+<li>
+<a href="https://github.com/greensock/GreenSock-JS" class="external">GreenSock-JS</a> - High-performance HTML5 animations that work in all major browsers.</li>
+<li>
+<a href="https://github.com/EvandroLG/transitionEnd" class="external">TransitionEnd</a> - TransitionEnd is an agnostic and cross-browser library to work with transitionend event.</li>
+<li>
+<a href="https://github.com/michaelvillar/dynamics.js" class="external">Dynamic.js</a> - Javascript library to create physics-based CSS animations.</li>
+</ul>
+<h2 id="page_Image_Processing">Image Processing</h2>
+<ul>
+<li>
+<a href="https://github.com/davidsonfellipe/lena.js" class="external">lena.js</a> - A Library for image processing with filters and util functions.</li>
+<li>
+<a href="https://github.com/nodeca/pica" class="external">pica</a> - High quality image resize (with fast Lanczos filter, implemented in pure JS).</li>
+<li>
+<a href="https://github.com/fengyuanchen/cropper" class="external">cropper</a> - A simple jQuery image cropping plugin.</li>
+</ul>
+<h2 id="page_ES6">ES6</h2>
+<ul>
+<li>
+<a href="https://github.com/lukehoban/es6features" class="external">es6features</a> - Overview of ECMAScript 6 features.</li>
+<li>
+<a href="https://github.com/rse/es6-features" class="external">es6-features</a> - ECMAScript 6: Feature Overview &amp; Comparison</li>
+<li>
+<a href="http://kangax.github.io/compat-table/es6/" class="external">ECMAScript 6 compatibility table</a> - Compatibility tables for all ECMAScript 6 features on a variety of environments.</li>
+<li>
+<a href="https://github.com/babel/babel" class="external">Babel (Formerly 6to5)</a> - Turn ES6+ code into vanilla ES5 with no runtime.</li>
+<li>
+<a href="https://github.com/google/traceur-compiler" class="external">Traceur compiler</a> - ES6 features &gt; ES5. Includes classes, generators, promises, destructuring patterns, default parameters &amp; more.</li>
+</ul>
+<h2 id="page_SDK">SDK</h2>
+<ul>
+<li>
+<a href="http://github.com/huei90/javascript-sdk-design" class="external">javascript-sdk-design</a> - Javascript SDK design guide extracted from work and personal experience</li>
+</ul>
+<h2 id="page_Misc">Misc</h2>
+<ul>
+<li>
+<a href="https://github.com/toddmotto/echo" class="external">echo</a> - Lazy-loading images with data-* attributes.</li>
+<li>
+<a href="https://github.com/scottjehl/picturefill" class="external">picturefill</a> - A responsive image polyfill for <picture>, srcset, sizes</li>
+<li>
+<a href="https://github.com/bestiejs/platform.js" class="external">platform.js</a> - A platform detection library that works on nearly all JavaScript platforms.</li>
+<li>
+<a href="https://github.com/bestiejs/json3" class="external">json3</a> - A modern JSON implementation compatible with nearly all JavaScript platforms.</li>
+<li>
+<a href="http://gabinaureche.com/logicalornot/" class="external">Logical Or Not</a> - A game about JavaScript specificities.</li>
+<li>
+<a href="https://github.com/infusion/BitSet.js" class="external">BitSet.js</a> - A JavaScript Bit-Vector implementation</li>
+</ul>
+<h1 id="page_Worth_Reading">Worth Reading</h1>
+<ul>
+<li>
+<a href="https://github.com/braziljs/js-the-right-way/" class="external">braziljs/js-the-right-way</a>
+</li>
+<li>
+<a href="https://github.com/revolunet/JSbooks" class="external">JSbooks</a>
+</li>
+<li>
+<a href="http://superherojs.com" class="external">Superhero.js</a> - A collection of resources about creating, testing and maintaining a large JavaScript code base.</li>
+</ul>
+<h1 id="page_Other_Awesome_Lists">Other Awesome Lists</h1>
+<ul>
+<li>
+<a href="https://github.com/emijrp/awesome-awesome" class="external">emijrp/awesome-awesome</a>
+</li>
+<li>
+<a href="https://github.com/bayandin/awesome-awesomeness" class="external">bayandin/awesome-awesomeness</a>
+</li>
+<li>
+<a href="https://github.com/sindresorhus/awesome" class="external">sindresorhus/awesome</a>
+</li>
+<li>
+<a href="https://github.com/jnv/lists" class="external">jnv/list</a>
+</li>
+<li>
+<a href="https://github.com/gianarb/awesome-angularjs" class="external">gianarb/angularjs</a>
+</li>
+<li>
+<a href="https://github.com/peterkokot/awesome-dojo" class="external">peterkokot/awesome-dojo</a>
+</li>
+<li>
+<a href="https://github.com/addyosmani/es6-tools" class="external">addyosmani/es6-tools</a>
+</li>
+<li>
+<a href="https://github.com/ericdouglas/ES6-Learning" class="external">ericdouglas/ES6-Learning</a>
+</li>
+<li>
+<a href="https://github.com/obetomuniz/awesome-webcomponents" class="external">obetomuniz/awesome-webcomponents</a>
+</li>
+<li>
+<a href="https://github.com/willianjusten/awesome-svg" class="external">willianjusten/awesome-svg</a>
+</li>
+<li>
+<a href="https://github.com/davidsonfellipe/awesome-wpo" class="external">davidsonfellipe/awesome-wpo</a>
+</li>
+<li>
+<a href="https://github.com/instanceofpro/awesome-backbone" class="external">instanceofpro/awesome-backbone</a>
+</li>
+<li>
+<a href="https://github.com/enaqx/awesome-react" class="external">enaqx/awesome-react</a>
+</li>
+<li>
+<a href="https://github.com/bolshchikov/js-must-watch" class="external">bolshchikov/js-must-watch</a>
+</li>
+<li>
+<a href="https://github.com/peterkokot/awesome-jquery" class="external">peterkokot/awesome-jquery</a>
+</li>
+</ul>
+<h1 id="page_Contributing">Contributing</h1>
+<p>Contributions welcome! Read the <a href="CONTRIBUTING.md/broken">contribution guidelines</a> first.</p>
+<h1 id="page_License">License</h1>
+<p><a href="http://creativecommons.org/publicdomain/zero/1.0/" class="external"><img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" alt="CC0" /></a></p>
+<p>To the extent possible under law, <a href="https://github.com/sorrycc" class="external">chencheng</a> has waived all copyright and related or neighboring rights to this work.</p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../../../Resources/Software/MQTT/Architecture.html">Previous</a></li>            <li class=Pager--next><a href="../../../Resources/Utils_API/index.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../../themes/daux/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../../themes/daux/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    <script src="../../../admin-theme/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="../../../themes/daux/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

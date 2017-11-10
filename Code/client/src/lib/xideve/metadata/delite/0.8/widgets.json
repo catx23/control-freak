@@ -1,0 +1,319 @@
+{
+    "collections": {
+        "delite": {
+            "name": "delite"
+        }
+    },
+    "categories": {
+        "delite": {
+            "name": "delite",
+            "widgetClass": "delite"
+        }
+    },
+    "widgets": [
+        {
+            "name": "Button",
+            "type": "delite/Button",
+            "category": "delite",
+            "collection": "delite",
+            "tags": "Button",
+            "icon": "resources/images/dx-mbl--button.gif",
+            "iconBase64": "data:image/gif;base64,R0lGODlhEAAQANUAAC5KhTFPijZXkDZYkDxhmTtimUJsouHr9/D1+0h2q0l3q7XQ7bbQ7bbQ7MLX79vo9k6AtE6Bs6TH6bbR7NLj9FKJu1OJulaNv5C95aTH6KTI6LXR7L/Z8Mje8laOv36z4X604JC95LnW77/a8Nzr9////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACUALAAAAAAQABAAAAZiwJJwSCwaj8hk0cP0XJpQj9ByqFqvVUSlFDk4vuCw4wApKR6MxmLCbm8mj0TJQNFI7nh8hmIoFTohGIKDgyEdBCUDHCAfHyCPkI0jAiUBIpeYmZckAUIAn6ChoEqkpaanRUEAOw==",
+            "helper": "./delite/Helper",
+            "inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": false
+            },
+            "iconLarge": "resources/imagesLarge/Button.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAtBJREFUeNrsl99v0lAUx1taykrjHCiDgTg2p8mWLIaYqFniHiQx0Sdf/E/8M3zz3/DBB52JcT744Bb3IG6LGsJgk/EryBgoUFraeuqNlwotNIZVHu5JaM89vfeeD997e7jQL99sUZNnLHweJG5PFNPG5raLmkgjWASLYBEsgkWwCFbvBGE0SZJefyocFGv57w0H0kcuTl+Z8927HuY4zhILmJ6+2I0vhR7dWQ77phzAKtTEZKb85PnHxw/jRjLWyPR2L++bFhYiwY5KZauyI8vFLMfCpVoLUt9djWCyHlaz2dxJlddvrJTqssM7aT4c2ktlbi3OmGDJsvyj1e4qVFfp9t4IhjlTIFVR9BvNFKoNADBZRE3TKNrFcazNGdeXBOS8SzdxBPuDTYs1/JOOdukAVm8ia69irC0KeBaapt9nmn3DUYetbGs8BYJ10SPH3Ix5IeV+oYNlBrIPhy08HHXYOWrbmc0WlpuxNdHXcodlej4eCNd4lAcneSzanGpsapl2QxFgQuL9s04WWPbevEEl0EBgOjqREdmXkuioWihr7kRCzaifg0i6ojePazIAw9W+8GPbW+VGF5FhSlAI7y0j+mFVGgeWpvVR4dzYOFaPVH4quECAj4SBCPg4CM38aXek8NizxDrHc4qiTA2tqKqqYc36qp0xgpo2qqD+fRpNcc4vWGKtzs8kM8W1lctDplHkjs2F4Dye3ih1WM/PucrCrAWW2+2+5Gm9Sp3yHHs1coFnqTEa46K0v5cJWaMl7WfLu+ni/Wuc2x0ywRIEIRgMJqTct1r92UGxUm87cHYInOejfm8iRkFqADDBgkNFIBDQZSuVwoxIz7oG97t9A21UVR29s2iR5+lQKAqpzY+BAOHxeOCx1+s1njHO2mDzgE6Q2qgC21cO4HHfsdoBo3/bsHI62IP8ISNYBItgESyCRbD+o+k/1Rub25OG9UuAAQDNMiDFC+r6MQAAAABJRU5ErkJggg==",
+            "allowedChild": "xblox/RunScript, xblox/CSSState, xblox/StyleState",
+            "canSelect": "NONE",
+            "children": [
+            ],
+            "properties": {
+                "id": "no_id",
+                "label":"",
+                "title":"Default Title",
+                "disabled":null
+            }
+        },
+        {
+            "name": "Slider",
+            "type": "delite/Slider",
+            "category": "delite",
+            "collection": "delite",
+            "tags": "Slider",
+            "icon": "resources/images/horizontalslider.gif",
+            "iconBase64": "data:image/gif;base64,R0lGODlhEAAQANUAAM7W5DdYkDteljpfloOcwUBonkBonUFonkdzqEdzp3CUv+Tt+EZzp9Xk9Njm9dvo9kx+sU1+sZ/E6K3M68re8tDh89fm9VKHuYO14pC95ZG95Z/F6KzM663N68ne8tDi89Xl9FaOv4O24pG+5aDJ6tXj76nR7v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACcALAAAAAAQABAAAAZZwJNwSCwaj8ikcjkMOZ/J0KJBbSxCyMtnwulMPpdiKcSIUDZoiSfCCJWEERIB8RhpMppHglCBCA0mJgoHFiIYDgYKgQVCAAGPAQIgIAOQAQBIj0ybnJ2eJ0EAOw==",
+            "helper": "./delite/Helper",
+            "inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": true
+            },
+            "properties": {
+                "id": "no_id"
+            },
+            "iconLarge": "resources/imagesLarge/HorizontalSlider.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4FJREFUeNrsmE1ME0EUx3e3u9t2u0thW9hioXwLBAiiIZCocPCGHoxREzWc9ODBgxev6tGYGC5y18SD0QsSJSgSQ+IH4UMSEwUkpGBssSK0tNCv3Z3xbSsgH5GPVECzk2n7Op3M/ua9/5s3Kfns5Tti7zUaXk3H6vcUU0d3L0XsyaZj6Vg6lo6lY+lYOpaO9d9g0ZufqiLcO+zpH5lyfwsoFE0jpcCRXluWXV/uNFDkLmBhgpiZC99tG8zKyjhcU3hW5DIF43Qo5pkN949OdQ24r5w8ZLNyqUSDuzz+Y0MYj3v9F1s6R6bmFBWt7TB+qaXT8yOEcGoaIG2srUhUvvO470bzEZedV1QMHHEVxxHSbITBzrdZrp6ua30yKMvqDkke9NT1fqKq1JnGsXFFjanQkayosozAjsqqDCMKyrVbcp2ZXYMTMD+V2hqZnL55/3U4rqz6WVHUgjypsSY/4QkSERj2gbTtkBTCmkGQCe0RopXrGHK3tvXTtGF7KLyJud58uCwvcxnr9uOBvDwJZEuRK4TrD0UCoUh5jhhOBogkSJygIBdzAUySwJgoc1p7hoiayvza0uxtkMH+333y3HrUf+9a0zIWZzFVFUksvTqmLGsALBNDxRTNW/B8nOBOuAiT2kjyC06iSDa+yJEm8qatYi1EZc7EtL/5vCKI2XYBzp61y0UTYfUvxMwsA47SqCE3NTCwNRzIvuSZFYpoM9MtRljEmWHeKlYwSg+6f0givwLr3NGSFx88wXBs1expfxjeRz2BSpe4OLYUSOI3aZFjUwH4+OILPo1PbE9bsOqFhpIVWIUO62WHde1U78z8w1fDX33BUmf6r3ite9qSxKTXv18SzjSW7rPxf/2AEMxsQ3Xu8Lh3JhiTEZbV9TrCE76g1+dvqHYJHLsT5xbIcJ/In6gvftA5NPk9qCK0tsN4e8/w8bpip43njMxO1EQtDwTTgWLJQFHP+8YcUnpFQZYomI2QmzKaDUU+ur/7fIFTR0vKXSLoPVU1e+NSbWTpHDtPU6Tdau6Dwvx21MgtJ6xL5M4fq3BlpUkZFoYxpKr4bIwF2wfn5NgF3sza0swHiyX/fDQmqxRFgvKcdgFiB34CphTeIDZ1sYHnsYwBmHgzI2VwwJSsfYyBgloJ0Ltz31rSGSg6VaLW7/I6lo6lY+lYOpaO9Y//kdTR3bvXsH4KMACbo/niywKlhwAAAABJRU5ErkJggg==",
+            "allowedChild": "xblox/RunScript"
+        },
+        {
+            "name": "Combobox",
+            "type": "delite/Combobox",
+            "category": "delite",
+            "collection": "delite",
+            "tags": "Combobox",
+            "icon": "resources/images/combo-box.png",
+            "iconBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjgyQUEwNTdCNTk1MTExRTBCODIzOTk0QzIzMzdBNkNGIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjgyQUEwNTdDNTk1MTExRTBCODIzOTk0QzIzMzdBNkNGIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6ODJBQTA1Nzk1OTUxMTFFMEI4MjM5OTRDMjMzN0E2Q0YiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6ODJBQTA1N0E1OTUxMTFFMEI4MjM5OTRDMjMzN0E2Q0YiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7ZOYfnAAABBUlEQVR42pRSKxCDMAztdgjkJBKJnKxETk5WIpGTlcjKykpk5SSyEolETk4iI9eRrpSud7tF5NK8vHweHHoz38cHSdmVlhFkM5lN9W2dJDTKRJDNZBgxrum5oOdynB7j9NSC+aJhXjC4VCfrHQErLO0dsN2cBUDwjosOn0fyy2y19+8JsMDWjMA3QSkRPjMCW9GJ5CFWFzllu+qW1RmsXfHoW0OlNv7oYX52XRsS+rtVCbajrdGq9EeH2/rMQfZGaRPNxYwPdivpYRo1D8W+tAo3kVJ/Q+478Bt32UH5PSAFHWFVqVllRr/ploLc0VWRCyl2nT9BBDlZ8T8hKUYE/a3SS4ABAP4rm5Sxt9t9AAAAAElFTkSuQmCC",
+            "inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": true
+            },
+            "allowedChild": "ANY",
+            "iconLarge": "resources/imagesLarge/ComboBox.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAjZJREFUeNrsls9LG0EUx7O7s0kMiSFtKEK1KCKlByl6KCkVLGipKLSHggiKF8GD2FuPHj30j+itt95aqL00h/aip/wBrfYgiIhNL0k32Zm3q9/syObHQaKxu1uYx2ayzBsyH74z+b6nff66G4teMHzmZwqRYtop7umxSIbCUlgKS2EpLIWlsCKNxeTXmReO47iui5eAITRN03XdMAzNiyYWgObefgtRng8bE6lUKh6Pt2HZto1xa8pAzjTN3rexLKtUH3o9c6+bxbPbxXK5LAXD2MQiIoz5fD6TySQSid6x6vV66aDxUjqqXr5y8m4aY6VS6c9mk8mkFKV5tzCCKevleseqVkFjdb9eEDlE/rVmrTnolPSid6xarXZxa8mNabHvXz4d/vrhZznnusFWN9/II2uVJiCD4ESC08STpwYzSQg8gvPTk+O5V8tELlLh+BY2tjnpevzR9HM586f8e+rZi0z2NheEJxwszhsagezWncGR++OW9Tc/MPhg8nGDiRO3RWhqCe4IT5ixhwWWSE0vLBKX54lJ5zKX/3dBjtuqwsLSOiy9fTICNRFMV6iJvtfDBm9ke/93XhaGr1+qZSVae79/s9p83P3ZLYdhyFLdhsUYe7cyisKEWiYLUZABA0+n06jTvrteYGEql8vB5eG/6CaC7q5Ms8+rLhCsUy3wIiFbrqB7Ua93AEOnWjhUv6kIK/yL1flPbE2oXl5hKSyFpbAUlsJSWP8bVqOx2SnuRQ3rXIABANw132J93HpgAAAAAElFTkSuQmCC"
+        },
+        {
+            "name": "Select",
+            "type": "delite/Select",
+            "category": "delite",
+            "collection": "delite",
+            "tags": "Select",
+            "icon": "resources/images/combo-box.png",
+            "iconBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjgyQUEwNTdCNTk1MTExRTBCODIzOTk0QzIzMzdBNkNGIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjgyQUEwNTdDNTk1MTExRTBCODIzOTk0QzIzMzdBNkNGIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6ODJBQTA1Nzk1OTUxMTFFMEI4MjM5OTRDMjMzN0E2Q0YiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6ODJBQTA1N0E1OTUxMTFFMEI4MjM5OTRDMjMzN0E2Q0YiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7ZOYfnAAABBUlEQVR42pRSKxCDMAztdgjkJBKJnKxETk5WIpGTlcjKykpk5SSyEolETk4iI9eRrpSud7tF5NK8vHweHHoz38cHSdmVlhFkM5lN9W2dJDTKRJDNZBgxrum5oOdynB7j9NSC+aJhXjC4VCfrHQErLO0dsN2cBUDwjosOn0fyy2y19+8JsMDWjMA3QSkRPjMCW9GJ5CFWFzllu+qW1RmsXfHoW0OlNv7oYX52XRsS+rtVCbajrdGq9EeH2/rMQfZGaRPNxYwPdivpYRo1D8W+tAo3kVJ/Q+478Bt32UH5PSAFHWFVqVllRr/ploLc0VWRCyl2nT9BBDlZ8T8hKUYE/a3SS4ABAP4rm5Sxt9t9AAAAAElFTkSuQmCC",
+            "inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": true
+            },
+            "allowedChild": "ANY",
+            "iconLarge": "resources/imagesLarge/ComboBox.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAjZJREFUeNrsls9LG0EUx7O7s0kMiSFtKEK1KCKlByl6KCkVLGipKLSHggiKF8GD2FuPHj30j+itt95aqL00h/aip/wBrfYgiIhNL0k32Zm3q9/syObHQaKxu1uYx2ayzBsyH74z+b6nff66G4teMHzmZwqRYtop7umxSIbCUlgKS2EpLIWlsCKNxeTXmReO47iui5eAITRN03XdMAzNiyYWgObefgtRng8bE6lUKh6Pt2HZto1xa8pAzjTN3rexLKtUH3o9c6+bxbPbxXK5LAXD2MQiIoz5fD6TySQSid6x6vV66aDxUjqqXr5y8m4aY6VS6c9mk8mkFKV5tzCCKevleseqVkFjdb9eEDlE/rVmrTnolPSid6xarXZxa8mNabHvXz4d/vrhZznnusFWN9/II2uVJiCD4ESC08STpwYzSQg8gvPTk+O5V8tELlLh+BY2tjnpevzR9HM586f8e+rZi0z2NheEJxwszhsagezWncGR++OW9Tc/MPhg8nGDiRO3RWhqCe4IT5ixhwWWSE0vLBKX54lJ5zKX/3dBjtuqwsLSOiy9fTICNRFMV6iJvtfDBm9ke/93XhaGr1+qZSVae79/s9p83P3ZLYdhyFLdhsUYe7cyisKEWiYLUZABA0+n06jTvrteYGEql8vB5eG/6CaC7q5Ms8+rLhCsUy3wIiFbrqB7Ua93AEOnWjhUv6kIK/yL1flPbE2oXl5hKSyFpbAUlsJSWP8bVqOx2SnuRQ3rXIABANw132J93HpgAAAAAElFTkSuQmCC"
+        },
+        {
+            "name": "Checkbox",
+            "type": "delite/Checkbox",
+            "category": "delite",
+            "collection": "delite",
+            "tags": "Checkbox",
+            "icon": "resources/images/checkbox.png",
+            "iconBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAP9JREFUeNpi/P//P8PGnQf/M5AJWGAMf3d7kjUDLUYYAAITd94kWnO+uzqqC2DAQkGAgYEDwpbg4ICLv/jxA8IAUicefMD0Agw8+ABRCNL7geEHXBwkHG4uD2avuPAAtwEQS4Cqf3DAtX8A2p5urw6Xv3DjBZzNhMuPP6Da0TUHdu5ksNCQwG0ASEO8uToYv/iAqtmxcSODAjCMBAQ48BuAHtIwzQZAmzUkBIBhzIHfCyBnIgNkzQJIMYPVAJACkDNBmghpxhoLEkD/CXBIgBUXzjzI4GCgAHE2B4GkDE8HLxDpQACq8cWHH4TzAnqgkZyZQBmDHMAIys6UAIAAAwBz81X4fS5oMgAAAABJRU5ErkJggg==",
+            "iconLarge": "resources/imagesLarge/CheckBox.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAiBJREFUeNrsmEsvA1EYhnvmYrRIqxZUaBOChAiJu7BoxcYPYC924m+wsvMD/AZx2VALSV1WLCQisUFS12hp6ejM1NseGpFiitNp4nyZnpxpvpk8eb/znXlnyMr6tq34QsLPP9hRVEyboQPBVpTBsTjWP8OScv4biUQLRuByOc1iITyemgIwhcMXfG1xLI71RSd+FqlM6LqO0Uw+IUQURZIJtliapqmqmkwmDcP4phaCIMuyoiiSJLHFgk5g2to7NK/WcG8bRiCyVQs6YTI20v+tAEheC+4iH4KxXVuIbO0Wgse5UKhI6XHa3/Q+ny3W++isrywvTd+kquxVj5tYAmCPqr5/dle4TvwQF9EnOS5IArm8TwiEGKlU5PF5vNuL+i7tn1uGpRkp7VnPnsYSycnhRrrm9o5OoaaV2yntybiqpZky89H54ECrz7JdHigTPV4c1zF1cqiB7gj+2eUun7uqXLEM6zau0pKh6aAZZmDqa65rqq4olUUrn4moF7G9bmCBuRXKVKb8atX+Fgv7AuoVmFsGWWD2b5j+oBM9LrvTLjtKxKnFnUC7r7XW6Xhjuomp1mDh2XJy9YCJvUT0uh0Yw9Ena4wN9QW042ZGWszns8UCDbwKJqsbOyYvQX5eruYnWPB0sAPwKnn5LVzFXC3q6Ux6law7ZY6Vr6fjbz4ci2NxrIK87H/2QcxKrJwfDnkRORbHYtqJm6GDYsN6EWAAZCSw1ld2ztMAAAAASUVORK5CYII=",
+            "inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": true
+            },
+            "allowedChild": "xblox/RunScript"
+        },
+        {
+            "name": "RadioButton",
+            "type": "delite/RadioButton",
+            "category": "delite",
+            "collection": "delite",
+            "tags": "RadioButton",
+            "icon": "resources/images/radio-button.png",
+            "iconBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAYFJREFUeNqMU6t2AjEQnXAq4ojbuF23uOCQ9A9ax6+0qpJv6SfUFYkDxzrWZV3WxW3nDk3KY+khnEOYyzzu3MyoYRho7HRdd/NHURTqGnu6Btq2HSLf3gcKIQimtSYNLMTB8I+yLNXdBEcOpBjJWEvLhcv4vmk5EXHSyAn+/FVqAZURbNjLuVqwpusl4cwaKotpTgRmFTBmkhlE+Yrkfqu+f24z/e9DEI/1akGuLulr40/+fCZJMPRsbJWDweR5ZunjxckNOyW13B78ETdJDEDL1QV1fS/2vDJkWLFt2/EN24KPtAUWYDsuIosE2jgHHzJutRERoUnNely0cH4qrirPGOMFHtgGAvFOcsXLBIZ5QuFiOhVFvWcm/LEyAzo/L6rDD/45ASbMcubgvYDrleOKRDsO2h2D3LDfXucnNuwHf8Q9MAeRaWupLHOwb6SdNAfqehc22/2QJlHUPptEYcgFeELVzST+twtJI9DG+5zvghrbxrFNvLeR6t46P3p+BBgAiJjb9hNPKQcAAAAASUVORK5CYII=",
+            "resizable": "none",
+            "iconLarge": "resources/imagesLarge/RadioButton.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAmBJREFUeNrsmD9vGjEYxt3jdBiBwAvFDLQ3hWyXLVKXpp+g3fJV2qljPkvHDh0iVUpZEjE1NzXXCcoQUwaMlOEdTqiPzxGN8kdqj8Yg1ZY42eaV7nfP+/rh5Z58+nzGtm+E+Lx6kWwV08lpGrCtHB7LY/1nWOG9u1ovnBEI0fpTLIxuVzpgurxUvrY8lsfyWP/CTv9qLJfL2Wx2c6fdbgdBsDEsAE0mE2JMKY2BHY6BpSbBWa/XKw23Flae5yOlGZGQ8uX+dYubZmOgaU3dbh5FkVMsqxOYBOdJAZRNF1juSpH0nxs4Gp99/RZLUU6zsLROyB10skzvPgxtBr9cIJV0dLgPuOOBoiKyhGZBOanm8znqScjYMkGzg135/nWCK+aWUkqJGEQi3gUWBCiaH530O9OFaYH2YiEEH46nQmCO1oMjpyabRKv4R0/izacfaSoOH7tQ2u5IDr0Y6qzfadGdeEd2GgtuDILodwtJZoFiL2qPXLs80gYv6LRajOBbxBmXRjduLQNS4VvEuMPCgQ/DUEqhlektjw4TTexc6fORxhXzt2/2jGxKIQaRjgwCd6pWq/zqCpaQplmS9EFW+BbFkkMn41tpxoqiQyTiXWDh6WFFzWZzJ4q+//g5GAzh8jh310DZ2KjI+c6zpwBDpDs7hQD1er1SqaC07W/ix+PRquYkRGMMAcAqIVV5LCsYJo1Gg+e5MF4lb3FbqTbQb+HetVrtrh4P7TvqIKCZTdMtw7RHdZ2Wa902cJVN38t7LI/lsTb99/WhF2KbxLr3xaFPosfyWI96Ek9O023D+iXAAImK8WZw7TBVAAAAAElFTkSuQmCC",
+            "inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": true
+            }
+            /*"allowedChild": "xblox/RunScript"*/
+        },
+        {
+            "name": "Switch",
+            "type": "delite/Switch",
+            "category": "delite",
+            "collection": "delite",
+            "tags": "Switch",
+            "icon": "resources/images/radio-button.png",
+            "iconBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAYFJREFUeNqMU6t2AjEQnXAq4ojbuF23uOCQ9A9ax6+0qpJv6SfUFYkDxzrWZV3WxW3nDk3KY+khnEOYyzzu3MyoYRho7HRdd/NHURTqGnu6Btq2HSLf3gcKIQimtSYNLMTB8I+yLNXdBEcOpBjJWEvLhcv4vmk5EXHSyAn+/FVqAZURbNjLuVqwpusl4cwaKotpTgRmFTBmkhlE+Yrkfqu+f24z/e9DEI/1akGuLulr40/+fCZJMPRsbJWDweR5ZunjxckNOyW13B78ETdJDEDL1QV1fS/2vDJkWLFt2/EN24KPtAUWYDsuIosE2jgHHzJutRERoUnNely0cH4qrirPGOMFHtgGAvFOcsXLBIZ5QuFiOhVFvWcm/LEyAzo/L6rDD/45ASbMcubgvYDrleOKRDsO2h2D3LDfXucnNuwHf8Q9MAeRaWupLHOwb6SdNAfqehc22/2QJlHUPptEYcgFeELVzST+twtJI9DG+5zvghrbxrFNvLeR6t46P3p+BBgAiJjb9hNPKQcAAAAASUVORK5CYII=",
+            "resizable": "none",
+            "iconLarge": "resources/imagesLarge/RadioButton.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAmBJREFUeNrsmD9vGjEYxt3jdBiBwAvFDLQ3hWyXLVKXpp+g3fJV2qljPkvHDh0iVUpZEjE1NzXXCcoQUwaMlOEdTqiPzxGN8kdqj8Yg1ZY42eaV7nfP+/rh5Z58+nzGtm+E+Lx6kWwV08lpGrCtHB7LY/1nWOG9u1ovnBEI0fpTLIxuVzpgurxUvrY8lsfyWP/CTv9qLJfL2Wx2c6fdbgdBsDEsAE0mE2JMKY2BHY6BpSbBWa/XKw23Flae5yOlGZGQ8uX+dYubZmOgaU3dbh5FkVMsqxOYBOdJAZRNF1juSpH0nxs4Gp99/RZLUU6zsLROyB10skzvPgxtBr9cIJV0dLgPuOOBoiKyhGZBOanm8znqScjYMkGzg135/nWCK+aWUkqJGEQi3gUWBCiaH530O9OFaYH2YiEEH46nQmCO1oMjpyabRKv4R0/izacfaSoOH7tQ2u5IDr0Y6qzfadGdeEd2GgtuDILodwtJZoFiL2qPXLs80gYv6LRajOBbxBmXRjduLQNS4VvEuMPCgQ/DUEqhlektjw4TTexc6fORxhXzt2/2jGxKIQaRjgwCd6pWq/zqCpaQplmS9EFW+BbFkkMn41tpxoqiQyTiXWDh6WFFzWZzJ4q+//g5GAzh8jh310DZ2KjI+c6zpwBDpDs7hQD1er1SqaC07W/ix+PRquYkRGMMAcAqIVV5LCsYJo1Gg+e5MF4lb3FbqTbQb+HetVrtrh4P7TvqIKCZTdMtw7RHdZ2Wa902cJVN38t7LI/lsTb99/WhF2KbxLr3xaFPosfyWI96Ek9O023D+iXAAImK8WZw7TBVAAAAAElFTkSuQmCC",
+            "inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": true
+            }
+        },
+        {
+            "name": "ToggleButton",
+            "type": "delite/ToggleButton",
+            "category": "delite",
+            "collection": "delite",
+            "tags": "ToggleButton",
+            "icon": "resources/images/button.png",
+            "iconBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjdDQjJCMEM2NTk1MDExRTBCNUNCOEUyN0UxMkJCM0EzIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjdDQjJCMEM3NTk1MDExRTBCNUNCOEUyN0UxMkJCM0EzIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6N0NCMkIwQzQ1OTUwMTFFMEI1Q0I4RTI3RTEyQkIzQTMiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6N0NCMkIwQzU1OTUwMTFFMEI1Q0I4RTI3RTEyQkIzQTMiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5rUarGAAAA00lEQVR42mL8//8/AyWAiYFCwAJjBHbuJNkp68vdGRlBXgBpttCQYPAwUCBa844LDxhO3HiBcAFM84MPPwhqVhDgAKsHGQAJgx8QTTde/IAwofgHFDOgiYHUwfSxwPT/+IGwGd0N2NwEUg/SwgJT8oOBA8UQQgCkHkSywEyDGUM8gFgINuDDiw8MH4AcIEU0kBAAWgfUgBKIGhIcDGhhhhWD1UHDjQUWSjs2HGBw8HBgMJDgIMoFB3YcAOtjhOUFTc9GklPi9e31jIwDnpkoNgAgwABCAXZ5t0pvnQAAAABJRU5ErkJggg==",
+            "resizable": "none",
+            "iconLarge": "resources/imagesLarge/ToggleButton.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAmVJREFUeNpi3LrnOMPgAyxA7OVsMajctG3vCSaGQQlGnTXqrFFnjTpr1Fmjzhp1FqIFgQx+/fq16+Kzu8/fP33ziQ7WS4vwKUsKuulLsbGx4XQW0E2Tt1wyVJEItdWUEuSgg7Oevf9x4d7Lng3nSwIMkV3GguymfZefCvJxK0qL//zHcP/tb7pEF7OmgtSL99+AVjvpSsNdhnDW169fT996aWes9eLjbzqnJHkpicu37pkrCWBx1u/fv7///Pn3L8P3v3+oYhkjMzNBNf+B9gFVMjK/+vAF6ADsaevPPwZWNha6BhQzC9xq7AXE////Qc5kwol6lu3DI0shgjsAewHBwsSI1Vcti/bikaV5ccrKzAhBQHcgs9FkqY4IOAsYHhAEZNfP3wNkAEmIVGuyK1yW6ohAKc+Cmnuq5+6GMDrTXAeyToQ7vzfDDS4IZNMunIgKLeRonpTtnjd1J5Ac4Koa6Gi0xDc1h3w3MTISzrbwQgEtvFCcxc3O+vfvXw66lqgg53z6+kNcgAuns3TlBS7ce26lJUfnKLv2+LWiGDd2Z7Gyssqwf9t+6wMnG4uqtDA7018KLePg5MIaX8jg07dfV+6/vHTnuacaGyurBBZncXNzi4uLO/96/Oj9xzV3n7/++J0O4STKzykrxOWswAC0GugALM4CNipERUVBwfbihRTzD0YxJmLSLJ60DAGEcsAPTk5GCQlZoNXYm4FAbezs7EBpLi4u5DYGrQEw8QDDCWg1srtZ0LI0UBqtWU2P3AgG+IpTTBWjHbJRZ406a9RZo84addaoswZ4NHDb3hODzVkAAQYA1Zu3L6GKVYAAAAAASUVORK5CYII=",
+            "inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": true
+            },
+            "properties": {
+                "iconClass": "fa fa-cube",
+                "checkedIconClass":"fa fa-copy"
+            }
+            /*"allowedChild": "xblox/RunScript"*/
+        },
+        {
+            "name": "ViewStack",
+            "type": "delite/ViewStack",
+            "category": "delite",
+            "collection": "delite",
+            "tags": "ViewStack",
+            "icon": "resources/images/dx-mbl--button.gif",
+            "iconBase64": "data:image/gif;base64,R0lGODlhEAAQANUAAC5KhTFPijZXkDZYkDxhmTtimUJsouHr9/D1+0h2q0l3q7XQ7bbQ7bbQ7MLX79vo9k6AtE6Bs6TH6bbR7NLj9FKJu1OJulaNv5C95aTH6KTI6LXR7L/Z8Mje8laOv36z4X604JC95LnW77/a8Nzr9////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACUALAAAAAAQABAAAAZiwJJwSCwaj8hk0cP0XJpQj9ByqFqvVUSlFDk4vuCw4wApKR6MxmLCbm8mj0TJQNFI7nh8hmIoFTohGIKDgyEdBCUDHCAfHyCPkI0jAiUBIpeYmZckAUIAn6ChoEqkpaanRUEAOw==",
+            "__helper": "./delite/Helper",
+            "inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": false
+            },
+            "iconLarge": "resources/imagesLarge/Button.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAtBJREFUeNrsl99v0lAUx1taykrjHCiDgTg2p8mWLIaYqFniHiQx0Sdf/E/8M3zz3/DBB52JcT744Bb3IG6LGsJgk/EryBgoUFraeuqNlwotNIZVHu5JaM89vfeeD997e7jQL99sUZNnLHweJG5PFNPG5raLmkgjWASLYBEsgkWwCFbvBGE0SZJefyocFGv57w0H0kcuTl+Z8927HuY4zhILmJ6+2I0vhR7dWQ77phzAKtTEZKb85PnHxw/jRjLWyPR2L++bFhYiwY5KZauyI8vFLMfCpVoLUt9djWCyHlaz2dxJlddvrJTqssM7aT4c2ktlbi3OmGDJsvyj1e4qVFfp9t4IhjlTIFVR9BvNFKoNADBZRE3TKNrFcazNGdeXBOS8SzdxBPuDTYs1/JOOdukAVm8ia69irC0KeBaapt9nmn3DUYetbGs8BYJ10SPH3Ix5IeV+oYNlBrIPhy08HHXYOWrbmc0WlpuxNdHXcodlej4eCNd4lAcneSzanGpsapl2QxFgQuL9s04WWPbevEEl0EBgOjqREdmXkuioWihr7kRCzaifg0i6ojePazIAw9W+8GPbW+VGF5FhSlAI7y0j+mFVGgeWpvVR4dzYOFaPVH4quECAj4SBCPg4CM38aXek8NizxDrHc4qiTA2tqKqqYc36qp0xgpo2qqD+fRpNcc4vWGKtzs8kM8W1lctDplHkjs2F4Dye3ih1WM/PucrCrAWW2+2+5Gm9Sp3yHHs1coFnqTEa46K0v5cJWaMl7WfLu+ni/Wuc2x0ywRIEIRgMJqTct1r92UGxUm87cHYInOejfm8iRkFqADDBgkNFIBDQZSuVwoxIz7oG97t9A21UVR29s2iR5+lQKAqpzY+BAOHxeOCx1+s1njHO2mDzgE6Q2qgC21cO4HHfsdoBo3/bsHI62IP8ISNYBItgESyCRbD+o+k/1Rub25OG9UuAAQDNMiDFC+r6MQAAAABJRU5ErkJggg==",
+            "allowedChild": "delite/Panel, xblox/RunScript, xblox/CSSState, xblox/StyleState",
+            "children": [
+                {
+                    "type": "delite/Panel",
+                    "properties": {
+                        "label":"View 1"
+                    }
+                }
+            ]
+
+
+        },
+        {
+            "name": "Panel",
+            "type": "delite/Panel",
+            "category": "delite",
+            "collection": "delite",
+            "tags": "Panel",
+            "icon": "resources/images/dx-mbl--button.gif",
+            "iconBase64": "data:image/gif;base64,R0lGODlhEAAQANUAAC5KhTFPijZXkDZYkDxhmTtimUJsouHr9/D1+0h2q0l3q7XQ7bbQ7bbQ7MLX79vo9k6AtE6Bs6TH6bbR7NLj9FKJu1OJulaNv5C95aTH6KTI6LXR7L/Z8Mje8laOv36z4X604JC95LnW77/a8Nzr9////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACUALAAAAAAQABAAAAZiwJJwSCwaj8hk0cP0XJpQj9ByqFqvVUSlFDk4vuCw4wApKR6MxmLCbm8mj0TJQNFI7nh8hmIoFTohGIKDgyEdBCUDHCAfHyCPkI0jAiUBIpeYmZckAUIAn6ChoEqkpaanRUEAOw==",
+            "helper": "./delite/PanelHelper",
+            "properties": {
+                "label": "View 1"
+            },
+            "inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": true
+            },
+            "iconLarge": "resources/imagesLarge/Button.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAtBJREFUeNrsl99v0lAUx1taykrjHCiDgTg2p8mWLIaYqFniHiQx0Sdf/E/8M3zz3/DBB52JcT744Bb3IG6LGsJgk/EryBgoUFraeuqNlwotNIZVHu5JaM89vfeeD997e7jQL99sUZNnLHweJG5PFNPG5raLmkgjWASLYBEsgkWwCFbvBGE0SZJefyocFGv57w0H0kcuTl+Z8927HuY4zhILmJ6+2I0vhR7dWQ77phzAKtTEZKb85PnHxw/jRjLWyPR2L++bFhYiwY5KZauyI8vFLMfCpVoLUt9djWCyHlaz2dxJlddvrJTqssM7aT4c2ktlbi3OmGDJsvyj1e4qVFfp9t4IhjlTIFVR9BvNFKoNADBZRE3TKNrFcazNGdeXBOS8SzdxBPuDTYs1/JOOdukAVm8ia69irC0KeBaapt9nmn3DUYetbGs8BYJ10SPH3Ix5IeV+oYNlBrIPhy08HHXYOWrbmc0WlpuxNdHXcodlej4eCNd4lAcneSzanGpsapl2QxFgQuL9s04WWPbevEEl0EBgOjqREdmXkuioWihr7kRCzaifg0i6ojePazIAw9W+8GPbW+VGF5FhSlAI7y0j+mFVGgeWpvVR4dzYOFaPVH4quECAj4SBCPg4CM38aXek8NizxDrHc4qiTA2tqKqqYc36qp0xgpo2qqD+fRpNcc4vWGKtzs8kM8W1lctDplHkjs2F4Dye3ih1WM/PucrCrAWW2+2+5Gm9Sp3yHHs1coFnqTEa46K0v5cJWaMl7WfLu+ni/Wuc2x0ywRIEIRgMJqTct1r92UGxUm87cHYInOejfm8iRkFqADDBgkNFIBDQZSuVwoxIz7oG97t9A21UVR29s2iR5+lQKAqpzY+BAOHxeOCx1+s1njHO2mDzgE6Q2qgC21cO4HHfsdoBo3/bsHI62IP8ISNYBItgESyCRbD+o+k/1Rub25OG9UuAAQDNMiDFC+r6MQAAAABJRU5ErkJggg==",
+            "allowedChild": "ANY",
+            "_children": [
+
+            ]
+
+        },
+        {
+            "name": "TabBar",
+            "type": "delite/TabBar",
+            "category": "delite",
+            "collection": "delite",
+            "tags": "TabBar",
+            "icon": "resources/images/dx-mbl--button.gif",
+            "iconBase64": "data:image/gif;base64,R0lGODlhEAAQANUAAC5KhTFPijZXkDZYkDxhmTtimUJsouHr9/D1+0h2q0l3q7XQ7bbQ7bbQ7MLX79vo9k6AtE6Bs6TH6bbR7NLj9FKJu1OJulaNv5C95aTH6KTI6LXR7L/Z8Mje8laOv36z4X604JC95LnW77/a8Nzr9////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACUALAAAAAAQABAAAAZiwJJwSCwaj8hk0cP0XJpQj9ByqFqvVUSlFDk4vuCw4wApKR6MxmLCbm8mj0TJQNFI7nh8hmIoFTohGIKDgyEdBCUDHCAfHyCPkI0jAiUBIpeYmZckAUIAn6ChoEqkpaanRUEAOw==",
+            "_helper": "./delite/PanelHelper",
+            "properties": {
+                "viewStack": "View 1"
+            },
+            "inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": true
+            },
+            "iconLarge": "resources/imagesLarge/Button.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAtBJREFUeNrsl99v0lAUx1taykrjHCiDgTg2p8mWLIaYqFniHiQx0Sdf/E/8M3zz3/DBB52JcT744Bb3IG6LGsJgk/EryBgoUFraeuqNlwotNIZVHu5JaM89vfeeD997e7jQL99sUZNnLHweJG5PFNPG5raLmkgjWASLYBEsgkWwCFbvBGE0SZJefyocFGv57w0H0kcuTl+Z8927HuY4zhILmJ6+2I0vhR7dWQ77phzAKtTEZKb85PnHxw/jRjLWyPR2L++bFhYiwY5KZauyI8vFLMfCpVoLUt9djWCyHlaz2dxJlddvrJTqssM7aT4c2ktlbi3OmGDJsvyj1e4qVFfp9t4IhjlTIFVR9BvNFKoNADBZRE3TKNrFcazNGdeXBOS8SzdxBPuDTYs1/JOOdukAVm8ia69irC0KeBaapt9nmn3DUYetbGs8BYJ10SPH3Ix5IeV+oYNlBrIPhy08HHXYOWrbmc0WlpuxNdHXcodlej4eCNd4lAcneSzanGpsapl2QxFgQuL9s04WWPbevEEl0EBgOjqREdmXkuioWihr7kRCzaifg0i6ojePazIAw9W+8GPbW+VGF5FhSlAI7y0j+mFVGgeWpvVR4dzYOFaPVH4quECAj4SBCPg4CM38aXek8NizxDrHc4qiTA2tqKqqYc36qp0xgpo2qqD+fRpNcc4vWGKtzs8kM8W1lctDplHkjs2F4Dye3ih1WM/PucrCrAWW2+2+5Gm9Sp3yHHs1coFnqTEa46K0v5cJWaMl7WfLu+ni/Wuc2x0ywRIEIRgMJqTct1r92UGxUm87cHYInOejfm8iRkFqADDBgkNFIBDQZSuVwoxIz7oG97t9A21UVR29s2iR5+lQKAqpzY+BAOHxeOCx1+s1njHO2mDzgE6Q2qgC21cO4HHfsdoBo3/bsHI62IP8ISNYBItgESyCRbD+o+k/1Rub25OG9UuAAQDNMiDFC+r6MQAAAABJRU5ErkJggg==",
+            "allowedChild": "delite/Button",
+            "children": [
+
+            ]
+        },
+        {
+            "name": "Accordion",
+            "type": "delite/Accordion",
+            "category": "delite",
+            "collection": "delite",
+            "enablePointerEvents": true,
+            "tags": "Accordion",
+            "icon": "resources/images/dx-mbl--button.gif",
+            "iconBase64": "data:image/gif;base64,R0lGODlhEAAQANUAAC5KhTFPijZXkDZYkDxhmTtimUJsouHr9/D1+0h2q0l3q7XQ7bbQ7bbQ7MLX79vo9k6AtE6Bs6TH6bbR7NLj9FKJu1OJulaNv5C95aTH6KTI6LXR7L/Z8Mje8laOv36z4X604JC95LnW77/a8Nzr9////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACUALAAAAAAQABAAAAZiwJJwSCwaj8hk0cP0XJpQj9ByqFqvVUSlFDk4vuCw4wApKR6MxmLCbm8mj0TJQNFI7nh8hmIoFTohGIKDgyEdBCUDHCAfHyCPkI0jAiUBIpeYmZckAUIAn6ChoEqkpaanRUEAOw==",
+            "_helper": "./delite/PanelHelper",
+            "properties":{
+
+            },
+            "inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": false
+            },
+            "iconLarge": "resources/imagesLarge/Button.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAtBJREFUeNrsl99v0lAUx1taykrjHCiDgTg2p8mWLIaYqFniHiQx0Sdf/E/8M3zz3/DBB52JcT744Bb3IG6LGsJgk/EryBgoUFraeuqNlwotNIZVHu5JaM89vfeeD997e7jQL99sUZNnLHweJG5PFNPG5raLmkgjWASLYBEsgkWwCFbvBGE0SZJefyocFGv57w0H0kcuTl+Z8927HuY4zhILmJ6+2I0vhR7dWQ77phzAKtTEZKb85PnHxw/jRjLWyPR2L++bFhYiwY5KZauyI8vFLMfCpVoLUt9djWCyHlaz2dxJlddvrJTqssM7aT4c2ktlbi3OmGDJsvyj1e4qVFfp9t4IhjlTIFVR9BvNFKoNADBZRE3TKNrFcazNGdeXBOS8SzdxBPuDTYs1/JOOdukAVm8ia69irC0KeBaapt9nmn3DUYetbGs8BYJ10SPH3Ix5IeV+oYNlBrIPhy08HHXYOWrbmc0WlpuxNdHXcodlej4eCNd4lAcneSzanGpsapl2QxFgQuL9s04WWPbevEEl0EBgOjqREdmXkuioWihr7kRCzaifg0i6ojePazIAw9W+8GPbW+VGF5FhSlAI7y0j+mFVGgeWpvVR4dzYOFaPVH4quECAj4SBCPg4CM38aXek8NizxDrHc4qiTA2tqKqqYc36qp0xgpo2qqD+fRpNcc4vWGKtzs8kM8W1lctDplHkjs2F4Dye3ih1WM/PucrCrAWW2+2+5Gm9Sp3yHHs1coFnqTEa46K0v5cJWaMl7WfLu+ni/Wuc2x0ywRIEIRgMJqTct1r92UGxUm87cHYInOejfm8iRkFqADDBgkNFIBDQZSuVwoxIz7oG97t9A21UVR29s2iR5+lQKAqpzY+BAOHxeOCx1+s1njHO2mDzgE6Q2qgC21cO4HHfsdoBo3/bsHI62IP8ISNYBItgESyCRbD+o+k/1Rub25OG9UuAAQDNMiDFC+r6MQAAAABJRU5ErkJggg==",
+            "allowedChild": "delite/Panel",
+            "ignore":["delite/AccordionHeader"],
+            "children": [
+
+            ]
+        },
+        {
+            "name": "AccordionHeader",
+            "type": "delite/AccordionHeader",
+            "category": "delite",
+            "collection": "delite",
+            "enablePointerEvents": true,
+            "tags": "AccordionHeader",
+            "icon": "resources/images/dx-mbl--button.gif",
+            "iconBase64": "data:image/gif;base64,R0lGODlhEAAQANUAAC5KhTFPijZXkDZYkDxhmTtimUJsouHr9/D1+0h2q0l3q7XQ7bbQ7bbQ7MLX79vo9k6AtE6Bs6TH6bbR7NLj9FKJu1OJulaNv5C95aTH6KTI6LXR7L/Z8Mje8laOv36z4X604JC95LnW77/a8Nzr9////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACUALAAAAAAQABAAAAZiwJJwSCwaj8hk0cP0XJpQj9ByqFqvVUSlFDk4vuCw4wApKR6MxmLCbm8mj0TJQNFI7nh8hmIoFTohGIKDgyEdBCUDHCAfHyCPkI0jAiUBIpeYmZckAUIAn6ChoEqkpaanRUEAOw==",
+            "_helper": "./delite/PanelHelper",
+            "properties":{
+
+            },
+            "inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": true
+            },
+            "iconLarge": "resources/imagesLarge/Button.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAtBJREFUeNrsl99v0lAUx1taykrjHCiDgTg2p8mWLIaYqFniHiQx0Sdf/E/8M3zz3/DBB52JcT744Bb3IG6LGsJgk/EryBgoUFraeuqNlwotNIZVHu5JaM89vfeeD997e7jQL99sUZNnLHweJG5PFNPG5raLmkgjWASLYBEsgkWwCFbvBGE0SZJefyocFGv57w0H0kcuTl+Z8927HuY4zhILmJ6+2I0vhR7dWQ77phzAKtTEZKb85PnHxw/jRjLWyPR2L++bFhYiwY5KZauyI8vFLMfCpVoLUt9djWCyHlaz2dxJlddvrJTqssM7aT4c2ktlbi3OmGDJsvyj1e4qVFfp9t4IhjlTIFVR9BvNFKoNADBZRE3TKNrFcazNGdeXBOS8SzdxBPuDTYs1/JOOdukAVm8ia69irC0KeBaapt9nmn3DUYetbGs8BYJ10SPH3Ix5IeV+oYNlBrIPhy08HHXYOWrbmc0WlpuxNdHXcodlej4eCNd4lAcneSzanGpsapl2QxFgQuL9s04WWPbevEEl0EBgOjqREdmXkuioWihr7kRCzaifg0i6ojePazIAw9W+8GPbW+VGF5FhSlAI7y0j+mFVGgeWpvVR4dzYOFaPVH4quECAj4SBCPg4CM38aXek8NizxDrHc4qiTA2tqKqqYc36qp0xgpo2qqD+fRpNcc4vWGKtzs8kM8W1lctDplHkjs2F4Dye3ih1WM/PucrCrAWW2+2+5Gm9Sp3yHHs1coFnqTEa46K0v5cJWaMl7WfLu+ni/Wuc2x0ywRIEIRgMJqTct1r92UGxUm87cHYInOejfm8iRkFqADDBgkNFIBDQZSuVwoxIz7oG97t9A21UVR29s2iR5+lQKAqpzY+BAOHxeOCx1+s1njHO2mDzgE6Q2qgC21cO4HHfsdoBo3/bsHI62IP8ISNYBItgESyCRbD+o+k/1Rub25OG9UuAAQDNMiDFC+r6MQAAAABJRU5ErkJggg==",
+            "children": [
+
+            ]
+        },
+        {
+            "name": "MediaPlayer",
+            "type": "delite/MediaPlayer",
+            "category": "delite",
+            "collection": "delite",
+            "tags": "MediaPlayer",
+            "icon": "resources/images/dx-mbl--button.gif",
+            "iconBase64": "data:image/gif;base64,R0lGODlhEAAQANUAAC5KhTFPijZXkDZYkDxhmTtimUJsouHr9/D1+0h2q0l3q7XQ7bbQ7bbQ7MLX79vo9k6AtE6Bs6TH6bbR7NLj9FKJu1OJulaNv5C95aTH6KTI6LXR7L/Z8Mje8laOv36z4X604JC95LnW77/a8Nzr9////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACUALAAAAAAQABAAAAZiwJJwSCwaj8hk0cP0XJpQj9ByqFqvVUSlFDk4vuCw4wApKR6MxmLCbm8mj0TJQNFI7nh8hmIoFTohGIKDgyEdBCUDHCAfHyCPkI0jAiUBIpeYmZckAUIAn6ChoEqkpaanRUEAOw==",
+            "__helper": "./delite/Helper",
+            "inlineEdit": {
+                "property": "",
+                "displayOnCreate": false,
+                "supportsHTML": false
+            },
+            "iconLarge": "resources/imagesLarge/Button.png",
+            "iconLargeBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAtBJREFUeNrsl99v0lAUx1taykrjHCiDgTg2p8mWLIaYqFniHiQx0Sdf/E/8M3zz3/DBB52JcT744Bb3IG6LGsJgk/EryBgoUFraeuqNlwotNIZVHu5JaM89vfeeD997e7jQL99sUZNnLHweJG5PFNPG5raLmkgjWASLYBEsgkWwCFbvBGE0SZJefyocFGv57w0H0kcuTl+Z8927HuY4zhILmJ6+2I0vhR7dWQ77phzAKtTEZKb85PnHxw/jRjLWyPR2L++bFhYiwY5KZauyI8vFLMfCpVoLUt9djWCyHlaz2dxJlddvrJTqssM7aT4c2ktlbi3OmGDJsvyj1e4qVFfp9t4IhjlTIFVR9BvNFKoNADBZRE3TKNrFcazNGdeXBOS8SzdxBPuDTYs1/JOOdukAVm8ia69irC0KeBaapt9nmn3DUYetbGs8BYJ10SPH3Ix5IeV+oYNlBrIPhy08HHXYOWrbmc0WlpuxNdHXcodlej4eCNd4lAcneSzanGpsapl2QxFgQuL9s04WWPbevEEl0EBgOjqREdmXkuioWihr7kRCzaifg0i6ojePazIAw9W+8GPbW+VGF5FhSlAI7y0j+mFVGgeWpvVR4dzYOFaPVH4quECAj4SBCPg4CM38aXek8NizxDrHc4qiTA2tqKqqYc36qp0xgpo2qqD+fRpNcc4vWGKtzs8kM8W1lctDplHkjs2F4Dye3ih1WM/PucrCrAWW2+2+5Gm9Sp3yHHs1coFnqTEa46K0v5cJWaMl7WfLu+ni/Wuc2x0ywRIEIRgMJqTct1r92UGxUm87cHYInOejfm8iRkFqADDBgkNFIBDQZSuVwoxIz7oG97t9A21UVR29s2iR5+lQKAqpzY+BAOHxeOCx1+s1njHO2mDzgE6Q2qgC21cO4HHfsdoBo3/bsHI62IP8ISNYBItgESyCRbD+o+k/1Rub25OG9UuAAQDNMiDFC+r6MQAAAABJRU5ErkJggg==",
+            "allowedChild": "NONE",
+            "children": [
+            ]
+        }
+
+    ]
+}

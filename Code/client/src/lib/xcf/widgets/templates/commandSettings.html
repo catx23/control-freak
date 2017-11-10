@@ -1,0 +1,152 @@
+<div data-dojo-attach-point='root' style="font-size: 80%">
+
+    <div class="row" style="margin-bottom: 10px">
+
+        <div class="col-md-5">
+
+            <section class="widget">
+
+                <div class="">
+
+                    <form class="form-horizontal" role="form">
+
+                        <fieldset>
+
+                            <legend class="section" style="margin: 0 0 4px;padding: 0px;">Constants</legend>
+
+                            <div class="form-group">
+                                <label for="hint-field" class="col-sm-4 control-label">
+                                    Start
+                                </label>
+                                <div class="col-sm-7">
+                                    <input type="text" id="transparent-field" class="form-control input-transparent" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="tooltip-enabled">End</label>
+                                <div class="col-sm-7">
+                                    <input type="text" id="tooltip-enabled" class="form-control input-transparent"
+                                           data-placement="top"
+                                           placeholder="">
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                    </form>
+                </div>
+            </section>
+        </div>
+
+
+
+        <div class="col-md-5">
+
+            <section class="widget">
+                <header>
+                    <h5>
+                        Radio <strong>Controls</strong>
+                    </h5>
+                    <div class="widget-controls">
+                        <a class="bg-gray-transparent" href="#"><i class="glyphicon glyphicon-cog text-white"></i></a>
+                        <a href="#"><i class="fa fa-refresh"></i></a>
+                        <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                    </div>
+                </header>
+                <div class="widget-body">
+                    <form role="form">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <fieldset>
+                                    <legend class="section">
+                                        Basic
+                                    </legend>
+                                    <p>
+                                        Supports bootstrap brand colors: <code>.radio-primary</code>, <code>.radio-danger</code> etc.
+                                        Pure css solution with no javascript. Let your radios shine!
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="radio">
+                                                <input type="radio" name="radio1" id="radio1" value="option1" checked>
+                                                <label for="radio1">
+                                                    Small
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <input type="radio" name="radio1" id="radio2" value="option2">
+                                                <label for="radio2">
+                                                    Big
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="radio radio-danger">
+                                                <input type="radio" name="radio2" id="radio3" value="option1">
+                                                <label for="radio3">
+                                                    Next
+                                                </label>
+                                            </div>
+                                            <div class="radio radio-danger">
+                                                <input type="radio" name="radio2" id="radio4" value="option2" checked>
+                                                <label for="radio4">
+                                                    One
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-4">
+                                <fieldset>
+                                    <legend class="section">
+                                        Disabled
+                                    </legend>
+                                    <p>
+                                        Disabled state also supported. Full stack radios functionality.
+                                    </p>
+                                    <div class="radio">
+                                        <input type="radio" name="radio3" id="radio5" value="option1" disabled>
+                                        <label for="radio5">
+                                            Next
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-warning">
+                                        <input type="radio" name="radio3" id="radio6" value="option2" checked disabled>
+                                        <label for="radio6">
+                                            One
+                                        </label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-4">
+                                <fieldset>
+                                    <legend class="section">
+                                        Cool iOS-like switches
+                                    </legend>
+                                    <p>
+                                        Simple component that helps you turn your default HTML checkbox inputs into
+                                        beautiful iOS 7 style switches in just few simple steps.
+                                    </p>
+                                    <div class="checkbox-inline checkbox-ios">
+                                        <label for="checkbox-ios1">
+                                            <input type="checkbox" id="checkbox-ios1" checked>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox-inline checkbox-ios">
+                                        <label for="checkbox-ios2">
+                                            <input type="checkbox" id="checkbox-ios2">
+                                        </label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+</div>

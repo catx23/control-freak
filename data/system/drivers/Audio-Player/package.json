@@ -1,0 +1,13 @@
+{
+  "name": "cf-audio-players",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "dependencies": {
+    "mp3-duration": "^1.0.10",
+    "player": "git+https://github.com/gbaumgart/player.git",
+    "musicmetadata": "~2.0.4",
+    "wav-file-info": "^0.0.7"
+  }
+}

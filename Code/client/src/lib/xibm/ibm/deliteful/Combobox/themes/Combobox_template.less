@@ -1,0 +1,90 @@
+.d-combobox {
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+
+	.d-combobox-styles;
+}
+
+.d-combobox-arrow {
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: inherit;
+	text-align: center;
+	line-height: normal;
+
+	.d-combobox-arrow-styles;
+
+	&::after {
+		content: "\25BC";
+		display: inline-block;
+		padding: 0;
+		line-height: normal;
+
+		.d-disabled& {
+			opacity: 0.5;
+			cursor: auto;
+		}
+	}
+
+	.d-combobox.d-rtl & {
+		left: 0;
+		right: auto;
+	}
+}
+
+.d-combo-popup {
+	/* Needed for the correct layout of its LinearLayout child */
+	display: block;
+}
+
+.d-combo-popup-header {
+	display: block;
+	margin: 0;
+	padding: 2px 8px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+/* Applies to both the input inside the root node and the input */
+/* conditionally present inside the popup */
+.d-combobox-input {
+	.d-combobox-input-styles;
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: normal;
+	cursor: text;
+
+	&[disabled],
+	fieldset[disabled] & {
+		opacity: 0.5;
+		cursor: auto;
+	}
+
+	// So you can't select text on readonly input.
+	&[readonly] {
+		-webkit-touch-callout: none;	// iOS Safari
+		-webkit-user-select: none;		// Safari
+		-khtml-user-select: none;		// Konqueror HTML
+		-moz-user-select: none;			// Firefox
+		-ms-user-select: none;			// Internet Explorer/Edge
+		user-select: none;				// Chrome, Opera
+	}
+}
+
+/* Applies to the input inside the root node but does not apply */
+/* to the input conditionally present inside the popup */
+.d-combobox .d-combobox-input {
+	height: 100%;
+	vertical-align: inherit;
+
+	/* Necessary for Safari on iOS to avoid misplacement of the dropdown arrow */
+	/* due to the presence of the hidden input which stores the submitted value.*/
+	margin: 0;
+}

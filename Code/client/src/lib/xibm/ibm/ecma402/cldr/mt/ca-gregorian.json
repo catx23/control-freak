@@ -1,0 +1,265 @@
+{
+  "main": {
+    "mt": {
+      "dates": {
+        "calendars": {
+          "gregorian": {
+            "months": {
+              "format": {
+                "abbreviated": {
+                  "1": "Jan",
+                  "2": "Fra",
+                  "3": "Mar",
+                  "4": "Apr",
+                  "5": "Mej",
+                  "6": "Ġun",
+                  "7": "Lul",
+                  "8": "Aww",
+                  "9": "Set",
+                  "10": "Ott",
+                  "11": "Nov",
+                  "12": "Diċ"
+                },
+                "narrow": {
+                  "1": "J",
+                  "2": "F",
+                  "3": "M",
+                  "4": "A",
+                  "5": "M",
+                  "6": "Ġ",
+                  "7": "L",
+                  "8": "A",
+                  "9": "S",
+                  "10": "O",
+                  "11": "N",
+                  "12": "D"
+                },
+                "wide": {
+                  "1": "Jannar",
+                  "2": "Frar",
+                  "3": "Marzu",
+                  "4": "April",
+                  "5": "Mejju",
+                  "6": "Ġunju",
+                  "7": "Lulju",
+                  "8": "Awwissu",
+                  "9": "Settembru",
+                  "10": "Ottubru",
+                  "11": "Novembru",
+                  "12": "Diċembru"
+                }
+              },
+              "stand-alone": {
+                "abbreviated": {
+                  "1": "Jan",
+                  "2": "Fra",
+                  "3": "Mar",
+                  "4": "Apr",
+                  "5": "Mej",
+                  "6": "Ġun",
+                  "7": "Lul",
+                  "8": "Aww",
+                  "9": "Set",
+                  "10": "Ott",
+                  "11": "Nov",
+                  "12": "Diċ"
+                },
+                "narrow": {
+                  "1": "Jn",
+                  "2": "Fr",
+                  "3": "Mz",
+                  "4": "Ap",
+                  "5": "Mj",
+                  "6": "Ġn",
+                  "7": "Lj",
+                  "8": "Aw",
+                  "9": "St",
+                  "10": "Ob",
+                  "11": "Nv",
+                  "12": "Dċ"
+                },
+                "wide": {
+                  "1": "Jannar",
+                  "2": "Frar",
+                  "3": "Marzu",
+                  "4": "April",
+                  "5": "Mejju",
+                  "6": "Ġunju",
+                  "7": "Lulju",
+                  "8": "Awwissu",
+                  "9": "Settembru",
+                  "10": "Ottubru",
+                  "11": "Novembru",
+                  "12": "Diċembru"
+                }
+              }
+            },
+            "days": {
+              "format": {
+                "abbreviated": {
+                  "sun": "Ħad",
+                  "mon": "Tne",
+                  "tue": "Tli",
+                  "wed": "Erb",
+                  "thu": "Ħam",
+                  "fri": "Ġim",
+                  "sat": "Sib"
+                },
+                "narrow": {
+                  "sun": "Ħ",
+                  "mon": "T",
+                  "tue": "T",
+                  "wed": "E",
+                  "thu": "Ħ",
+                  "fri": "Ġ",
+                  "sat": "S"
+                },
+                "short": {
+                  "sun": "Ħad",
+                  "mon": "Tne",
+                  "tue": "Tli",
+                  "wed": "Erb",
+                  "thu": "Ħam",
+                  "fri": "Ġim",
+                  "sat": "Sib"
+                },
+                "wide": {
+                  "sun": "Il-Ħadd",
+                  "mon": "It-Tnejn",
+                  "tue": "It-Tlieta",
+                  "wed": "L-Erbgħa",
+                  "thu": "Il-Ħamis",
+                  "fri": "Il-Ġimgħa",
+                  "sat": "Is-Sibt"
+                }
+              },
+              "stand-alone": {
+                "abbreviated": {
+                  "sun": "Ħad",
+                  "mon": "Tne",
+                  "tue": "Tli",
+                  "wed": "Erb",
+                  "thu": "Ħam",
+                  "fri": "Ġim",
+                  "sat": "Sib"
+                },
+                "narrow": {
+                  "sun": "Ħd",
+                  "mon": "Tn",
+                  "tue": "Tl",
+                  "wed": "Er",
+                  "thu": "Ħm",
+                  "fri": "Ġm",
+                  "sat": "Sb"
+                },
+                "short": {
+                  "sun": "Ħad",
+                  "mon": "Tne",
+                  "tue": "Tli",
+                  "wed": "Erb",
+                  "thu": "Ħam",
+                  "fri": "Ġim",
+                  "sat": "Sib"
+                },
+                "wide": {
+                  "sun": "Il-Ħadd",
+                  "mon": "It-Tnejn",
+                  "tue": "It-Tlieta",
+                  "wed": "L-Erbgħa",
+                  "thu": "Il-Ħamis",
+                  "fri": "Il-Ġimgħa",
+                  "sat": "Is-Sibt"
+                }
+              }
+            },
+            "dayPeriods": {
+              "format": {
+                "abbreviated": {
+                  "am": "AM",
+                  "pm": "PM"
+                },
+                "narrow": {
+                  "am": "a",
+                  "pm": "p"
+                },
+                "wide": {
+                  "am": "AM",
+                  "pm": "PM"
+                }
+              },
+              "stand-alone": {
+                "abbreviated": {
+                  "am": "AM",
+                  "pm": "PM"
+                },
+                "narrow": {
+                  "am": "a",
+                  "pm": "p"
+                },
+                "wide": {
+                  "am": "AM",
+                  "pm": "PM"
+                }
+              }
+            },
+            "eras": {
+              "eraNames": {
+                "0": "Qabel Kristu",
+                "1": "Wara Kristu"
+              },
+              "eraAbbr": {
+                "0": "QK",
+                "1": "WK"
+              },
+              "eraNarrow": {
+                "0": "QK",
+                "1": "WK"
+              }
+            },
+            "dateTimeFormats": {
+              "full": "{1} {0}",
+              "long": "{1} {0}",
+              "medium": "{1} {0}",
+              "short": "{1} {0}",
+              "availableFormats": {
+                "E": "ccc",
+                "EHm": "E HH:mm",
+                "EHms": "E HH:mm:ss",
+                "Ed": "d, E",
+                "Ehm": "E h:mm a",
+                "Ehms": "E h:mm:ss a",
+                "Gy": "G y",
+                "GyMMM": "G y MMM",
+                "GyMMMEd": "G y MMM d, E",
+                "GyMMMd": "G y MMM d",
+                "H": "HH",
+                "Hm": "HH:mm",
+                "Hms": "HH:mm:ss",
+                "M": "L",
+                "MEd": "MM-dd, E",
+                "MMM": "LLL",
+                "MMMEd": "MMM d, E",
+                "MMMd": "MMM d",
+                "Md": "MM-dd",
+                "d": "d",
+                "h": "h a",
+                "hm": "h:mm a",
+                "hms": "h:mm:ss a",
+                "ms": "mm:ss",
+                "y": "y",
+                "yM": "y-MM",
+                "yMEd": "y-MM-dd, E",
+                "yMMM": "y MMM",
+                "yMMMEd": "y MMM d, E",
+                "yMMMd": "y MMM d",
+                "yMd": "y-MM-dd",
+                "yQQQ": "y QQQ",
+                "yQQQQ": "y QQQQ"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
