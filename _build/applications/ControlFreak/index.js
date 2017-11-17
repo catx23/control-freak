@@ -757,7 +757,12 @@ class ControlFreak extends Base_1.ApplicationBase {
                 console_1.console.info('ControlFreak#run : serve www at : ' + this.path(Base_1.EEKey.APP_ROOT));
                 this.use(convert(serve(this.path(Base_1.EEKey.APP_ROOT), { maxage: 1 })));
                 const port = this.profile.http.port || this.options.port || process.env.PORT || 5555;
-                const host = this.profile.http.host || this.options.host || process.env.HOST || 'localhost';
+                let host = this.profile.http.host || this.options.host || process.env.HOST || '0.0.0.0';
+                let isWin = /^win/.test(process.platform);
+                const ips = this.getIps();
+                if (isWin && host === '0.0.0.0') {
+                    host = ips[0].ip;
+                }
                 console_1.console.info('ControlFreak#run : create HTTP server at ' + host + ':' + port);
                 this.server.listen(port, host);
                 if (!deviceServer) {
@@ -783,7 +788,6 @@ class ControlFreak extends Base_1.ApplicationBase {
                     console_1.console.info('ControlFreak#run : device server ready');
                     console_1.console.info('ControlFreak	can be accessed at http://' + host + ':' + port + '/app/xcf?userDirectory=' + encodeURIComponent(this.path(Base_1.EEKey.USER_DIRECTORY)));
                     if (host === '0.0.0.0') {
-                        const ips = this.getIps();
                         ips.forEach((ip) => {
                             console_1.console.info('\t Found iface ' + ip.face + ' \t with IP = ' + ip.ip);
                         });

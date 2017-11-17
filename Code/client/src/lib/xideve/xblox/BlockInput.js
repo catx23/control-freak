@@ -2,12 +2,7 @@ define([
     "dojo/_base/declare",
     "dcl/dcl",
     "davinci/ve/input/SmartInput",
-    "dojo/_base/array",
-    "dojo/_base/connect",
-    "xide/mixins/ReloadMixin",
     "xide/mixins/EventedMixin",
-    "./ContainerInput",
-    "davinci/Workbench",
     "davinci/ve/widget",
     "xide/types",
     "davinci/ve/commands/ModifyCommand",
@@ -15,7 +10,7 @@ define([
     "xide/views/_Panel",
     "xide/factory",
     "xide/utils"
-], function (declare, dcl, SmartInput, array, connect, ReloadMixin, EventedMixin, ContainerInput, Workbench, Widget, types, ModifyCommand,
+], function (declare, dcl, SmartInput, EventedMixin, Widget, types, ModifyCommand,
     TemplatedWidgetBase, _Panel, factory, utils) {
 
 

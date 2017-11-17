@@ -151,6 +151,11 @@ Please post issues [here](https://github.com/xblox/control-freak/issues)
 
 <hr/>
 
+## 17.11.2017
+
+- New: VE actions "File/Save as widget", "Widget/Add|Remove|Rename State"
+- Changed: default http server now using 0.0.0.0 instead of 'localhost'
+
 ## 9.11.2017
 
 - Improved: VE actions "Select->Anchestor/Parent"

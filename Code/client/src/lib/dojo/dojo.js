@@ -783,17 +783,15 @@
 
 		contextRequire = function(a1, a2, a3, referenceModule, contextRequire){
 	    	var module, syntheticMid;
-			//console.log(a1);
-			if(a1[0]==="maq-metadata-html/html/table/SelectTableAction"){
-				//console.error('sdsdsd');
-			}
 			if(isString(a1)){
 				// signature is (moduleId)
 				module = getModule(a1, referenceModule, true);
 				if(module && module.executed){
 					return module.result;
 				}
-				a1.indexOf('/component') === -1 && console.error('cant get module ' + a1);
+				if(has('debug')){
+					a1.indexOf('/component') === -1 && console.warn('cant get module ' + a1);
+				}
 				throw makeError("undefinedModule", a1);                
 			}
 			if(!isArray(a1)){

@@ -12,7 +12,7 @@ define([
     "davinci/html/HTMLText",
     "dojox/html/_base"
 ], function (declare, xhr, Deferred, all, factory, types, HTMLElement, HTMLText) {
-    var debug = true;
+    var debug = false;
     /**
      *
      * @mixin module:xideve/delite/_ContextJS

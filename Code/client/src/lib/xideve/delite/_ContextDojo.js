@@ -166,7 +166,7 @@ define([
                     // if still not defined, use app's Dojo (which may cause other issues!)
                     if (!dojoUrl) {
                         dojoUrl = this.getDojoUrl();
-                        console.warn("Falling back to use workbench's Dojo in the editor iframe");
+                        // console.warn("Falling back to use workbench's Dojo in the editor iframe");
                     }
                 }
 

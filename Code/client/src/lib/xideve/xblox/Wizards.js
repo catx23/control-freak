@@ -1,22 +1,15 @@
 define([
     "dojo/_base/declare",
     "dojo/_base/lang",
-    "davinci/ve/input/SmartInput",
-    "dojo/_base/array",
-    "dojo/_base/connect",
     "xide/mixins/ReloadMixin",
     "xide/mixins/EventedMixin",
-    "./ContainerInput",
-    "davinci/Workbench",
-    "davinci/ve/widget",
-    "xide/types",
     "xide/utils",
     'xide/Wizards',
     'xide/views/CIView',
     "davinci/ve/metadata"
     //"dojo/i18n"
     //'xide/wizard/WizardPaneBase',//WizardPaneBase    
-], function (declare,lang,SmartInput,array, connect, ReloadMixin, EventedMixin,ContainerInput,Workbench,Widget,types,utils,Wizards,CIView,Metadata) {
+], function (declare,lang,ReloadMixin, EventedMixin,utils,Wizards,CIView,Metadata) {
     
     var result = declare('xideve.xblox.Wizards', [EventedMixin,ReloadMixin], {
         createCISPane:function(CIS,where,args){

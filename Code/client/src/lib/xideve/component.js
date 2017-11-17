@@ -40,7 +40,8 @@ define([
                 'xideve/manager/WidgetManager',
                 'xideve/manager/ContextManager',
                 'xideve/Templates',
-                'xideve/Template'
+                'xideve/Template',
+                'xide/widgets/DomStyleProperties'
             ];
         },
         /**

@@ -232,22 +232,10 @@
 }).call(this);
 define("xdojo/declare", function(){});
 
-define('xide/types',[
-    "dcl/dcl"
-],function(dcl){
-    const mod = new dcl(null,{
-        declaredClass:"xide/types"
-    });
-    mod.test = 22;
-    return mod;
-});
-
-
 /** @module xgrid/Renderer **/
 define('xgrid/Renderer',[
-    "xdojo/declare",
-    'xide/types'
-], function (declare,types) {
+    "xdojo/declare"
+], function (declare) {
     var Implementation = {
         _renderIndex: 0,
         _lastRenderedArray: null,
@@ -1899,11 +1887,10 @@ define('dgrid/Grid',[
 /** @module xgrid/ListRenderer **/
 define('xgrid/ListRenderer',[
     "xdojo/declare",
-    'xide/types',
     './Renderer',
     'dojo/dom-construct',
     'dgrid/Grid'
-], function (declare,types,Renderer,domConstruct,Grid) {
+], function (declare,Renderer,domConstruct,Grid) {
 
     /**
      * The list renderer does nothing since the xgrid/Base is already inherited from
@@ -1963,6 +1950,17 @@ define('xide/utils',[
         declaredClass:"xide.utils"
     });
 });
+define('xide/types',[
+    "dcl/dcl"
+],function(dcl){
+    const mod = new dcl(null,{
+        declaredClass:"xide/types"
+    });
+    mod.test = 22;
+    return mod;
+});
+
+
 /** @module xide/lodash **/
 define('xide/lodash',[],function(app){
     /**
@@ -20787,7 +20785,7 @@ define('xaction/Action',[
                 const thiz = this;
 
                 //track vis key in all
-                [_vis.MAIN_MENU, _vis.ACTION_TOOLBAR, _vis.CONTEXT_MENU, _vis.RIBBON].forEach(vis => {
+                [_vis.MAIN_MENU, _vis.ACTION_TOOLBAR, _vis.CONTEXT_MENU, _vis.RIBBON, _vis.QUICK_LAUNCH].forEach(vis => {
                     thiz.setVisibility(vis, utils.cloneKeys(_obj, false));
                 });
                 return this;
@@ -24175,724 +24173,27 @@ define('xide/widgets/_MenuMixin4',[
     'xide/registry',
     'xaction/Action',
     'xaction/DefaultActions',
-    "xide/popup"
-], function (dcl, types, utils, registry, Action, DefaultActions, popup) {
+    "xide/popup",
+    'xide/model/Base'
+], function (dcl, types, utils, registry, Action, DefaultActions, popup, BaseModel) {
 
     const createCallback = function (func, menu, item) {
         return function (event) {
-            /*
-            if(item) {
-
-                var _parent = item.parent();
-                _parent.data('open', false);
-                _parent[0] && popup.close(_parent[0]);
-
-            }
-            */
             return func(event, menu, item);
         };
     };
 
+    const proxyClass = dcl([BaseModel.dcl], {
+
+    });
+
     const ACTION = types.ACTION;
-    const _debug = false;
-    const _debugWidgets = false;
+    const _debug = true;
+    const _debugWidgets = true;
     /**
      * Mixin which provides utils for menu & action related render tasks.
      * @mixin module:xide/widgets/_MenuMixin
      */
-    const _Module = dcl(null, {
-        actionStores: null,
-        correctSubMenu: false,
-        _didInit: null,
-        actionFilter: null,
-        hideSubsFirst: false,
-        collapseSmallGroups: 0,
-        containerClass: '',
-        lastTree: null,
-        onActionAdded: function (actions) {
-            this.setActionStore(this.getActionStore(), actions.owner || this, false, true, actions);
-        },
-        onActionRemoved: function (evt) {
-            this.clearAction(evt.target);
-        },
-        clearAction: function (action) {
-            const self = this;
-            if (action) {
-                const actionVisibility = action.getVisibility !== null ? action.getVisibility(self.visibility) : {};
-                if (actionVisibility) {
-                    const widget = actionVisibility.widget;
-                    widget && action.removeReference && action.removeReference(widget);
-                    if (widget && widget.destroy) {
-                        widget.destroy();
-                    }
-                    delete actionVisibility.widget;
-                    actionVisibility.widget = null;
-                }
-            }
-        },
-        removeCustomActions: function () {
-            const oldStore = this.store;
-            const oldActions = oldStore._find({
-                custom: true
-            });
-
-            const menuData = this.menuData;
-            _.each(oldActions, function (action) {
-                oldStore.removeSync(action.command);
-                const oldMenuItem = _.find(menuData, {
-                    command: action.command
-                });
-                oldMenuItem && menuData.remove(oldMenuItem);
-            });
-        },
-        /**
-         * Return a field from the object's given visibility store
-         * @param action
-         * @param field
-         * @param _default
-         * @returns {*}
-         */
-        getVisibilityField: function (action, field, _default) {
-            const actionVisibility = action.getVisibility !== null ? action.getVisibility(this.visibility) : {};
-            return actionVisibility[field] !== null ? actionVisibility[field] : action[field] || _default;
-        },
-        /**
-         * Sets a field in the object's given visibility store
-         * @param action
-         * @param field
-         * @param value
-         * @returns {*}
-         */
-        setVisibilityField: function (action, field, value) {
-            const _default = {};
-            if (action.getVisibility) {
-                var actionVisibility = action.getVisibility(this.visibility) || _default;
-                actionVisibility[field] = value;
-            }
-            return actionVisibility;
-        },
-        shouldShowAction: function (action) {
-            if (this.getVisibilityField(action, 'show') === false) {
-                return false;
-            } else if (action.getVisibility && action.getVisibility(this.visibility) == null) {
-                return false;
-            }
-            return true;
-        },
-        addActionStore: function (store) {
-            if (!this.actionStores) {
-                this.actionStores = [];
-            }
-            if (this.actionStores.indexOf(store) == -1) {
-                this.actionStores.push(store);
-            }
-        },
-        /**
-
-         tree structure :
-
-         {
-            root: {
-                Block:{
-                    grouped:{
-                        Step:[action,action]
-                    }
-                }
-            },
-            rootActions: string['File','Edit',...],
-
-            allActionPaths: string[command],
-
-            allActions:[action]
-         }
-
-         * @param store
-         * @param owner
-         * @returns {{root: {}, rootActions: Array, allActionPaths: *, allActions: *}}
-         */
-        constructor: function (options, node) {
-            this.target = node;
-            utils.mixin(this, options);
-        },
-        onClose: function (e) {
-            this._rootMenu && this._rootMenu.parent().removeClass('open');
-        },
-        onOpen: function () {
-            this._rootMenu && this._rootMenu.parent().addClass('open');
-        },
-        isLeftToRight: function () {
-            return false;
-        },
-        init: function (opts) {
-            if (this._didInit) {
-                return;
-            }
-            this._didInit = true;
-            let options = this.getDefaultOptions();
-            options = $.extend({}, options, opts);
-            const self = this;
-            const root = $(document);
-            this.__on(root, 'click', null, function (e) {
-                if (!self.isOpen) {
-                    return;
-                }
-                self.isOpen = false;
-                self.onClose(e);
-                $('.dropdown-context').css({
-                    display: ''
-                }).find('.drop-left').removeClass('drop-left');
-            });
-            if (options.preventDoubleContext) {
-                this.__on(root, 'contextmenu', '.dropdown-context', function (e) {
-                    e.preventDefault();
-                });
-            }
-            this.__on(root, 'mouseenter', '.dropdown-submenu', function (e) {
-                try {
-                    const _root = $(e.currentTarget);
-                    let $sub = _root.find('.dropdown-context-sub:first');
-                    let didPopup = false;
-                    if ($sub.length === 0) {
-                        $sub = _root.data('sub');
-                        if ($sub) {
-                            didPopup = true;
-                        } else {
-                            return;
-                        }
-                    }
-                    const data = $sub.data('data');
-                    const level = data ? data[0].level : 0;
-                    const isFirst = level === 1;
-                    if (self.menu) {
-                        if (!$.contains(self.menu[0], _root[0])) {
-                            return;
-                        }
-                    }
-
-                    const _disabled = _root.hasClass('disabled');
-                    if (_disabled) {
-                        $sub.css('display', 'none');
-                        return;
-                    } else {
-                        $sub.css('display', 'block');
-                    }
-
-                    if (isFirst) {
-                        $sub.css('display', 'initial');
-                        $sub.css('position', 'initial');
-
-                        function close() {
-                            const _wrapper = $sub.data('_popupWrapper');
-                            popup.close({
-                                domNode: $sub[0],
-                                _popupWrapper: _wrapper
-                            });
-                        }
-
-                        if (!didPopup) {
-                            _root.data('sub', $sub);
-                            $sub.data('owner', self);
-                            $sub.on('mouseleave', function () {
-                                close();
-                            });
-                            _root.on('mouseleave', function () {});
-                        }
-
-                        popup.open({
-                            //parent: self,
-                            popup: $sub[0],
-                            around: _root[0],
-                            orient: ['below', 'above'],
-                            maxHeight: -1,
-                            owner: self,
-                            onExecute: function () {
-                                self.closeDropDown(true);
-                            },
-                            onCancel: function () {
-                                close();
-                            },
-                            onClose: function () {
-                                //console.log('close');
-                                //domAttr.set(self._popupStateNode, "popupActive", false);
-                                //domClass.remove(self._popupStateNode, "dijitHasDropDownOpen");
-                                //self._set("_opened", false);	// use set() because _CssStateMixin is watching
-                            }
-                        });
-                        return;
-                    } else {
-                        if (!$sub.data('didSetup')) {
-                            $sub.data('didSetup', true);
-                            _root.on('mouseleave', function () {
-                                $sub.css('display', '');
-                            });
-                        }
-                    }
-
-                    //reset top
-                    $sub.css({
-                        top: 0
-                    });
-
-                    const autoH = $sub.height() + 0;
-                    const totalH = $('html').height();
-                    const pos = $sub.offset();
-                    const overlapYDown = totalH - (pos.top + autoH);
-                    if ((pos.top + autoH) > totalH) {
-                        $sub.css({
-                            top: overlapYDown - 30
-                        }).fadeIn(options.fadeSpeed);
-                    }
-
-                    ////////////////////////////////////////////////////////////
-                    const subWidth = $sub.width();
-
-                    const subLeft = $sub.offset().left;
-                    const collision = (subWidth + subLeft) > window.innerWidth;
-
-                    if (collision) {
-                        $sub.addClass('drop-left');
-                    }
-                } catch (e) {
-                    logError(e);
-                }
-            });
-        },
-        getDefaultOptions: function () {
-            return {
-                fadeSpeed: 0,
-                above: 'auto',
-                left: 'auto',
-                preventDoubleContext: false,
-                compress: true
-            };
-        },
-        buildMenuItems: function ($menu, data, id, subMenu, addDynamicTag) {
-            //this._debugMenu && console.log('build - menu items ', arguments);
-            let linkTarget = '';
-
-            const self = this;
-            const visibility = this.visibility;
-
-            for (let i = 0; i < data.length; i++) {
-                const item = data[i];
-                let $sub;
-                const widget = item.widget;
-
-                if (typeof item.divider !== 'undefined' && !item.widget) {
-                    let divider = '<li class="divider';
-                    divider += (addDynamicTag) ? ' dynamic-menu-item' : '';
-                    divider += '"></li>';
-                    item.widget = divider;
-                    $menu.append(divider);
-                    divider.data('item', item);
-
-                } else if (typeof item.header !== 'undefined' && !item.widget) {
-                    let header = item.vertical ? '<li class="divider-vertical' : '<li class="nav-header testClass';
-                    header += (addDynamicTag) ? ' dynamic-menu-item' : '';
-                    header += '">' + item.header + '</li>';
-                    header = $(header);
-                    item.widget = header;
-                    $menu.append(header);
-                    header.data('item', item);
-
-                } else if (typeof item.menu_item_src !== 'undefined') {
-
-                } else {
-
-                    if (!widget && typeof item.target !== 'undefined') {
-                        linkTarget = ' target="' + item.target + '"';
-                    }
-                    if (typeof item.subMenu !== 'undefined' && !widget) {
-                        let sub_menu = '<li tabindex="-1" class="dropdown-submenu ' + this.containerClass;
-                        sub_menu += (addDynamicTag) ? ' dynamic-menu-item' : '';
-                        sub_menu += '"><a>';
-
-                        if (typeof item.icon !== 'undefined') {
-                            sub_menu += '<span class="icon ' + item.icon + '"></span> ';
-                        }
-                        sub_menu += item.text + '';
-                        sub_menu += '</a></li>';
-                        $sub = $(sub_menu);
-
-                    } else {
-                        if (!widget) {
-                            if (item.render) {
-                                $sub = item.render(item, $menu);
-                            } else {
-                                let element = '<li tabindex="-1" class="" ';
-                                element += (addDynamicTag) ? ' class="dynamic-menu-item"' : '';
-                                element += '><a >';
-                                if (typeof data[i].icon !== 'undefined') {
-                                    element += '<span class="' + item.icon + '"></span> ';
-                                }
-                                element += item.text + '</a></li>';
-                                $sub = $(element);
-                                if (item.postRender) {
-                                    item.postRender($sub);
-                                }
-                            }
-                        }
-                    }
-
-                    if (typeof item.action !== 'undefined' && !item.widget) {
-                        if (item.addClickHandler && item.addClickHandler() === false) {} else {
-                            const $action = item.action;
-                            if ($sub && $sub.find) {
-                                const trigger = $sub.find('a');
-                                trigger.addClass('context-event');
-                                const handler = createCallback($action, item, $sub);
-                                trigger.data('handler', handler).on('click', handler);
-                            }
-                        }
-                    }
-
-                    if ($sub && !widget) {
-
-                        item.widget = $sub;
-                        $sub.menu = $menu;
-                        $sub.data('item', item);
-
-                        item.$menu = $menu;
-                        item.$sub = $sub;
-
-                        item._render = function () {
-                            if (item.index === 0) {
-                                this.$menu.prepend(this.$sub);
-                            } else {
-                                this.$menu.append(this.$sub);
-                            }
-                        };
-                        if (!item.lazy) {
-                            item._render();
-                        }
-                    }
-
-                    if ($sub) {
-                        $sub.attr('level', item.level);
-                    }
-
-                    if (typeof item.subMenu != 'undefined' && !item.subMenuData) {
-                        const subMenuData = self.buildMenu(item.subMenu, id, true);
-                        $menu.subMenuData = subMenuData;
-                        item.subMenuData = subMenuData;
-                        $menu.find('li:last').append(subMenuData);
-                        subMenuData.attr('level', item.subMenu.level);
-                        if (self.hideSubsFirst) {
-                            subMenuData.css('display', 'none');
-                        }
-                        $menu.data('item', item);
-                    } else {
-                        if (item.subMenu && item.subMenuData) {
-                            this.buildMenuItems(item.subMenuData, item.subMenu, id, true);
-                        }
-                    }
-                }
-
-                if (!$menu._didOnClick) {
-                    $menu.on('click', '.dropdown-menu > li > input[type="checkbox"] ~ label, .dropdown-menu > li > input[type="checkbox"], .dropdown-menu.noclose > li', function (e) {
-                        e.stopPropagation();
-                    });
-                    $menu._didOnClick = true;
-                }
-            }
-            return $menu;
-        },
-        buildMenu: function (data, id, subMenu) {
-            const subClass = (subMenu) ? (' dropdown-context-sub ' + this.containerClass) : ' scrollable-menu ';
-            const $menu = $('<ul tabindex="-1" aria-expanded="true" role="menu" class="dropdown-menu dropdown-context' + subClass + '" id="dropdown-' + id + '"></ul>');
-            if (!subMenu) {
-                this._rootMenu = $menu;
-            }
-            const result = this.buildMenuItems($menu, data, id, subMenu);
-            $menu.data('data', data);
-            return result;
-        },
-        createNewAction: function (command) {
-            const segments = command.split('/');
-            const lastSegment = segments[segments.length - 1];
-            const action = new Action({
-                command: command,
-                label: lastSegment,
-                group: lastSegment,
-                dynamic: true
-            });
-            return action;
-        },
-        findAction: function (command) {
-            const stores = this.actionStores;
-            let action = null;
-            _.each(stores, function (store) {
-                const _action = store ? store.getSync(command) : null;
-                if (_action) {
-                    action = _action;
-                }
-            });
-
-            return action;
-        },
-        getAction: function (command, store) {
-            store = store || this.store;
-            let action = null;
-            if (store) {
-                action = this.findAction(command);
-                if (!action) {
-                    action = this.createNewAction(command);
-                }
-            }
-            return action;
-        },
-        getActions: function (query) {
-            let result = [];
-            const stores = this.actionStores;
-            const visibility = this.visibility;
-
-            query = query || this.actionFilter;
-            _.each(stores, function (store) {
-                store && (result = result.concat(store._find(query)));
-                //store && (result2= result2.concat(store._find(query)));
-            });
-            result = result.filter(function (action) {
-                const actionVisibility = action.getVisibility != null ? action.getVisibility(visibility) : {};
-                return !(action.show === false || actionVisibility === false || actionVisibility.show === false);
-            });
-            /*
-            console.log('action: ',[result,result2]);
-            */
-            return result;
-        },
-        toActions: function (commands, store) {
-            const result = [];
-            const self = this;
-            _.each(commands, function (path) {
-                const _action = self.getAction(path, store);
-                _action && result.push(_action);
-            });
-            return result;
-        },
-        onRunAction: function (action, owner, e) {
-            const command = action.command;
-            action = this.findAction(command);
-            return DefaultActions.defaultHandler.apply(action.owner || owner, [action, e]);
-        },
-        getActionProperty: function (action, visibility, prop) {
-            let value = prop in action ? action[prop] : null;
-            if (visibility && prop in visibility) {
-                value = visibility[prop];
-            }
-            return value;
-        },
-        attach: function (selector, data) {
-            this.target = selector;
-            this.menu = this.addContext(selector, data);
-            this.domNode = this.menu[0];
-            this.id = this.domNode.id;
-            registry.add(this);
-            return this.menu;
-        },
-        addReference: function (action, item) {
-            if (action.addReference) {
-                action.addReference(item, {
-                    properties: {
-                        "value": true,
-                        "disabled": true,
-                        "enabled": true
-                    }
-                }, true);
-            }
-        },
-        onDidRenderActions: function (store, owner) {
-            if (owner && owner.refreshActions) {
-                owner.refreshActions();
-            }
-        },
-        getActionData: function (action) {
-            const actionVisibility = action.getVisibility != null ? action.getVisibility(this.visibility) : {};
-            return {
-                label: actionVisibility.label != null ? actionVisibility.label : action.label,
-                icon: actionVisibility.icon != null ? actionVisibility.icon : action.icon,
-                command: actionVisibility.command != null ? actionVisibility.command : action.command,
-                visibility: actionVisibility,
-                group: actionVisibility.group != null ? actionVisibility.group : action.group,
-                tab: actionVisibility.tab != null ? actionVisibility.tab : action.tab,
-                expand: actionVisibility.expand != null ? actionVisibility.expand : false,
-                widget: actionVisibility.widget
-            };
-        },
-        _clearAction: function (action) {
-
-        },
-        _findParentData: function (oldMenuData, parentCommand) {
-            const parent = _.find(oldMenuData, {
-                command: parentCommand
-            });
-            if (parent) {
-                return parent;
-            }
-            for (let i = 0; i < oldMenuData.length; i++) {
-                const data = oldMenuData[i];
-                if (data.subMenu) {
-                    const found = this._findParentData(data.subMenu, parentCommand);
-                    if (found) {
-                        return found;
-                    }
-                }
-            }
-            return null;
-        },
-        _clear: function () {
-            let actions = this.getActions();
-            const store = this.store;
-            if (store) {
-                this.actionStores.remove(store);
-            }
-            const self = this;
-            actions = actions.concat(this._tmpActions);
-            _.each(actions, function (action) {
-                if (action) {
-                    const actionVisibility = action.getVisibility != null ? action.getVisibility(self.visibility) : {};
-                    if (actionVisibility) {
-                        const widget = actionVisibility.widget;
-                        action.removeReference && action.removeReference(widget);
-                        if (widget && widget.destroy) {
-                            widget.destroy();
-                        }
-                        delete actionVisibility.widget;
-                        actionVisibility.widget = null;
-                    }
-                }
-            });
-            this.$navBar && this.$navBar.empty();
-        },
-        buildActionTree: function (store, owner) {
-            const self = this;
-            const allActions = self.getActions();
-            const visibility = self.visibility;
-
-            self.wireStore(store, function (evt) {
-                if (evt.type === 'update') {
-                    const action = evt.target;
-                    if (action.refreshReferences) {
-                        action.refreshReferences(evt.property, evt.value);
-                    }
-                }
-            });
-
-            //return all actions with non-empty tab field
-            const tabbedActions = allActions.filter(function (action) {
-                    const _vis = (action.visibility_ || {})[visibility + '_val'] || {};
-                    if (action) {
-                        return _vis.tab || action.tab;
-                    }
-                });
-
-            const //group all tabbed actions : { Home[actions], View[actions] }
-            groupedTabs = _.groupBy(tabbedActions, function (action) {
-                const _vis = (action.visibility_ || {})[visibility + '_val'] || {};
-                if (action) {
-                    return _vis.tab || action.tab;
-                }
-            });
-
-            let //now flatten them
-            _actionsFlattened = [];
-
-
-            _.each(groupedTabs, function (items) {
-                _actionsFlattened = _actionsFlattened.concat(items);
-            });
-
-            let rootActions = [];
-            _.each(tabbedActions, function (action) {
-                const rootCommand = action.getRoot();
-                rootActions.indexOf(rootCommand) == -1 && rootActions.push(rootCommand);
-            });
-
-            //owner sort of top level
-            store.menuOrder && (rootActions = owner.sortGroups(rootActions, store.menuOrder));
-
-            const tree = {};
-            //stats to count groups per tab
-            let biggestTab = rootActions[0];
-            let nbGroupsBiggest = 0;
-
-            _.each(rootActions, function (level) {
-                // collect all actions at level (File/View/...)
-                let menuActions = owner.getItemsAtBranch(allActions, level);
-                // convert action command strings to Action references
-                let grouped = self.toActions(menuActions, store);
-
-                // expand filter -------------------
-                let addedExpanded = [];
-                const toRemove = [];
-                _.each(grouped, function (action) {
-                    const actionData = self.getActionData(action);
-                    if (actionData.expand) {
-                        const children = action.getChildren();
-                        children && children.length && (addedExpanded = addedExpanded.concat(children));
-                        toRemove.push(action);
-                    }
-                });
-                grouped = grouped.concat(addedExpanded);
-                grouped = grouped.filter(function (action) {
-                    return toRemove.indexOf(action) == -1;
-                });
-                // expand filter ---------------    end
-
-                // group all actions by group
-                const groupedActions = _.groupBy(grouped, function (action) {
-                    const _vis = (action.visibility_ || {})[visibility + '_val'] || {};
-                    if (action) {
-                        return _vis.group || action.group;
-                    }
-                });
-
-                let _actions = [];
-                _.each(groupedActions, function (items, level) {
-                    if (level !== 'undefined') {
-                        _actions = _actions.concat(items);
-                    }
-                });
-
-                //flatten out again
-                menuActions = _actions.map((action) => action.command);
-                menuActions.grouped = groupedActions;
-                tree[level] = menuActions;
-
-                //update stats
-                if (self.collapseSmallGroups) {
-                    const nbGroups = _.keys(menuActions.grouped).length;
-                    if (nbGroups > nbGroupsBiggest) {
-                        nbGroupsBiggest = nbGroups;
-                        biggestTab = level;
-                    }
-                }
-            });
-
-            //now move over any tab with less than 2 groups to the next bigger tab
-            this.collapseSmallGroups && _.each(tree, function (actions, level) {
-                if (_.keys(actions.grouped).length < self.collapseSmallGroups) {
-                    //append tab groups of the biggest tab
-                    tree[biggestTab] && _.each(actions.grouped, function (group, name) {
-                        tree[biggestTab].grouped[name] = group;
-                    });
-                    //copy manually commands to that tab
-                    tree[biggestTab] && _.each(actions, function (action) {
-                        tree[biggestTab].push(action);
-                    });
-                    tree[biggestTab] && delete tree[level];
-                }
-            });
-            const result = {
-                root: tree,
-                rootActions: rootActions,
-                allActionPaths: _.pluck(allActions, 'command'),
-                allActions: allActions
-            };
-
-            this.lastTree = result;
-            return result;
-        }
-    });
     const Module = dcl(null, {
         actionStores: null,
         correctSubMenu: false,
@@ -24935,10 +24236,9 @@ define('xide/widgets/_MenuMixin4',[
             const menuData = this.menuData;
             _.each(oldActions, function (action) {
                 oldStore.removeSync(action.command);
-                const oldMenuItem = _.find(menuData, {
+                menuData.remove(_.find(menuData, {
                     command: action.command
-                });
-                oldMenuItem && menuData.remove(oldMenuItem);
+                }));
             });
         },
         /**
@@ -25029,6 +24329,14 @@ define('xide/widgets/_MenuMixin4',[
             const self = this;
             const root = $(document);
             this.__on(root, 'click', null, function (e) {
+                const what = $(e.target);
+                const widget = what.data('widget');
+                if (widget && widget.action) {
+                    if (self.getVisibilityField(widget.action, 'closeOnClick') === false) {
+                        return e.preventDefault();
+                    }
+
+                }
                 if (!self.isOpen) {
                     return;
                 }
@@ -25095,7 +24403,6 @@ define('xide/widgets/_MenuMixin4',[
                         }
 
                         popup.open({
-                            //parent: self,
                             popup: $sub[0],
                             around: _root[0],
                             orient: ['below', 'above'],
@@ -25163,12 +24470,9 @@ define('xide/widgets/_MenuMixin4',[
             };
         },
         buildMenuItems: function ($menu, data, id, subMenu, addDynamicTag) {
-            //this._debugMenu && console.log('build - menu items ', arguments);
             let linkTarget = '';
-
             const self = this;
             const visibility = this.visibility;
-
             const ITEM_TAG_START = '<' + this.ITEM_TAG + ' ';
             const ITEM_TAG_END = '</' + this.ITEM_TAG + '>';
             const ITEM_CLASS = this.ITEM_CLASS;
@@ -25193,12 +24497,7 @@ define('xide/widgets/_MenuMixin4',[
                     item.widget = header;
                     $menu.append(header);
                     header.data('item', item);
-
-                } else if (typeof item.menu_item_src !== 'undefined') {
-
-
-
-                } else {
+                } else if (typeof item.menu_item_src !== 'undefined') {} else {
 
                     if (!widget && typeof item.target !== 'undefined') {
                         linkTarget = ' target="' + item.target + '"';
@@ -25244,22 +24543,9 @@ define('xide/widgets/_MenuMixin4',[
                                 trigger.addClass('context-event');
                                 const handler = createCallback($action, item, $sub);
                                 trigger.data('handler', handler).on('click', handler);
-                                //trigger.data('handler',handler).on('click',function(e){
-                                //return func(event, menu, item);
-                                //});
-
-                                /*
-                                trigger.data('handler',handler).on('click',function(e){
-                                    handler();
-                                    var _parent = $sub.parent();
-                                    _parent.data('open',false);
-                                    _parent[0] && popup.close(_parent[0]);
-                                });
-                                */
                             }
                         }
                     }
-
                     if ($sub && !widget) {
                         item.widget = $sub;
                         $sub.menu = $menu;
@@ -25336,7 +24622,6 @@ define('xide/widgets/_MenuMixin4',[
                     action = _action;
                 }
             });
-
             return action;
         },
         getAction: function (command, store) {
@@ -25354,18 +24639,14 @@ define('xide/widgets/_MenuMixin4',[
             let result = [];
             const stores = this.actionStores;
             const visibility = this.visibility;
-
             query = query || this.actionFilter;
             _.each(stores, function (store) {
                 store && (result = result.concat(store._find(query)));
-                //store && (result2= result2.concat(store._find(query)));
             });
             result = result.filter(function (action) {
                 const actionVisibility = action.getVisibility != null ? action.getVisibility(visibility) : {};
                 return !(action.show === false || actionVisibility === false || actionVisibility.show === false);
-
             });
-
             return result;
         },
         toActions: function (commands, store) {
@@ -25398,6 +24679,39 @@ define('xide/widgets/_MenuMixin4',[
             const ITEM_TAG_START = '<' + this.ITEM_TAG + ' class="' + ITEM_CLASS + '" ';
             const ITEM_TAG_END = '</' + this.ITEM_TAG + '>';
 
+            if (visibility.widgetClass) {
+                const args = utils.mixin({
+                    text: labelLocalized,
+                    icon: icon,
+                    data: action,
+                    owner: owner,
+                    command: action.command,
+                    visibility: self.visibility
+                }, visibility.widgetArgs || {});
+
+                const custom = new proxyClass({
+                    args: args,
+                    renderer: visibility.widgetClass,
+                    render: function (data, $menu) {
+                        const node = $('<div class="actionItem"></div>');
+                        const widget = utils.addWidget(this.renderer, this.args, null, node[0], true);
+                        this.widget = widget;
+                        $(widget.domNode).css('display', 'inline-block');
+                        return node;
+                    },
+                    get: function () {
+                        console.log('get ', arguments);
+                    },
+                    set: function (key, value) {
+                        // console.log('set '+key, value);
+                    },
+                    destroy: function () {
+                        utils.destroy(this.widget);
+                    }
+                });
+                return custom;
+            }
+
             const item = {
                 text: labelLocalized,
                 icon: icon,
@@ -25407,7 +24721,6 @@ define('xide/widgets/_MenuMixin4',[
                 lazy: lazy,
                 addClickHandler: function () {
                     return actionType !== types.ACTION_TYPE.MULTI_TOGGLE;
-
                 },
                 render: function (data, $menu) {
                     if (self.renderItem) {
@@ -25628,22 +24941,22 @@ define('xide/widgets/_MenuMixin4',[
 
             //return all actions with non-empty tab field
             const tabbedActions = allActions.filter(function (action) {
-                    const _vis = (action.visibility_ || {})[visibility + '_val'] || {};
-                    if (action) {
-                        return _vis.tab || action.tab;
-                    }
-                });
-
-            const //group all tabbed actions : { Home[actions], View[actions] }
-            groupedTabs = _.groupBy(tabbedActions, function (action) {
                 const _vis = (action.visibility_ || {})[visibility + '_val'] || {};
                 if (action) {
                     return _vis.tab || action.tab;
                 }
             });
 
+            const //group all tabbed actions : { Home[actions], View[actions] }
+                groupedTabs = _.groupBy(tabbedActions, function (action) {
+                    const _vis = (action.visibility_ || {})[visibility + '_val'] || {};
+                    if (action) {
+                        return _vis.tab || action.tab;
+                    }
+                });
+
             let //now flatten them
-            _actionsFlattened = [];
+                _actionsFlattened = [];
 
 
             _.each(groupedTabs, function (items) {
@@ -26080,9 +25393,6 @@ define('xide/widgets/ContextMenu',[
             return this.navBar;
         }
     });
-    const _debugTree = false;
-    const _debugMenuData = false;
-    const _debugOldMenuData = false;
     const KeyboardControl = _MenuKeyboard;
 
     const ContextMenu = dcl([_Widget.dcl, ActionContext.dcl, ActionMixin.dcl, ActionRendererClass, MenuMixinClass, _XWidget.StoreMixin], {
@@ -27042,10 +26352,9 @@ define('xdocker/Docker2',[
 /** @module xgrid/ThumbRenderer **/
 define('xgrid/ThumbRenderer',[
     "xdojo/declare",
-    'xide/types',
     'dojo/dom-construct',
     './Renderer'
-], function (declare,types,domConstruct,Renderer) {
+], function (declare,domConstruct,Renderer) {
     /**
      * The list renderer does nothing since the xgrid/Base is already inherited from
      * dgrid/OnDemandList and its rendering as list already.
@@ -28614,7 +27923,6 @@ define('xfile/FileActions',[
          * @TODO : remove leaks
          */
         mkdir: function () {
-
             var dfd = new Deferred();
             try {
                 var self = this,
@@ -29518,8 +28826,6 @@ define('xfile/FileActions',[
                     var newStoredActions = this.addActions(editorActions);
                     actionStore._emit('onActionsAdded', newStoredActions);
                     this._lastEditorActions = newStoredActions;
-                } else {
-
                 }
             }
 
