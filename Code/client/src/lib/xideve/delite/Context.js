@@ -132,6 +132,15 @@ define([
      */
     return declare("xideve/delite/Context", [_ContextMobile, _ContextTheme, 
         _ContextCSS, _ContextJS, _ContextDelite, _ContextDojo, _ContextInterface, _ContextDocument, _ContextWidgets, ThemeModifier, EventedMixin, ReloadMixin], {
+        toWidget:function(node){
+            let ret = null;
+            _.each(this.widgetHash, (w) => {
+                if (w.domNode == node) {
+                    ret = w;
+                }
+            })
+            return ret;
+        },
         /////////////////////////////////////////////////////////////////////////////////////////////////
         //
         //  Upgrade to xideve : begin

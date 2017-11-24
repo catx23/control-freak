@@ -48,6 +48,15 @@ define([
 				this._states.push(state);
 			}
 		},
+		removeState:function(state){
+			if(!this._states){
+				this._states = [];
+			}
+
+			if(this._states.indexOf(state)==-1){
+				this._states.splice(this._states.indexOf(state),1);
+			}
+		},
 
 		stateReady:function(state){
 			if(state.name ===this.state){
