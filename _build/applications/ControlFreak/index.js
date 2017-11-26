@@ -761,7 +761,7 @@ class ControlFreak extends Base_1.ApplicationBase {
                 let isWin = /^win/.test(process.platform);
                 const ips = this.getIps();
                 if (isWin && host === '0.0.0.0') {
-                    host = ips[0].ip;
+                    // host = ips[0].ip;
                 }
                 console_1.console.info('ControlFreak#run : create HTTP server at ' + host + ':' + port);
                 this.server.listen(port, host);
@@ -793,6 +793,10 @@ class ControlFreak extends Base_1.ApplicationBase {
                         });
                     }
                     resolve(context);
+                    let isWin = /^win/.test(process.platform);
+                    if (isWin && host === '0.0.0.0') {
+                        host = ips[0].ip;
+                    }
                     this.ready('http://' + host + ':' +
                         port + '/app/xcf?userDirectory=' +
                         encodeURIComponent(this.path(Base_1.EEKey.USER_DIRECTORY)));
