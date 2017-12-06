@@ -52,7 +52,7 @@
     "lodash": "4.0.0",
     "mime": "^2.0.3",
     "minimatch": "^3.0.3",
-    "mosca": "^2.2.0",
+    "mosca-memory": "^2.7.2",
     "mqtt": "^2.3.0",
     "node-fs-extra": "^0.8.1",
     "os-tmpdir": "^1.0.2",
