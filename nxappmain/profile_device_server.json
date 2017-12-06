@@ -12,7 +12,7 @@
       "stdout":true
   },
   "socket_server": {
-      "port":9998,
+      "port":19998,
       "host":"0.0.0.0",
       "debug":false
   },
@@ -20,7 +20,7 @@
     "port":27017
   },
   "http":{
-    "port":5555
+    "port":15555
   },
   "ascoltatore" : {
     "type": "mongo",
@@ -29,7 +29,7 @@
     "mongo": {}
   },
   "mosca":{
-    "port": 1883,
+    "port": 11883,
     "persistence": {
       "url": "mongodb://localhost:27017/mqtt"
     }
