@@ -151,6 +151,13 @@ Please post issues [here](https://github.com/xblox/control-freak/issues)
 
 <hr/>
 
+## 6.12.2017
+
+- Removed mongodb & player dependencies
+- New: Widget states
+- New - XBLOX : Block Palette
+- Fixed: a lots of VE bugs
+
 ## 17.11.2017
 
 - New: VE actions "File/Save as widget", "Widget/Add|Remove|Rename State"

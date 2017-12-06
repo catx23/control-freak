@@ -52,7 +52,6 @@
     "lodash": "4.0.0",
     "mime": "^2.0.3",
     "minimatch": "^3.0.3",
-    "mongodb": "^2.2.25",
     "mosca": "^2.2.0",
     "mqtt": "^2.3.0",
     "node-fs-extra": "^0.8.1",
