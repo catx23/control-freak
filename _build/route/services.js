@@ -9,6 +9,42 @@ function default_1(target) {
         'envelope': 'JSON-RPC-2.0',
         'target': target,
         'services': {
+            'Library_Store.getReader': { 'transport': 'POST', 'target': null, 'parameters': [] },
+            'Library_Store.getWriter': { 'transport': 'POST', 'target': null, 'parameters': [] },
+            'Library_Store.get': {
+                'transport': 'POST',
+                'target': null,
+                'parameters': [{ 'name': 'section', 'optional': false }, {
+                        'name': 'path',
+                        'optional': false
+                    }, { 'name': 'query', 'default': null, 'optional': true }]
+            },
+            'Library_Store.set': {
+                'transport': 'POST',
+                'target': null,
+                'parameters': [{ 'name': 'section', 'optional': false }, {
+                        'name': 'path',
+                        'default': '.',
+                        'optional': true
+                    }, { 'name': 'query', 'default': null, 'optional': true }, {
+                        'name': 'value',
+                        'default': null,
+                        'optional': true
+                    }, { 'name': 'decodeValue', 'default': true, 'optional': true }]
+            },
+            'Library_Store.update': {
+                'transport': 'POST',
+                'target': null,
+                'parameters': [{ 'name': 'section', 'optional': false }, {
+                        'name': 'path',
+                        'default': '.',
+                        'optional': true
+                    }, { 'name': 'searchQuery', 'default': null, 'optional': true }, {
+                        'name': 'value',
+                        'default': null,
+                        'optional': true
+                    }, { 'name': 'decodeValue', 'default': true, 'optional': true }]
+            },
             'XApp_Store.getReader': { 'transport': 'POST', 'target': null, 'parameters': [] },
             'XApp_Store.getWriter': { 'transport': 'POST', 'target': null, 'parameters': [] },
             'XApp_Store.get': {

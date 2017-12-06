@@ -138,6 +138,18 @@ define([
                 if (w.domNode == node) {
                     ret = w;
                 }
+                if (w.domNode.id == node.id) {
+                    ret = w;
+                }
+            })
+            return ret;
+        },
+        getWidgetById:function(id){
+            let ret = null;
+            _.each(this.widgetHash, (w) => {
+                if (w.domNode.id == id) {
+                    ret = w;
+                }
             })
             return ret;
         },
@@ -432,7 +444,7 @@ define([
         _restoreStates: function () {
             //xmaqhack
 
-            return;
+            return;/*
             var cache = this._loadFileStatesCache;
             if (!cache) {
                 console.error('Context._restoreStates: this._loadFileStatesCache missing');
@@ -524,9 +536,9 @@ define([
                 davinci.ve.states.store(widget.domNode, maqAppStates, maqDeltas);
 
 //FIXME: Need to generalize beyond just BODY
-                /*FIXME: OLD LOGIC
-                 if(node.tagName.toUpperCase() != 'BODY'){
-                 */
+                //FIXME: OLD LOGIC
+                // if(node.tagName.toUpperCase() != 'BODY'){
+                //
                 if (maqDeltas) {
                     davinci.states.transferElementStyle(node, cache[id].style);
                 }
@@ -549,6 +561,7 @@ define([
                     });
                 }
             });
+            */
         },
         // Temporarily stuff a unique class onto element with each _preserveDojoTypes call.
         // Dojo will sometimes replace the widget's root node with a different root node

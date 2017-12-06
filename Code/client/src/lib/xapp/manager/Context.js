@@ -13,7 +13,11 @@ define([
     'xcf/types/Types',
     'xdojo/has',
     'dojo/Deferred'
+    // 'xblox/_Stated'
 ], function (dcl, ContextBase, PluginManager, Application, ResourceManager, EventedMixin, types, utils, _WidgetPickerMixin, Reloadable, Types, has, Deferred) {
+
+    // console.log(require.toUrl('../xibm/delite/_Stated'));
+
     var isIDE = has('xcf-ui');
     var debugWire = false;
     var debugBoot = false;
@@ -209,8 +213,9 @@ define([
                 //dijit
                 (widget.baseClass && widget.baseClass.indexOf('dijitContentPane') != -1)
                 //delite
-                || widget.render != null || widget.on != null) {
-                _isWidget = false;//use on
+                ||
+                widget.render != null || widget.on != null) {
+                _isWidget = false; //use on
             }
 
             if (_target) {
@@ -241,8 +246,7 @@ define([
                                 _handle = _target.subscribe(event, function (evt) {
                                     run(event, evt, block, widget);
                                 }.bind(this), widget);
-                            }
-                            else {
+                            } else {
                                 if (utils.isNativeEvent(event)) {
                                     event = event.replace('on', '');
                                 }
@@ -430,6 +434,8 @@ define([
                 debugBoot && console.log('emit load', widget);
                 widget.__didEmitLoad = true;
                 if (widget.nodeName === 'BODY') {
+                    // utils.mixin(widget, _Stated.prototype);;
+                    // console.error('widget',widget.getStates());
                     $(widget.nodeName).trigger('load');
                 } else {
                     if (widget.emit) {
@@ -472,6 +478,7 @@ define([
         },
         loadXBloxFiles: function (files) {
             var thiz = this;
+
             function loadXBLOXFiles() {
                 thiz.getBlockManager().loadFiles(files).then(function (scopes) {
                     debugBoot && console.log('   Checkpoint 8.1. xapp/manager/context->xblox files loaded');
@@ -626,7 +633,7 @@ define([
                 }, 10);
 
             });
-            
+
             if (has('debug')) {
                 this.loadXIDE();
             }
@@ -662,8 +669,7 @@ define([
                     thiz.driverManager = thiz.createManager(DriverManager, null, {
                         serviceUrl: settings.rpcUrl,
                         singleton: true
-                    }
-                    );
+                    });
                     thiz.driverManager.init();
 
                     try {
@@ -674,8 +680,7 @@ define([
                                 thiz.deviceManager = thiz.createManager(DeviceManager, null, {
                                     serviceUrl: settings.rpcUrl,
                                     singleton: true
-                                }
-                                );
+                                });
                                 thiz.deviceManager.init();
                                 thiz.deviceManager.ls('system_devices').then(function () {
                                     thiz.deviceManager.ls('user_devices').then(function () {

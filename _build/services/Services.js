@@ -19,13 +19,13 @@ class NodeService extends JSONFile_1.JSONFileService {
         const request = this._getRequest(args);
         let items = this.readConfig()['items'];
         if (request) {
-            items = _.map(items, function (item) {
+            items = _.map(items, (item) => {
                 item.host = request.host.split(':')[0];
                 if (item.name === 'Device Control Server') {
                     item.port = this.deviceServerPort;
                 }
                 return item;
-            }.bind(this));
+            });
         }
         return items;
     }

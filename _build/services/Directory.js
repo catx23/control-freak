@@ -23,7 +23,7 @@ const AspectDecorator_1 = require("../lang/AspectDecorator");
 const Base_1 = require("../services/Base");
 const Local_1 = require("../vfs/Local");
 const fs = require("fs");
-const mime = require("mime");
+const mime = require('mime');
 const _path = require("path");
 const _ = require("lodash");
 const Base_2 = require("./Base");
@@ -407,7 +407,7 @@ class DirectoryService extends Base_1.BaseService {
             mode: fsNodeStat.mode,
             isDir: isDirectory,
             directory: isDirectory,
-            mime: isDirectory ? 'directory' : mime.lookup(node.path),
+            mime: isDirectory ? 'directory' : mime.getType(node.path),
             name: _path.win32.basename(node.path),
             fileType: isDirectory ? 'folder' : 'file',
             modified: fsNodeStat.mtime.getTime() / 1000,

@@ -15,6 +15,7 @@
     require.config({
         urlArgs: "userDirectory=<%-USER_DIRECTORY%>"
     });
+
     require.config({
         config: {
             waitSeconds:9999999,
@@ -164,7 +165,7 @@
 
         ]
     });
-    require({
+	require({
         map:{
             '*':{
                 'delite/Container':'../xibm/delite/Container',

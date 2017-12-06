@@ -128,7 +128,7 @@ class BaseService extends Resolver_1.ResourceResolver {
     toMethods(methods) {
         const self = this;
         const result = {};
-        _.each(methods, function (method) {
+        _.each(methods, (method) => {
             result[method] = self[method];
         });
         return result;

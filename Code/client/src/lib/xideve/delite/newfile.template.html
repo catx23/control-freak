@@ -9,6 +9,7 @@
         <link rel="stylesheet" type="text/css" href="{{offset}}/xapp/build/themes/layer_bootstrap.css">
         <link rel="stylesheet" type="text/css" href="{{APP_CSS}}">
         <script>
+            const debugBoot = false;
             require.config({
                 config: {
                     'delite/theme':{
@@ -239,7 +240,7 @@
             };
 
             var startx = function (dfd, bootStrapper, context, settings) {
-                console.log('Checkpoint 6. all dependencies loaded');
+                debugBoot && console.log('Checkpoint 6. all dependencies loaded');
                 appContext = context;
                 dfd.resolve({
                     bootstrap: bootStrapper,
@@ -259,10 +260,10 @@
 
                         var bootStrap = new boot();
                         bootStrap.load().then(function () {
-                            console.log('   Checkpoint 3.1 xapp/boot load()');
+                            debugBoot && console.log('   Checkpoint 3.1 xapp/boot load()');
                             utils.mixin(settings, xideveSettings);
                             bootStrap.start(settings).then(function (ctx) {
-                                console.log('   Checkpoint 5.2 xapp/boot start', xideveSettings);
+                                debugBoot && console.log('   Checkpoint 5.2 xapp/boot start', xideveSettings);
                                 startx(headDfd, bootStrap, ctx, xideveSettings);
                             }, function (e) {
                                 console.error('error starting xapp/boot/start ' + e, e);

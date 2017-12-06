@@ -1,18 +1,17 @@
 define([
     "dcl/dcl",
-
     "dojo/_base/Deferred",
     "dojo/has",
     "require"
-], function (dcl,Deferred,has,require) {
+], function (dcl, Deferred, has, require) {
 
     var debug = false;
-    
-    return dcl(null,{
-        declaredClass:'xapp/boot',
-        start:function(settings,Context){
+
+    return dcl(null, {
+        declaredClass: 'xapp/boot',
+        start: function (settings, Context) {
             var _require = require;
-            var _ctx=_require('xapp/manager/Context');
+            var _ctx = _require('xapp/manager/Context');
             try {
                 var ctx = new _ctx;
                 try {
@@ -39,13 +38,13 @@ define([
                 } catch (e) {
                     console.error('error init managers ' + e, e);
                 }
-            }catch(e){
+            } catch (e) {
                 debugger;
             }
 
             return ctx.application.start(settings);
         },
-        getDependencies:function(extraDependencies){
+        getDependencies: function (extraDependencies) {
             var result = [
                 'lodash',
                 'xide/lodash',
@@ -67,14 +66,14 @@ define([
                 'xblox/model/html/SetState'
             ];
 
-            if(extraDependencies){
+            if (extraDependencies) {
                 result = result.concat(extraDependencies);
             }
             return result;
         },
         load: function (extraDependencies) {
             var _defered = new Deferred();
-            var _re = require;//hide from gcc
+            var _re = require; //hide from gcc
             debug && console.log('load xapp/boot deps');
             _re(this.getDependencies(extraDependencies), function () {
                 _defered.resolve();
@@ -83,4 +82,3 @@ define([
         }
     });
 });
-

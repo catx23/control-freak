@@ -1,5 +1,5 @@
 define([
-    "xapp/build/main_build"
+    "xapp/build/xapp.min"
 ], function () {
     const debug = false;
     debug && console.log('Checkpoint 1.2 build ready');
