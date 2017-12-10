@@ -628,3 +628,75 @@ IE: checking $80 is in the hex string : return [value].hexString().indexOf('80')
 - Breaking changes VE: HTML - Base - Url points now to the surrounding folder instead of the workspace url
 - Updated: Electron to version 1.1.2
 - Fixed: Device server did create block scopes regardless of the "Runs on server" flag being off
+
+## 10.02. - 2016
+
+- XBLOX: For/While/Call Command - Block back working
+- Device-Tree-View & Driver-Tree-View in sync with driver
+- Device-Tree-View has new action: Edit Instance
+- Commands can be played directly from Device-Tree-View
+- Changing driver on devices now working
+- Clipping for local Action-Toolbars fixed
+
+
+
+
+## 08.02. - 2016 
+
+- XBLOX: most issues reported by Tim (0-17)
+- Variables display icon
+- Lots of internal Device-Server - fixes regarding Arduino/RPI and custom protocols
+- Disabled Devices no longer can be started implicit
+- Icon - Picker - Added
+- Descriptions now editable, HTML control - buttons still need to be added
+- Around 5000 files removed from build
+
+Remaining issues: #17, #,16, #15, #13 will be fixed that days/weeks
+
+
+
+## 07.02. - 2016 
+
+- Basic Arduino Driver added
+- XBLOX: IF-Block fixed
+- Driver - Command - Block -> Send has a new action (the magic button): 
+
+
+This will open the new Expression - Editor. This editor is linked directly to the driver - instance
+and is a more guided version of the driver console.
+
+
+## 05.02. - 2016 - Part III
+
+- XBLOX: Switch & Case-Block back working
+- XBLOX: Highlightning block run fixed
+- XFILE: Delete & Paste Fixed
+- Debug Console messages removed
+
+## 05.02. - 2016 - Part II
+
+- Command enumeration in devices/drivers fixed. Still needs File/Reload for delete/added blocks
+- Run Command from within Devices/Drivers fixed
+- Running Log-Block on RAW driver crashed Devices-Server, fixed
+- Right - Arrow key didnt open device tree, fixed
+- Double click didn't open device setting, fixed
+
+
+
+## 05.02. - 2016
+
+- New Device Action: Fixed
+- New Device/Group updates TreeView
+- Missing directories for windows added
+- Driver-Code - Hot-Reload fixed (windows)
+
+### 08.02.2015
+
+- Update Documentation/Driver-API
+- Fix minors in Device/Driver-Treeview (Commands,Variables)
+- Fix for all xblox-blocks (if/else,...)
+- Send/Receive-Settings in drivers 
+- Re-Activate - Copy/Paste/Cut - Action
+ 
+
+1.0.0 Initial Release

@@ -341,7 +341,7 @@ define([
             }, this);
         },
 
-        select: function (widget, add, inline) {
+        select: function (widget, add, inline, quite) {
             if (!widget /*|| widget == this.rootWidget*/ ) {
                 if (!add) {
                     this.deselect(); // deselect all
@@ -383,7 +383,7 @@ define([
                 if (!this._selection || this._selection.length > 1 || selection.length > 1 || this.getSelection() != widget) {
                     var oldSelection = this._selection;
                     this._selection = selection;
-                    this.onSelectionChange(selection, add);
+                    quite !== true && this.onSelectionChange(selection, add);
                     if (oldSelection) {
                         oldSelection.forEach(function (w) {
                             var h = w.getHelper();
@@ -398,7 +398,7 @@ define([
                     }
                 }
             }
-            this.updateFocus(widget, index, inline);
+            quite !== true && this.updateFocus(widget, index, inline);
         },
         deselect: function (widget) {
             if (!this._selection) {
