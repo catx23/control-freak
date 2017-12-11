@@ -1,0 +1,58 @@
+var vlc = require('../vlc')([
+  '-I', 'dummy',
+  '-V', 'dummy',
+  '-vvvv', 'dummy',
+  '--verbose', '1',
+  '--no-video-title-show',
+  '--no-disable-screensaver',
+  '--no-snapshot-preview'
+]);
+
+var media = vlc.mediaFromFile(process.argv[2]);
+media.parseSync();
+
+media.track_info.forEach(function (info) {
+  console.log(info);
+});
+
+console.log(media.artist, '--', media.album, '--', media.title);
+
+var player = vlc.mediaplayer;
+player.media = media;
+console.log('Media duration:', media.duration);
+
+player.play();
+var POS = 0.0;
+player.position = POS;
+
+var poller = setInterval(function () {
+  console.log('Poll:', player.position);
+  if (player.position < POS)
+    return;
+
+
+  return;
+  try {
+    if (player.video.track_count > 0) {
+      player.video.take_snapshot(0, "test.png", player.video.width, player.video.height);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+  finally {
+    player.stop();
+
+    media.release();
+    vlc.release();
+
+    clearInterval(poller);
+  }
+}, 3500);
+
+/*
+setTimeout(function () {
+  console.log('--- stoping ---', player.position);
+  player.stop();
+  clearInterval(poller);
+}, media.duration + 100);
+*/
