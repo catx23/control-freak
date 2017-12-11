@@ -3,4 +3,3 @@ data/_MONGO/local.ns
 data/_MONGO/mongod.lock
 Code/client/src/xcf/dojo/xcf_d.js
 Code/client/src/lib/xapp/build/main_build.js
-node_modules
