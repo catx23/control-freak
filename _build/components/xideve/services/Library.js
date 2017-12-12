@@ -39,9 +39,7 @@ class LibraryService extends JSONFile_1.JSONFileService {
         throw new Error("Should be implemented by decorator");
     }
     methods() {
-        // const methods = this.getRpcMethods();
-        // return this.toMethods(methods);
-        return this.toMethods(['get', 'set', 'update']);
+        return this.toMethods(['get', 'set', 'update', 'remove']);
     }
 }
 exports.LibraryService = LibraryService;

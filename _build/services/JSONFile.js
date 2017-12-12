@@ -87,6 +87,16 @@ class JSONFileService extends Base_1.BaseService {
         dataAt && _.extend(_.find(dataAt, searchQuery), value);
         return data;
     }
+    remove(section, path = '.', searchQuery = null, request) {
+        let data = this.readConfig(this._getConfigPath(arguments));
+        const dataAt = dotProp.get(data, this.root + path + section);
+        const el = _.find(dataAt, searchQuery);
+        if (el) {
+            dataAt.splice(dataAt.indexOf(el), 1);
+        }
+        this.writeConfig(this._getConfigPath(arguments), data);
+        return data;
+    }
     update(section, path = '.', searchQuery = null, value = null, decodeValue = true, request) {
         return this.writeConfig(this._getConfigPath(arguments), this.set(section, path, searchQuery, value, decodeValue, this._getRequest(arguments)));
     }
@@ -119,6 +129,12 @@ __decorate([
     __metadata("design:paramtypes", [String, String, Object, Object, Boolean, Object]),
     __metadata("design:returntype", void 0)
 ], JSONFileService.prototype, "set", null);
+__decorate([
+    Base_1.RpcMethod,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, Object, Object]),
+    __metadata("design:returntype", void 0)
+], JSONFileService.prototype, "remove", null);
 __decorate([
     Base_1.RpcMethod,
     __metadata("design:type", Function),

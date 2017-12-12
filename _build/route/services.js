@@ -32,6 +32,19 @@ function default_1(target) {
                         'optional': true
                     }, { 'name': 'decodeValue', 'default': true, 'optional': true }]
             },
+            'Library_Store.remove': {
+                'transport': 'POST',
+                'target': null,
+                'parameters': [{
+                        'name': 'section',
+                        'optional': false
+                    }, {
+                        'name': 'path',
+                        'default': '.',
+                        'optional': true
+                    }, { 'name': 'query', 'default': null, 'optional': true }
+                ]
+            },
             'Library_Store.update': {
                 'transport': 'POST',
                 'target': null,
