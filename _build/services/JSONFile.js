@@ -16,7 +16,7 @@ const pathUtil = require("path");
 const defaultFileName = 'settings.json';
 const exists_1 = require("../fs/exists");
 const write_1 = require("../fs/write");
-const debug = false;
+const debug = true;
 /**
  * This service sets/gets data in a json file, utilizing 'dot-prop' to select certain data in the object.
  *
@@ -39,14 +39,17 @@ class JSONFileService extends Base_1.BaseService {
         this.configPath = config;
         this.root = 'admin';
     }
+    getDefaults() {
+        return this.defaultData;
+    }
     _ensure(path) {
-        if (path || path.length) {
+        if (!path || !path.length) {
             debug && console.error('ensure invalid path !');
             return;
         }
         try {
-            if (path && path.length && !exists_1.sync(path)) {
-                write_1.sync(path, this.defaultData);
+            if (!exists_1.sync(path)) {
+                write_1.sync(path, this.getDefaults());
             }
         }
         catch (e) {

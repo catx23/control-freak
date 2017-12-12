@@ -8,9 +8,10 @@ const fs = require("fs");
 const _ = require("lodash");
 const mkdirp = require("mkdirp");
 const _path = require("path");
-const write = require('write-file-atomic');
+const url = require("url");
+const write_1 = require("../fs/write");
+// const write = require('write-file-atomic');
 const qs = require('qs').parse;
-const url = require('url');
 const pathUtil = require("path");
 const permissionError = 'You don\'t have access to this file.';
 const defaultPathMode = parseInt('0700', 8);
@@ -56,7 +57,8 @@ class BaseService extends Resolver_1.ResourceResolver {
     _getUser(request) {
         if (request) {
             // pick userDirectory from referrer (xide RPC calls don't have it has it as url parameter )
-            let urlArgs = qs(request.get('referrer'));
+            const ref = request.get('referrer');
+            let urlArgs = qs(url.parse(ref).query);
             let user = urlArgs['userDirectory'];
             if (user) {
                 return user;
@@ -93,7 +95,7 @@ class BaseService extends Resolver_1.ResourceResolver {
             // create dir if it doesn't exist
             if (err.code === 'ENOENT') {
                 mkdirp.sync(_path.dirname(path), defaultPathMode);
-                write.sync(path, _default || '', writeFileOptions);
+                write_1.sync(path, _default || '', writeFileOptions);
                 return {};
             }
             // improve the message of permission errors
@@ -102,7 +104,7 @@ class BaseService extends Resolver_1.ResourceResolver {
             }
             // empty the file if it encounters invalid JSON
             if (err.name === 'SyntaxError') {
-                write.sync(path, '', writeFileOptions);
+                write_1.sync(path, '', writeFileOptions);
                 return {};
             }
             throw err;
@@ -115,7 +117,7 @@ class BaseService extends Resolver_1.ResourceResolver {
             // make sure the folder exists as it
             // could have been deleted in the meantime
             mkdirp.sync(_path.dirname(path), defaultPathMode);
-            write.sync(path, json_1.serialize(val, null, 4), writeFileOptions);
+            write_1.sync(path, json_1.serialize(val, null, 4), writeFileOptions);
         }
         catch (err) {
             // improve the message of permission errors
