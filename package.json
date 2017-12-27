@@ -1,6 +1,6 @@
 {
   "name": "control-freak",
-  "version": "1.0.71",
+  "version": "1.0.72",
   "contributors": [
     {
       "name": "Günter Baumgart",
@@ -65,6 +65,7 @@
     "sockjs": "^0.3.18",
     "sockjs-client": "^1.1.1",
     "sockjs-client-ws": "^0.1.0",
+    "simple-mime": "0.1.0",
     "ssh2": "^0.5.4",
     "strip-ansi": "^3.0.1",
     "tcp-port-used": "^0.1.2",
