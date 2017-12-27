@@ -1,6 +1,6 @@
 {
   "name": "control-freak",
-  "version": "1.0.70",
+  "version": "1.0.71",
   "contributors": [
     {
       "name": "Günter Baumgart",
@@ -62,7 +62,6 @@
     "reflect-metadata": "^0.1.10",
     "request-progress": "^3.0.0",
     "server-destroy": "^1.0.1",
-    "simple-mime": "^0.1.0",
     "sockjs": "^0.3.18",
     "sockjs-client": "^1.1.1",
     "sockjs-client-ws": "^0.1.0",

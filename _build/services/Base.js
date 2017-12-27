@@ -10,7 +10,6 @@ const mkdirp = require("mkdirp");
 const _path = require("path");
 const url = require("url");
 const write_1 = require("../fs/write");
-// const write = require('write-file-atomic');
 const qs = require('qs').parse;
 const pathUtil = require("path");
 const permissionError = 'You don\'t have access to this file.';
