@@ -151,6 +151,10 @@ Please post issues [here](https://github.com/xblox/control-freak/issues)
 
 <hr/>
 
+## 01.01.2018
+
+- Re-enabled documentation
+
 ## 6.12.2017
 
 - Removed mongodb & player dependencies
