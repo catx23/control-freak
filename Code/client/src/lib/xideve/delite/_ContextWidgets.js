@@ -102,6 +102,7 @@ define([
             var prereqs = [],
                 thiz = this;
 
+            console.log('_processWidgets');
             this._loadFileDojoTypesCache = {};
             debugWidgets && console.log('process widgets, scripts : ' + scripts);
             //@TODO: fixme : warm up registry, otherwise faulty id generation
@@ -114,6 +115,7 @@ define([
             dijit.getUniqueId('delite/Accordion');
             dijit.getUniqueId('delite/Switch');
             dijit.getUniqueId('delite/Slider');
+            const c = query("*", containerNode);
             
             dojo.forEach(query("*", containerNode), function (n) {
                 var type = n.getAttribute("data-dojo-type") || n.getAttribute("dojoType") || /*n.getAttribute("oawidget") ||*/ n.getAttribute("dvwidget");

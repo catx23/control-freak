@@ -28,7 +28,7 @@ define([
     Path, Runtime, Workbench, Library,
     metadata, Preferences, html, iframe) {
 
-    var debugContent = false;
+    var debugContent = true;
     // console.log('has debug : ',has('debug'));
     /**
      *

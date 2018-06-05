@@ -71,6 +71,7 @@ define([
             return this._activeDragDiv;
         },
         setActiveDragDiv: function (activeDragDiv) {
+            // console.log('active drag');
             this._activeDragDiv = activeDragDiv;
         },
         blockChange: function (shouldBlock) {
