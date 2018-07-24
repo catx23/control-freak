@@ -83,11 +83,11 @@
   },
   "devDependencies": {},
   "optionalDependencies": {
+    "johnny-five": "^0.10.6",
     "node-notifier": "^4.5.0",
-    "serialport": "git+https://github.com/EmergingTechnologyAdvisors/node-serialport.git",
+    "serialport": "^5.0.0-beta3",
     "vlc-ffi": "git+https://github.com/tx4x/vlc-ffi.git",
-    "winreg": "^1.2.3",
-    "johnny-five": "^0.10.6"
+    "winreg": "^1.2.3"
   },
   "scripts": {
     "start": "node _build/index.js --type=OFFLINE_RELEASE --release=true --root='./'",
