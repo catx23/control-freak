@@ -47,6 +47,7 @@ appRouter.get('/:name', (ctx) => __awaiter(this, void 0, void 0, function* () {
         RESOURCE_CONFIG, 
         // variables to replace in resource description '/resources-' + [debug|release]] + '.json
         variables, config.absoluteVariables)
+            // render all resources resolved as string
             .renderHeader(),
         // same as HEADER
         BODY_RESOURCES: '',

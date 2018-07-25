@@ -18,9 +18,10 @@ const write = require('write-file-atomic');
 const _fs = require('node-fs-extra');
 const _path = require("path");
 function create(fsOptions, resource) {
-    let pty = function () {
-        console.log("PTY is not supported.");
-    };
+    /*
+    let pty: any =  function () {
+            console.log("PTY is not supported.");
+    };*/
     // Get the separator char. In Node 0.8, we can use path.sep instead
     const pathSep = _path.sep;
     const METAPATH = fsOptions.metapath;
@@ -223,21 +224,18 @@ function create(fsOptions, resource) {
         });
     }
     // Common logic used by rmdir and rmfile
+    /*
+
     function remove(path, fn, callback) {
         const meta = {};
         resolvePath(path, null, function (err, realpath) {
-            if (err) {
-                return callback(err);
-            }
+            if (err) { return callback(err); }
             fn(realpath, function (err) {
-                if (err) {
-                    return callback(err);
-                }
+                if (err) { return callback(err); }
                 // Remove metadata
                 resolvePath(WSMETAPATH + path, null, function (err, realpath) {
-                    if (err) {
-                        return callback(null, meta);
-                    }
+                    if (err) { return callback(null, meta); }
+
                     fn(realpath, function () {
                         return callback(null, meta);
                     });
@@ -245,6 +243,7 @@ function create(fsOptions, resource) {
             });
         });
     }
+    */
     ////////////////////////////////////////////////////////////////////////////////
     function resolve(path, options, callback) {
         resolvePath(path, options, function (err, path) {
@@ -1100,6 +1099,7 @@ function create(fsOptions, resource) {
             }
             fn(vfs, onEvaluate);
         }
+        // User can pass in code as a pre-buffered string
         else if (options.code) {
             try {
                 fn = evaluate(options.code);
@@ -1109,6 +1109,7 @@ function create(fsOptions, resource) {
             }
             fn(vfs, onEvaluate);
         }
+        // Or they can provide a readable stream
         else if (options.stream) {
             consumeStream(options.stream, function (err, code) {
                 if (err) {

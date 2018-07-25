@@ -327,6 +327,7 @@ function copySymlinkAsync(from, to) {
                     // There is already file/symlink with this name on destination location.
                     // Must erase it manually, otherwise system won't allow us to place symlink there.
                     promisedUnlink(to, null)
+                        // Retry...
                         .then(() => { return promisedSymlink(symlinkPointsAt, to, null, null); })
                         .then(resolve, reject);
                 }

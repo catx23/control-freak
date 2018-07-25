@@ -95,7 +95,7 @@ function getInputCIByName(data, name) {
     }
     let chain = 0;
     let dstChain = chain === 0 ? data.inputs : chain === 1 ? data.outputs : null;
-    if (!dstChain) {
+    if (!dstChain) { // has no chains, be nice
         dstChain = data;
     }
     if (dstChain != null) {

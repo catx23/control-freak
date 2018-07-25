@@ -2,13 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Base_1 = require("./applications/Base");
 const index_1 = require("./applications/ControlFreak/index");
-const index_2 = require("./applications/xbox/index");
+// import { xbox } from './applications/xbox/index';
 const Application_1 = require("./interfaces/Application");
 const path = require("path");
 const yargs_parser = require("yargs-parser");
 const homedir = require('os-homedir');
 let argv = yargs_parser(process.argv.slice(2));
-let app = argv.app ? yargs_parser.app : "ControlFreak";
+// let app = argv.app ? yargs_parser.app : "ControlFreak";
 let root = argv.root ? path.resolve(argv.root) : path.resolve('../../../');
 if (argv.nodejs && !argv.root) {
     root = path.resolve(path.join(__dirname, '..'));
@@ -122,8 +122,8 @@ function create(app) {
             break;
         }
         case "xbox": {
-            application = new index_2.xbox(CFOptions);
-            application.run(true).then(() => { });
+            //application = new xbox(CFOptions);
+            //application.run(true).then(() => { });
             break;
         }
         default: {
