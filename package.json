@@ -84,7 +84,7 @@
   "devDependencies": {},
   "optionalDependencies": {
     "johnny-five": "^0.10.6",
-    "node-notifier": "^4.5.0",
+    "node-notifier": "^8.0.1",
     "serialport": "^6.2.2",
     "vlc-ffi": "git+https://github.com/catx23/vlc-ffi.git",
     "winreg": "^1.2.3"
