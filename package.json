@@ -15,7 +15,7 @@
   "dependencies": {
     "@xblox/core": "0.0.17",
     "ansi-to-html": "^0.6.0",
-    "ansi_up": "^1.3.0",
+    "ansi_up": "^5.0.0",
     "any-promise": "^1.3.0",
     "async-busboy": "^0.3.3",
     "base-64": "^0.1.0",
